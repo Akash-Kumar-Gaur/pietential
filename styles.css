@@ -1,0 +1,439 @@
+* {
+    font-family: 'Roboto Slab', sans-serif;
+}
+
+html,
+ul,
+li,
+tr,
+td,
+blockquote,
+div,
+p,
+table {
+    
+    margin: 0px;
+    font-family: 'Roboto Slab', sans-serif;
+    color: #26282b;
+    font-weight: 400;
+}
+
+div {
+    font-size: 23px;
+}
+
+h1,
+h2 {
+    font-family: 'Roboto Slab', sans-serif;
+    font-weight: 800;
+}
+
+button {
+    white-space: nowrap;
+}
+
+.pt {
+    height: 200px;
+    border: 1px solid black;
+    overflow: scroll;
+    padding: 20px;
+    border-radius: 8px;
+    line-height: 1.5em;
+    margin: 20px;
+    opacity: .5;
+}
+
+.bt {
+    font-size: 30px;
+    color: white;
+    padding: 1% 8%;
+    border: 0px solid rgb(201, 62, 41);
+    background-color: #377dd4;
+    border-radius: 4px;
+    font-weight: bold;
+    text-decoration-line: none;
+    display: inline;
+}
+
+.minibrand {
+    width: 200px;
+    margin-bottom: 10px;
+    margin: auto;
+    max-width: 50%;
+}
+
+.red {
+    background: #c30404;
+}
+
+.navy {
+    background: #242f3e;
+}
+
+.yellow {
+    background: #f9ba03;
+}
+
+.green {
+    background: #02b72d;
+}
+
+.login-bar {
+    font-size: 15px;
+    padding: 10px 20px;
+}
+
+.generate-login-bar {
+    font-size: 15px;
+    padding: 10px 20px;
+}
+
+br {
+    display: inline-block;
+    margin-bottom: 12px;
+}
+
+input {
+    margin: 12px 0px 30px 0px;
+    border-radius: 3px;
+    border: 1px solid silver;
+    padding: 6px;
+    font-size: 16px;
+    width: 90%;
+}
+
+.chart {
+    width: 500px;
+    position: relative;
+    right: 0px;
+    transform: scale(.9);
+    display: none;
+}
+
+.rangeSlider {
+    border-radius: unset;
+    border: unset;
+    font-size: unset;
+    box-shadow: unset;
+    width: 90%;
+}
+
+.rangeHolder {
+    max-width: 90%;
+    margin: auto;
+}
+
+.hint {
+    margin: 30px 0px 0px 0px;
+    font-size: 39px;
+    font-weight: 900;
+    opacity: .5;
+    letter-spacing: 5px;
+}
+
+.hintNum {
+    opacity: 0;
+    top: -40px;
+    position: relative;
+}
+
+.hintNum:hover {
+    opacity: .8;
+}
+
+.parts {
+    display: none;
+    border-radius: 8px;
+    color: white;
+    padding: 10px;
+}
+
+.note {
+    color: #696969;
+    font-size: 11px;
+    margin-top: 10px;
+    display: block;
+}
+
+.partpickerButton {
+    width: 15%;
+    display: inline-block;
+    text-align: center;
+}
+
+#editDiv {
+    background: rgb(230, 230, 230);
+    height: auto;
+    width: 220px;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+    z-index: 119;
+    border-radius: 15px;
+    box-shadow: rgb(0, 0, 0) 10px 10px 52px 0px;
+    border: 0px solid rgb(10, 52, 86);
+    padding: 60px;
+    color: 0;
+}
+
+.m10 {
+    margin: 10px;
+}
+
+.max500 {
+    margin: auto;
+    width: 100%;
+    max-width: 900px;
+}
+
+.padFooter {
+    margin-top: 16%;
+}
+
+.copybox {
+    border: 1px solid gray;
+    padding: 12px;
+    font-family: sans-serif;
+    border-radius: 8px;
+    line-height: 1.5em;
+    margin: auto;
+    margin-top: 40px;
+    opacity: 0.7;
+    max-width: 400px;
+    font-size: 14px;
+    font-weight: bold;
+    background: rgb(238, 238, 238);
+}
+
+.rangeButton {
+    color: white;
+    padding: 12px 24px;
+    background-color: rgb(55, 125, 212);
+    background-color: black;
+    border-radius: 15px;
+    font-weight: bold;
+    display: inline;
+    cursor: pointer;
+    font-size: 20px;
+    text-decoration: none;
+    font-family: sans-serif;
+    margin: 2px;
+    cursor: pointer;
+    box-sizing: border-box;
+    opacity: .2;
+}
+
+.rangeHolder {
+    padding: 20px;
+}
+
+.rangeButton:hover {
+    background-color: black;
+}
+
+.analyzeborder {
+    margin-bottom: 12px;
+    box-sizing: border-box;
+}
+
+#responderPhysiological {
+    border-color: rgba(251, 0, 0, 1)
+}
+
+#responderPhysiological60 {
+    border-color: rgba(251, 0, 0, 1)
+}
+
+#responderSafety {
+    border-color: rgba(248, 126, 2, 1)
+}
+
+#responderSafety60 {
+    border-color: rgba(248, 126, 2, 1)
+}
+
+#responderLove {
+    border-color: rgba(249, 186, 3, 1)
+}
+
+#responderLove60 {
+    border-color: rgba(249, 186, 3, 1)
+}
+
+#responderEsteem {
+    border-color: rgba(2, 183, 45, 1)
+}
+
+#responderEsteem60 {
+    border-color: rgba(2, 183, 45, 1)
+}
+
+#responderActualization {
+    border-color: rgba(110, 148, 248, 1)
+}
+
+#responderActualization60 {
+    border-color: rgba(110, 148, 248, 1)
+}
+
+@keyframes donut-spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.donutSpinner {
+    display: inline-block;
+    border: 8px solid rgb(49, 47, 47);
+    border-left-color: #5778F3;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: donut-spin 1.2s linear infinite;
+}
+
+@keyframes bouncing-loader {
+    to {
+        opacity: 0.1;
+        transform: translate3d(0, -16px, 0);
+    }
+}
+
+.bouncingLoader {
+    display: flex;
+    justify-content: center;
+}
+
+.bouncingLoader>div {
+    width: 13px;
+    height: 13px;
+    margin: 32px 3px;
+    background: #5778F3;
+    border-radius: 50%;
+    animation: bouncing-loader 0.6s infinite alternate;
+}
+
+.bouncingLoader>div:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.bouncingLoader>div:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+.emoji {
+    padding: 0px 0px 0px 10px;
+    position: relative;
+    top: 4px;
+    filter: invert(1);
+}
+
+.shareURL {
+    word-break: break-all;
+}
+
+.dashCanvasContainer{
+    width:30%;
+    display:inline-block;
+}
+
+@media all and (max-width:1200px) {
+    
+    body {
+        margin: 0;
+    }
+
+    .mnd {
+        box-sizing: border-box;
+        position: relative;
+        right: 16px;
+        background: #007ec4;
+        ;
+        background-color: #007ec4;
+        ;
+        font-size: 22px;
+    }
+
+    .mnd a {
+        font-size: 22px;
+    }
+
+    .pt {
+        height: unset;
+        border: 1px solid black;
+        overflow: scroll;
+        padding: 6px;
+        border-radius: 3px;
+        line-height: 1.5em;
+        margin: 6px;
+        opacity: .5;
+    }
+
+    .bt {
+        font-size: 18px;
+        color: white;
+        padding: 5px 8px;
+        border: 0;
+        border-radius: 4px;
+        font-weight: bold;
+        text-decoration-line: none;
+        display: inline;
+        cursor: pointer;
+    }
+
+    .emoji {
+        top: 12px;
+        transform: scale(.8);
+    }
+
+    .max500 {
+        max-width: 90%;
+    }
+
+    .chart {
+        height: 500px;
+    }
+    
+    .libar {
+        z-index: 3;
+    }
+
+    .beginbar {
+        font-size: 25px;
+    }
+
+    .generate-login-bar {
+        display: block;
+        width: fit-content;
+        float: right;
+        clear: both;
+        margin: 4px 0px;
+    }
+
+    .padFooter {
+        margin-top: 22%;
+    }
+
+    .copybox {
+        max-width: 300px;
+    }
+
+    .rangeButton {
+        font-size: 20px;
+        padding: 3px 7px;
+        border-radius: 6px;
+        margin: unset;
+    }
+    .rangeHolder{
+        padding: 10px 0px;
+        max-width: unset;
+    }
+    .dashCanvasContainer{
+        width:100%;
+    }
+}

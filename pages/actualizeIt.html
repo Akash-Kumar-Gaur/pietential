@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="../js/commonLinks.js"></script>
+    <script>includeCommonHeader('Actualize It')</script>
+  </head>
+  <script src="../js/language.js"></script>
+  <script src="../js/main.js"></script>
+  <body>
+    <div id="topBar"></div>
+    <section class="aboutUs actualizeIt" id="aboutUs">
+      <div style="width: 100%; display: flex;" class="actualizeItMain">
+      <div class="sidebarMain">
+        <div class="wellbeingTextContainer">
+          <p class="wellbeingText wellbeing">
+            <script>get_i18n('wellbeing');</script>
+          </p>
+          <img
+            src="../assets/gredientArrow.svg"
+            alt="Arrow"
+            onclick="collapseSidebar()"
+          />
+        </div>
+        <p class="assessIt assess assessText" style="font-weight: 500"><script>get_i18n('assessText');</script></p>
+        <p class="assessIt selfText visualizeIt visualizeItText" style="cursor: pointer;" onclick="window.location.href = `/pages/visualizeIt.html`">
+          <script>get_i18n('visualizeIt');</script>
+        </p>
+        <p class="assessIt selfText analyzeIt visualizeItText" style="cursor: pointer;" onclick="window.location.href = `/pages/analyzeIt.html`"><script>get_i18n('analyzeIt');</script></p>
+        <p class="assessIt selfText realizeItText visualizeItText" style="cursor: pointer;" onclick="window.location.href = `/pages/dashboard.html`"><script>get_i18n('realizeItText');</script></p>
+        <p class="assessIt selfText actualizeText visualizeItText" style="font-weight: 700"><script>get_i18n('actualizeText');</script></p>
+      </div>
+      <div class="container" id="myContainer" style="width: 80%">
+        <div class="actualizeItImageContainer">
+          <img src="../assets/actualizeIt.png" alt="Actualize It" />
+        </div>
+        <div class="aboutUsContent actualizeItContent">
+          <h1>The PieMind- "Actualize It!"</h1>
+          <p>
+            Now that you've Realized your current state of Being and identified
+            any gaps, it's time to manifest your goals through the process of
+            Actualization, or what we call "PieMind".
+            <br />
+            <br />
+            The "Actualize It" section contains exercises aimed at helping you
+            affect transformations in any self-limiting beliefs, your mindset
+            and your behavior.
+            <br />
+            <br />
+            Actualize It is and intense set of mindfulness and personal
+            development exercises, and an integral part of Pietential's Life
+            Balance Realization System based on your scores. This is the part
+            where you turn observations into conscious actions toward positive
+            change and growth.
+          </p>
+        </div>
+      </div>
+      </div>
+    </section>
+    <section class="whatPietentialDo">
+      <div class="container">
+        <img src="../assets/whatPietentialDo.png" alt="" class="cautionImage" />
+        <div class="whatPietentialDoContent caution">
+          <h5>A word of caution:</h5>
+          <p>
+            These exercises are not a substitute for professional help. If you
+            are in a life-threatening situation, please seek professional help
+            immediately.
+          </p>
+        </div>
+      </div>
+    </section>
+    <section class="exerciseContainer">
+      <div class="container">
+        <p>
+          Before you step into the exercises, read through the below to
+          understand their <br />
+          nature and how you can best navigate them to reap maximum benefit.
+        </p>
+      </div>
+      <div
+        class="container exerciseContentContainer"
+        id="exerciseContentContainer"
+      >
+        <div class="exerciseContent">
+          <ul>
+            <li id="listItem">
+              <span id="progress"></span>
+              <p onclick="showActive('../assets/pie.png',0)" id="actualizeList">
+                Like the survey tool, the exercises are divided into the five
+                elements of Maslow’s Hierarchy of Needs: Self-Actualization,
+                Esteem & Contribution, Love & Belonging, Safety Needs, and
+                Physiological Needs.
+              </p>
+            </li>
+            <li id="listItem">
+              <span id="progress"></span>
+              <p
+                onclick="showActive('../assets/allFive.png',1)"
+                id="actualizeList"
+              >
+                Each of the 5 elements is rendered into a set of mindfulness and
+                growth exercises, and you’ll be redirected to the ones aligned
+                with your scores.
+              </p>
+            </li>
+            <li id="listItem">
+              <span id="progress"></span>
+              <p
+                onclick="showActive('../assets/exerciseImage.png', 2)"
+                id="actualizeList"
+              >
+                These exercises will help you overcome self limiting beliefs and
+                practices that might be holding you back from achieving your
+                best self.
+              </p>
+            </li>
+            <li id="listItem">
+              <span id="progress"></span>
+              <p
+                onclick="showActive('../assets/thumbnailImage.png',3)"
+                id="actualizeList"
+              >
+                To begin the process of self actualizing through these
+                exercises, you need to achieve a reflective mood in a setting
+                where you can think deeply about the components that make up
+                your being, like emotions, behaviors, thought patterns,
+                reactions, relationships, insecurities, fears, and more.
+              </p>
+            </li>
+            <li id="listItem">
+              <span id="progress"></span>
+              <p
+                onclick="showActive('../assets/meditation.png',4)"
+                id="actualizeList"
+              >
+                The exercises are meditative in nature and will need your full
+                attention, alongside the willingness to be vulnerable where you
+                can learn to be with and work with the repressed, neglected, or
+                unexplored parts of your Self.
+              </p>
+            </li>
+            <li id="listItem">
+              <span id="progress"></span>
+              <p
+                onclick="showActive('../assets/actualizing.png',5)"
+                id="actualizeList"
+              >
+                Actualizing parts of yourself can be an adventure or a bit
+                torturous—depending on how you approach it! We hope you choose
+                the former.
+              </p>
+            </li>
+          </ul>
+        </div>
+        <div class="exerciseImageContainer">
+          <img src="../assets/exerciseImage.png" alt="" id="imageId" />
+        </div>
+      </div>
+    </section>
+    <div id="buttonsContainer">
+      <button
+        class="tryItButton"
+        onclick="window.location.href = '/pages/dashboard.html'"
+      >
+        Try it later
+      </button>
+      <button class="tryItButton actualizeButton" onclick="onExercise()">
+        Ready To Actualize It
+      </button>
+    </div>
+    <section id="footi"></section>
+    <script>
+      function collapseSidebar() {
+        let main = getElement(".sidebarMain");
+        let rightSideClass = getElement("#myContainer");
+        let assessIt = getElements(".assessIt");
+        rightSideClass.classList.toggle("visualize_it_container");
+        main.classList.toggle("minWidth");
+      }
+      const arrays = [
+        "./assets/pie.png",
+        "./assets/allFive.png",
+        "./assets/exerciseImage.png",
+        "./assets/thumbnailImage.png",
+        "./assets/meditation.png",
+        "./assets/actualizing.png",
+      ];
+      let prevIndex = 0;
+      let clearAnimation = 0;
+      let imagesIndex = 0;
+      let imageClass = getElement("#imageId");
+      let progressBar = getElements("#progress");
+      let actualizeList = getElements("#actualizeList");
+      let listItem = getElements("#listItem");
+      function changeImage(file, i) {
+        imageClass.setAttribute("src", file);
+        imageClass.classList.add("imageActive");
+        setTimeout(() => {
+          imageClass.classList.remove("imageActive");
+        }, 7000);
+        progressBar[i].classList.add("height");
+        setTimeout(() => {
+          progressBar[i].classList.remove("height");
+        }, 7000);
+        actualizeList[i].classList.add("fontSize");
+        setTimeout(() => {
+          actualizeList[i].classList.remove("fontSize");
+        }, 7000);
+        listItem[i].classList.add("itemActive");
+        setTimeout(() => {
+          listItem[i].classList.remove("itemActive");
+        }, 7000);
+      }
+      const setIntervalId = () =>
+        setInterval(() => {
+          if (clearAnimation === 1) return;
+          if (imagesIndex === 5) imagesIndex = 0;
+          else imagesIndex += 1;
+          if (imagesIndex % 2 === 0) {
+            imageClass.classList.add("imageActiveTwo");
+            setTimeout(() => {
+              imageClass.classList.remove("imageActiveTwo");
+            }, 7000);
+          } else {
+            imageClass.classList.add("imageActive");
+            setTimeout(() => {
+              imageClass.classList.remove("imageActive");
+            }, 7000);
+          }
+          changeImage(arrays[imagesIndex], imagesIndex);
+        }, 7000);
+      function getScrolledImages() {
+        changeImage("../assets/pie.png", imagesIndex);
+        setIntervalId();
+      }
+      let scrollStart = 0;
+      window.addEventListener("scroll", () => {
+        let top = document
+          .getElementById("exerciseContentContainer")
+          .getBoundingClientRect().top;
+        if (top <= window.innerHeight && scrollStart === 0) {
+          scrollStart = 1;
+          getScrolledImages();
+        }
+      });
+
+      function showActive(fileName, index) {
+        clearAnimation = 1;
+        clearInterval(setIntervalId());
+        let list = getElements("#listItem");
+        let listItem = getElements("#actualizeList");
+        let progress = getElements("#progress");
+        let image = getElement("#imageId");
+        list[prevIndex].style.opacity = 0.5;
+        list[index].style.opacity = 1;
+        list[prevIndex].style.padding = 0;
+        list[index].style.padding = "30px 0";
+        if (index % 2 === 0) {
+          image.classList.add("imageClass");
+          setTimeout(() => {
+            image.classList.remove("imageClass");
+          }, 2000);
+        } else {
+          image.classList.add("imageActive");
+          setTimeout(() => {
+            image.classList.remove("imageActive");
+          }, 2000);
+        }
+        listItem[prevIndex].classList.remove("fontSize");
+        image.setAttribute("src", fileName);
+        listItem[index].classList.add("fontSize");
+        progress[prevIndex].classList.remove("height");
+        progress[index].classList.add("height");
+        prevIndex = index;
+      }
+    </script>
+    <script type="text/javascript" src="../navigation/topNav.js?87"></script>
+    <script type="text/javascript" src="../navigation/bottomNav.js"></script>
+  </body>
+</html>

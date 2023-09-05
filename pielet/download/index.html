@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Pietential</title>
+</head>
+
+<body>
+
+
+
+
+
+    <div id="downloadText" style="padding:0px;margin:80px 0px;font-family: 'Roboto Slab', sans-serif;">
+
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/png" href="/icon.png">
+
+        <link href="https://pietential.com/styles.css" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,800&display=swap" rel="stylesheet">
+        <title>Pietential - Growth Potential Visualization Survey</title>
+
+        <div id="branding" style="margin: auto;text-align: center;display: block;">
+
+            <div id="shellContent"
+                style="max-width: 1200px;text-align: left;margin: auto;font-size:18px;box-sizing: border-box;padding: 20px;">
+
+                <div style="text-align:center;
+"><a href="//pietential.com"><img id="topimage" src="https://pietential.com/pielet/private-header.png"
+                            style="width: 100%;max-width: 900px;margin-bottom:10px;margin: auto;"></a><br></div>
+
+
+                <br><br><br><img id='piechart' style='width:100%'><br>
+                <img id='barchart' style='width:100%'>
+
+                <br><br>
+                <b>
+                    <h2>Physiological Needs: Your score: {{PN}}/100</h2>
+                </b>
+                {{PNtext}}<br><br>
+                <br><b>
+                    <h2>Safety Needs: Your score: {{SN}}/100</h2>
+                </b>
+                {{SNtext}}<br><br>
+                <br><b>
+                    <h2>Love and Belonging: Your score: {{LB}}/100</h2>
+                </b>
+                {{LBtext}}<br><br>
+                <br><b>
+                    <h2>Self-Esteem and Contribution: Your score: {{EC}}/100</h2>
+                </b>
+                {{ECtext}}<br><br>
+                <br><b>
+                    <h2>Self Actualization Needs: Your score: {{SA}}/100</h2>
+                </b>
+                {{SAtext}}<br><br>
+                <br>
+
+
+
+
+
+
+                <BR><BR>
+                <div style='text-align:center'>
+                    <a class='bt' 
+                    style='font-size: 15px; padding: 10px 20px;' href="/pielet/analyzeit/">Return to previous page</a>
+                </div>
+
+
+            </div>
+            <br><br><br>
+            <section id="footi"></section>
+
+
+        </div>
+    </div>
+
+    <script id="scripts">
+        if (!localStorage.myChart) {
+            location.assign("../visualizeit/?reviewChartsFirst");
+        }
+
+
+        if (!localStorage.pieletDataJSON) {
+            location.assign("/");
+        }
+        var pieletData = JSON.parse(localStorage.pieletDataJSON);
+        document.getElementById("piechart").src = localStorage.myChart;
+        document.getElementById("barchart").src = localStorage.barchart;
+
+        document.getElementById("piechart").title = pieletData.userID;
+        document.getElementById("barchart").title = pieletData.userID;
+
+
+        //{{PNtext}}{{SNtext}}{{LBtext}}{{ECtext}}{{SAtext}}
+        var dbi = document.body.innerHTML;
+        document.body.innerHTML = document.body.innerHTML
+            .replace(/{{PNtext}}/, pieletData.PNresponse)
+            .replace(/{{SNtext}}/, pieletData.SNresponse)
+            .replace(/{{LBtext}}/, pieletData.LBresponse)
+            .replace(/{{ECtext}}/, pieletData.ECresponse)
+            .replace(/{{SAtext}}/, pieletData.SAresponse)
+            .replace(/{{PN}}/, pieletData.PN)
+            .replace(/{{SN}}/, pieletData.SN)
+            .replace(/{{LB}}/, pieletData.LB)
+            .replace(/{{EC}}/, pieletData.EC)
+            .replace(/{{SA}}/, pieletData.SA);
+
+        fetch("../universal-footer.php")
+            .then(r => {
+                return r.text()
+            })
+            .then(a => {
+                document.getElementById("footi").innerHTML = a;
+            });
+
+        // fetch("pielogo.txt")
+        // .then(r => {
+        //     return r.text()
+        // })
+        // .then(b => {
+        //     document.getElementById("topimage").src = b;
+        // });
+        //window.print();
+        var text = document.getElementById("downloadText").innerHTML;
+        var m = [];
+        m[0] = text;
+        var myBlob = new Blob(m, { type: 'text/html' });
+        var blobUrl = URL.createObjectURL(myBlob);
+        var link = document.createElement("a");
+        link.href = blobUrl;
+        var dlname = `pietential analysis.html`;
+        if (pieletData.lname){
+            dlname = `${pieletData.fname} ${pieletData.lname} - pietential analysis.html`;
+        }
+        link.download = dlname;
+        link.innerHTML = "<button>Download " + link.download + "</button>";
+        link.click();
+    </script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-K3VEYCTX6E"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-K3VEYCTX6E');
+</script>
+
+</body>
+
+</html>

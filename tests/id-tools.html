@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PIE ID tools</title>
+</head>
+
+<body>
+    <style>
+        * {
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 18px;
+        }
+
+        body {
+            padding: 40px;
+        }
+
+        textarea,
+        div {
+            border-radius: 8px;
+        }
+
+        .button {
+            background: #4473ad;
+            color: white;
+            border: 0px solid black;
+            padding: 12px;
+            display: inline-block;
+            float: left;
+            margin: 10px;
+        }
+    </style>
+    <script>
+
+        function matchPieIDs(n) {
+            var arr = [];
+            var k = n.match(/[a-z0-9]{12}\.json\.txt/ig);
+            for (let a of k) {
+                arr.push(a.match(/[a-z0-9]{12}/ig));
+            }
+            return(arr);
+        }
+    </script>
+
+    Paste IDs separated by non-alpha/num characters or as JSON:
+    <br><br>
+
+    <textarea name="" id="tooling" cols="30" rows="10">Paste IDs separated by whitespace..</textarea><br>
+    <div class="button" onclick="prox()" id="thc">Process ids</div>
+    <div id="mg"></div>
+
+    <script>
+        if (localStorage.toolingValues) {
+            tooling.value = localStorage.toolingValues;
+        }
+        function prox() {
+            var out = '';
+            var tout = '';
+            var klop = [];
+            var t = tooling.value.trim();
+            var x = t.split(/[^a-z0-9]+/ig);
+            for (let a of x) {
+                if (a.length == 12) {
+                    out += `${a},`;
+                    tout += `${a}\n`;
+                    klop.push(a);
+                }
+            }
+            localStorage.toolingValues = tout.trim();
+
+            out = out.replace(/[^a-z0-9]+$/ig, '');
+            var f = `https://44.192.97.107/pielet/accountEngine/?getAPI=${out}`;
+            mg.innerHTML = ` <a class="button" target="_blank" href="${f}">Link to endpoint</a><br><br>${klop.length} ids found.<br><br>`;
+            tooling.value = JSON.stringify(klop);
+        }
+        // http://192.168.0.121:8937/editR96.php?dir=./pie2/pielet/ids/
+        function getIDS(url){
+            document.getElementById('if').innerHTML = `<iframe src="${url}">`;
+            
+
+
+
+
+            // fetch(url)
+            //     .then(r => {
+            //         return r.text()
+            //     })
+            //     .then(a => {
+            //         console.log("fetch success.");
+            //         var z = matchPieIDs(a);
+            //         newr.innerHTML = JSON.stringify(z);
+            //     });
+        }
+    </script>
+
+    <br><br>
+    Sample data: 
+    <div id="newr">HxqMA6CecYhW, 92WurVF5BTJm, tfDrZJg66ycS, f6RtHvGS4c6h, CkBvJ2fQTMty,Rk83UM4FZ7mL, dGxAa4Z6gXqf,
+        m6y7hnDBWU5g,
+        b6HCfnXZSTJA, 9E68zraxubS4,UAEGhW4uCgKY, kTm6HM4c4ywj, At4q9bD5HdQC, XJe7u9CjtZK4, 7L6uJ9Nnya4w, gwUYaL478Aqb</div>
+    <br><br>
+    <div class="button" onclick="getIDS(`//192.168.0.121:8937/editR96.php?mode=json&dir=./pie2/pielet/ids/`)">get ids from local blacktar</div>
+
+
+    <div class="button" onclick="window.open(`https://pietential.com/editR96.php?mode=json&dir=./pielet/ids/`)">get ids from pietential.com</div>
+
+    <div class="button" onclick="window.open(`https://44.192.97.107/editR96.php?mode=json&dir=./pielet/ids/`)">get ids from AWS</div>
+<div id="if"></div>
+    
+</body>
+
+</html>

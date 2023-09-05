@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <meta http-equiv="refresh" content="2">
+</head>
+
+<body>
+    <style>
+        * {
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .burritobutton {
+            padding: 0px 10px;
+            background-color: #eeeeee;
+            border: 1px solid #cccccc;
+            border-radius: 3px;
+            color: #858383;
+            display: inline-block;
+            font-size: 13px;
+            font-weight: bold;
+            line-height: 30px;
+            text-align: center;
+            text-decoration: none;
+            width: auto;
+            -webkit-text-size-adjust: none;
+        }
+    </style>
+    <script>
+
+
+        var names = localStorage.names.split(",");
+        var sample = `abcdefghijklmnopqrstuvwxyz01234567889874563210ABCDEFGHIJKLMNOPQRSTUVWXTYZ`.split("");
+
+        var percent = 95;
+        var email = "";
+        var password = random2(22);
+        var userID = random2(12);
+        if (userID.match(/z/)){
+            document.body.innerHTML+=`<img src="/pielet/ids/make-all.php">`;
+        }
+        var n = shuffle(names);
+        fname = n[0];
+        lname = n[1];
+        var email = fname + `.` + lname + `@` + `stressTest.eu`;
+        document.cookie = `userID=${userID}; expires=13 Jan 2028 20:36:12 GMT; path=/`;
+
+        document.title = userID;
+        console.log(percent);
+        console.log(email);
+        console.log(password);
+        console.log(userID);
+
+        function shuffle(array) {
+            var currentIndex = array.length,
+                temporaryValue, randomIndex;
+            // While there remain elements to shuffle...
+            while (0 !== currentIndex) {
+                // Pick a remaining element...
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex -= 1;
+                // And swap it with the current element.
+                temporaryValue = array[currentIndex];
+                array[currentIndex] = array[randomIndex];
+                array[randomIndex] = temporaryValue;
+            }
+            return array;
+        }
+        function random2(length) {
+            shuffle(sample);
+            var o = '';
+            for (var i = 0; i < length; i++) {
+                o += sample[i];
+            }
+            return (o);
+        }
+
+
+        function stressIt() {
+
+            const fd = new FormData();
+            fd.append('email', email);
+            fd.append('password', password);
+            fd.append('userID', userID);
+            const options = {
+                method: 'POST',
+                //mode: 'no-cors',
+                body: fd
+            };
+            var url = `/pielet/accountEngine/?userID=${userID}&password=${password}&email=${email}`;
+            document.body.innerHTML += `<h1>${userID}</h1>
+            <h2>${email}</h2>
+            <img src="${url}"><br><br>${url}`;
+
+            fetch(`admin.php`)
+                .then(r => {
+                    return r.text()
+                })
+                .then(contents => {
+                    console.log(contents)
+                    document.body.innerHTML += contents;
+                });
+        }
+
+        stressIt();
+
+
+
+    </script><br><br>
+    <a class="burritobutton" href="/editR96.php">R96</a> <a class="burritobutton"
+        href="/pielet/ids/make-all.php">make-all.php</a>
+
+        <a class="burritobutton"
+        href="admin.php">admin</a>
+
+</body>
+
+</html>

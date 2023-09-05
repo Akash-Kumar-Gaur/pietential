@@ -1,0 +1,149 @@
+<link href="https://pietential.com/styles.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,800&amp;display=swap" rel="stylesheet">
+
+
+<style>
+    .disable {
+        opacity: .3;
+        cursor: not-allowed;
+    }
+
+    .bgorange {
+        background: #F87F02;
+    }
+
+    .bgyellow {
+        background: #F8BB04;
+    }
+
+    .bgred {
+        background: #FB0001;
+    }
+
+    .loginDiv {
+        background: white;
+        min-height: 60px;
+        box-sizing: border-box;
+        position: fixed;
+        top: 0px;
+        padding: 12px 27px;
+        text-align: right;
+        margin-right: 20px;
+    }
+
+    .emailHolderDiv {
+        text-align: right;
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        font-size: 15px;
+    }
+
+    .dashboardHolderDiv {
+        text-align: right;
+        position: absolute;
+        left: 5px;
+        top: 20px;
+        font-size: 15px;
+    }
+
+    #desktopnav {
+        display: inline-block;
+        background: white;
+    }
+
+    #mobileNav {
+        display: none;
+    }
+
+    #mobileNav button {
+        color: white;
+        background: rgba(0, 0, 0, 0.55);
+        border: 0;
+        padding: 4px 8px;
+        border-radius: 4px;
+    }
+
+    #mobileRetakeButton {
+        display: none;
+    }
+
+    @media all and (max-width:1230px) {
+        #desktopnav {
+            display: none;
+        }
+
+        #mobileNav {
+            display: block;
+            text-align: right;
+            margin-top: 10px;
+            padding-right: 23px;
+            box-sizing: border-box;
+            font-size: 13px;
+        }
+    }
+</style>
+
+
+
+
+
+
+<div id="betanav" class="march">
+    <style>
+        .vertPad {
+            margin: 12px 0;
+            display: block;
+        }
+
+        .bgorange {
+            background: #F87F02;
+        }
+
+        .bgyellow {
+            background: #F8BB04;
+        }
+
+        .bgred {
+            background: #FB0001;
+        }
+    </style>
+    <a onmouseover="document.getElementById(`dropdown`).style.display=`none`" class="bt  login-bar " id=""
+        href="/login/">login</a>
+    <a onmouseover="document.getElementById(`dropdown`).style.display=`block`" class="bt green login-bar " id=""
+        href="javascript://">Tools</a>
+    <div id="dropdown" onmouseleave="document.getElementById(`dropdown`).style.display=`none`"
+        style="display:none; position: absolute; top:30px; left:69px; padding:12px;margin:4px;  max-width: 220px;">
+        <a href="javascript://" id="emailAddress" class="bt  login-bar  vertPad">logged in: <span id="emailAddress">emailAddress</span> </a>
+        <a href="/pielet/dashboard" id="gotodash" class="bt green login-bar  vertPad">Progress Dashboard</a>
+        <a href="/pielet/visualizeit/?returnView=1" id="returnLink" class="bt green login-bar  vertPad">Latest Visualization</a>
+        
+        <a href="/pielet/download/" id="printResults" class="bt green login-bar  vertPad">Download and Print</a>
+        <a href="/pielet/retake/" id="retakeLink" class="bt green login-bar  vertPad">Retake Survey</a>
+    </div>
+    <a onmouseover="document.getElementById(`dropdown`).style.display=`none`" class="bt bgyellow login-bar " id=""
+        href="/share/">Share</a>
+    <a onmouseover="document.getElementById(`dropdown`).style.display=`none` " class="bt bgorange login-bar " id=""
+        href="/about/">About</a>
+    <a onmouseover="document.getElementById(`dropdown`).style.display=`none` " class="bt bgred login-bar " id="logoutLink"
+        href="/?logout/">Logout</a>
+    
+    
+</div>
+
+
+
+
+
+
+
+
+
+
+<script>
+
+if (location.href.match(/beta/)){
+document.getElementById("libar").outerHTML = atob('CjxkaXYgaWQ9ImJldGFuYXYiIGNsYXNzPSJtYXJjaCI+CiAgICA8c3R5bGU+CiAgICAgICAgLnZlcnRQYWQgewogICAgICAgICAgICBtYXJnaW46IDEycHggMDsKICAgICAgICAgICAgZGlzcGxheTogYmxvY2s7CiAgICAgICAgfQoKICAgICAgICAuYmdvcmFuZ2UgewogICAgICAgICAgICBiYWNrZ3JvdW5kOiAjRjg3RjAyOwogICAgICAgIH0KCiAgICAgICAgLmJneWVsbG93IHsKICAgICAgICAgICAgYmFja2dyb3VuZDogI0Y4QkIwNDsKICAgICAgICB9CgogICAgICAgIC5iZ3JlZCB7CiAgICAgICAgICAgIGJhY2tncm91bmQ6ICNGQjAwMDE7CiAgICAgICAgfQogICAgPC9zdHlsZT4KICAgIDxhIG9ubW91c2VvdmVyPSJkb2N1bWVudC5nZXRFbGVtZW50QnlJZChgZHJvcGRvd25gKS5zdHlsZS5kaXNwbGF5PWBub25lYCIgY2xhc3M9ImJ0ICBsb2dpbi1iYXIgIiBpZD0iIgogICAgICAgIGhyZWY9Ii9sb2dpbi8iPmxvZ2luPC9hPgogICAgPGEgb25tb3VzZW92ZXI9ImRvY3VtZW50LmdldEVsZW1lbnRCeUlkKGBkcm9wZG93bmApLnN0eWxlLmRpc3BsYXk9YGJsb2NrYCIgY2xhc3M9ImJ0IGdyZWVuIGxvZ2luLWJhciAiIGlkPSIiCiAgICAgICAgaHJlZj0iamF2YXNjcmlwdDovLyI+VG9vbHM8L2E+CiAgICA8ZGl2IGlkPSJkcm9wZG93biIgb25tb3VzZWxlYXZlPSJkb2N1bWVudC5nZXRFbGVtZW50QnlJZChgZHJvcGRvd25gKS5zdHlsZS5kaXNwbGF5PWBub25lYCIKICAgICAgICBzdHlsZT0iZGlzcGxheTpub25lOyBwb3NpdGlvbjogYWJzb2x1dGU7IHRvcDozMHB4OyBsZWZ0OjY5cHg7IHBhZGRpbmc6MTJweDttYXJnaW46NHB4OyAgbWF4LXdpZHRoOiAyMjBweDsiPgogICAgICAgIDxhIGhyZWY9Ii9waWVsZXQvZGFzaGJvYXJkIiBjbGFzcz0iYnQgZ3JlZW4gbG9naW4tYmFyICB2ZXJ0UGFkIj5Qcm9ncmVzcyBEYXNoYm9hcmQ8L2E+CiAgICAgICAgPGEgaHJlZj0iL3BpZWxldC92aXN1YWxpemVpdC8/cmV0dXJuVmlldz0xIiBjbGFzcz0iYnQgZ3JlZW4gbG9naW4tYmFyICB2ZXJ0UGFkIj5MYXRlc3QgVmlzdWFsaXphdGlvbjwvYT4KICAgICAgICAKICAgICAgICA8YSBocmVmPSIvcGllbGV0L2Rvd25sb2FkLyIgY2xhc3M9ImJ0IGdyZWVuIGxvZ2luLWJhciAgdmVydFBhZCI+RG93bmxvYWQgYW5kIFByaW50PC9hPgogICAgICAgIDxhIGhyZWY9Ii9waWVsZXQvcmV0YWtlLyIgY2xhc3M9ImJ0IGdyZWVuIGxvZ2luLWJhciAgdmVydFBhZCI+UmV0YWtlIFN1cnZleTwvYT4KICAgIDwvZGl2PgogICAgPGEgb25tb3VzZW92ZXI9ImRvY3VtZW50LmdldEVsZW1lbnRCeUlkKGBkcm9wZG93bmApLnN0eWxlLmRpc3BsYXk9YG5vbmVgIiBjbGFzcz0iYnQgYmd5ZWxsb3cgbG9naW4tYmFyICIgaWQ9IiIKICAgICAgICBocmVmPSIvc2hhcmUvIj5TaGFyZTwvYT4KICAgIDxhIG9ubW91c2VvdmVyPSJkb2N1bWVudC5nZXRFbGVtZW50QnlJZChgZHJvcGRvd25gKS5zdHlsZS5kaXNwbGF5PWBub25lYCAiIGNsYXNzPSJidCBiZ29yYW5nZSBsb2dpbi1iYXIgIiBpZD0iIgogICAgICAgIGhyZWY9Ii9hYm91dC8iPkFib3V0PC9hPgogICAgPGEgb25tb3VzZW92ZXI9ImRvY3VtZW50LmdldEVsZW1lbnRCeUlkKGBkcm9wZG93bmApLnN0eWxlLmRpc3BsYXk9YG5vbmVgICIgY2xhc3M9ImJ0IGJncmVkIGxvZ2luLWJhciAiIGlkPSIiCiAgICAgICAgaHJlZj0iLz9sb2dvdXQvIj5Mb2dvdXQ8L2E+CiAgICA8c3R5bGU+CiAgICAgICAgLmRlc2t0b3BuYXYgewogICAgICAgICAgICBkaXNwbGF5OiBub25lOwogICAgICAgIH0KICAgIDwvc3R5bGU+CiAgICAKPC9kaXY+');
+}
+
+

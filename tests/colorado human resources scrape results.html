@@ -1,0 +1,756 @@
+<body style="padding:20px;/*text-align:center;*/" id="theBody" cz-shortcut-listen="true">
+				<br>
+	<br>
+	<script>
+		function cleanit() {
+			var term = `colorado human resources`;
+			var r = document.getElementsByClassName("g");
+			var links = [];
+			var out = '';
+			console.log("starting cleaner...");
+			if (!document.getElementsByName("file")[0]) {
+				return;
+			}
+			if (r.length<4) {
+				console.log("No G divs yet.");
+				return;
+			}
+			//
+			
+			for (let a of r) {
+				var obj = {};
+				obj.mainLink = a.getElementsByTagName("a")[0].href;
+				obj.title = a.getElementsByTagName("a")[0].innerText;
+				obj.title = obj.title.replace(/\-.+/, "");
+				obj.title = obj.title.replace(/www\.lin.+/, "");
+				obj.title = obj.title.replace(/https:\/\//, "");
+				links.push(obj);
+			}
+			localStorage.scrapeData = JSON.stringify(links);
+			localStorage.scrapeTerm = term;
+			for (let obj of links) {
+				out += `${obj.title} (${term}): <a href="${obj.mainLink}" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href='https://www.google.com/search?q=${obj.title} ${term}' class='lil'  style="color:white" target='_blank' >Google search</a><br>`;
+			}
+			out = `
+			<style>
+			* {
+        font-family: 'Segoe UI', sans-serif;
+    
+			}
+			.lil {
+				text-decoration: none;
+				display:inline-block;
+				cursor:pointer;
+				margin: 1px;
+				color: white;
+				padding: 5px;
+				background-color: rgb(52, 73, 94);
+			}
+			</style>
+			<div id="cleanResults">${out}</div>`;
+			document.getElementsByName("file")[0].innerHTML = out;
+			localStorage.scrapeFormatted = `<html>
+			
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>Lead scraper</title><div id="cleanResults">${out}</div></html>`;
+			promptForDownload();
+		}
+
+		function promptForDownload(){
+			callingCard.style.display="block";
+		}
+		function saveFile(){
+			window.location = "data:application/octet-stream," + encodeURIComponent(localStorage.scrapeFormatted);
+		}
+		function sendAJAX(){
+            payload = encodeURIComponent(localStorage.scrapeFormatted);
+            var parameters = "ajax=" + payload;
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    console.log(xhttp.responseText);
+                    //sw.innerHTML = "Saved!";
+                }
+            };
+            xhttp.open("POST", `./`, true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(parameters);
+		}
+		function sendform(){
+			document.getElementById("pl").value =localStorage.scrapeFormatted;
+			document.getElementById("aj").submit(); 
+		}
+		function downloadPie() {
+			document.getElementsByName("file")[0].contentEditable = "false";
+			topsearch.style.display = "none";
+			callingCard.style.display = "none";
+            var text = document.body.outerHTML;
+            var m = [];
+            m[0] = text;
+            var myBlob = new Blob(m, { type: 'text/html' });
+            var blobUrl = URL.createObjectURL(myBlob);
+            var link = document.createElement("a");
+            link.href = blobUrl;
+            link.download = `${localStorage.scrapeTerm} scrape results.html`;
+            link.innerHTML = "<button>Download " + link.download + "</button>";
+            link.click();
+        }
+
+		document.addEventListener("DOMContentLoaded", function(event) {
+
+			setInterval(function() {
+				//cleanit();
+			}, 7000);
+
+		});
+	</script>
+
+<form id="aj" style="display:none" method="post">
+<input name="ajax" id="pl">
+</form>
+
+
+
+
+<div id="callingCard" class="cchov" style="display: none; left: 0px; border-radius: 5px; position: fixed; text-align: center; z-index: 999999; bottom: 0px; width: auto; margin: 35px; padding: 25px; color: white; opacity: 1; box-sizing: border-box; font-family: sans-serif; font-size: 16px; box-shadow: rgb(0, 0, 0) 10px 10px 52px 0px;"><style>.cchov{background: #333;    transition: all .5s;}.cchov:hover{background: #1153A2;    transition: all .5s;}</style><div style="margin-right:47px;"><a id="cc-linkbox-ifRRgGy7JOpyivbq" onclick="downloadPie();" style="color:white;font-size:16px;text-decoration:none;">Click here to save leads as a file</a></div><a href="#" id="closeLink" style="color:white;;font-size:16px;"><img src="https://silvercrayon.us/promo-seltzer/img/close-icon2.png" style="margin-left:12px;position:absolute;top:19px;right:20px;height:29px;" onclick="javascript:callingCard.style.display='none';"></a></div>
+
+
+
+	<div style="text-align:center;">
+
+		<a id="topsearch" href="https://www.google.com/search?q=site:linkedin.com/in/ colorado human resources&amp;num=100" target="_blank" style="text-decoration: none; margin: 0px; color: white; padding: 15px; text-transform: uppercase; background-color: rgb(41, 128, 185); width: 800px; display: none;">
+			colorado human resources- Start searching </a>
+		<br>
+		
+
+
+		<br><br>
+		<div name="file" contenteditable="false" style="margin:auto;width:800px;height:auto;padding:25px; background:white;text-align:left;" class="san15" placeholder="">
+			<style>
+			* {
+        font-family: 'Segoe UI', sans-serif;
+    
+			}
+			.lil {
+				text-decoration: none;
+				display:inline-block;
+				cursor:pointer;
+				margin: 1px;
+				color: white;
+				padding: 5px;
+				background-color: rgb(52, 73, 94);
+			}
+			</style>
+			<div id="cleanResults">
+Kim Burgess 
+ (colorado human resources): <a href="https://www.linkedin.com/in/kim-burgess-8443a94" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Kim Burgess 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Kathy Duffin 
+ (colorado human resources): <a href="https://www.linkedin.com/in/kathy-duffin-457b2260" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Kathy Duffin 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Ronda Henger 
+ (colorado human resources): <a href="https://www.linkedin.com/in/ronda-henger-sphr" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Ronda Henger 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Michelle Aramayo, SPHR 
+ (colorado human resources): <a href="https://www.linkedin.com/in/michelle-aramayohr" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Michelle Aramayo, SPHR 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Ramona Gomoll, SHRM
+ (colorado human resources): <a href="https://www.linkedin.com/in/ramonagomoll" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Ramona Gomoll, SHRM
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Melissa Hamilton 
+ (colorado human resources): <a href="https://www.linkedin.com/in/melissa-hamilton-478631146" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Melissa Hamilton 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Sarah Roman, SPHR 
+ (colorado human resources): <a href="https://www.linkedin.com/in/sarah-roman-sphr-a5450822" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Sarah Roman, SPHR 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Lindsay Powers 
+ (colorado human resources): <a href="https://www.linkedin.com/in/lindsay-powers-332104139" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Lindsay Powers 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Brean Hanson 
+ (colorado human resources): <a href="https://www.linkedin.com/in/brean-hanson-284a035b" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Brean Hanson 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Kathy DePew 
+ (colorado human resources): <a href="https://www.linkedin.com/in/kathy-depew-061277122" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Kathy DePew 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Renee Adams, MBA, SPHR, SHRM
+ (colorado human resources): <a href="https://www.linkedin.com/in/renee-adams-mba-sphr-shrm-scp-04ba355" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Renee Adams, MBA, SPHR, SHRM
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Sheila Brown 
+ (colorado human resources): <a href="https://www.linkedin.com/in/sheila-brown-41422a31" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Sheila Brown 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Suzanne Rick 
+ (colorado human resources): <a href="https://www.linkedin.com/in/suzanne-rick-64881350" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Suzanne Rick 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Angelo Fernandez, SHRM
+ (colorado human resources): <a href="https://www.linkedin.com/in/angelo-fernandez-freeform" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Angelo Fernandez, SHRM
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jennifer Lorenzen, PHR 
+ (colorado human resources): <a href="https://www.linkedin.com/in/jennifer-lorenzen-phr-49687443" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jennifer Lorenzen, PHR 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Betsy Rodriguez 
+ (colorado human resources): <a href="https://www.linkedin.com/in/betsy-rodriguez-08179315" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Betsy Rodriguez 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Patrick Gerity 
+ (colorado human resources): <a href="https://www.linkedin.com/in/patrickgerity" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Patrick Gerity 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Sandra Duran 
+ (colorado human resources): <a href="https://www.linkedin.com/in/sandra-duran-7b884446" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Sandra Duran 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+David Bell 
+ (colorado human resources): <a href="https://www.linkedin.com/in/david-bell-602892151" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+David Bell 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Amber Oeltjenbruns, PHR, SHRM CP (she, her, hers) 
+ (colorado human resources): <a href="https://www.linkedin.com/in/amberoeltjenbruns" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Amber Oeltjenbruns, PHR, SHRM CP (she, her, hers) 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Sara Chapman (Thom) 
+ (colorado human resources): <a href="https://www.linkedin.com/in/sararthom" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Sara Chapman (Thom) 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Alice Tomlin 
+ (colorado human resources): <a href="https://www.linkedin.com/in/alice-tomlin-58aa353b" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Alice Tomlin 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Valerie Stroh 
+ (colorado human resources): <a href="https://www.linkedin.com/in/valerie-stroh-5590b819" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Valerie Stroh 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Kimberly Bingman 
+ (colorado human resources): <a href="https://www.linkedin.com/in/kimberly-bingman-bb603481" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Kimberly Bingman 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Sarah Bursten 
+ (colorado human resources): <a href="https://www.linkedin.com/in/sarah-bursten-08156635" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Sarah Bursten 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Janeine Lujan 
+ (colorado human resources): <a href="https://www.linkedin.com/in/janeine-lujan-a6678336" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Janeine Lujan 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Alicia Fuchs 
+ (colorado human resources): <a href="https://www.linkedin.com/in/alicia-fuchs" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Alicia Fuchs 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jack Peterson 
+ (colorado human resources): <a href="https://www.linkedin.com/in/jack-peterson-819725b" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jack Peterson 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Lisa Brommer 
+ (colorado human resources): <a href="https://www.linkedin.com/in/lisa-brommer-011453a2" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Lisa Brommer 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Kamela Pancroft 
+ (colorado human resources): <a href="https://www.linkedin.com/in/kamela-pancroft-09414a13" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Kamela Pancroft 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jacob Kramer 
+ (colorado human resources): <a href="https://www.linkedin.com/in/jacob-kramer-0a712b45" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jacob Kramer 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Michael Sullivan 
+ (colorado human resources): <a href="https://www.linkedin.com/in/michael-sullivan-a1313b6a" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Michael Sullivan 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jennifer Butcher 
+ (colorado human resources): <a href="https://www.linkedin.com/in/jennifer-butcher-5542283b" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jennifer Butcher 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jesse Oscarson, SPHR 
+ (colorado human resources): <a href="https://www.linkedin.com/in/jesse-oscarson-sphr-7a816331" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jesse Oscarson, SPHR 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Pam Spring 
+ (colorado human resources): <a href="https://www.linkedin.com/in/pam-spring-a1b64237" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Pam Spring 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Heather Harvey, SHRM
+ (colorado human resources): <a href="https://www.linkedin.com/in/hharvey" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Heather Harvey, SHRM
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Human Resources 
+ (colorado human resources): <a href="https://www.linkedin.com/in/human-resources-4400605a" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Human Resources 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Valerie Switzer, SPHR 
+ (colorado human resources): <a href="https://www.linkedin.com/in/valerieswitzersphr" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Valerie Switzer, SPHR 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Lee Renfrow, MBA 
+ (colorado human resources): <a href="https://www.linkedin.com/in/leerenfrow" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Lee Renfrow, MBA 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Sammantha Levi 
+ (colorado human resources): <a href="https://www.linkedin.com/in/sammantha-levi" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Sammantha Levi 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Bernie Ruesgen 
+ (colorado human resources): <a href="https://www.linkedin.com/in/bernie-ruesgen-23b6089" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Bernie Ruesgen 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jim Gamelin 
+ (colorado human resources): <a href="https://www.linkedin.com/in/jim-gamelin-8312626" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jim Gamelin 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Andrew Ross 
+ (colorado human resources): <a href="https://www.linkedin.com/in/andrew-ross-8a5b87a" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Andrew Ross 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Abby Clark 
+ (colorado human resources): <a href="https://www.linkedin.com/in/abby-clark-95089957" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Abby Clark 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Wurtsmith, Angela 
+ (colorado human resources): <a href="https://www.linkedin.com/in/wurtsmith-angela-30747375" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Wurtsmith, Angela 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Dianda Coe 
+ (colorado human resources): <a href="https://www.linkedin.com/in/dianda-coe-3056902a" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Dianda Coe 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Amber Rayfield, SPHR 
+ (colorado human resources): <a href="https://www.linkedin.com/in/amber-rayfield-sphr-71176213" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Amber Rayfield, SPHR 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Dorian Wilson 
+ (colorado human resources): <a href="https://www.linkedin.com/in/dorianwilson" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Dorian Wilson 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Elspeth Arnold 
+ (colorado human resources): <a href="https://www.linkedin.com/in/ehickernell" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Elspeth Arnold 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Cynthia Isham 
+ (colorado human resources): <a href="https://www.linkedin.com/in/cynthia-isham-8b88628a" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Cynthia Isham 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Mary Drey 
+ (colorado human resources): <a href="https://www.linkedin.com/in/mary-drey-18607521" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Mary Drey 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Michaela Schulz, PHR 
+ (colorado human resources): <a href="https://www.linkedin.com/in/michaela-schulz-phr-227314a3" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Michaela Schulz, PHR 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Robyn Fergus, SPHR 
+ (colorado human resources): <a href="https://www.linkedin.com/in/robynfergus" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Robyn Fergus, SPHR 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Gerald R. Barajas 
+ (colorado human resources): <a href="https://www.linkedin.com/in/geraldbarajas" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Gerald R. Barajas 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Joel Ferguson 
+ (colorado human resources): <a href="https://www.linkedin.com/in/joel-ferguson-34a8a780" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Joel Ferguson 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Janet Martin 
+ (colorado human resources): <a href="https://www.linkedin.com/in/janet-martin-b67bb260" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Janet Martin 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jake Watson 
+ (colorado human resources): <a href="https://www.linkedin.com/in/jake-watson-327787155" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jake Watson 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Human Resources 
+ (colorado human resources): <a href="https://www.linkedin.com/in/acchr" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Human Resources 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Cheryl Smith 
+ (colorado human resources): <a href="https://www.linkedin.com/in/cheryl-smith-7229735" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Cheryl Smith 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jonathan Liepe 
+ (colorado human resources): <a href="https://www.linkedin.com/in/jonathanliepe" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jonathan Liepe 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Tara Moore, SPHR IPMA
+ (colorado human resources): <a href="https://www.linkedin.com/in/taramooreparker" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Tara Moore, SPHR IPMA
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Abigail Stroupe 
+ (colorado human resources): <a href="https://www.linkedin.com/in/abigailstroupe" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Abigail Stroupe 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Douglas Bemis 
+ (colorado human resources): <a href="https://www.linkedin.com/in/dabemis" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Douglas Bemis 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jacki Shill, SPHR, SHRM
+ (colorado human resources): <a href="https://www.linkedin.com/in/jackishillsphr" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jacki Shill, SPHR, SHRM
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Ashley Eschler 
+ (colorado human resources): <a href="https://www.linkedin.com/in/ashley-eschler-90371051" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Ashley Eschler 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Brenda Garrett, MS SPHR SIE 
+ (colorado human resources): <a href="https://www.linkedin.com/in/brenda-garrett-ms-sphr-sie-84b24857" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Brenda Garrett, MS SPHR SIE 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Lili Tran, MBA, IPMA
+ (colorado human resources): <a href="https://www.linkedin.com/in/lili-tran-mba-ipma-scp-shrm-scp-sphr" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Lili Tran, MBA, IPMA
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Virginia Miller 
+ (colorado human resources): <a href="https://www.linkedin.com/in/virginamillersphr" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Virginia Miller 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Teri Wilson 
+ (colorado human resources): <a href="https://www.linkedin.com/in/teri-wilson-abb230101" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Teri Wilson 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Gretchen Clark 
+ (colorado human resources): <a href="https://www.linkedin.com/in/gretchenclark" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Gretchen Clark 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jacqueline Jackson SPHR, SHRM
+ (colorado human resources): <a href="https://www.linkedin.com/in/jacquelinejackson3" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jacqueline Jackson SPHR, SHRM
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jen Sprinkle 
+ (colorado human resources): <a href="https://www.linkedin.com/in/jen-sprinkle-560a2a10a" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jen Sprinkle 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Chris McGill 
+ (colorado human resources): <a href="https://www.linkedin.com/in/chris-mcgill-5647b5a3" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Chris McGill 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Karey Urbanski, SHRM
+ (colorado human resources): <a href="https://www.linkedin.com/in/karey-urbanski-shrm-scp-sphr-240b8520" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Karey Urbanski, SHRM
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Cassie Mills 
+ (colorado human resources): <a href="https://www.linkedin.com/in/cassie-mills-543044b" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Cassie Mills 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Lauren Vogel 
+ (colorado human resources): <a href="https://www.linkedin.com/in/lauren-vogel-3763aa28" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Lauren Vogel 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Sara Marbry 
+ (colorado human resources): <a href="https://www.linkedin.com/in/sara-marbry-7096914" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Sara Marbry 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Lynnette Siedschlaw 
+ (colorado human resources): <a href="https://www.linkedin.com/in/lynnette-siedschlaw" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Lynnette Siedschlaw 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Rick Garris 
+ (colorado human resources): <a href="https://www.linkedin.com/in/rick-garris-47435b14" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Rick Garris 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jennifer Burke 
+ (colorado human resources): <a href="https://www.linkedin.com/in/jennifer-burke-19b093a" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jennifer Burke 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Monica Mueller 
+ (colorado human resources): <a href="https://www.linkedin.com/in/monica-mueller-phr-shrm-cp-60412566" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Monica Mueller 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Olawunmi Ogunwo, JD, PHR 
+ (colorado human resources): <a href="https://www.linkedin.com/in/olawunmi-ogunwo-jd-phr-871358a5" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Olawunmi Ogunwo, JD, PHR 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jessica Harvey 
+ (colorado human resources): <a href="https://www.linkedin.com/in/jessica-harvey-a51510b7" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jessica Harvey 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Sarah B. 
+ (colorado human resources): <a href="https://www.linkedin.com/in/sarah-b-0a15a5143" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Sarah B. 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Paula Gibson 
+ (colorado human resources): <a href="https://www.linkedin.com/in/paula-gibson-5581a31" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Paula Gibson 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Sharyl Harston 
+ (colorado human resources): <a href="https://www.linkedin.com/in/sharyl-harston-9ba5446" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Sharyl Harston 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Cyndee Cook 
+ (colorado human resources): <a href="https://www.linkedin.com/in/cyndee-cook-60455695" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Cyndee Cook 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Renae Flowers 
+ (colorado human resources): <a href="https://www.linkedin.com/in/renae-flowers-4428a9a4" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Renae Flowers 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Wayne Taylor 
+ (colorado human resources): <a href="https://www.linkedin.com/in/wayne-taylor-a70a7091" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Wayne Taylor 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Carisa Cipoletti 
+ (colorado human resources): <a href="https://www.linkedin.com/in/carisa-cipoletti-169b179" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Carisa Cipoletti 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Kimberlee Soucie, PHR, SHRM
+ (colorado human resources): <a href="https://www.linkedin.com/in/kimsoucie" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Kimberlee Soucie, PHR, SHRM
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jill Alderton 
+ (colorado human resources): <a href="https://www.linkedin.com/in/jill-alderton-a3176140" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jill Alderton 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Rebecca Glover, PHR 
+ (colorado human resources): <a href="https://www.linkedin.com/in/rebecca-glover-phr-77531652" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Rebecca Glover, PHR 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Julianne Peterson 
+ (colorado human resources): <a href="https://www.linkedin.com/in/julianne-peterson-b14204a5" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Julianne Peterson 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Karen Burke 
+ (colorado human resources): <a href="https://www.linkedin.com/in/karenjeanneburke" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Karen Burke 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Kaylette Blunt, BS, HRM 
+ (colorado human resources): <a href="https://www.linkedin.com/in/kaylette-blunt-b-s-hrm-974399204" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Kaylette Blunt, BS, HRM 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+John Bartley 
+ (colorado human resources): <a href="https://www.linkedin.com/in/john-bartley-7b11524" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+John Bartley 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jessica Martella, MS, SHRM
+ (colorado human resources): <a href="https://www.linkedin.com/in/jessica-martella-ms-shrm-cp-a562a242" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jessica Martella, MS, SHRM
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Kimberly Austin, CHRE 
+ (colorado human resources): <a href="https://www.linkedin.com/in/kimberly-austin-chre-47b7a7a" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Kimberly Austin, CHRE 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Amy Roberts 
+ (colorado human resources): <a href="https://www.linkedin.com/in/amroberts1" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Amy Roberts 
+ colorado human resources" class="lil" style="color:white" target="_blank">Google search</a><br></div></div>
+		<br><br>
+		<button onclick="cleanit()">Clean Results</button>
+		<input type="hidden" name="term" value="colorado human resources"><br>
+		<br>
+		
+
+		<br><br>
+
+	</div>
+	</body>

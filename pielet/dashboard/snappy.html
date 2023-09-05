@@ -1,0 +1,33 @@
+
+<div id="j">{"userID":"jTDW0WlSxZiB","account":"organic","partnerID":"organic","restrequest":"","beginSurvey":1,"userURL":"https:\/\/pietential.com\/pielet\/survey\/?Q0-np-jTDW0WlSxZiB","timestamp":"2020-10-11","salt":"#^aHxc4397yzT8OJeAa&$g6e@AE$2EI!$D!Bq2G2yR@3GGC!D15e&dcLdx8HqHgb$","hash":"5c56ce7da8cf7d3da758285c0c29c4468dbcd562566c7c5b4a092a933a11e34f396665ac53492680212f4bc9223bc3de6664f81efe05ca4ca671225f3841ba5d","email":"nzkiwi22@gmail.com","snapshots":[{"Q0response":8,"timestamp":"2020-09-16","Q1response":6,"Q2response":7,"Q3response":7,"Q4response":8,"Q5response":8,"Q6response":7,"Q7response":10,"Q8response":10,"Q9response":8,"Q10response":9,"Q11response":10,"Q12response":10,"Q13response":6,"Q14response":7,"Q15response":10,"Q16response":10,"Q17response":10,"Q18response":7,"Q19response":10,"Q20response":10,"Q21response":8,"Q22response":10,"Q23response":10,"Q24response":9,"Q25response":5,"Q26response":10,"Q27response":5,"Q28response":5,"Q29response":9},{"Q0response":1,"timestamp":"2020-09-16","Q1response":1,"Q2response":1,"Q3response":1,"Q4response":1,"Q5response":1,"Q6response":1,"Q7response":1,"Q8response":1,"Q9response":1,"Q10response":1,"Q11response":1,"Q12response":1,"Q13response":1,"Q14response":1,"Q15response":1,"Q16response":1,"Q17response":1,"Q18response":1,"Q19response":1,"Q20response":1,"Q21response":1,"Q22response":1,"Q23response":1,"Q24response":1,"Q25response":1,"Q26response":1,"Q27response":1,"Q28response":1,"Q29response":1},{"Q0response":10,"timestamp":"2020-09-16","Q1response":10,"Q2response":10,"Q3response":10,"Q4response":10,"Q5response":10,"Q6response":10,"Q7response":10,"Q8response":10,"Q9response":10,"Q10response":10,"Q11response":10,"Q12response":10,"Q13response":10,"Q14response":10,"Q15response":10,"Q16response":10,"Q17response":10,"Q18response":10,"Q19response":10,"Q20response":10,"Q21response":10,"Q22response":10,"Q23response":10,"Q24response":10,"Q25response":10,"Q26response":10,"Q27response":10,"Q28response":10,"Q29response":10}],"currentPart":"Part5","currentColor":"rgb(110, 148, 248)","percent":100,"Part1Completed":100,"completionDate":"2020-10-11","SA":77,"EC":82,"LB":87,"SN":91,"PN":71,"LBscorevalues":{"SA":77,"EC":82,"LB":87,"SN":91,"PN":73},"Q0response":8,"Q1response":7,"Q2response":7,"Q3response":7,"Q4response":8,"Q5response":9,"scroll2":1,"Part2Completed":100,"Q6response":6,"Q7response":7,"Q8response":9,"Q9response":9,"Q10response":9,"Q11response":9,"scroll3":1,"Part3Completed":100,"Q12response":9,"Q13response":7,"Q14response":9,"Q15response":9,"Q16response":9,"Q17response":9,"scroll4":1,"Part4Completed":100,"Q18response":5,"Q19response":10,"Q20response":10,"Q21response":9,"Q22response":10,"Q23response":10,"scroll5":1,"Part5Completed":100,"Q24response":7,"Q25response":7,"Q26response":9,"Q27response":7,"Q28response":6,"Q29response":7}</div>
+
+
+<script>
+
+    var master = JSON.parse(document.getElementById("j").innerHTML);
+    var snlength = master.snapshots.length;
+    var dates = [];
+    for (let a of master.snapshots) {
+        dates.push(a.timestamp);
+    }
+    if (master.Q29response) {
+        // they have a set of current results in the dataset
+        var d = new Date();
+        var month = d.getMonth() + 1;
+        var year = d.getFullYear();
+        var day = d.getDate();
+        var timestamp = `${year}-${month}-${day}`;
+        dates.push(timestamp);
+    }
+    
+    var out = '';
+    var zs = 0;
+    for (let a of dates) {
+        out += `<div class ='dashCanvasContainer'>
+        <div style='clear:both;text-align:center;'>Date: ${a} </div>
+        <canvas id='csnap${zs}' ></canvas></div>\n\n`;
+        zs++;
+    }
+
+    console.log(out);
+</script>

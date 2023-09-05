@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cities </title>
+</head>
+
+<body>
+    <style>
+        * {
+            font-family: 'Segoe UI', sans-serif;
+        }
+    </style>
+    <div id="id1"></div>
+
+
+    <script>
+
+        var stateArray = [{ "a": "AL", "n": "Alabama" }, { "a": "AK", "n": "Alaska" }, { "a": "AS", "n": "American Samoa" }, { "a": "AZ", "n": "Arizona" }, { "a": "AR", "n": "Arkansas" }, { "a": "CA", "n": "California" }, { "a": "CO", "n": "Colorado" }, { "a": "CT", "n": "Connecticut" }, { "a": "DE", "n": "Delaware" }, { "a": "DC", "n": "District Of Columbia" }, { "a": "FM", "n": "Federated States Of Micronesia" }, { "a": "FL", "n": "Florida" }, { "a": "GA", "n": "Georgia" }, { "a": "GU", "n": "Guam" }, { "a": "HI", "n": "Hawaii" }, { "a": "ID", "n": "Idaho" }, { "a": "IL", "n": "Illinois" }, { "a": "IN", "n": "Indiana" }, { "a": "IA", "n": "Iowa" }, { "a": "KS", "n": "Kansas" }, { "a": "KY", "n": "Kentucky" }, { "a": "LA", "n": "Louisiana" }, { "a": "ME", "n": "Maine" }, { "a": "MH", "n": "Marshall Islands" }, { "a": "MD", "n": "Maryland" }, { "a": "MA", "n": "Massachusetts" }, { "a": "MI", "n": "Michigan" }, { "a": "MN", "n": "Minnesota" }, { "a": "MS", "n": "Mississippi" }, { "a": "MO", "n": "Missouri" }, { "a": "MT", "n": "Montana" }, { "a": "NE", "n": "Nebraska" }, { "a": "NV", "n": "Nevada" }, { "a": "NH", "n": "New Hampshire" }, { "a": "NJ", "n": "New Jersey" }, { "a": "NM", "n": "New Mexico" }, { "a": "NY", "n": "New York" }, { "a": "NC", "n": "North Carolina" }, { "a": "ND", "n": "North Dakota" }, { "a": "MP", "n": "Northern Mariana Islands" }, { "a": "OH", "n": "Ohio" }, { "a": "OK", "n": "Oklahoma" }, { "a": "OR", "n": "Oregon" }, { "a": "PW", "n": "Palau" }, { "a": "PA", "n": "Pennsylvania" }, { "a": "PR", "n": "Puerto Rico" }, { "a": "RI", "n": "Rhode Island" }, { "a": "SC", "n": "South Carolina" }, { "a": "SD", "n": "South Dakota" }, { "a": "TN", "n": "Tennessee" }, { "a": "TX", "n": "Texas" }, { "a": "UT", "n": "Utah" }, { "a": "VT", "n": "Vermont" }, { "a": "VI", "n": "Virgin Islands" }, { "a": "VA", "n": "Virginia" }, { "a": "WA", "n": "Washington" }, { "a": "WV", "n": "West Virginia" }, { "a": "WI", "n": "Wisconsin" }, { "a": "WY", "n": "Wyoming" }];
+
+
+        var d = `1,New York City,New York
+2,Los Angeles,California
+3,Chicago,Illinois
+4,Houston,Texas
+5,Phoenix,Arizona
+6,Philadelphia,Pennsylvania
+7,San Antonio,Texas
+8,San Diego,California
+9,Dallas,Texas
+10,Austin,Texas
+11,San Jose,California
+12,Fort Worth,Texas
+13,Jacksonville,Florida
+14,Columbus,Ohio
+15,Charlotte,North Carolina
+16,Indianapolis,Indiana
+17,San Francisco,California
+18,Seattle,Washington
+19,Denver,Colorado
+20,Washington,District of Columbia
+21,Boston,Massachusetts
+22,El Paso,Texas
+23,Nashville,Tennessee
+24,Oklahoma City,Oklahoma
+25,Las Vegas,Nevada
+26,Detroit,Michigan
+27,Portland,Oregon
+28,Memphis,Tennessee
+29,Louisville,Kentucky
+30,Milwaukee,Wisconsin
+31,Baltimore,Maryland
+32,Albuquerque,New Mexico
+33,Tucson,Arizona
+34,Mesa,Arizona
+35,Fresno,California
+36,Sacramento,California
+37,Atlanta,Georgia
+38,Kansas City,Missouri
+39,Colorado Springs,Colorado
+40,Raleigh,North Carolina
+41,Omaha,Nebraska
+42,Miami,Florida
+43,Long Beach,California
+44,Virginia Beach,Virginia
+45,Oakland,California
+46,Minneapolis,Minnesota
+47,Tampa,Florida
+48,Tulsa,Oklahoma
+49,Arlington,Texas
+50,Wichita,Kansas
+51,Bakersfield,California
+52,Aurora,Colorado
+53,New Orleans,Louisiana
+54,Cleveland,Ohio
+55,Anaheim,California
+56,Henderson,Nevada
+57,Honolulu,Hawaii
+58,Riverside,California
+59,Santa Ana,California
+60,Corpus Christi,Texas
+61,Lexington,Kentucky
+62,San Juan,Puerto Rico
+63,Stockton,California
+64,St Paul,Minnesota
+65,Cincinnati,Ohio
+66,Greensboro,North Carolina
+67,Pittsburgh,Pennsylvania
+68,Irvine,California
+69,St Louis,Missouri
+70,Lincoln,Nebraska
+71,Orlando,Florida
+72,Durham,North Carolina
+73,Plano,Texas
+74,Anchorage,Alaska
+75,Newark,New Jersey
+76,Chula Vista,California
+77,Fort Wayne,Indiana
+78,Chandler,Arizona
+79,Toledo,Ohio
+80,St Petersburg,Florida
+81,Reno,Nevada
+82,Laredo,Texas
+83,Scottsdale,Arizona
+84,North Las Vegas,Nevada
+85,Lubbock,Texas
+86,Madison,Wisconsin
+87,Gilbert,Arizona
+88,Jersey City,New Jersey
+89,Glendale,Arizona
+90,Buffalo,New York
+91,Winston-Salem,North Carolina
+92,Chesapeake,Virginia
+93,Fremont,California
+94,Norfolk,Virginia
+95,Irving,Texas
+96,Garland,Texas
+97,Paradise,Nevada
+98,Arlington,Virginia
+99,Richmond,Virginia
+100,Hialeah,Florida
+101,Boise,Idaho
+102,Spokane,Washington
+103,Frisco,Texas
+104,Moreno Valley,California
+105,Tacoma,Washington
+106,Fontana,California
+107,Modesto,California
+108,Baton Rouge,Louisiana
+109,Port St Lucie,Florida
+110,San Bernardino,California
+111,McKinney,Texas
+112,Fayetteville,North Carolina
+113,Santa Clarita,California
+114,Des Moines,Iowa
+115,Oxnard,California
+116,Birmingham,Alabama
+117,Spring Valley,Nevada
+118,Huntsville,Alabama
+119,Rochester,New York
+120,Cape Coral,Florida
+121,Tempe,Arizona
+122,Grand Rapids,Michigan
+123,Yonkers,New York
+124,Overland Park,Kansas
+125,Salt Lake City,Utah
+126,Amarillo,Texas
+127,Augusta,Georgia
+128,Columbus,Georgia
+129,Tallahassee,Florida
+130,Montgomery,Alabama
+131,Huntington Beach,California
+132,Akron,Ohio
+133,Little Rock,Arkansas
+134,Glendale,California
+135,Grand Prairie,Texas
+136,Aurora,Illinois
+137,Sunrise Manor,Nevada
+138,Ontario,California
+139,Sioux Falls,South Dakota
+140,Knoxville,Tennessee
+141,Vancouver,Washington
+142,Mobile,Alabama
+143,Worcester,Massachusetts
+144,Chattanooga,Tennessee
+145,Brownsville,Texas
+146,Peoria,Arizona
+147,Fort Lauderdale,Florida
+148,Shreveport,Louisiana
+149,Newport News,Virginia
+150,Providence,Rhode Island
+151,Elk Grove,California
+152,Rancho Cucamonga,California
+153,Salem,Oregon
+154,Pembroke Pines,Florida
+155,Santa Rosa,California
+156,Eugene,Oregon
+157,Oceanside,California
+158,Cary,North Carolina
+159,Fort Collins,Colorado
+160,Corona,California
+161,Enterprise,Nevada
+162,Garden Grove,California
+163,Springfield,Missouri
+164,Clarksville,Tennessee
+165,Bayamon,Puerto Rico
+166,Lakewood,Colorado
+167,Alexandria,Virginia
+168,Hayward,California
+169,Murfreesboro,Tennessee
+170,Killeen,Texas
+171,Hollywood,Florida
+172,Lancaster,California
+173,Salinas,California
+174,Jackson,Mississippi
+175,Midland,Texas
+176,Macon County,Georgia
+177,Kansas City,Kansas
+178,Palmdale,California
+179,Sunnyvale,California
+180,Springfield,Massachusetts
+181,Escondido,California
+182,Pomona,California
+183,Bellevue,Washington
+184,Surprise,Arizona
+185,Naperville,Illinois
+186,Pasadena,Texas
+187,Denton,Texas
+188,Roseville,California
+189,Joliet,Illinois
+190,Thornton,Colorado
+191,McAllen,Texas
+192,Paterson,New Jersey
+193,Rockford,Illinois
+194,Carrollton,Texas
+195,Bridgeport,Connecticut
+196,Miramar,Florida
+197,Round Rock,Texas
+198,Metairie,Louisiana
+199,Olathe,Kansas
+200,Waco,Texas`.split("\n");
+        var topCities = [];
+        var states = [];
+        for (let a of d) {
+            var obj = {};
+            obj.rank = a.split(",")[0];
+            obj.city = a.split(",")[1];
+            obj.state = a.split(",")[2];
+            topCities.push(obj);
+            states.push(obj.state);
+        }
+        states = Array.from(new Set(states));
+        states.sort();
+        var baselink = `https://www.google.com/search?q=site:linkedin.com/in/ `;
+        var baselink = `https://www.bing.com/search?q=site:linkedin.com/in/ `;
+
+        var out = '';
+        for (let a of topCities) {
+            var term = `${a.city} ${a.state} Human Resources`;
+            var link = `${baselink}${term}&num=100`;
+            out += `<a onmouseover="setSearchTerm('${term}')" href="${link}" target="_blank">${term}</a><br>`;
+        }
+        //id1.innerHTML = JSON.stringify(topCities);
+        id1.innerHTML = out;
+
+        
+
+        function getLinks() {
+            var arr = [];
+            var searchTerm = location.href.replace(/.+\//ig, "");
+            searchTerm = decodeURI(searchTerm).trim();
+            searchTerm = searchTerm.replace(/[^a-z\s].+/ig, "");
+            for (let a of document.getElementsByTagName("a")) {
+                if (a.href.match(/linkedin\.com\/in\//ig) && 
+                !a.href.match(/bing\.com/ig) ) {
+                    var obj = {};
+                    obj.href = a.href;
+                    obj.ih = a.innerText;
+                    if (obj.ih.length<6){
+                        obj.ih = obj.href.replace(/.+linkedin\.com\/in\//ig, "");
+                    }
+                    obj.searchTerm = searchTerm;
+                    arr.push(obj);
+                }
+            }
+            saveResults(arr); 
+        }
+        function saveResults(arr) {
+            var out = '';
+            for (let a of arr){
+                out += `href: ${a.href}<br>desc.: ${a.ih}<br>searchTerm: ${a.searchTerm}<br><br>`
+            }
+            var j = JSON.stringify(arr);
+            var formm1 = `<form id="ff1" action="//silvercrayon.us/citysave/fsave.php" method="post">
+                <textarea name="thedata" style="width:500px; height:500px;">${j}</textarea>
+                <br><br>
+                <input type="submit">
+                </form><br><br>`;
+                document.body.innerHTML = formm1+out;
+        }
+        if (!location.href.match(/pie2/)){
+            getLinks();
+        }
+        
+
+
+    </script>
+</body>
+
+</html>

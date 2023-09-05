@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biography Builder</title>
+    <style>
+        * {
+            font-family: segoe ui, sans-serif;
+            font-size: 15px;
+        }
+
+        body {
+            margin: 50px;
+        }
+
+        h2 {
+            font-size: 30px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    Your Full Name:<br><input id="name" type="text"><br><br>
+    Your Title:<br><input id="title" type="text"><br><br>
+    Your Photo:<br><button onclick="userfile.click()">Choose photo</button>
+    <br><br>
+    <div id="photo"></div>
+    Your Bio:<br><textarea id="bio" cols="70" rows="10"></textarea><br><br>
+
+    <button onclick="updateFormAndSubmit()">Save</button>
+
+    <form id="theForm" style="display:none" enctype="multipart/form-data" method="post">
+        Your Full Name: <input name="name" type="text"><br><br>
+        Your Title: <input name="title" type="text"><br><br>
+        Your Photo: <button onclick="userfile.click()">Choose photo</button>
+        <input type="file" style="width:250px;display:none;" value="" id="userfile" name="userfile"><br><br></div>
+        Your Bio:<br> <textarea name="bio" cols="70" rows="10"></textarea><br><br>
+        <input type="hidden" name="b64" id="b64">
+
+
+    </form>
+
+
+    <!--<textarea id="results"></textarea>-->
+
+
+    <script>
+        function updateFormAndSubmit() {
+            saveData();
+            var obj = {};
+            obj.name = document.getElementById("name").value.trim();
+            obj.title = document.getElementById("title").value.trim();
+            obj.bio = document.getElementById("bio").value.trim();
+            obj.b64 = b64;
+            console.log(obj);
+
+            const fd = new FormData();
+            fd.append('payload', JSON.stringify(obj));
+            const options = {
+                method: 'POST',
+                //mode: 'no-cors',
+                body: fd
+            };
+            document.body.innerHTML="<img src='spin.gif'><br>saving.....";
+            fetch("p.php", options)
+                .then(r => {
+                    return r.text()
+                })
+                .then(a => {
+                    console.log("ajax success.");
+                    console.log(a);
+                    location.assign(location.href);
+                });
+
+
+        }
+
+
+        if (localStorage.bioSave) {
+            var obj = JSON.parse(localStorage.bioSave);
+            for (let a in obj) {
+                if (a=="photo"){
+                    photo.innerHTML = `<img style="max-width:90px" src="${obj[a]}">`;
+                } else {
+                document.getElementById(a).value = obj[a];
+            }
+            }
+        }
+        let fileReader = new FileReader();
+        fileReader.onload = go;
+        userfile.onchange = function (event) {
+            //results.innerHTML = ``;
+            fileReader.readAsDataURL(event.target.files[0]);
+        };
+
+        function go() {
+            var b64 = fileReader.result.replace(/[\s\S]+base64,/, '');
+            document.getElementById("b64").value = b64;
+            window.b64 = b64;
+            photo.innerHTML = `<img src="${fileReader.result}" style="max-width:90px"><br>`;
+        }
+
+        function saveData() {
+            var obj = {};
+            obj.name = document.getElementById("name").value.trim();
+            obj.title = document.getElementById("title").value.trim();
+            obj.bio = document.getElementById("bio").value.trim();
+            obj.photo = `https://pietential.com/pieTools/biobuild/` + obj.name.replace(/\s+/ig, '-') + `.jpg`;
+            localStorage.bioSave = JSON.stringify(obj);
+        }
+    </script>
+</body>
+
+</html>

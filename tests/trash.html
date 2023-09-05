@@ -1,0 +1,121 @@
+<div id="colophon">
+    <style>
+        #colophon {
+            padding: 0;
+            font-size: 14px;
+            border-top: 1px solid gray;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .fnav {
+            color: white;
+            float: left;
+            padding: 0 22px 4px 0;
+            background: black;
+            margin: 14px 22px;
+        }
+
+        .fnav::before {
+            content: "▶";
+            font-size: 60px;
+            line-height: 0;
+            position: relative;
+            top: 16px;
+            right: 8px;
+            opacity: .3;
+        }
+
+        .bggold {
+            background: #F7C72A;
+        }
+
+        .bgred {
+            background: #CA3735;
+        }
+
+        .bggreen {
+            background: #0B8544;
+        }
+
+
+
+        #lhold {
+            float: left;
+            border-right: 1px solid gray;
+            padding: 10px;
+        }
+
+        #lhold img {
+            width: 99px;
+        }
+
+        .baseboard {
+            margin: 0;
+            height: 60px;
+            width: 182px;
+            background: #0B8544;
+            color: white;
+            padding: 8px;
+            font-weight: 900;
+            display: inline-block;
+            line-height: 13px;
+            text-align: center;
+            float: left;
+        }
+        .cmobile{
+            display: none;
+        }
+
+        @media all and (max-width:1230px) {
+            .cdesk {
+                display: none;
+            }
+            .cmobile {
+                display: block;
+            }
+        }
+    </style>
+    <div class="innerContainer" style="display: inline-block;margin:auto;text-align:center;" >
+    <span class="cdesk">
+        <div id="lhold"><img src="/wp-content/uploads/2022/svg-assets/MAREE_Logo.svg"></div>
+
+        <a href="/">
+            <div class="fnav bggold">HOME</div>
+        </a>
+        <a href="/?page_id=12">
+            <div class="fnav bgred">ABOUT US</div>
+        </a>
+        <a href="/?page_id=14">
+            <div class="fnav">ISSUES</div>
+        </a>
+        <a href="/?page_id=16">
+            <div class="fnav bggold">RESOURCES</div>
+        </a>
+        <a href="/?page_id=17">
+            <div class="fnav bggreen">GET INVOLVED</div>
+        </a>
+        <span>
+            <div class="baseboard">JOIN<br>THE<br>COALITION</div>
+            <div class="baseboard" style="background:#F7C72A; padding-top:22px;">maree@email.com</div>
+        </span>
+    </span>
+    <span class="cmobile">
+        <a href="/">
+            <div class="fnav bggold">HOME</div>
+        </a>
+        <a href="/?page_id=12">
+            <div class="fnav bgred">ABOUT US</div>
+        </a>
+        <a href="/?page_id=14">
+            <div class="fnav">ISSUES</div>
+        </a>
+        <a href="/?page_id=16">
+            <div class="fnav bggold">RESOURCES</div>
+        </a>
+        <a href="/?page_id=17">
+            <div class="fnav bggreen">GET INVOLVED</div>
+        </a>
+    </span>
+</div>
+</div>

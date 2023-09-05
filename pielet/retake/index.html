@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>retake</title>
+</head>
+
+<body>
+    <script>
+
+if (!localStorage.pieletDataJSON){
+    location.assign('/?no-user-data-retake');
+}
+
+
+        var pieletData = JSON.parse(localStorage.pieletDataJSON);
+        pieletData.userLevel = "pro";
+        if (pieletData.userLevel !== "pro") {
+            // paywall
+            location.assign('/pielet/dashboard/');
+        }
+
+
+
+
+
+        if (pieletData.userLevel == "pro") {
+            if (!pieletData.snapshots) {
+                pieletData.snapshots = [];
+            }
+            if (!pieletData.Q29response) {
+                location.assign('/?no-Q29-response');
+            }
+            var current = {};
+            for (let a in pieletData) {
+                if (a.match(/Q.+response/)) {
+                    current[a] = pieletData[a];
+                }
+            }
+            document.cookie = "dashboard=; expires = Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+            document.cookie = "percent=; expires = Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+            var d = new Date();
+            var month = d.getMonth() + 1;
+            var year = d.getFullYear();
+            var day = d.getDate();
+            var timestamp = `${year}-${month}-${day}`;
+            current.snapShotCompletionDate = timestamp;
+            current.timestamp = timestamp;
+            current.time = timestamp;
+            if (current.Q0response) {
+                pieletData.snapshots.push(current);
+            }
+
+            for (let a in pieletData) {
+                if (a.match(/dashboard|response|Completed|scroll|LBscorevalues|percent|current|SA|EC|LB|PN|SN/)) {
+                    pieletData[a] = "";
+                }
+            }
+            console.log(pieletData);
+
+            function saveState() {
+                pieletData.saveMethod = "saveState with snapshot";
+                pieletData.userURL = location.href;
+                localStorage.pieletDataJSON = JSON.stringify(pieletData);
+                //var parameters = "pieletData=" + btoa(JSON.stringify(pieletData));
+                const fd = new FormData();
+                fd.append('pdpost', btoa(JSON.stringify(pieletData)));
+                const options = {
+                    method: 'POST',
+                    //mode: 'no-cors',
+                    body: fd
+                };
+
+                fetch("../accountEngine/", options)
+                    .then(r => {
+                        return r.text()
+                    })
+                    .then(a => {
+                        console.log("ajax success.");
+                        console.log(a);
+                        location.assign("/pielet/survey/?snapshot-saved-retake-survey");
+                    });
+            }
+            saveState();
+        }
+
+
+    </script>
+</body>
+
+</html>

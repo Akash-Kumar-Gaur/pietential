@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>score-checker.html</title>
+</head>
+<link href="https://pietential.com/pielet/styles.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,800&display=swap" rel="stylesheet">
+
+<body>
+
+    <style>
+        textarea {
+            width: 500px;
+            height: 300px;
+        }
+        body {
+            margin: 40px;
+            font-size: 13px;
+        }
+
+        div,
+        p {
+            font-size: 13px;
+        }
+        input{
+            max-width: 50px;;
+        }
+    </style>
+<div id="inputs"></div><br><br>
+<div id="contents" style="max-width: 700px;"></div>
+<script>
+    var arr = `SA1,SA2,SA3,SA4,SA5,EC1,EC2,EC3,EC4,EC5,LB1,LB2,LB3,LB4,LB5,SN1,SN2,SN3,SN4,SN5,PN1,PN2,PN3,PN4,PN5`.split(',');
+
+    function show(a){
+        contents.innerHTML = j[a];
+    }
+    function scoreit(){
+        for (let a of document.getElementsByClassName("scoreCheck")){
+            a=parseInt(a.value);
+        }
+    }
+    function analyze(id){
+        var payload = document.getElementById("SAScore").value+","+document.getElementById("ECScore").value+","+document.getElementById("LBScore").value+","+document.getElementById("SNScore").value+","+document.getElementById("PNScore").value;
+        fetch("https://pietential.com/pielet/calcEngine/?mode=calc&bypass="+payload)
+        .then(r => {
+        return r.text()
+    })
+    .then(a => {
+        window.j2 = JSON.parse(a);
+        console.log(j2);
+        //id = id+'response';
+        console.log(`trying to set cts${id}`);
+        document.getElementById(`cts${id}`).innerHTML = j2[id+'response'];
+        document.getElementById(`cts${id}`).style.display = "block";
+
+    });
+    }
+
+    fetch("analysis.j")
+    .then(r => {
+        return r.text()
+    })
+    .then(a => {
+        window.j = JSON.parse(a);
+        var out = '';
+        var out2 = '';
+        for (let a of `SA,EC,LB,SN,PN`.split(",")){
+            out2 += `${a}: <input class="scoreCheck" id="${a}Score" type="number"  value="0" min="0" max="100"> <button onclick="analyze('${a}')">analyze</button> Simulate a score (0-100)<br><div class="cts" style="display:none;" id="cts${a}"></div>`;
+        }
+        for (let a in j){
+            out += `<button onclick="show('${a}')">Show ${a}</button>   `;
+        }
+        inputs.innerHTML = `${out2}<br><br>${out}`;
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="../js/commonLinks.js"></script>
+    <script>includeCommonHeader('Latest Progress chart')</script>
+  </head>
+
+  <body id="background">
+    <section id="navi"></section>
+    <script type="text/javascript" src="../navigation/topNav.js"></script>
+    <div id="noData" style="margin: 120px 0 40px 0; text-align: center">
+      <div class="noDataMain">
+        <div class="noDataInner">
+          <p>
+            Please complete your survey or retake it to track your progress over
+            time
+          </p>
+          <br />
+          <div
+            class="tryItButtonContainer"
+            style="display: flex; justify-content: center"
+          >
+            <button
+              class="tryItButton"
+              style="margin: 0 20px 0 0"
+              onclick="onTakeSurvey()"
+            >
+              Take Survey
+            </button>
+            <button
+              class="tryItButton actualizeButton"
+              onclick="window.location.href = `/`"
+            >
+              Go back to home
+            </button>
+          </div>
+          <p></p>
+        </div>
+      </div>
+    </div>
+    <div class="scoreContainer analyzeItMainContainer" id="dashboard">
+      <div class="visualizeItContainer" id="dashboard" style="width: 100%">
+        <div id="container"></div>
+        <h2
+          id="dashboardTitle"
+          style="margin-bottom: 50px; text-align: center; width: 100%"
+        ></h2>
+        <div class="container">
+          <canvas id="canvas" class="lineGraph"></canvas>
+        </div>
+      </div>
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
+      <script src="../js/main.js"></script>
+      <script src="../js/chart.js"></script>
+      <script src="../js/apiHelper.js"></script>
+      <script src="../js/apiService.js"></script>
+      <script>
+        if (localStorage.getItem("res") > 1) {
+          getElementById("dashboard").style.display = "block";
+          getElementById("noData").style.display = "none";
+        } else {
+          getElementById("dashboard").style.display = "none";
+          getElementById("noData").style.display = "block";
+        }
+        function onTakeSurvey() {
+          if (!sessionStorage.getItem("userID"))
+            window.location.href = "/pages/register.html";
+          else window.location.href = "/pages/score.html";
+        }
+        function collapseSidebar() {
+          let main = getElement(".sidebarMain");
+          let rightSideClass = getElement("#dashboard");
+          let assessIt = getElements(".assessIt");
+          rightSideClass.classList.toggle("visualize_it_container");
+          main.classList.toggle("minWidth");
+        }
+        let responseList = [];
+        var selfList = [];
+        var esteemList = [];
+        var belongingList = [];
+        var safetyList = [];
+        var physiologicalList = [];
+        var graphDateList = [];
+
+        const logout = () => {
+          sessionStorage.clear();
+          window.location.href = "/";
+        };
+        if (localStorage.getItem("res")) {
+          const getQuestionsResponse = async () => {
+            let content = getElementById("content");
+            if (responseList.length < 0) {
+              content.innerHTML = "NO DATA FOUND";
+            }
+            var ls = [
+              "Self Actualization",
+              "Esteem and Contribution",
+              "Love and Belonging",
+              "Safety Needs",
+              "Physiological Needs",
+            ];
+            var part1color = `rgba(110, 148, 248, 1)`; //blue
+            var part2color = `rgba(2, 183, 45, 1)`; //green
+            var part3color = `rgba(249, 186, 3, 1)`; // yellow
+            var part4color = `rgba(248, 126, 2, 1)`; // orange
+            var part5color = `rgba(251, 0, 0, 1)`; // red
+            await getAllQuestionsResponse().then((res) => {
+              console.warn('res', res);
+              let reverseList = res.QuestionsResponse;
+              let q = reverseList;
+              responseList = q;
+              let dashboard = getElementById("dashboard");
+              let h2 = getElementById("dashboardTitle");
+              let parent = getElementById("container");
+              let lineGraph = getElementById("canvas");
+              if (q.length === 0) {
+                ("NO DATA FOUND");
+              }
+              if (q.length > 1) {
+                let dashboard = getElementById("dashboard");
+                h2.innerHTML = "Your Progress Chart";
+                h2.id = "accountInformation";
+              } else {
+                let dashboard = getElementById("dashboard");
+                let p = document.createElement("p");
+                let p2 = document.createElement("p");
+                let buttonContainer = document.createElement("div");
+                let container = document.createElement("div");
+                let img = document.createElement("img");
+                let button = document.createElement("button");
+                button.innerHTML = "Actualize It";
+                button.className = "tryItButton actualizeButton";
+                button.style.margin = "20px auto";
+                img.src = "./assets/promo.png";
+                container.appendChild(img);
+                container.className = "container dashboardContainer";
+                lineGraph.style.display = "none";
+                p.className = "thankYouText";
+                p.innerHTML =
+                  "Thank you for taking the Pietential Life Balance Realization Survey for the first time!";
+                p2.innerHTML =
+                  "You can log back in at any time and retake the survey. <br /> Doing so will enable you to track your progress over time.";
+                buttonContainer.innerHTML =
+                  '<div id="welrow" style="z-index: 2;width:600px;text-align: center;margin: auto;padding-top: 20px;" onmouseenter="makeTitle();">' +
+                  '<a  class="dashy bt  login-bar" id="" href="/score.html">Retake</a>' +
+                  '<a onclick="alert(' +
+                  "'To create a bookmark, drag the padlock icon in the address bar to a bookmarks bar or your desktop.'" +
+                  ')" class=" dashy bt bgyellow login-bar" id="" href="javascript://">Bookmark</a>' +
+                  '<a  class="dashy bt bgred login-bar  disable" id="logoutLink" onclick="logout()" style="opacity: 1; cursor: pointer;">Logout</a>' +
+                  "</div>";
+                parent.append(p, p2, container, button, buttonContainer);
+              }
+              for (let index = 0; index < q.length; index++) {
+                let a = Math.round(
+                  ((Number(q[index].Q0response) +
+                    Number(q[index].Q1response) +
+                    Number(q[index].Q2response) +
+                    Number(q[index].Q3response) +
+                    Number(q[index].Q4response) +
+                    Number(q[index].Q5response)) /
+                    60) *
+                    100
+                );
+                let b = Math.round(
+                  ((Number(q[index].Q6response) +
+                    Number(q[index].Q7response) +
+                    Number(q[index].Q8response) +
+                    Number(q[index].Q9response) +
+                    Number(q[index].Q10response) +
+                    Number(q[index].Q11response)) /
+                    60) *
+                    100
+                );
+                let c = Math.round(
+                  ((Number(q[index].Q12response) +
+                    Number(q[index].Q13response) +
+                    Number(q[index].Q14response) +
+                    Number(q[index].Q15response) +
+                    Number(q[index].Q16response) +
+                    Number(q[index].Q17response)) /
+                    60) *
+                    100
+                );
+                let d = Math.round(
+                  ((Number(q[index].Q18response) +
+                    Number(q[index].Q19response) +
+                    Number(q[index].Q20response) +
+                    Number(q[index].Q21response) +
+                    Number(q[index].Q22response) +
+                    Number(q[index].Q23response)) /
+                    60) *
+                    100
+                );
+                let e = Math.round(
+                  ((Number(q[index].Q24response) +
+                    Number(q[index].Q25response) +
+                    Number(q[index].Q26response) +
+                    Number(q[index].Q27response) +
+                    Number(q[index].Q28response) +
+                    Number(q[index].Q29response)) /
+                    60) *
+                    100
+                );
+                selfList.push(a);
+                graphDateList.push(q[index].completionDate.slice(0, 10));
+                esteemList.push(b);
+                belongingList.push(c);
+                safetyList.push(d);
+                physiologicalList.push(e);
+              }
+              drawGraph();
+            })
+          };
+          getQuestionsResponse();
+        }
+        function addNewStyleToFooter() {
+          let footer = getElement("#footi");
+          if (localStorage.getItem("res") < 1) {
+            footer.classList.add("footerBottomClass");
+          } else footer.classList.remove("footerBottomClass");
+        }
+        addNewStyleToFooter();
+      </script>
+    </div>
+    <div>
+      <p id="content"></p>
+    </div>
+    <script type="text/javascript" src="../navigation/bottomNav.js"></script>
+  </body>
+</html>

@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fader</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: roboto slab, sans-serif;
+        }
+
+        .productBox {
+            transition: all .5s;
+            opacity: 0;
+            filter: blur(2px);
+            transform: scale(1.1);
+            max-width: 70%;
+            z-index: 4;
+            position: absolute;
+            text-align: center;
+            left: 16%;
+        }
+
+        .pic800 {
+            max-width: 67%;
+            box-shadow: 0px 10px 22px 0px rgb(0 0 0 / 60%);
+            transition: all .5s;
+            border-radius: 25px;
+            margin-bottom: 50px;
+        }
+
+        #pipro {
+            margin: auto;
+        }
+
+        #piadv {
+            margin: auto;
+        }
+
+        #pibiz {
+            margin: auto;
+        }
+
+        #pient {
+            margin: auto;
+        }
+
+        #but {
+            margin-top: 100px;
+            margin-bottom: 30px;
+            text-align: center;
+            z-index: 11;
+        }
+
+        .fancyButton1 {
+            font-family: inherit;
+            border-width: initial;
+            border-style: none;
+            border-color: initial;
+            font-size: 14px;
+            color: rgb(255, 255, 255);
+            background: rgb(30, 101, 146);
+            cursor: pointer;
+            padding: 15px 20px;
+            margin: 5px 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            outline: none;
+            position: relative;
+            transition: all 0.3s;
+            border-radius: 7px;
+            box-shadow: rgb(8, 44, 65) 0px 5px;
+            overflow: hidden;
+            text-decoration: none;
+            word-break: break-all;
+            overflow-wrap: break-word;
+            min-width: 236px;
+        }
+
+        .fancyButton1:hover {
+            background: rgb(63 167 234);
+            ;
+        }
+
+        .fancySub {
+            display: block;
+            margin-top: -30px;
+            opacity: .7;
+        }
+
+        .fancyHeadline {
+            font-size: 36px;
+            /* line-height: 0; */
+            opacity: .7;
+        }
+
+        .explain {
+            display: none;
+            max-width: 700px;
+            margin: auto;
+        }
+
+        .arrow {
+            max-width: 173px;
+            position: absolute;
+            display: block;
+            right: 14%;
+            z-index: 12;
+            margin-top: 232px;
+            opacity: .2;
+            cursor: pointer;
+        }
+
+        .arrow2 {
+            left: 15%;
+            z-index: 12;
+            margin-top: 232px;
+            transform: rotate(180deg);
+        }
+
+        #branding img {
+            max-width: 200px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="branding" style="padding-top:50px;margin: auto; text-align: center;">
+        <a href="/"><img onmouseover="" src="https://pietential.com/pietential.png" class="minibrand"></a>
+    </div>
+    <div id="but">
+        <button id="piproButton" class="fancyButton1" onmouseenter="pifocus(`pipro`)">Pietential
+            Pro<br>$3.95/month</button>
+        <button id="piadvButton" class="fancyButton1" onmouseenter="pifocus(`piadv`)">Pietential
+            Advisor<br>$100/month</button>
+        <button id="pibizButton" class="fancyButton1" onmouseenter="pifocus(`pibiz`)">Pietential
+            Business<br>$1/month/user</button>
+        <button id="pientButton" class="fancyButton1" onmouseenter="pifocus(`pient`)">Pietential Enterprise<br>Call for
+            Details</button>
+    </div>
+    <div style="margin:auto; text-align:  center;position: relative;">
+        <div style="text-align: center;">
+            <div id="navArrows" style="max-width: 1100px;"><img onclick="clickUP()"
+                    src="https://pietential.com/images/arrowalpha.png" class="arrow">
+                <img onclick="clickUP(1)" src="https://pietential.com/images/arrowalpha.png" class="arrow arrow2">
+            </div>
+
+            <section id="products" style="max-width: 1630px;margin: auto;position: relative;">
+                <div id="pipro" class="productBox">
+                    <h3 class="fancyHeadline">PietentialPRO</h3><span class="fancySub"><strong>Track and Share your
+                            Progress
+                            with
+                            PietentialPRO</strong></span><br>
+                    <img class="pic800" src="https://pietential.com/images/promoImage-pro.png" alt="">
+                    <section class="explain">
+
+                        <p style="text-align: center;">
+                            PietentialPRO is for individual Pietential Subscribers.</p>
+                        <p style="text-align: center;">
+                            It allows you to set reminders to retake Pietential at your convenience and it automatically
+                            tracks
+                            your progress each time you log in by line graphing your journey towards improved wellbeing
+                            over
+                            time.</p>
+                        <p style="text-align: center;">
+                            And, PietentialPRO allows you to share your Pietential results on social media platforms in
+                            order to
+                            let your friends know how you&rsquo;re doing, where you might need their support - and the
+                            progress
+                            you&rsquo;re making towards being the best version of yourself.</p>
+                        <p style=" text-align: center;">
+
+                    </section>
+                </div>
+                <div id="piadv"  class="productBox">
+                    <h3 class="fancyHeadline">PietentialADVISOR</h3><span class="fancySub"><strong>Build Trust More
+                            Quickly
+                            and Stay Connected with
+                            PietentialADVISOR</strong></span><br>
+                    <img class="pic800" src="https://pietential.com/images/promoImage-advisor.png" alt="">
+                    <section class="explain">
+
+                        <div style="text-align: center;">
+                            PietentialADVISOR is for life coaches, nutritionist and personal trainers; CEO Mastermind
+                            group
+                            facilitators and business consultants; CVAs, exit planners, and business brokers - people
+                            who
+                            are in
+                            the
+                            business of adviaing others! It helps you build trust more quickly by getting into a
+                            conversation
+                            with
+                            clients (and prospective clients) about about life balance, and helps you stay better
+                            connected
+                            to
+                            your
+                            clients while understanding&nbsp; what&rsquo;s important to them.</div>
+                        <div style="text-align: center;">
+                            &nbsp;</div>
+                        <div style="text-align: center;">
+                            PietentialADVISOR Subscribers are able to issue PietentialPro seat licenses (with all
+                            accompanying
+                            features and benefits) to their clients and prospective clients, and can monitor their
+                            well-being
+                            through the PietentialADVISOR Advisor Dashboard.&nbsp; Moreover, ADVISOR Subscribers can set
+                            alerts
+                            related to their client or prospective client&rsquo;s wellbeing which notify the advisor if
+                            a
+                            given
+                            person&rsquo;s scores have fallen below a certain threshold set by you, the Advisor.</div>
+                        <div style="text-align: center;">
+                            &nbsp;</div>
+                        <div style="text-align: center;">
+                            For ADVISORs who wish to issue seat licenses to prospective clients for business development
+                            purposes,
+                            the PietentialADVISOR Platform allows ADVISORs to export their Pietential contacts into
+                            their
+                            CRM or
+                            sales force automation software for use as part of their nurture marketing campaigns.</div>
+
+
+                    </section>
+
+                </div>
+
+                <div id="pibiz"  class="productBox">
+                    <h3 class="fancyHeadline">PietentialBusiness</h3> <strong class="fancySub">Support Employee
+                        Wellbeing
+                        with PietentialBUSINESS</strong><br>
+                    <img class="pic800" src="https://pietential.com/images/promoImage-business.png" alt="">
+                    <section class="explain">
+
+                        <div style="text-align: center;">
+                            The PietentialBUSINESS Platform allows owners of small and medium businesses, and directors
+                            of
+                            nonprofit organizations to offer PietentialPro (with all of its features and benefits) to
+                            all of
+                            their employees in order to support employee wellbeing on an individual, or an aggregate
+                            basis.&nbsp;</div>
+                        <div style="text-align: center;">
+                            &nbsp;</div>
+                        <div style="text-align: center;">
+                            Pietential Business offers a customizable front-end employee survey which allows
+                            organizational
+                            leadership to visualize and analyze employee wellbeing by location, job title, age, or any
+                            other
+                            demographic factors that their human resource department keeps track of.</div>
+                        <p style="text-align: center;">
+
+                        </p>
+                    </section>
+                </div>
+
+                <div id="pient"  class="productBox">
+                    <h3 class="fancyHeadline">PietentialENTERPRISE</h3><strong class="fancySub">Visualize Population
+                        Wellbeing with
+                        PietnetialENTERPRISE</strong><br>
+                    <img class="pic800" src="https://pietential.com/images/promoImage-enterprise.png" alt="">
+                    <section class="explain">
+
+                        <div style="text-align: center;">
+                            The &ldquo;PietentialENTERPRISE&rdquo; population wellbeing monitoring platform is for
+                            organizations with large population (often de-centralized populations) like national and
+                            global
+                            corporations, School Systems; Colleges, Universities and University Systems; large NPOs and
+                            NGOs; and Local, State and Federal Agencies who want to be able to to visualize, quantify
+                            and
+                            better understand their population wellbeing in order that they can take steps to improve
+                            it.
+                        </div>
+                        <div style="text-align: center;">
+                            &nbsp;</div>
+                        <div style="text-align: center;">
+                            PietentialENTERPRISE affords every member of the organization a PietentialPRO license and
+                            the
+                            ability to visualize their own personal well being.&nbsp; And, through a custom API
+                            integration
+                            it gives the organization&rsquo;s leadership the ability to visualize the wellbeing of the
+                            entire organization in aggregate, or to view any number of comparative visualizations
+                            segmented
+                            in any manner in which the client&rsquo;s HR database is already architected.&nbsp;</div>
+                        <div>
+                            &nbsp;</div>
+                        <p style="text-align: center;">
+
+                        </p>
+                    </section>
+                </div>
+            </section>
+
+
+        </div>
+
+        <section id="footi">
+    </div>
+
+    <script>
+        fetch("/pielet/universal-footer.php")
+            .then(r => {
+                return r.text()
+            })
+            .then(a => {
+                //document.getElementById("footi").innerHTML = a;
+                for (let f of document.getElementsByClassName("explain")) {
+                    f.innerHTML += a;
+                }
+            });
+
+        function pifocus(id) {
+            for (let a of document.getElementsByClassName("pifocused")) {
+                piblur(a.id);
+            }
+            var buttonID = id + 'Button';
+            document.getElementById(buttonID).style.background = "rgb(63 167 234)";
+            var el = document.getElementById(id);
+            el.style.zIndex = 5;
+            el.style.opacity = 1;
+            el.style.filter = "";
+            el.style.transform = "";
+            el.style.filter = "blur(0px)";
+            el.style.transform = "scale(1)";
+            el.classList.add("pifocused");
+            for (let a of el.getElementsByClassName("explain")) {
+                a.style.display = "block";
+            }
+            for (let a of el.getElementsByClassName("fancyHeadline")) {
+                a.style.display = "";
+            }
+            for (let a of el.getElementsByClassName("fancySub")) {
+                a.style.display = "";
+            }
+        }
+        function piblur(id) {
+            var el = document.getElementById(id);
+            el.style.opacity = 0;
+            el.style.zIndex = 4;
+            //el.style.filter = "blur(2px)";
+            el.style.transform = "scale(1.1)";
+            //el.style.top = "60px";
+            el.classList.add("piblurred");
+            for (let a of el.getElementsByClassName("explain")) {
+                //a.style.display = "none";
+            }
+            for (let a of el.getElementsByClassName("fancyHeadline")) {
+               // a.style.display = "none";
+            }
+            for (let a of el.getElementsByClassName("fancySub")) {
+               // a.style.display = "none";
+            }
+            //rgb(30, 101, 146)
+            for (let a of document.getElementsByClassName("fancyButton1")) {
+                a.style.background = "rgb(30, 101, 146)";
+            }
+        }
+        function clickUP(negate) {
+
+            var arr = `pipro,piadv,pibiz,pient`.split(",");
+            var currentPos = arr.indexOf(localStorage.arrowClick);
+
+            if (negate) {
+                if (currentPos < 1) {
+                    currentPos = 4;
+                }
+                var targetDiv = arr[currentPos - 1];
+            } else {
+                if (currentPos > 2) {
+                    currentPos = -1;
+                }
+                var targetDiv = arr[currentPos + 1];
+            }
+
+            console.log("scroll to " + targetDiv);
+            pifocus(targetDiv);
+            localStorage.arrowClick = targetDiv;
+            document.getElementsByClassName("arrow")[0].title = `Click to scroll next to ${targetDiv}`;
+        }
+        piblur(`piadv`);
+        piblur(`pient`);
+        piblur(`pibiz`);
+        pifocus(`pipro`);
+        localStorage.arrowClick = `pipro`;
+    </script>
+</body>
+
+</html>

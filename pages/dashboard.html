@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="../js/commonLinks.js"></script>
+    <script>includeCommonHeader('Dashboard')</script>
+  </head>
+  <script>
+    if (!sessionStorage.getItem("userID"))
+      window.location.href = "https://pietential.com";
+  </script>
+  <script src="../js/language.js"></script>
+  <body>
+    <section id="navi"></section>
+    <script type="text/javascript" src="../navigation/topNav.js"></script>
+    <div class="scoreContainer analyzeItMainContainer">
+      <div class="sidebarMain">
+        <div class="wellbeingTextContainer">
+          <p class="wellbeingText wellbeing">
+            <script>
+              get_i18n("wellbeing");
+            </script>
+          </p>
+          <img
+            src="../assets/gredientArrow.svg"
+            alt="Arrow"
+            onclick="collapseSidebar()"
+          />
+        </div>
+        <p class="assessIt assess assessText" style="font-weight: 500">
+          <script>
+            get_i18n("assessText");
+          </script>
+        </p>
+        <p
+          class="assessIt selfText visualizeItText visualizeIt"
+          style="cursor: pointer"
+          onclick="window.location.href = `/pages/visualizeIt.html`"
+        >
+          <script>
+            get_i18n("visualizeIt");
+          </script>
+        </p>
+        <p
+          class="assessIt selfText visualizeItText analyzeIt forHiding"
+          style="cursor: pointer"
+          onclick="window.location.href = `/pages/analyzeIt.html`"
+        >
+          <script>
+            get_i18n("analyzeIt");
+          </script>
+        </p>
+        <p
+          class="assessIt selfText realizeItText visualizeItText"
+          style="font-weight: 700"
+        >
+          <script>
+            get_i18n("realizeItText");
+          </script>
+        </p>
+        <p class="assessIt selfText actualizeText visualizeItText forHiding">
+          <script>
+            get_i18n("actualizeText");
+          </script>
+        </p>
+      </div>
+      <div class="visualizeItContainer" id="dashboard" style="width: 83%">
+        <div id="container"></div>
+        <h2 id="dashboardTitle"></h2>
+        <p id="subtitle"></p>
+        <div class="container">
+          <canvas id="canvas" class="lineGraph"></canvas>
+        </div>
+        <section id="pastPieCharts" style="text-align: center"></section>
+        <div id="buttonMainContainer" style="display: none">
+          <div id="buttonsContainer" style="margin-top: 50px">
+            <button
+              class="analyzeIt tryItButton actualizeText"
+              id="analyzeIt"
+              onclick="window.location.href = `/pages/actualizeIt.html`"
+              style="margin: auto"
+            >
+              <script>
+                get_i18n("actualizeText");
+              </script>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <section id="footi"></section>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/chart.js"></script>
+    <script src="../js/apiHelper.js"></script>
+    <script src="../js/apiService.js"></script>
+    <script type="text/javascript" src="../navigation/bottomNav.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
+    <script>
+      function getStyling(){
+        let analyzeIt = getElementById("analyzeIt")
+        if (pietentialModule == 1 || pietentialModule == 2) {
+          analyzeIt.style.display = "none"
+        }
+      }
+      getStyling()
+      function collapseSidebar() {
+        let main = getElement(".sidebarMain");
+        let rightSideClass = getElement("#dashboard");
+        let assessIt = getElements(".assessIt");
+        rightSideClass.classList.toggle("visualize_it_container");
+        main.classList.toggle("minWidth");
+      }
+      let responseList = [];
+      var ls = [
+        "Self Actualization",
+        "Esteem and Contribution",
+        "Love and Belonging",
+        "Safety Needs",
+        "Physiological Needs",
+      ];
+      var selfList = [];
+      var esteemList = [];
+      var belongingList = [];
+      var safetyList = [];
+      var physiologicalList = [];
+      var graphDateList = [];
+      function drawChart(a, b, c, d, e, index) {
+        let ctx = getElementById(`barChart${index}`);
+        var part1color = `rgba(110, 148, 248, 1)`; //blue
+        var part2color = `rgba(2, 183, 45, 1)`; //green
+        var part3color = `rgba(249, 186, 3, 1)`; // yellow
+        var part4color = `rgba(248, 126, 2, 1)`; // orange
+        var part5color = `rgba(251, 0, 0, 1)`; // red
+        var myChart = new Chart(ctx, {
+          type: "polarArea",
+          data: {
+            labels: ls,
+            datasets: [
+              {
+                label: "Score",
+                data: [a, b, c, d, e],
+                backgroundColor: [
+                  part1color,
+                  part2color,
+                  part3color,
+                  part4color,
+                  part5color,
+                ],
+                borderColor: [
+                  part1color,
+                  part2color,
+                  part3color,
+                  part4color,
+                  part5color,
+                ],
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            legend: {
+              labels: {
+                // This more specific font property overrides the global property
+                defaultFontSize: 18,
+              },
+            },
+            scale: {
+              display: false,
+            },
+            scales: {
+              xAxes: [
+                {
+                  gridLines: {
+                    display: false,
+                  },
+                  ticks: {
+                    display: false,
+                  },
+                },
+              ],
+              yAxes: [
+                {
+                  gridLines: {
+                    display: false,
+                  },
+                  ticks: {
+                    display: false,
+                  },
+                },
+              ],
+            },
+          },
+        });
+      }
+      const logout = () => {
+        sessionStorage.clear();
+        window.location.href = "/";
+      };
+      const getQuestionsResponse = async () => {
+        let content = getElementById("content");
+        if (responseList.length < 0) {
+          content.innerHTML = "NO DATA FOUND";
+        }
+        var ls = [
+          "Self Actualization",
+          "Esteem and Contribution",
+          "Love and Belonging",
+          "Safety Needs",
+          "Physiological Needs",
+        ];
+        var part1color = `rgba(110, 148, 248, 1)`; //blue
+        var part2color = `rgba(2, 183, 45, 1)`; //green
+        var part3color = `rgba(249, 186, 3, 1)`; // yellow
+        var part4color = `rgba(248, 126, 2, 1)`; // orange
+        var part5color = `rgba(251, 0, 0, 1)`; // red
+        await getAllQuestionsResponse().then((res) => {
+          let reverseList = res.QuestionsResponse;
+          let q = reverseList;
+          responseList = q;
+          localStorage.setItem("res", q.length);
+          let dashboard = getElementById("dashboard");
+          let h2 = getElementById("dashboardTitle");
+          let p = getElementById("subtitle");
+          let parent = getElementById("container");
+          let lineGraph = getElementById("canvas");
+          if (q.length === 0) {
+            ("NO DATA FOUND");
+          }
+          if (q.length > 1) {
+            let dashboard = getElementById("dashboard");
+            let buttonContainer = getElementById(
+              "buttonMainContainer"
+            );
+            h2.innerHTML = "Account information:";
+            h2.id = "accountInformation";
+            p.innerHTML = "Progress:";
+            buttonContainer.style.display = "block";
+          } else {
+            let dashboard = getElementById("dashboard");
+            let p = document.createElement("p");
+            let p2 = document.createElement("p");
+            let buttonContainer = document.createElement("div");
+            let buttonContainer2 = document.createElement("div");
+            let container = document.createElement("div");
+            let img = document.createElement("img");
+            img.src = "../assets/promo.png";
+            container.appendChild(img);
+            container.className = "container dashboardContainer";
+            lineGraph.style.display = "none";
+            p.className = "thankYouText";
+            p.innerHTML =
+              "Thank you for taking the Pietential Life Balance Realization Survey for the first time!";
+            p2.innerHTML =
+              "You can log back in at any time and retake the survey. <br /> Doing so will enable you to track your progress over time.";
+            if (pietentialModule == 3){
+            buttonContainer2.innerHTML =
+              '<button class="tryItButton actualizeButton" style="margin: 20px auto" onclick="window.location.href = `/pages/actualizeIt.html`">Actualize It</button>';
+            }
+            buttonContainer.innerHTML =
+              '<div id="welrow" style="z-index: 2;width:600px;text-align: center;margin: auto;padding-top: 20px;" onmouseenter="makeTitle();">' +
+              '<a class="dashy bt login-bar" id="" href="/pages/score.html">Retake</a>' +
+              '<a onclick="alert(' +
+              "'To create a bookmark, drag the padlock icon in the address bar to a bookmarks bar or your desktop.'" +
+              ')" class=" dashy bt bgyellow login-bar" id="" href="javascript://">Bookmark</a>' +
+              '<a class="dashy bt bgred login-bar" id="logoutLink" onclick="clearData()" style="opacity: 1; cursor: pointer;">Logout</a>' +
+              "</div>";
+              if (pietentialModule == 3) {
+                parent.append(p, p2, container, buttonContainer2, buttonContainer);
+              }
+            else parent.append(p, p2, container, buttonContainer);
+          }
+          var pastCharts = "";
+          if (res.QuestionsResponse.length > 1) {
+            for (i = 0; i < responseList.length; i++) {
+              pastCharts += `<div class="polarGraphContainer">
+<p class="date">${responseList[i].completionDate.slice(0, 10)}</p>
+<canvas id='barChart${i}'></canvas></div>\n\n`;
+            }
+          }
+          getElementById("pastPieCharts").innerHTML = pastCharts;
+          for (let index = 0; index < q.length; index++) {
+            let a = Math.round(
+              ((Number(q[index].Q0response) +
+                Number(q[index].Q1response) +
+                Number(q[index].Q2response) +
+                Number(q[index].Q3response) +
+                Number(q[index].Q4response) +
+                Number(q[index].Q5response)) /
+                60) *
+                100
+            );
+            let b = Math.round(
+              ((Number(q[index].Q6response) +
+                Number(q[index].Q7response) +
+                Number(q[index].Q8response) +
+                Number(q[index].Q9response) +
+                Number(q[index].Q10response) +
+                Number(q[index].Q11response)) /
+                60) *
+                100
+            );
+            let c = Math.round(
+              ((Number(q[index].Q12response) +
+                Number(q[index].Q13response) +
+                Number(q[index].Q14response) +
+                Number(q[index].Q15response) +
+                Number(q[index].Q16response) +
+                Number(q[index].Q17response)) /
+                60) *
+                100
+            );
+            let d = Math.round(
+              ((Number(q[index].Q18response) +
+                Number(q[index].Q19response) +
+                Number(q[index].Q20response) +
+                Number(q[index].Q21response) +
+                Number(q[index].Q22response) +
+                Number(q[index].Q23response)) /
+                60) *
+                100
+            );
+            let e = Math.round(
+              ((Number(q[index].Q24response) +
+                Number(q[index].Q25response) +
+                Number(q[index].Q26response) +
+                Number(q[index].Q27response) +
+                Number(q[index].Q28response) +
+                Number(q[index].Q29response)) /
+                60) *
+                100
+            );
+            selfList.push(a);
+            graphDateList.push(q[index].completionDate.slice(0, 10));
+            esteemList.push(b);
+            belongingList.push(c);
+            safetyList.push(d);
+            physiologicalList.push(e);
+            drawChart(a, b, c, d, e, index);
+          }
+          drawGraph();
+        });
+      };
+      getQuestionsResponse();
+    </script>
+    <div>
+      <p id="content"></p>
+    </div>
+  </body>
+</html>

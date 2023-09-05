@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #eee;
+            border-collapse: collapse;
+
+        }
+
+        th,
+        td {
+            padding: 5px;
+            max-width: 400px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="v"><a href="thedata.json"> Download JSON</a> <br><br> </div>
+
+
+        <script>
+            fetch("thedata.json")
+                .then(r => {
+                    return r.text()
+                })
+                .then(a => {
+                    console.log("ajax success.");
+                    //console.log(a);
+                    var j = JSON.parse(a);
+                    window.j = j;
+                    j.reverse();
+                    j = shuffle(j);
+                    var out = `${j.length} entries:<br>`; var i = 0; var parr = [];
+                    var pout = "";
+                    var tout = "";
+                    for (let a of j) {
+                        i++;
+                        var link = a.href.replace(/https/ig, "http").replace(/www\./ig, "").replace(/#[\s\S]+/ig, "");
+                        var newTerm = a.href.replace(/.+linkedin\.com\/in\//ig, "").replace(/#[\s\S]+/ig, "");
+                        a.searchTerm = a.searchTerm.replace(/#[\s\S]+/ig, "");
+                        if (newTerm.length > 29) {
+                            newTerm = newTerm.substring(1, 30);
+                        }
+                        if (i < 260) {
+                            out += `${i}: <a href="${link}">${newTerm}</a> (${a.searchTerm})<br>`;
+                            tout += `<tr><td>${link}</td><td>${newTerm}</td><td>${a.searchTerm}</td></tr>`;
+                            parr.push(link);
+                        }
+                    }
+                    parr.sort();
+                    var table = `${j.length} entries:<br><table><tr><td>Link</td><td>Name</td><td>Category</td></tr>${tout}</table>`;
+                    document.getElementById("v").innerHTML += table;
+                    for (let a of parr) {
+                        pout += a + "<br>";
+                    }
+                    // document.getElementById("v").innerHTML += pout;
+                });
+
+                function shuffle(a) {
+            var c = a.length, t, r;
+            while (0 !== c) {
+                r = Math.floor(Math.random() * c);
+                c -= 1;
+                t = a[c];
+                a[c] = a[r];
+                a[r] = t;
+            } return a;
+        } 
+        </script>
+
+
+
+</body>
+
+</html>

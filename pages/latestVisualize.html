@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="../js/commonLinks.js"></script>
+    <script>includeCommonHeader('Latest Visualize')</script>
+  </head>
+
+  <body id="background">
+    <section id="navi"></section>
+    <script type="text/javascript" src="../navigation/topNav.js"></script>
+    <div id="noData" style="margin: 120px 0 40px 0; text-align: center">
+      <div class="noDataMain">
+        <div class="noDataInner">
+          <p>
+            Please complete your survey to receive your life balance
+            visualization
+          </p>
+          <br />
+          <div
+            class="tryItButtonContainer"
+            style="display: flex; justify-content: center"
+          >
+            <button
+              class="tryItButton"
+              style="margin: 0 20px 0 0"
+              onclick="onTakeSurvey()"
+            >
+              Take Survey
+            </button>
+            <button
+              class="tryItButton actualizeButton"
+              onclick="window.location.href = `/`"
+            >
+              Go back to home
+            </button>
+          </div>
+        </div>
+      </div>
+      <p></p>
+    </div>
+    <div class="scoreContainer analyzeItMainContainer">
+      <div id="forLoader" style="width: 100%">
+        <div class="visualizeItContainer" id="visualizeItContainer">
+          <h2 class="yourGrowth" style="width: 100%">
+            Your Latest Visualization
+          </h2>
+          <div class="graphContainer">
+            <div id="polarArea"><canvas id="myChart"></canvas></div>
+            <canvas id="barchart"></canvas>
+          </div>
+        </div>
+      </div>
+      <div id="loaderContainer" style="display: none">
+        <div class="loader_inner">
+          <img src="../assets/pie-spinner.png" alt="Pie">
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript" src="../navigation/bottomNav.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/chart.js"></script>
+    <script src="../js/apiHelper.js"></script>
+    <script src="../js/apiService.js"></script>
+    <script>
+      if (localStorage.getItem("res") > 0) {
+        getElementById("forLoader").style.display = "block";
+        getElementById("noData").style.display = "none";
+      } else {
+        getElementById("forLoader").style.display = "none";
+        getElementById("noData").style.display = "block";
+      }
+
+      function onTakeSurvey() {
+        if (!sessionStorage.getItem("userID"))
+          window.location.href = "/pages/register.html";
+        else window.location.href = "/pages/score.html";
+      }
+      if (localStorage.getItem("res")) {
+        const getQuestionsResponse = async () => {
+          getElementById("loaderContainer").style.display = "block";
+          getElementById("forLoader").style.display = "none";
+            await getAllQuestionsResponse().then((res) => {
+              let reverseList = res.QuestionsResponse.reverse();
+            let q = reverseList[0];
+            let a = Math.round(
+              ((Number(q.Q0response) +
+                Number(q.Q1response) +
+                Number(q.Q2response) +
+                Number(q.Q3response) +
+                Number(q.Q4response) +
+                Number(q.Q5response)) /
+                60) *
+                100
+            );
+            let b = Math.round(
+              ((Number(q.Q6response) +
+                Number(q.Q7response) +
+                Number(q.Q8response) +
+                Number(q.Q9response) +
+                Number(q.Q10response) +
+                Number(q.Q11response)) /
+                60) *
+                100
+            );
+            let c = Math.round(
+              ((Number(q.Q12response) +
+                Number(q.Q13response) +
+                Number(q.Q14response) +
+                Number(q.Q15response) +
+                Number(q.Q16response) +
+                Number(q.Q17response)) /
+                60) *
+                100
+            );
+            let d = Math.round(
+              ((Number(q.Q18response) +
+                Number(q.Q19response) +
+                Number(q.Q20response) +
+                Number(q.Q21response) +
+                Number(q.Q22response) +
+                Number(q.Q23response)) /
+                60) *
+                100
+            );
+            let e = Math.round(
+              ((Number(q.Q24response) +
+                Number(q.Q25response) +
+                Number(q.Q26response) +
+                Number(q.Q27response) +
+                Number(q.Q28response) +
+                Number(q.Q29response)) /
+                60) *
+                100
+            );
+            drawChart(a, b, c, d, e);
+            getElementById("loaderContainer").style.display = "none";
+            getElementById("forLoader").style.display = "block";
+            })
+        };
+        getQuestionsResponse();
+      }
+
+      function addNewStyleToFooter() {
+        let footer = getElementById("footi");
+        if (localStorage.getItem("res") < 1) {
+          footer.classList.add("footerBottomClass");
+        } else footer.classList.remove("footerBottomClass");
+      }
+      addNewStyleToFooter();
+    </script>
+  </body>
+</html>

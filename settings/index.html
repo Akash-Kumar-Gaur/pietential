@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+</head>
+
+<body>
+    <style>
+        input {
+            width: unset;
+        }
+    </style>
+    <script type="text/javascript" src="/navigation/topNav.js"></script>
+    <script type="text/javascript" src="/navigation/meta.js"></script>
+    <div style="max-width: 1100px;margin: auto;text-align: center;">
+        <div id="res" style="margin:40px;display:none"></div>
+        <textarea name="" id="ta" cols="30" rows="10" style="display:none"></textarea>
+           <br><br> <input type="checkbox" onclick="saveForm()" name="allowID" id="allowID" value="1"> Allow my organization to see my score and
+            identify me.
+            <br><br>
+            <button onclick="saveForm()">save</button>
+            <br><br>
+        <div id="message"></div>
+    </div>
+    <script>
+        var set = `email
+userID
+partnerID
+LBscorevalues
+purchaseCode
+userLevel
+completionDate`.split("\n")
+        if (!localStorage.pieletDataJSON) {
+            location.assign('/login/');
+        }
+        document.getElementById("ta").value = localStorage.pieletDataJSON;
+        var pieletData = JSON.parse(localStorage.pieletDataJSON);
+        if (!pieletData.userID) {
+            location.assign('/login/');
+        }
+        if (pieletData.allowID == 1) {
+            document.getElementById("allowID").checked = true;
+        }
+        var out = '';
+        for (let a of set) {
+            out += `${a.trim()}: ${pieletData[a.trim()]}<br>`;
+        }
+        res.innerHTML = out;
+        
+        function saveForm() {
+            var allowID = false;
+            if (document.getElementById("allowID").checked) {
+                allowID = 1;
+            } 
+            pieletData.allowID = allowID;
+            localStorage.pieletDataJSON = JSON.stringify(pieletData);
+            const fd = new FormData();
+            fd.append('userID', pieletData.userID);
+            fd.append('allowID', allowID);
+            const options = {
+                method: 'POST',
+                //mode: 'no-cors',
+                body: fd
+            };
+            fetch("/pielet/accountEngine/", options)
+                .then(r => {
+                    return r.text()
+                })
+                .then(a => {
+                    console.log("ajax success.");
+                    console.log(a);
+                    if (a.match(/false/)){
+                        message.innerHTML += `Sharing has been turned off.<br>`;
+                    } else {
+                        message.innerHTML += `Sharing has been turned on.<br>`;
+                    }
+                    
+                });
+        }
+    </script>
+    <section id="footi"></section>
+    <script type="text/javascript" src="https://pietential.com/navigation/bottomNav.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,271 @@
+<section id="interactive-pricing">
+    <style>
+        .productBox {
+            transition: all .5s;
+            opacity: 0;
+            filter: blur(2px);
+            transform: scale(1.1);
+            max-width: 70%;
+            z-index: 4;
+            /* position: absolute; */
+            text-align: center;
+            left: 16%;
+        }
+
+        .pic800 {
+            max-width: 67%;
+            box-shadow: 0px 10px 22px 0px rgb(0 0 0 / 60%);
+            transition: all .5s;
+            border-radius: 25px;
+            margin-bottom: 50px;
+        }
+
+        #pipro {
+            margin: auto;
+        }
+
+        #piadv {
+            margin: auto;
+            margin-top: -30px;
+        }
+
+        #pibiz {
+            margin: auto;
+            margin-top: -30px;
+        }
+
+        #pient {
+            margin: auto;
+            margin-top: -30px;
+        }
+
+        #but {
+            margin-top: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+            z-index: 11;
+        }
+
+        .fancyButton1 {
+            font-family: inherit;
+            border-width: initial;
+            border-style: none;
+            border-color: initial;
+            font-size: 14px;
+            color: rgb(255, 255, 255);
+            background: rgb(30, 101, 146);
+            cursor: pointer;
+            padding: 15px 20px;
+            margin: 5px 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            outline: none;
+            position: relative;
+            transition: all 0.3s;
+            border-radius: 7px;
+            box-shadow: rgb(8, 44, 65) 0px 5px;
+            overflow: hidden;
+            text-decoration: none;
+            word-break: break-all;
+            overflow-wrap: break-word;
+            min-width: 236px;
+        }
+
+        .fancyButton1:hover {
+            background: rgb(63 167 234);
+            ;
+        }
+
+        #piproButton {
+            background: #6E94F8;
+        }
+
+        #piadvButton {
+            background: #02B72D;
+        }
+
+        #pibizButton {
+            background: #F9BA03;
+        }
+
+        #pientButton {
+            background: #F87E02;
+        }
+
+        .fancySub {
+            display: block;
+            margin-top: -30px;
+            opacity: .7;
+        }
+
+        .fancyHeadline {
+            font-size: 36px;
+            /* line-height: 0; */
+            opacity: .7;
+        }
+
+        .explain {
+
+            max-width: 700px;
+            margin: auto;
+        }
+
+        .arrow {
+            max-width: 173px;
+            position: absolute;
+            display: block;
+            right: 14%;
+            z-index: 12;
+            margin-top: 232px;
+            opacity: .2;
+            cursor: pointer;
+        }
+
+        .arrow2 {
+            left: 16%;
+            z-index: 12;
+            margin-top: 232px;
+            transform: rotate(180deg);
+        }
+
+        #branding img {
+            max-width: 200px;
+        }
+
+        @media all and (max-width:900px) {
+            #navArrows {
+                display: none;
+            }
+        }
+    </style>
+
+    <div id="but"> <button id="piworldButton" class="fancyButton1" onmouseenter="pifocus(`piworld`)"
+            style="transform: scale(1); z-index: 2;">Pietential<br>$0.00/month</button> <button id="piproButton"
+            class="fancyButton1" onmouseenter="pifocus(`pipro`)" style="transform: scale(1); z-index: 2;">Pietential
+            Pro<br>$3.95/month</button> <button id="piadvButton" class="fancyButton1" onmouseenter="pifocus(`piadv`)"
+            style="transform: scale(1.2); z-index: 9;">Pietential Advisor<br>$100/month</button> <button
+            id="pibizButton" class="fancyButton1" onmouseenter="pifocus(`pibiz`)"
+            style="transform: scale(1); z-index: 2;">Pietential Business<br>$1/month/user</button> <button
+            id="pientButton" class="fancyButton1" onmouseenter="pifocus(`pient`)"
+            style="transform: scale(1); z-index: 2;">Pietential Enterprise<br>Call for Details</button> </div>
+    <section id="products" style="max-width: 1630px;margin: auto;position: relative;">
+        <div id="piworld" class="productBox pifocused piblurred"
+            style="z-index: 4; opacity: 0; filter: blur(0px); transform: scale(1.1); height: 0px;">
+            <h3 class="fancyHeadline">Pietential</h3><span class="fancySub"><strong>Realize Your Growth
+                    Potential</strong></span><br> <img class="pic800"
+                src="https://pietential.com/images/promoImage-world.png" alt="">
+            <section class="explain" style="display: block;"> <button id="piworldButton" class="fancyButton1"
+                    style="background: rgb(251, 0, 0); transform: scale(1); z-index: 2;"
+                    onclick="window.open(`/`)">Register</button><br><br>
+                <p style="text-align: center;"> Pietential is based on Maslow’s Hierarchy of Needs. Through the free
+                    online survey (which takes 5-7 minutes to complete) the Pietential learning platform instantly
+                    creates a pie chart and bar graph that helps you Visualize and Analyze where you stand regarding the
+                    core issues that are central to what it is to be human: Physiological Needs, Safety Needs, Love and
+                    Belonging, Esteem, and Self-actualization. And it offers observations, recommendations and coaching
+                    towards living your best life. <br><br> And Pietential is free!</p>
+                <p style=" text-align: center;"> </p>
+            </section>
+        </div>
+        <div id="pipro" class="productBox pifocused piblurred"
+            style="z-index: 4; opacity: 0; filter: blur(0px); transform: scale(1.1); height: 0px;">
+            <h3 class="fancyHeadline">PietentialPRO</h3><span class="fancySub"><strong>Track and Share your Progress
+                    with PietentialPRO</strong></span><br> <img class="pic800"
+                src="https://pietential.com/images/promoImage-pro.png" alt="">
+            <section class="explain" style="display: block;"> <button id="piproButton" class="fancyButton1"
+                    style="background: rgb(251, 0, 0); transform: scale(1); z-index: 2;"
+                    onclick="window.open(`https://buy.stripe.com/bIYdUP5gqfMo1k4bII`)">Subscribe</button><br><br>
+                <p style="text-align: center;"> PietentialPRO is for individual Pietential Subscribers.</p>
+                <p style="text-align: center;"> It allows you to set reminders to retake Pietential at your convenience
+                    and it automatically tracks your progress each time you log in by line graphing your journey towards
+                    improved wellbeing over time.</p>
+                <p style="text-align: center;"> And, PietentialPRO allows you to share your Pietential results on social
+                    media platforms in order to let your friends know how you’re doing, where you might need their
+                    support - and the progress you’re making towards being the best version of yourself.</p>
+                <p style=" text-align: center;"> </p>
+            </section>
+        </div>
+        <div id="piadv" class="productBox piblurred pifocused"
+            style="opacity: 1; z-index: 5; filter: blur(0px); transform: scale(1);">
+            <h3 class="fancyHeadline">PietentialADVISOR</h3><span class="fancySub"><strong>Build Trust More Quickly and
+                    Stay Connected with PietentialADVISOR</strong></span><br> <img class="pic800"
+                src="https://pietential.com/images/promoImage-advisor.png" alt="">
+            <section class="explain">
+                <div style="text-align: center;"> <button id="piproButton" class="fancyButton1"
+                        style="background: rgb(251, 0, 0); transform: scale(1); z-index: 2;"
+                        onclick="window.open(`https://buy.stripe.com/dR67wreR07fS5AkdQR`)">Start free trial</button>
+                    -OR- <button class="fancyButton1"
+                        style="background: rgb(251, 0, 0); transform: scale(1); z-index: 2;"
+                        onclick="window.open(`https://app.acuityscheduling.com/schedule.php?owner=18765814&amp;appointmentType=31604298`)">Zoom
+                        with us</button><br><br> PietentialADVISOR is for life coaches, nutritionist and personal
+                    trainers; CEO Mastermind group facilitators and business consultants; CVAs, exit planners, and
+                    business brokers - people who are in the business of adviaing others! It helps you build trust more
+                    quickly by getting into a conversation with clients (and prospective clients) about about life
+                    balance, and helps you stay better connected to your clients while understanding&nbsp; what’s
+                    important to them. </div>
+                <div style="text-align: center;"> &nbsp;</div>
+                <div style="text-align: center;"> PietentialADVISOR Subscribers are able to issue PietentialPro seat
+                    licenses (with all accompanying features and benefits) to their clients and prospective clients, and
+                    can monitor their well-being through the PietentialADVISOR Advisor Dashboard.&nbsp; Moreover,
+                    ADVISOR Subscribers can set alerts related to their client or prospective client’s wellbeing which
+                    notify the advisor if a given person’s scores have fallen below a certain threshold set by you, the
+                    Advisor.</div>
+                <div style="text-align: center;"> &nbsp;</div>
+                <div style="text-align: center;"> For ADVISORs who wish to issue seat licenses to prospective clients
+                    for business development purposes, the PietentialADVISOR Platform allows ADVISORs to export their
+                    Pietential contacts into their CRM or sales force automation software for use as part of their
+                    nurture marketing campaigns.</div>
+            </section>
+        </div>
+        <div id="pibiz" class="productBox piblurred pifocused"
+            style="opacity: 0; z-index: 4; filter: blur(0px); transform: scale(1.1); height: 0px;">
+            <h3 class="fancyHeadline">PietentialBusiness</h3> <strong class="fancySub">Support Employee Wellbeing with
+                PietentialBUSINESS</strong><br> <img class="pic800"
+                src="https://pietential.com/images/promoImage-business.png" alt="">
+            <section class="explain" style="display: block;">
+                <div style="text-align: center;"> <button id="piproButton" class="fancyButton1"
+                        style="background: rgb(251, 0, 0); transform: scale(1); z-index: 2;"
+                        onclick="window.open(`https://buy.stripe.com/14k03Z10afMo9QA8wz`)">Start free trial</button>
+                    -OR- <button class="fancyButton1"
+                        style="background: rgb(251, 0, 0); transform: scale(1); z-index: 2;"
+                        onclick="window.open(`https://app.acuityscheduling.com/schedule.php?owner=18765814&amp;appointmentType=31604298`)">Zoom
+                        with us</button><br><br> The PietentialBUSINESS Platform allows owners of small and medium
+                    businesses, and directors of nonprofit organizations to offer PietentialPro (with all of its
+                    features and benefits) to all of their employees in order to support employee wellbeing on an
+                    individual, or an aggregate basis.&nbsp; </div>
+                <div style="text-align: center;"> &nbsp;</div>
+                <div style="text-align: center;"> Pietential Business offers a customizable front-end employee survey
+                    which allows organizational leadership to visualize and analyze employee wellbeing by location, job
+                    title, age, or any other demographic factors that their human resource department keeps track of.
+                </div>
+                <p style="text-align: center;"> </p>
+            </section>
+        </div>
+        <div id="pient" class="productBox piblurred pifocused"
+            style="opacity: 0; z-index: 4; filter: blur(0px); transform: scale(1.1); height: 0px;"
+            onmouseenter="adjustBlurred()">
+            <h3 class="fancyHeadline">PietentialENTERPRISE</h3><strong class="fancySub">Visualize Population Wellbeing
+                with PietnetialENTERPRISE</strong><br> <img class="pic800"
+                src="https://pietential.com/images/promoImage-enterprise.png" alt="">
+            <section class="explain">
+                <div style="text-align: center;"> <button id="piproButton" class="fancyButton1"
+                        style="background: rgb(251, 0, 0); transform: scale(1); z-index: 2;"
+                        onclick="moreForm()">Contact for Details</button> -OR- <button class="fancyButton1"
+                        style="background: rgb(251, 0, 0); transform: scale(1); z-index: 2;"
+                        onclick="window.open(`https://app.acuityscheduling.com/schedule.php?owner=18765814&amp;appointmentType=31604298`)">Zoom
+                        with us</button><br><br> The “PietentialENTERPRISE” population wellbeing monitoring platform is
+                    for organizations with large population (often de-centralized populations) like national and global
+                    corporations, School Systems; Colleges, Universities and University Systems; large NPOs and NGOs;
+                    and Local, State and Federal Agencies who want to be able to to visualize, quantify and better
+                    understand their population wellbeing in order that they can take steps to improve it. </div>
+                <div style="text-align: center;"> &nbsp;</div>
+                <div style="text-align: center;"> PietentialENTERPRISE affords every member of the organization a
+                    PietentialPRO license and the ability to visualize their own personal well being.&nbsp; And, through
+                    a custom API integration it gives the organization’s leadership the ability to visualize the
+                    wellbeing of the entire organization in aggregate, or to view any number of comparative
+                    visualizations segmented in any manner in which the client’s HR database is already architected.
+                </div>
+            </section>
+        </div>
+    </section>
+</section>

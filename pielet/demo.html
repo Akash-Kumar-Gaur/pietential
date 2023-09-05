@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
+    <link href="https://pietential.com/styles.css" rel="stylesheet" type="text/css">
+    </link>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,800&display=swap" rel="stylesheet">
+    <h1>Data visuals using chartJS by Hank Mitchell</h1>
+    <div id="subhead"></div>
+    <canvas id="myChart" class="chart"></canvas>
+
+
+    <script>
+
+        window.datavis = {};
+
+        function pickaCard() {
+            c = [];
+            for (x = 2; x < 105; x++) {
+                c[x] = x;
+            }
+            s = shuffle(c)[0];
+            return (s);
+        }
+        function pickaColor() {
+            datavis.c = [`rgba(110, 148, 248, 1)`
+                , `rgba(2, 183, 45, 1)`
+                , `rgba(249, 186, 3, 1)`
+                , `rgba(248, 126, 2, 1)`
+                , `rgba(251, 0, 0, 1)`];
+            datavis.c = shuffle(datavis.c);
+            datavis.part1color = datavis.c[0];
+            datavis.part2color = datavis.c[1];
+            datavis.part3color = datavis.c[2];
+            datavis.part4color = datavis.c[3];
+            datavis.part5color = datavis.c[4];
+        }
+        function drawChartMini() {
+            pickaColor();
+            datavis.b = pickaCard();
+            datavis.l = pickaCard();
+            datavis.a = pickaCard();
+            datavis.c = pickaCard();
+            datavis.k = pickaCard();
+            datavis.toggle = shuffle(['polarArea', "line", "bar", 'radar', 'doughnut',])[0];
+
+            datavis.ctx = document.getElementById('myChart').getContext('2d');
+            datavis.ls = ['Self Actualization', 'Esteem and Contribution', 'Love and Belonging', 'Safety Needs', 'Physiological Needs'];
+
+            datavis.alphaValue = .6;
+
+            datavis.border1 = datavis.part1color;
+            datavis.border2 = datavis.part2color;
+            datavis.border3 = datavis.part3color;
+            datavis.border4 = datavis.part4color;
+            datavis.border5 = datavis.part5color;
+
+            datavis.fill1 = datavis.part1color.replace(" 1)", `${datavis.alphaValue})`);
+            datavis.fill2 = datavis.part2color.replace(" 1)", `${datavis.alphaValue})`);
+            datavis.fill3 = datavis.part3color.replace(" 1)", `${datavis.alphaValue})`);
+            datavis.fill4 = datavis.part4color.replace(" 1)", `${datavis.alphaValue})`);
+            datavis.fill5 = datavis.part5color.replace(" 1)", `${datavis.alphaValue})`);
+            datavis.out = `<h4>Colors: ${datavis.fill1},${datavis.fill2},${datavis.fill3},${datavis.fill4},${datavis.fill5}`;
+            datavis.out += `<br>Random dataset: ${datavis.b}, ${datavis.l},${datavis.a},${datavis.c},${datavis.k} </h4> `
+            subhead.innerHTML = datavis.out;
+            datavis.border1 = datavis.fill1.replace(".6)", " .91)");
+            datavis.border2 = datavis.fill2.replace(".6)", " .91)");
+            datavis.border3 = datavis.fill3.replace(".6)", " .91)");
+            datavis.border4 = datavis.fill4.replace(".6)", " .91)");
+            datavis.border5 = datavis.fill5.replace(".6)", " .91)");
+
+
+
+
+
+            myChart = new Chart(datavis.ctx, {
+                type: datavis.toggle,
+                // type: 'polarArea',
+                // type: 'doughnut',
+                data: {
+                    labels: datavis.ls,
+                    datasets: [{
+                        label: 'Score',
+                        data: [datavis.b, datavis.l, datavis.a, datavis.c, datavis.k],
+                        backgroundColor: [
+                            datavis.fill1,
+                            datavis.fill2,
+                            datavis.fill3,
+                            datavis.fill4,
+                            datavis.fill5
+                        ],
+                        borderColor: [
+                            datavis.border1,
+                            datavis.border2,
+                            datavis.border3,
+                            datavis.border4,
+                            datavis.border5
+                        ],
+                        borderWidth: 1
+                    }]
+                }
+
+            });
+
+
+        }
+
+
+
+
+        function shuffle(array) {
+            var currentIndex = array.length,
+                temporaryValue, randomIndex;
+            // While there remain elements to shuffle...
+            while (0 !== currentIndex) {
+                // Pick a remaining element...
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex -= 1;
+                // And swap it with the current element.
+                temporaryValue = array[currentIndex];
+                array[currentIndex] = array[randomIndex];
+                array[randomIndex] = temporaryValue;
+            }
+            return array;
+        }
+
+        drawChartMini();
+
+        setInterval(function () { 
+            drawChartMini(); 
+        }, 2000);
+
+    </script>
+
+</body>
+
+</html>

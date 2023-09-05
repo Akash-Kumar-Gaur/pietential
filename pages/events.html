@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script src="../js/commonLinks.js"></script>
+  <script>includeCommonHeader('Pietential Events')</script>
+</head>
+
+<body>
+  <section id="navi"></section>
+  <section class="upcomingEvents">
+    <div class="container">
+      <h2>Upcoming Events</h2>
+      <div class="wrapperRow">
+        <div class="eventContainer" onclick="goToNgoEvent()">
+          <img src="../assets/upcomingEvents.png" alt="Upcoming Event" />
+          <div class="border"></div>
+          <div class="aboutEvent">
+            <div class="aboutEventContent">
+              <h3>NGO Alliance Webinar</h3>
+              <h5>John Starling - <span>CEO, Pietential</span></h5>
+              <p>7th Mar 2023<span>8 pm - 9 pm IST</span></p>
+            </div>
+            <div class="buttonContainer">
+              <p>
+                <button>Learn more</button>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="eventContainer event-container" onclick="goToSpeakerSeries()">
+          <img src="../assets/event.png" alt="Upcoming Event" />
+          <div class="border"></div>
+          <div class="aboutEvent">
+            <div class="aboutEventContent">
+              <h3>Monthly Speaker Series'23</h3>
+              <h5>John Starling - <span>CEO, Pietential</span></h5>
+              <p>29th Jan 2022 <span>11.00 am - 12.00 pm EST</span></p>
+            </div>
+            <div class="buttonContainer">
+              <p>
+                <button>Learn more</button>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="footi"></section>
+  <script type="text/javascript" src="../navigation/topNav.js?87"></script>
+  <script type="text/javascript" src="../navigation/bottomNav.js"></script>
+  <script>
+    function goToSpeakerSeries() {
+      window.location.assign("/pages/mhn.html");
+    }
+    function goToNgoEvent() {
+      window.location.assign("/pages/ngoEvent.html");
+    }
+  </script>
+</body>
+
+</html>

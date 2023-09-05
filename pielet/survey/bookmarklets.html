@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dataDump</title>
+</head>
+
+<body>
+    <script>
+        function dataDump() {
+            var out = ``;
+            try {
+                var ca2 = document.cookie.split(";");
+                var cookieArray = [];
+                var cookieObj = {};
+                for (let s of ca2) {
+                    let q = s.split("=");
+                    var obj = {};
+                    var cookieName = q[0].trim();
+                    var cookieValue = q[1].trim();
+                    obj[cookieName] = cookieValue;
+                    cookieObj[cookieName] = cookieValue;
+                    cookieArray.push(obj);
+                }
+                for (let a in cookieObj) {
+                    out += `cookie.${a} = ${cookieObj[a]}<br>`;
+                }
+            } catch (e) { }
+            try {
+                for (let a in pieletData) {
+                    out += `pieletData.${a} = ${pieletData[a]}<br>`;
+                }
+            } catch (e) { }
+            try {
+                dataViewer.innerHTML = "";
+            } catch (e) {
+                document.body.innerHTML = `<div id="dataViewer" style="padding:60px"></div>` + document.body.innerHTML;
+            }
+
+            dataViewer.innerHTML = out;
+        }
+        dataDump();
+
+        for (let a in localStorage) {
+            out += `localStorage.${a} = ${localStorage[a]}<br>`;
+        }
+    </script>
+</body>
+
+</html>

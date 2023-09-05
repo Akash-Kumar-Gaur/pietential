@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pietential</title>
+</head>
+<link href="https://pietential.com/pielet/styles.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,800&amp;display=swap" rel="stylesheet">
+
+<body>
+
+
+
+<script id="topNavScript" type="text/javascript" src="/navigation/topNav.js"></script>
+
+    <div id="main" style="max-width:500px; padding:20px;text-align:center;margin:auto;">
+        <div style="margin:auto;">
+
+            <h2>Organization Code:</h2>
+            <form action="/pielet/accountEngine/" method="POST">
+                 <BR>
+                <input placeholder="Enter your organization code:" type="text" id="purchaseCode" name="purchaseCode"><BR>
+                
+                <input value="submit" type="submit" id="sbut"><BR>
+            </form>
+            
+        </div>
+    </div>
+
+    <script>    
+    var ca2 = document.cookie.split(";");
+        var cookieArray = [];
+        var cookieObj = {};
+        for (let s of ca2) {
+            let q = s.split("=");
+            var obj = {};
+            var cookieName = q[0].trim();
+            var cookieValue = q[1].trim();
+            obj[cookieName] = cookieValue;
+            cookieObj[cookieName] = cookieValue;
+            cookieArray.push(obj);
+        }
+        if (!document.cookie.match(/userID/i)){
+            main.innerHTML = `You need to <a href="/">create an account</a> before you use a code.`;
+        }
+        if (location.href.match(/pc=/)){
+            var pc = location.href.replace(/[\s\S]+=/ig, '');
+            purchaseCode.value=pc;
+            sbut.click();
+
+            // https://pietential.com/pielet/promocode/?pc=meaning
+            // https://pietential.com/pielet/promocode/?pc=wellness
+        }
+    </script>
+
+    <section id="footi"></section>
+    <script type="text/javascript" src="/navigation/bottomNav.js"></script>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-K3VEYCTX6E"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-K3VEYCTX6E');
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create admin account</title>
+    <link href="/pielet/styles.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,800&display=swap" rel="stylesheet">
+</head>
+<style>
+    .bt {
+        font-size: 16px;
+    }
+
+    body {
+        padding: 20px;
+    }
+
+    input {
+        width: 250px;
+    }
+
+    a {
+        text-decoration: none;
+    }
+</style>
+
+<script>
+    if (!document.cookie.match(/uuHash/)) {
+        location.assign('./?bad-credentials/');
+    }
+
+    var d = `Client's preferred username (no spaces)
+    Client's email address
+    Client's secure password
+    Client's First name
+    Client's Last name
+    Client's Company name
+    Client's Phone number
+    Client's Preferred title
+    Client's website`;
+</script>
+
+
+<h2>Create admin account:</h2>
+
+Your Name<br>
+<input class="form" type="text" id="Name" name="Name" style="margin-bottom:10px;"><br>
+
+Client Name<br>
+<input class="form" type="text" id="clientName" name="clientName" style="margin-bottom:10px;"><br>
+
+Client Admin Type<br>
+<select class="form" name="serviceLevel" id="serviceLevel" style="margin-bottom:10px;">
+    <option value="advisor">advisor</option>
+    <option value="business">business</option>
+    <option value="enterprise">enterprise</option>
+    <option value="NGO">NGO</option>
+</select><br>
+Organization code<br>
+<input class="form" onkeyup="trimValue('promoCode')" type="text" id="promoCode" name="promoCode"
+    style="margin-bottom:10px;"><br>
+    Organization code will be the code that the client gives to their users to use. Example: <code
+    style="font-family: monospace;color:gray;font-weight:bold;">mcormickSpices</code>
+<br><br>
+
+Client's preferred username (no spaces)<br>
+<input class="form" onkeyup="trimValue('username')" type="text" id="username" name="username"
+    style="margin-bottom:10px;"><br>
+
+Client's email address<br>
+<input class="form" type="text" id="Q2clientsEmailAddress" name="Q2clientsEmailAddress" style="margin-bottom:10px;"><br>
+
+Client's Company name<br>
+<input class="form" type="text" id="Q6clientsCompanyName" name="Q6clientsCompanyName" style="margin-bottom:10px;"><br>
+
+<button class="bt" onclick="process()">Process</button>
+
+<br><br>
+
+After creating the client account, the client's users can use that organization code to become associated with the client.
+
+
+<script>
+    function gid(id) {
+        return document.getElementById(id);
+    }
+    if (localStorage.staffAccountCreate) {
+        var obj = JSON.parse(localStorage.staffAccountCreate);
+        for (let a in obj) {
+            document.getElementsByName(a)[0].value = obj[a].trim();
+        }
+    }
+
+    function sucess() {
+        var el = document.getElementsByClassName("bt")[0];
+        el.style.background = 'black';
+        el.innerHTML = "Saved successfully.";
+    }
+
+    function trimValue(el) {
+        gid(el).value = gid(el).value.trim().replace(/[^a-z0-9]+/ig, "");
+    }
+
+    function saveAllFormData(nameOfLocalStorageObj) {
+        if (localStorage[nameOfLocalStorageObj]) {
+            var obj = JSON.parse(localStorage[nameOfLocalStorageObj]);
+            for (let a in obj) {
+                document.getElementsByName(a)[0].value = obj[a].trim();
+            }
+        }
+        for (let a of document.getElementsByClassName("form")) {
+            fd.append(a.name, a.value);
+            obj[a.name] = a.value;
+        }
+        localStorage[nameOfLocalStorageObj] = JSON.stringify(obj);
+    }
+
+    function process() {
+
+        const fd = new FormData();
+        var obj = {};
+        for (let a of document.getElementsByClassName("form")) {
+            fd.append(a.name, a.value);
+            obj[a.name] = a.value;
+        }
+        //alert(JSON.stringify(obj));
+        localStorage.staffAccountCreate = JSON.stringify(obj);
+        const options = {
+            method: 'POST',
+            //mode: 'no-cors',
+            body: fd
+        };
+        fetch("ab.php", options)
+            .then(r => {
+                return r.text()
+            })
+            .then(a => {
+                console.log("ajax success.");
+                console.log(a);
+                sucess();
+            });
+    }
+</script>

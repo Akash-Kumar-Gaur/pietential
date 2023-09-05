@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="main"></div>
+    <button onclick="process();">process</button>
+    <div> <textarea name="" id="output" cols="30" rows="10"></textarea></div>
+
+
+    <script>
+        var cats = `SA1,SA2,SA3,EC1,EC2,EC3,LB1,LB2,LB3,SN1,SN2,SN3,PN1,PN2,PN3`.split(",");
+        var out = '';
+        for (let a of cats) {
+            out += `${a}:<br><textarea id="${a}"></textarea><br><br>`;
+        }
+        main.innerHTML = out;
+
+        var kob = JSON.parse(localStorage.toolingData);
+        for (let a in kob) {
+            document.getElementById(a).value = kob[a].trim();
+        }
+
+        function process() {
+            var obj = {};
+            var codedOBJ = {};
+            for (let a of cats) {
+                var chunk = document.getElementById(a).value.trim();
+                obj[a] = chunk;
+                var htm = chunk.replace(/\n+/ig, "<br><br>");
+                codedOBJ[a] = htm;
+            }
+            localStorage.toolingData = JSON.stringify(obj);
+            output.value = JSON.stringify(codedOBJ);
+        }
+
+
+
+function pick
+
+
+    </script>
+
+</body>
+
+</html>

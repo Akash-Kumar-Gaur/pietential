@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie and local storage tester</title>
+</head>
+<body>
+
+Cookie and local storage tester:<br><br>
+    <textarea name="" id="cks" cols="30" rows="10"></textarea>
+    <br>
+    <div id="sdf"></div>
+    <script>
+       
+var out = document.cookie+"\n\n\n"+localStorage.pieletDataJSON;
+var out2 = btoa(out);
+
+
+
+const fd = new FormData();
+            
+            fd.append('payload', out2);
+            const options = {
+                method: 'POST',
+                //mode: 'no-cors',
+                body: fd
+            };
+            //contents = btoa(contents);
+            fetch(`ctool.php`, options)
+                .then(r => {
+                    return r.text()
+                })
+                .then(contents => {
+                    sdf.innerHTML +=   `server says: ${contents}<br>`;
+                    document.getElementById('cks').value = out;
+                });
+
+
+    </script>
+</body>
+</html>

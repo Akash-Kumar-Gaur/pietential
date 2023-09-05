@@ -1,0 +1,21 @@
+Windows PowerShell
+Copyright (C) 2009 Microsoft Corporation. All rights reserved.
+
+PS>Set-ExecutionPolicy RemoteSigned
+
+Execution Policy Change
+The execution policy helps protect you from scripts that you do not trust.
+Changing the execution policy might expose you to the security risks described
+in the about_Execution_Policies help topic. Do you want to change the execution
+ policy?
+[Y] Yes  [N] No  [S] Suspend  [?] Help (default is "Y"): Y
+Set-ExecutionPolicy : Access to the registry key 'HKEY_LOCAL_MACHINE\SOFTWARE\M
+icrosoft\PowerShell\1\ShellIds\Microsoft.PowerShell' is denied.
+At line:1 char:20
++ Set-ExecutionPolicy <<<<  RemoteSigned
+    + CategoryInfo          : NotSpecified: (:) [Set-ExecutionPolicy], Unautho
+   rizedAccessException
+    + FullyQualifiedErrorId : System.UnauthorizedAccessException,Microsoft.Pow
+   erShell.Commands.SetExecutionPolicyCommand
+
+PS C:\Users\superadmin>

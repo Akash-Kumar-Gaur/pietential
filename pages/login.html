@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="../js/commonLinks.js"></script>
+    <script>includeCommonHeader('User Login')</script>
+  </head>
+
+  <body>
+    <section class="login">
+      <div class="container">
+        <div class="logInImageContainer">
+          <a href="/">
+            <img
+              src="../assets/pietentialBlackLogo.svg"
+              alt="Pietential Logo"
+              class="logo"
+            />
+          </a>
+          <img
+            src="../assets/loginPageImage.svg"
+            alt=""
+            class="loginPageImage"
+          />
+        </div>
+        <div class="formMainContainer">
+          <div class="formContainer">
+            <div class="button_container">
+              <a href="" class="button userActive">user login</a>
+              <a href="/pages/adminLogin.html" class="button adminButton"
+                >admin login</a
+              >
+            </div>
+            <h2>Login</h2>
+            <form>
+              <input
+                type="email"
+                placeholder="Enter your Email"
+                id="email"
+                name="email"
+                required
+              />
+              <input
+                type="password"
+                placeholder="Password"
+                id="password"
+                name="password"
+                required
+              />
+              <input
+                type="text"
+                placeholder="Enter Your Organization Name"
+                name="promoCode"
+                id="promoCode"
+              />
+              <p class="registeredWithPromoCode">
+                * Enter your organization name only if you registered with a
+                organization code.
+              </p>
+              <a href="/pages/forgotPassword.html" class="forgetPassword"
+                >forgot password?</a
+              >
+              <div class="button_container btnContainer newUser">
+                <a class="loginButton submitButton" onclick="onLogin()"
+                  >Submit</a
+                >
+                <p>New User?<a href="/pages/register.html">Register</a></p>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="modalOverlay" id="modalOverlay"></div>
+        <script src="../js/apiHelper.js"></script>
+        <script src="../js/main.js"></script>
+        <script src="../js/apiService.js"></script>
+        <script>
+          let modal = getElementById("modalOverlay");
+
+          function hideModal() {
+            modal.style.display = "none";
+          }
+
+          function getView(title) {
+            return `<div class="alertMain"><div class="alertInner" id="modalInner"><p>${title}</p>
+        <a class="loginButton" onclick="hideModal()" style="margin: auto">Ok</a>
+        </div></div>`;
+          }
+          const onLogin = async () => {
+            await handleUserLogin(
+              getElementById("email").value,
+              getElementById("password").value,
+              getElementById("promoCode").value
+            ).then((response) => {
+              console.log(response)
+              sessionStorage.setItem(
+                "email",
+                getElementById("email").value
+              );
+              sessionStorage.setItem("pietentialModule", response.pietentialModule)
+              sessionStorage.setItem("userPrivacy", response.userPrivacy)
+              if (response.error) {
+                modal.innerHTML = "";
+                modal.style.display = "block";
+                modal.innerHTML += getView(`some error occurred`);
+                return;
+              } else if (response.message) {
+                modal.innerHTML = "";
+                modal.style.display = "block";
+                modal.innerHTML += getView(response.message);
+                return;
+              } else if (
+                getElementById("promoCode").value.length > 1
+              ) {
+                sessionStorage.setItem("userID", response.userID);
+                sessionStorage.setItem("companyName", response.companyName);
+                sessionStorage.setItem("jwt", response.token);
+                localStorage.setItem("res", response.userResponse);
+                if (response.countStatus > 0) {
+                  return (window.location.href = `/`);
+                } else {
+                  return (window.location.href = `/pages/generalDetails.html`);
+                }
+              } else {
+                sessionStorage.setItem("userID", response.userID);
+                sessionStorage.setItem("companyName", "");
+                sessionStorage.setItem("jwt", response.token);
+                localStorage.setItem("res", response.userResponse);
+                return (window.location.href = `/`);
+              }
+            });
+          };
+        </script>
+      </div>
+    </section>
+  </body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tests</title>
+</head>
+
+<body>
+    <script>
+        function posa() {
+            /* typical new user cookies
+            '[{"edit20162":"d3476b86e9de554f7aae5f89802c1d1121ffefa9"},{"_ga":"GA1.2.1710183737.1634742278"},{"adminID":"johnstarling"},{"adjustfilepath":"aws"},{"_gid":"GA1.2.1512720698.1640374694"},{"userID":"x8F5jTpYGvKe"},{"email":"Isiah.Ty%40mailstripe.com"},{"fname":"Isiah"},{"_gat_gtag_UA_117957204_2":"1"},{"percent":"96"}]'
+            */
+            try {
+                var ca2 = document.cookie.split(";");
+                var cookieArray = [];
+                for (let s of ca2) {
+                    let q = s.split("=");
+                    var obj = {};
+                    obj[q[0].trim()] = q[1].trim();
+                    cookieArray.push(obj);
+                }
+                console.log(cookieArray);
+            } catch (e) { }
+            var pieletData = {};
+            pieletData.saveMethod = "saveState via fetch formData";
+            pieletData.userURL = location.href;
+            pieletData.dataType = "TEST";
+            pieletData.userID = 'HANKTEST';
+            localStorage.pieletDataJSON = JSON.stringify(pieletData);
+            const fd = new FormData();
+            fd.append('pieletData', btoa(JSON.stringify(pieletData)));
+            const options = {
+                method: 'POST',
+                //mode: 'no-cors',
+                body: fd
+            };
+            fetch("http://192.168.0.121:8937/pie2/pielet/accountEngine/", options)
+                .then(r => {
+                    return r.text()
+                })
+                .then(a => {
+                    console.log("ajax success.");
+                    console.log(a);
+                    fm.innerHTML += a;
+                });
+        }
+
+        function matchPieIDs() {
+            var arr = [];
+            var out = "";
+            for (let a of document.getElementsByTagName("a")) {
+                var b = a.href;
+                if (b.match(/\.json\.txt/) && !b.match(/\?/)) {
+                    b = b.replace(/[\s\S]+\//ig, "").replace(/\.json\.txt/ig, "");
+                    if (b.match(/[a-z0-9]{12}/ig)) {
+                        arr.push(b);
+                        out += `${b},`;
+                    }
+                }
+            }
+            console.log(out);
+        }
+    </script>
+
+    https://44.192.97.107/pielet/accountEngine/?getAPI=HxqMA6CecYhW,92WurVF5BTJm,tfDrZJg66ycS,f6RtHvGS4c6h,CkBvJ2fQTMty,Rk83UM4FZ7mL,dGxAa4Z6gXqf,m6y7hnDBWU5g,b6HCfnXZSTJA,9E68zraxubS4,UAEGhW4uCgKY,kTm6HM4c4ywj,At4q9bD5HdQC,XJe7u9CjtZK4,7L6uJ9Nnya4w,gwUYaL478Aqb
+    <form id="fm" action="target.php" method="post">
+        <input type="text" name="secretKey"><br>
+        <input type="submit">
+    </form>
+
+    <textarea name="" id="tooling" cols="30" rows="10">Paste IDs separated by whitespace..</textarea><br>
+    <div style="border: 1px solid black; padding:12px; display:inline-block;" onclick="prox()">Process ids</div>
+
+    <script>
+        function prox() {
+            var out = '';
+            var t = tooling.value;
+            var x = t.split(/[^a-z0-9]+/ig);
+            for (let a of x) {
+                out += `${a},`;
+            }
+            tooling.value = JSON.stringify(x);
+            out = out.replace(/[^a-z0-9]+$/ig, '');
+            var f = `https://44.192.97.107/pielet/accountEngine/?getAPI=${out}`;
+            document.body.innerHTML += `<br><br><a target="_blank" href="${f}">${f}</a>`;
+        }
+    </script>
+</body>
+
+</html>

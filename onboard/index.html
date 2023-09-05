@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Onboard Users</title>
+    <link href="/pielet/styles.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,800&display=swap" rel="stylesheet">
+</head>
+
+
+<style type="text/css">
+#sheetPaste {
+    transition: all .5s;
+    transform: scale(1);
+}
+
+#sheetPaste:hover {
+    transition: all .5s;
+    /* opacity: 0; */
+    /* filter: blur(2px); */
+    transform: scale(1.3);
+    /* max-width: 70%; */
+    z-index: 4;
+    /* position: absolute; */
+    text-align: center;
+    /* left: 16%; */
+}
+
+
+
+    @keyframes donut-spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    .donutSpinner {
+        display: inline-block;
+        border: 19px solid rgba(0, 0, 0, 0.1);
+        border-left-color: #5778F3;
+        border-radius: 50%;
+        width: 61px;
+        height: 61px;
+        animation: donut-spin 1.2s linear infinite;
+        margin: 30px;
+    }
+
+    @keyframes bouncing-loader {
+        to {
+            opacity: 0.1;
+            transform: translate3d(0, -16px, 0);
+        }
+    }
+
+    .bouncingLoader {
+        display: flex;
+        justify-content: center;
+    }
+
+    .bouncingLoader>div {
+        width: 13px;
+        height: 13px;
+        margin: 32px 3px;
+        background: #5778F3;
+        border-radius: 50%;
+        animation: bouncing-loader 0.6s infinite alternate;
+    }
+
+    .bouncingLoader>div:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+
+    .bouncingLoader>div:nth-child(3) {
+        animation-delay: 0.4s;
+    }
+
+    .pasteTable {
+        height: 200px;
+        font-size: 13px;
+        border: 1px solid black;
+        overflow: scroll;
+        padding: 20px;
+        border-radius: 8px;
+        line-height: 1.5em;
+        margin: 20px;
+        opacity: .5;
+        width: 90%;
+        min-height: 50px;
+        line-height: 175%;
+        background-repeat: no-repeat;
+        background-image: url(https://whodoipage.com/images/SSBG.png);
+        background-size: cover;
+        padding: 20px;
+    }
+
+    td {
+        font-size: 13px;
+    }
+</style>
+
+<body>
+    <script id="topNavScript" type="text/javascript" src="/navigation/topNav.js"></script>
+
+ 
+    <div style="max-width:700px; text-align:center;margin: auto;">
+        <h2>CSV/Spreadsheet Ingester</h2>
+    </div>
+
+
+        <div id="tools" style="max-width:700px; text-align:center;margin: auto;">
+        <span style="line-height:16px;font-size:13px;display:inline-block;"><b>Header row is required. "companycode" is a required field.</b><br>Your header row must include fname,lname,email and companycode. <a href="javascript://" onclick="dlcsv()">Download a template</a><br>If you need to add more than 10,000 users, please <a href="/contact/">contact us</a>.</span><br><span id="address"></span>
+        <div id="buttonPack">
+            <button onclick="userfile.click()">Upload file</button>
+            <br><br>  <span id="orb">- OR -</span>    
+        </div>
+        <div id="fileUpload" class="temp" style="display: none;">
+            <form action="" method="POST" enctype="multipart/form-data">
+                <input type="file" style="width:250px" value="Your CSV file must have a header row" name="userfile" id="userfile">
+                    
+                    <!-- <input type="file" value="Your CSV file must have a header row" name="userfile" id="userfile"
+                    accept=".json,.csv,.txt,application/text" onclick="results.innerHTML = ``;"> 
+                    <button onclick="go()">Continue</button>-->
+                    <br>
+
+            </form>
+        </div>
+
+        
+
+        <div id="sheetPaste" class="temp" onmouseenter="document.getElementById(`orb`).innerHTML=`   `">
+            <div id="pasteTable" class="pasteTable pt" contenteditable="true" onclick="clearPaste();">
+                <div style="margin:20px;display:block;"><b style="display:block; font-size: 29px;">Paste spreadsheet
+                        data
+                        here...</b><br> Copy and paste from any spreadsheet program such as Excel. (header row required)</div>
+
+            </div>
+            <button id="sheetButton"  onclick="makeJSON();">Convert</button>
+            
+        </div>
+        <br>
+        
+        <div id="results">
+        </div>
+        <div class="donutSpinner" id="spin" style="display:none"> </div>
+        <div id="headcheck" style="display:none">
+            <input id="newHeaders" style="width:90%;" value=''><br>
+            <button onclick="setNewHeaders()">Proceed</button>
+        </div>
+    </div>
+    <div id="jp" style="font-size:12px"></div>
+
+
+
+    <script>
+        function getAnId(){
+            window.email = '';
+            if (document.cookie.length>7){
+                var c = document.cookie.split(";");
+                for (let a of c){
+                    if (a.trim().match(/email/ig)){
+                        var e = a.split("=")[1].trim()
+                        e = e.replace("%40", "AT");
+                        e = e.replace("@", "AT");
+                        window.email = e;
+                        console.log(e);
+                        address.innerHTML = ` You are logged in as ${e.replace(/AT/, "@")}`;
+                    }
+                }
+            }
+            if(window.email.length<5){
+                tools.innerHTML = `You need to be logged in to use this feature.<br>
+                 Please log in or create an account.`;
+            }
+        }
+        getAnId();
+        function show(id) {
+            for (let a of document.getElementsByClassName("temp")) {
+                a.style.display = "none";
+            }
+            document.getElementById(id).style.display = "block";
+        }
+
+        function clearPaste() {
+            pasteTable.innerHTML = '';
+            pasteTable.style.backgroundImage = "unset";
+            
+        }
+
+        function showSheet() {
+            tableGen.style.display = "";
+            var el = tableGen.innerHTML;
+            tableGen.outerHTML = "";
+            main.innerHTML = el;
+        }
+
+        function makeJSON() {
+            if (document.getElementsByTagName("table").length<1){
+                alert(`Tabular data not found. Web docs do not work as well as desktop apps (you may need to upload a CSV file instead)`);
+                return;
+            }
+            var outpod = "";
+            var t2 = document.getElementsByTagName("table")[0];
+            console.log(t2);
+            if (!t2.innerHTML.match(/companycode/ig)){
+                alert(`"companycode" not found in data. Please download and review the template CSV file.)`);
+                return;
+            }
+            var json = tableToJSON(t2);
+            localStorage.formtrooperResult = json;
+            var ob = JSON.parse(json);
+            for (var i = 0; i < ob.length; i++) {
+                var inner = "";
+                var ob2 = ob[i];
+                for (var property in ob2) {
+                    inner += `<strong>${property}:</strong> ${ob2[property]}<br>`;
+                }
+
+                outpod += `
+<div class="card" style="margin:4px; font-size:12px; background:#eee;padding:4px;border-radius: 8px;">
+${inner}
+
+
+    </div>`;
+            }
+
+            // jp.innerHTML = `${outpod}<br>`;
+            // buttonPack.innerHTML=`<button  id="processSheet" onclick="dljson();">Looks good, submit</button>`;
+            window.payload = json;
+            pasteTable.style.display = "none";
+            dljson();
+        }
+
+
+        function tableToJSON(tableElement) {
+            // when the browser detects tabular data on the clipboard
+            // pasted into a content editable node
+            // it converts the data to a simple html table
+            // that can be easily targeted and parsed
+            var headers = [],
+                jobj = [];
+            var x = tableElement.getElementsByTagName("tr");
+            var y = x[0].getElementsByTagName("td");
+            for (var i = 0; i < y.length; i++) {
+                headers.push(y[i].innerText.trim());
+            }
+            for (var i = 1; i < x.length; i++) {
+                let e = x[i].getElementsByTagName("td");
+                var obj = {};
+                for (var g = 0; g < e.length; g++) {
+                    obj[headers[g].trim()] = e[g].innerText.trim();
+                }
+                jobj.push(obj);
+            }
+            return JSON.stringify(jobj);
+        }
+
+        function dlcsv(){
+            downloadPie("sample.csv",`lname,fname,email,companycode
+smith,john,john.smith@company.com,acmewidgets
+smith,jane,jane.smith@company.com,acmewidgets`);
+        }
+
+        function dlp(){
+            downloadPie(localStorage.onboardPayloadName,localStorage.onboardPayload);
+        }
+
+        function downloadPie(fileName, contents) {
+            var text = contents;
+            var m = [];
+            m[0] = text;
+            var myBlob = new Blob(m, { type: 'text/html' });
+            var blobUrl = URL.createObjectURL(myBlob);
+            var link = document.createElement("a");
+            link.href = blobUrl;
+            link.download = fileName;
+            link.innerHTML = "<button>Download " + fileName + "</button>";
+            link.click();
+        }
+    </script>
+
+
+    <script>
+        function dljson() {
+
+
+            const fd = new FormData();
+            fd.append('onboard', payload);
+            fd.append('email', email);
+            const options = {
+                method: 'POST',
+                //mode: 'no-cors',
+                body: fd
+            };
+            fetch("i2f.php", options)
+                .then(r => {
+                    return r.text()
+                })
+                .then(a => {
+                    console.log("ajax success.");
+                    localStorage.onboardPayload = payload;
+                    localStorage.onboardPayloadName = a;
+                    console.log(a);
+                    clearPaste();
+                    tools.innerHTML = `Your data was accepted. Thank you. <br><a href="javascript://" onclick="formatJSONtoPage()">Click here to review the results</a>.<br><br> Your reference code is <b>${a}</b>. Please make a note of it or <a onclick="dlp();" href="javascript://">download a back up now</a><div id="results"></div>`;
+                    //jp.style.display = "none";
+                    //results.style.display = "none";
+                    //sheetPaste.style.display = "none";
+                   // fileUpload.style.display = "none";
+                });
+        }
+
+
+
+        let fileReader = new FileReader();
+        fileReader.onload = go;
+        userfile.onchange = function (event) {
+            results.innerHTML = ``;
+            document.getElementById("spin").style.display = "block";
+            fileReader.readAsText(event.target.files[0]);
+        };
+
+        function go() {
+            results.innerHTML = ``;
+            document.getElementById("spin").style.display = "block";
+            if (fileReader.result.trim()[0]=="["){
+                //json detector
+                window.payload = fileReader.result.trim();
+                
+                //alert("JSON file detected, thank you.");
+                document.getElementById("spin").style.display = "none";
+                return;
+            }
+            d = parseCSV(fileReader.result);
+            window.payload = JSON.stringify(d);
+            if (!window.payload.match(/companycode/ig)){
+                alert(`"companycode" not found in data. Please download and review the template CSV file.)`);
+                return;
+            }
+            //results.innerHTML += `${d.length} rows processed.<br><button onclick="dljson()">finalize import</button>`
+            //results.innerHTML += formatJSONtoPage(d);
+            //results.innerHTML += `<textarea id="jtext">${JSON.stringify(d)}</textarea>`;
+            //name,email,size,fname,lname,state
+            document.getElementById("spin").style.display = "none";
+            dljson();
+        }
+
+        function removeCommasFromRecord(c) {
+            //removeCommasFromRecord(`"lincoln,inc",houston,over500,"memphox,TN"`) 
+            //`"lincoln,inc",houston,over500,"memphox,TN"`.match(/"[^"]+"/ig);
+            if (c.match(/"[^"]+"/)) {
+                var matches = c.match(/"[^"]+"/ig);
+                for (let b of matches) {
+                    var d = b.replace(/,+/ig, "*ACOMMA*");
+                    c = c.replace(b, d).replace(/"+/ig, '');
+                }
+            }
+            return c;
+        }
+
+
+
+
+
+
+        function parseCSV(c) {
+            c = c.replace(/\r+/ig, "").trim();
+            var rows = c.split(/\n/);
+            var fixedRows = [];
+            for (let a of rows) {
+                fixedRows.push(removeCommasFromRecord(a));
+            }
+
+            var headers = fixedRows.shift().split(",");
+
+
+            var arr = [];
+            for (let a of fixedRows) {
+                var values = a.split(",");
+                var obj = {};
+                var i = 0;
+                for (let b of headers) {
+                    b = b.replace(/\*ACOMMA\*/ig, ',');
+                    try {
+                        obj[b] = values[i].trim().replace(/\*ACOMMA\*/ig, ',');
+                    } catch (e) {
+                        console.log(e);
+                    }
+                    i++;
+                }
+                arr.push(obj);
+            }
+            return arr;
+        }
+
+        function formatJSONtoPage(json) {
+            var out = '';
+            json = JSON.parse(payload);
+            for (let a of json) {
+                var inner = "";
+                for (var property in a) {
+                    inner += `<strong>${property}:</strong> ${a[property]}<br>`;
+                }
+                out +=
+                    `<div class="card" style="margin:4px; font-size:12px; background:#eee;padding:12px;border-radius: 8px;">${inner}</div>`;
+            }
+            document.getElementById("results").innerHTML = out;
+        }
+    </script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-K3VEYCTX6E"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-K3VEYCTX6E');
+</script>
+
+    <script type="text/javascript" src="/navigation/bottomNav.js"></script>
+</body>
+
+</html>

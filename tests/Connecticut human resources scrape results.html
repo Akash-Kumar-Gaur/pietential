@@ -1,0 +1,756 @@
+<body style="padding:20px;/*text-align:center;*/" id="theBody" cz-shortcut-listen="true">
+				<br>
+	<br>
+	<script>
+		function cleanit() {
+			var term = `Connecticut human resources`;
+			var r = document.getElementsByClassName("g");
+			var links = [];
+			var out = '';
+			console.log("starting cleaner...");
+			if (!document.getElementsByName("file")[0]) {
+				return;
+			}
+			if (r.length<4) {
+				console.log("No G divs yet.");
+				return;
+			}
+			//
+			
+			for (let a of r) {
+				var obj = {};
+				obj.mainLink = a.getElementsByTagName("a")[0].href;
+				obj.title = a.getElementsByTagName("a")[0].innerText;
+				obj.title = obj.title.replace(/\-.+/, "");
+				obj.title = obj.title.replace(/www\.lin.+/, "");
+				obj.title = obj.title.replace(/https:\/\//, "");
+				links.push(obj);
+			}
+			localStorage.scrapeData = JSON.stringify(links);
+			localStorage.scrapeTerm = term;
+			for (let obj of links) {
+				out += `${obj.title} (${term}): <a href="${obj.mainLink}" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href='https://www.google.com/search?q=${obj.title} ${term}' class='lil'  style="color:white" target='_blank' >Google search</a><br>`;
+			}
+			out = `
+			<style>
+			* {
+        font-family: 'Segoe UI', sans-serif;
+    
+			}
+			.lil {
+				text-decoration: none;
+				display:inline-block;
+				cursor:pointer;
+				margin: 1px;
+				color: white;
+				padding: 5px;
+				background-color: rgb(52, 73, 94);
+			}
+			</style>
+			<div id="cleanResults">${out}</div>`;
+			document.getElementsByName("file")[0].innerHTML = out;
+			localStorage.scrapeFormatted = `<html>
+			
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>Lead scraper</title><div id="cleanResults">${out}</div></html>`;
+			promptForDownload();
+		}
+
+		function promptForDownload(){
+			callingCard.style.display="block";
+		}
+		function saveFile(){
+			window.location = "data:application/octet-stream," + encodeURIComponent(localStorage.scrapeFormatted);
+		}
+		function sendAJAX(){
+            payload = encodeURIComponent(localStorage.scrapeFormatted);
+            var parameters = "ajax=" + payload;
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    console.log(xhttp.responseText);
+                    //sw.innerHTML = "Saved!";
+                }
+            };
+            xhttp.open("POST", `./`, true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(parameters);
+		}
+		function sendform(){
+			document.getElementById("pl").value =localStorage.scrapeFormatted;
+			document.getElementById("aj").submit(); 
+		}
+		function downloadPie() {
+			document.getElementsByName("file")[0].contentEditable = "false";
+			topsearch.style.display = "none";
+			callingCard.style.display = "none";
+            var text = document.body.outerHTML;
+            var m = [];
+            m[0] = text;
+            var myBlob = new Blob(m, { type: 'text/html' });
+            var blobUrl = URL.createObjectURL(myBlob);
+            var link = document.createElement("a");
+            link.href = blobUrl;
+            link.download = `${localStorage.scrapeTerm} scrape results.html`;
+            link.innerHTML = "<button>Download " + link.download + "</button>";
+            link.click();
+        }
+
+		document.addEventListener("DOMContentLoaded", function(event) {
+
+			setInterval(function() {
+				//cleanit();
+			}, 7000);
+
+		});
+	</script>
+
+<form id="aj" style="display:none" method="post">
+<input name="ajax" id="pl">
+</form>
+
+
+
+
+<div id="callingCard" class="cchov" style="display: none; left: 0px; border-radius: 5px; position: fixed; text-align: center; z-index: 999999; bottom: 0px; width: auto; margin: 35px; padding: 25px; color: white; opacity: 1; box-sizing: border-box; font-family: sans-serif; font-size: 16px; box-shadow: rgb(0, 0, 0) 10px 10px 52px 0px;"><style>.cchov{background: #333;    transition: all .5s;}.cchov:hover{background: #1153A2;    transition: all .5s;}</style><div style="margin-right:47px;"><a id="cc-linkbox-ifRRgGy7JOpyivbq" onclick="downloadPie();" style="color:white;font-size:16px;text-decoration:none;">Click here to save leads as a file</a></div><a href="#" id="closeLink" style="color:white;;font-size:16px;"><img src="https://silvercrayon.us/promo-seltzer/img/close-icon2.png" style="margin-left:12px;position:absolute;top:19px;right:20px;height:29px;" onclick="javascript:callingCard.style.display='none';"></a></div>
+
+
+
+	<div style="text-align:center;">
+
+		<a id="topsearch" href="https://www.google.com/search?q=site:linkedin.com/in/ Connecticut human resources&amp;num=100" target="_blank" style="text-decoration: none; margin: 0px; color: white; padding: 15px; text-transform: uppercase; background-color: rgb(41, 128, 185); width: 800px; display: none;">
+			Connecticut human resources- Start searching </a>
+		<br>
+		
+
+
+		<br><br>
+		<div name="file" contenteditable="false" style="margin:auto;width:800px;height:auto;padding:25px; background:white;text-align:left;" class="san15" placeholder="">
+			<style>
+			* {
+        font-family: 'Segoe UI', sans-serif;
+    
+			}
+			.lil {
+				text-decoration: none;
+				display:inline-block;
+				cursor:pointer;
+				margin: 1px;
+				color: white;
+				padding: 5px;
+				background-color: rgb(52, 73, 94);
+			}
+			</style>
+			<div id="cleanResults">
+Chelsea Moore 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/chelseamoore91" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Chelsea Moore 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Nicholas Hermes 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/nicholas-hermes-b43394156" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Nicholas Hermes 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Kelly Paul 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/kelly-paul-336578106" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Kelly Paul 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jacqueline Ciampi 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/jacqueline-ciampi-a212231ba" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jacqueline Ciampi 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jennifer McMahon 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/jennifer-mcmahon" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jennifer McMahon 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jasmyn Raymond 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/jasmyn-raymond-1349711b3" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jasmyn Raymond 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Julianne Wheeler 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/julianne-wheeler-4ba84b4b" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Julianne Wheeler 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Karen Maines 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/karen-maines-5a9a1aa" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Karen Maines 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jeanne Anderson 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/jeanne-anderson-ab453257" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jeanne Anderson 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Elena Vazquez 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/elena-vazquez-382a2520" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Elena Vazquez 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Selestian Patterson 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/selestian-patterson-20650585" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Selestian Patterson 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Johannah Gorgone 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/johannah-gorgone-67ba6815" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Johannah Gorgone 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Andrew Pebley 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/andrewpebley" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Andrew Pebley 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jennifer Neumann 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/jennifer-neumann-9b50b31b4" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jennifer Neumann 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Armen Arisian 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/armenarisian" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Armen Arisian 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Leslie Burleson 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/leslie-burleson-a85a813" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Leslie Burleson 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Raisa Capellan, MPA 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/raisacapellan" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Raisa Capellan, MPA 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Lynn Bousquet 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/lynn-bousquet-9879463" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Lynn Bousquet 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Kaylee Fontanella Williams, MSHRM 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/kaylee-fontanella-williams-mshrm-a5523156" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Kaylee Fontanella Williams, MSHRM 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jennifer Marchese 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/jennifer-marchese" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jennifer Marchese 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Olivia Roman 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/oliviaroman" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Olivia Roman 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Diane Sconziano 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/diane-sconziano-8810519a" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Diane Sconziano 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Chris Beloff 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/chris-beloff-7207837" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Chris Beloff 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Laurie Dunn, IPMA
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/laurie-dunn-ipma-scp-73490977" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Laurie Dunn, IPMA
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Cathy Downey 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/cathy-downey-a3a08358" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Cathy Downey 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Zoe Zengeni 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/zoezengeni" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Zoe Zengeni 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Theresa Judge 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/theresa-judge-69a06725" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Theresa Judge 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jackie Kochiss 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/jackie-kochiss-4778591a2" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jackie Kochiss 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Brian Kuzmiak 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/brian-kuzmiak-8a326bb" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Brian Kuzmiak 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Kevin Boyle 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/kmboyle" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Kevin Boyle 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Karen Webster 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/karen-webster-190993b1" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Karen Webster 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Julian Hill 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/julian-hill-b3bb5822" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Julian Hill 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Nancy Flynn 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/nancy-m-flynn" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Nancy Flynn 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Catherine Frierson 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/catherinefrierson" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Catherine Frierson 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Carol ORegan, SHRM
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/caroloreganhr" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Carol ORegan, SHRM
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Lisa Annis 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/lisa-annis" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Lisa Annis 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Johanna Fitzgerald (she/her) 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/johanna-fitzgerald-she-her-a0ab2a26" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Johanna Fitzgerald (she/her) 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Matt Cronin 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/matt-cronin-9707a448" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Matt Cronin 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Ann Januszewski 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/ann-januszewski-a0001b78" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Ann Januszewski 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Rebecca Mathieu 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/rebecca-mathieu-ba061514" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Rebecca Mathieu 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Amy Polmon 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/amy-polmon-40705214" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Amy Polmon 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Teresa Gonzalez 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/teresa-gonzalez-0204b836" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Teresa Gonzalez 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Regina Williams, SHRM
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/regina-williams-keeplearning" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Regina Williams, SHRM
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Anthony Webb 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/anthony-webb-66945017" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Anthony Webb 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Christina M. Kydd 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/cmkydd" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Christina M. Kydd 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jeanette Perez 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/jeanette-perez-07a6352a" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jeanette Perez 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jim Anselmo 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/jim-anselmo-bb0a2b44" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jim Anselmo 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Belinda Rivera 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/belinda-rivera-b6829a7" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Belinda Rivera 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Shannon St. Onge (Fitzpatrick), MS, SHRM
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/shannon-fitzpatrick" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Shannon St. Onge (Fitzpatrick), MS, SHRM
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Gabrielle White 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/gabrielle-white" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Gabrielle White 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Janet Bellinger 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/janet-bellinger-50026010" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Janet Bellinger 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Becky Martinez 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/becky-martinez-56432061" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Becky Martinez 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Timothy Wilson 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/timothy-wilson-ab927b120" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Timothy Wilson 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Cynthia Stackhouse, MA 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/cynthia-stackhouse-ma-a229a557" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Cynthia Stackhouse, MA 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Lateisha Rainey 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/lateisha-rainey-mbahr2010" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Lateisha Rainey 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jodi Ketchale
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/jodi-ketchale-ganzer-3055b012" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jodi Ketchale
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Liz Eames 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/liz-eames-78aa15111" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Liz Eames 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Erica McGuinness 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/erica-mcguinness-0b05511b3" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Erica McGuinness 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Stephanie Pierce, SHRM
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/stephaniepiercehr" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Stephanie Pierce, SHRM
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Timothy Geary 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/timothy-geary-31419534" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Timothy Geary 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Chantelle Dallaire 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/chantelle-dallaire-4a0593180" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Chantelle Dallaire 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Shannon Page 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/shannon-page-9b814134" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Shannon Page 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jessica Kudla 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/jessica-kudla-956988a7" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jessica Kudla 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Lisa B. 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/lisa-b-2b16878?trk=public_profile_samename-profile_profile-result-card_result-card_full-click" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Lisa B. 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Faith MacDonald, MBA 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/faith-macdonald-mba-5038b5182" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Faith MacDonald, MBA 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Michelle Sangeloty 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/michelle-sangeloty-2b6427a5" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Michelle Sangeloty 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Stacie Sullivan 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/staciemsullivan" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Stacie Sullivan 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Melissa Buckley, aPHR 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/buckley-melissa" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Melissa Buckley, aPHR 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Emily Kidder 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/kidderemily" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Emily Kidder 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Carol Kennedy 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/carol-kennedy-3665467" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Carol Kennedy 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Maryann Keaveney 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/maryann-keaveney" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Maryann Keaveney 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Kisha McDonald 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/kisha-mcdonald-27b82727" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Kisha McDonald 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Chastity DeLillo 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/chastity-delillo-040445192" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Chastity DeLillo 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Diane Tyc 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/diane-tyc-9b27b455" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Diane Tyc 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Deb Erickson, SHRM
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/debraericksonhr" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Deb Erickson, SHRM
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Heidi Gray 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/heidi-gray-928834209?trk=people-guest_people_search-card" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Heidi Gray 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Dawn Kolenda 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/dawn-kolenda-700b6838" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Dawn Kolenda 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Heather Tweeddale 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/heather-tweeddale-5609a610" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Heather Tweeddale 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Gail Douglas 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/gailperrelli" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Gail Douglas 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Bethanne Watts 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/bethanne-watts-76062384" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Bethanne Watts 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Lisa Wilson 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/lisaawilson1" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Lisa Wilson 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Katherine Meyer 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/katherine-meyer-40790912" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Katherine Meyer 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Michael Patrie 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/michaelpatrie" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Michael Patrie 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Renee Boggis 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/renee-boggis-a114002a" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Renee Boggis 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Kristen Deveau, SHRM
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/kristenbdeveau" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Kristen Deveau, SHRM
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jonathan Benner 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/jonathan-benner-38149028" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jonathan Benner 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jackie Ouellette 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/jackie-ouellette-03221463" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jackie Ouellette 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Sherri Tanguay 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/sherri-tanguay-1468b751" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Sherri Tanguay 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Marybeth Bonsignore 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/marybeth-bonsignore-802134167" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Marybeth Bonsignore 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Ken Long 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/ken-long-sphr-23ab7013" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Ken Long 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Whitney Knight 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/whitneyjknight" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Whitney Knight 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Veronica Collins 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/veronica-collins-bb21b73" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Veronica Collins 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Scott Morgan 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/scott-morgan-5614264a" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Scott Morgan 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Christina Luzzi 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/christinaluzzi" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Christina Luzzi 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Virginia Oliver MAIOP 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/virginia-oliver-maiop-81593763" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Virginia Oliver MAIOP 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Cindy Bullard 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/cindy-bullard-1120b040" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Cindy Bullard 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Clarissa Varela 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/clarissa-varela-hr" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Clarissa Varela 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Donnie St. Louis 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/donnie-st-louis-50344077" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Donnie St. Louis 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jeniffer Rajchel, PHR 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/jeniffer-rajchel-phr-bbb542111" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jeniffer Rajchel, PHR 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Catherine Moreton Gray 
+ (Connecticut human resources): <a href="https://www.linkedin.com/in/catherinemoreton" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Catherine Moreton Gray 
+ Connecticut human resources" class="lil" style="color:white" target="_blank">Google search</a><br></div></div>
+		<br><br>
+		<button onclick="cleanit()">Clean Results</button>
+		<input type="hidden" name="term" value="Connecticut human resources"><br>
+		<br>
+		
+
+		<br><br>
+
+	</div>
+	</body>

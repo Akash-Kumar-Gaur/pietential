@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="ctain" style="padding:50px;" onmouseover="clearInterval(j);i=0;j = setInterval(function () { incrementval(999); }, 60);">
+  <div id="v1" ></div></div>
+  <script>
+    var i = 0;
+    function incrementval(n) { 
+      //console.log(i);
+      if (i > n) {
+        //setTimeout(incrementval(),4000);
+         i = 0;
+      } 
+      //setTimeout(incrementval(),40);
+      if (i<(n-100)) {
+        i = i + 96;
+        v1.innerHTML = i;
+      }
+      if (i>(n-100)) {
+        i++;
+        v1.innerHTML = i;
+        
+
+      }
+      if (i>n){
+        v1.innerHTML = n;
+        clearInterval(j);
+        i=0;
+      }
+    }
+    //incrementval();
+    //function go(){
+    var j = setInterval(function () { incrementval(999); }, 20);
+    //}
+    //setInterval(function () { go(); }, 2000);
+
+try{
+    document.getElementsByClassName("affix-top")[0].style.top="90px";
+"90px"
+document.getElementsByClassName("navbar-header")[0].style.position="fixed";
+}
+catch{}
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,51 @@
+<link href="/pielet/styles.css" rel="stylesheet" type="text/css">
+
+<div id="desktopnav">
+    <div id="libar" class="libar"
+        style="background:white;box-sizing: border-box;position:fixed;top:0px;padding: 12px 27px; text-align:right;margin-right:20px;">
+        
+        <a id="gotodash" class="bt login-bar" href="/pielet/login.php">Login</a>
+        <a id="gotodash" class="bt login-bar" href="/pielet/dashboard/">Dashboard</a>
+        <a id="gotodash" class="bt login-bar" href="/pielet/survey/">Take Survey</a>
+        <a id="gotodash" class="bt login-bar" href="/?logout">Logout</a>
+
+    </div>
+    <script>
+
+
+        function showid(id) {
+
+            if (navbutton.innerHTML.match(/Close/)) {
+                document.getElementById(id).style.display = "none";
+                navbutton.innerHTML = "Navigate ☰ ";
+            } else {
+                document.getElementById(id).style.display = "block";
+                navbutton.innerHTML = "Close nav bar  ☰ ";
+            }
+        }
+    </script>
+
+</div>
+
+<div id="navbarmobile" style="font-size:22px;box-sizing:border-box;">
+    <div style="padding:8px; background-color:#007ec4;text-align:right" class="mnd"><a id="navbutton"
+            href="javascript://" onclick="showid('navbarmobileinner')"
+            style="color:white; text-decoration:none;">Navigate ☰ </a></div>
+    <div id="navbarmobileinner" style="display:none;">
+
+        <div style="padding:8px; background-color:#007ec4; ;text-align:right;" class="mnd"><a href="/pielet/login.php"
+                style="color:white; text-decoration:none;">Login</a></div>
+
+        <div style="padding:8px; background-color:#007ec4; ;text-align:right;" class="mnd"><a href="/pielet/survey"
+                style="color:white; text-decoration:none;">Take Survey</a></div>
+
+        <div style="padding:8px; background-color:#007ec4; ;text-align:right;" class="mnd"><a href="/pielet/survey"
+                style="color:white; text-decoration:none;">About Pietential</a></div>
+
+        <div style="padding:8px; background-color:#007ec4; ;text-align:right;" class="mnd"><a href="/?logout"
+                style="color:white; text-decoration:none;">Logout</a></div>
+        <div style="padding:8px; background-color:#007ec4; ;text-align:right;" class="mnd"><a href="javascript://"
+                onclick="showid('navbarmobileinner')" style="color:white; text-decoration:none;">Close nav bar ☰ </a>
+        </div>
+    </div>
+</div>

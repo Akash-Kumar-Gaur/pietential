@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>manage</title>
+    <link href="/pielet/styles.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <style>
+        body {
+            margin: 50px;
+        }
+
+        tr:nth-child(1) {
+            background: rgb(33, 99, 146);
+            color: white;
+        }
+    </style>
+    <div id="results">
+        <button onclick="dcsv()">Display CSV</button> <button onclick="djson()">Download JSON</button>
+
+    </div>
+
+
+
+    <script>
+        // https://pietential.com/unsubscribe/
+        // https://pietential.com/unsubscribe/manage.html
+
+        function dcsv() {
+            var tcsv = '';
+            for (let a of x) {
+                for (let b in a) {
+                    var val = a[b];
+                    console.log(val);
+                    try {
+                        val = val.replace(/\s+/ig, " ");
+                        val = val.replace(/\,+/ig, "- ");
+                        tcsv += `${val},`;
+                    } catch (e) {}
+                }
+                tcsv = tcsv.replace(/\,$/, "") + `\n`;
+            }
+            document.body.innerHTML += `<textarea>${tcsv}</textarea>`;
+            return;
+
+
+
+
+            var m = [];
+            m[0] = text;
+            var myBlob = new Blob(m, {
+                type: 'text/html'
+            });
+            var blobUrl = URL.createObjectURL(myBlob);
+            var link = document.createElement("a");
+            link.href = blobUrl;
+            link.download = "unsubscribe.csv";
+            link.innerHTML = "<button>Download " + link.download + "</button>";
+            link.click();
+        }
+
+        function djson() {
+            var text = sessionStorage.djson;
+            var m = [];
+            m[0] = text;
+            var myBlob = new Blob(m, {
+                type: 'text/html'
+            });
+            var blobUrl = URL.createObjectURL(myBlob);
+            var link = document.createElement("a");
+            link.href = blobUrl;
+            link.download = "unsubscribe.json.txt";
+            link.innerHTML = "<button>Download " + link.download + "</button>";
+            link.click();
+        }
+
+        async function getData() {
+            // http://192.168.0.121:8937/pie2/unsubscribe/unsubscribe.php?sekritKey=67
+            var c = await fetch("unsubscribe.php?sekritKey=67");
+            window.x = await c.json();
+            sessionStorage.djson = JSON.stringify(x);
+            var out = '';
+            x.sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1);
+            for (let a of x) {
+                out += `<tr><td>${a.timestamp}</td><td>${a.email}</td></tr>`
+            }
+            results.innerHTML += `<table id="unsubTable"><tr><td>Date</td><td>email</td></tr>
+            ${out}</table>`;
+        }
+        getData();
+
+
+
+
+
+        /*
+        Content for Unsubscribe Landing Page
+Page 1: 
+It has been a delightful journey with you. We will miss you at Pietential!
+Enter Email* -
+State Reason 
+	I am not interested 
+It's not relevant to me
+Other.......... 
+Submit
+If you do not want to continue receiving our emails
+Unsubscribe
+Page 2:
+You have successfully unsubscribed from our email list!! 
+
+*/
+    </script>
+</body>
+
+</html>

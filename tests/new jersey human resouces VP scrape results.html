@@ -1,0 +1,753 @@
+<body style="padding:20px;/*text-align:center;*/" id="theBody" cz-shortcut-listen="true">
+				<br>
+	<br>
+	<script>
+		function cleanit() {
+			var term = `new jersey human resouces VP`;
+			var r = document.getElementsByClassName("g");
+			var links = [];
+			var out = '';
+			console.log("starting cleaner...");
+			if (!document.getElementsByName("file")[0]) {
+				return;
+			}
+			if (r.length<4) {
+				console.log("No G divs yet.");
+				return;
+			}
+			//
+			
+			for (let a of r) {
+				var obj = {};
+				obj.mainLink = a.getElementsByTagName("a")[0].href;
+				obj.title = a.getElementsByTagName("a")[0].innerText;
+				obj.title = obj.title.replace(/\-.+/, "");
+				obj.title = obj.title.replace(/www\.lin.+/, "");
+				obj.title = obj.title.replace(/https:\/\//, "");
+				links.push(obj);
+			}
+			localStorage.scrapeData = JSON.stringify(links);
+			localStorage.scrapeTerm = term;
+			for (let obj of links) {
+				out += `${obj.title} (${term}): <a href="${obj.mainLink}" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href='https://www.google.com/search?q=${obj.title} ${term}' class='lil'  style="color:white" target='_blank' >Google search</a><br>`;
+			}
+			out = `
+			<style>
+			* {
+        font-family: 'Segoe UI', sans-serif;
+    
+			}
+			.lil {
+				text-decoration: none;
+				display:inline-block;
+				cursor:pointer;
+				margin: 1px;
+				color: white;
+				padding: 5px;
+				background-color: rgb(52, 73, 94);
+			}
+			</style>
+			<div id="cleanResults">${out}</div>`;
+			document.getElementsByName("file")[0].innerHTML = out;
+			localStorage.scrapeFormatted = `<html>
+			
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>Lead scraper</title><div id="cleanResults">${out}</div></html>`;
+			promptForDownload();
+		}
+
+		function promptForDownload(){
+			callingCard.style.display="block";
+		}
+		function saveFile(){
+			window.location = "data:application/octet-stream," + encodeURIComponent(localStorage.scrapeFormatted);
+		}
+		function sendAJAX(){
+            payload = encodeURIComponent(localStorage.scrapeFormatted);
+            var parameters = "ajax=" + payload;
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    console.log(xhttp.responseText);
+                    //sw.innerHTML = "Saved!";
+                }
+            };
+            xhttp.open("POST", `./`, true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(parameters);
+		}
+		function sendform(){
+			document.getElementById("pl").value =localStorage.scrapeFormatted;
+			document.getElementById("aj").submit(); 
+		}
+		function downloadPie() {
+			topsearch.style.display = "none";
+			callingCard.style.display = "none";
+            var text = document.body.outerHTML;
+            var m = [];
+            m[0] = text;
+            var myBlob = new Blob(m, { type: 'text/html' });
+            var blobUrl = URL.createObjectURL(myBlob);
+            var link = document.createElement("a");
+            link.href = blobUrl;
+            link.download = `${localStorage.scrapeTerm} scrape results.html`;
+            link.innerHTML = "<button>Download " + link.download + "</button>";
+            link.click();
+        }
+
+		document.addEventListener("DOMContentLoaded", function(event) {
+
+			setInterval(function() {
+				//cleanit();
+			}, 7000);
+
+		});
+	</script>
+
+<form id="aj" style="display:none" method="post">
+<input name="ajax" id="pl">
+</form>
+
+
+
+
+<div id="callingCard" class="cchov" style="display: none; left: 0px; border-radius: 5px; position: fixed; text-align: center; z-index: 999999; bottom: 0px; width: auto; margin: 35px; padding: 25px; color: white; opacity: 1; box-sizing: border-box; font-family: sans-serif; font-size: 16px; box-shadow: rgb(0, 0, 0) 10px 10px 52px 0px;"><style>.cchov{background: #333;    transition: all .5s;}.cchov:hover{background: #1153A2;    transition: all .5s;}</style><div style="margin-right:47px;" onmouseenter="setPSthisURLtoHref();"><a id="cc-linkbox-ifRRgGy7JOpyivbq" onclick="downloadPie();" href="javascript://" style="color:white;font-size:16px;text-decoration:none;">Click here to save leads as a file</a></div><a href="#" id="closeLink" style="color:white;;font-size:16px;"><img src="https://silvercrayon.us/promo-seltzer/img/close-icon2.png" style="margin-left:12px;position:absolute;top:19px;right:20px;height:29px;" onclick="javascript:callingCard.style.display='none';"></a></div>
+
+
+
+	<div style="text-align:center;">
+
+		<a id="topsearch" href="https://www.google.com/search?q=site:linkedin.com/in/ new jersey human resouces VP&amp;num=100" target="_blank" style="text-decoration: none; margin: 0px; color: white; padding: 15px; text-transform: uppercase; background-color: rgb(41, 128, 185); width: 800px; display: none;">
+			new jersey human resouces VP- Start searching </a>
+		<br>
+		
+
+		<br><br>
+		<div name="file" contenteditable="true" style="margin:auto;width:800px;height:auto;padding:25px; background:white;text-align:left;" class="san15" placeholder="" onmouseover="cleanit()">
+			<style>
+			* {
+        font-family: 'Segoe UI', sans-serif;
+    
+			}
+			.lil {
+				text-decoration: none;
+				display:inline-block;
+				cursor:pointer;
+				margin: 1px;
+				color: white;
+				padding: 5px;
+				background-color: rgb(52, 73, 94);
+			}
+			</style>
+			<div id="cleanResults">
+Amanda Mullan 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/amanda-mullan-4421991" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Amanda Mullan 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Beth Silver 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/bethellensilver" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Beth Silver 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Santo Barravecchio 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/santo-barravecchio-2253a87" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Santo Barravecchio 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Melanie Kennedy 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/melanie-kennedy-5ab19a2a" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Melanie Kennedy 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Martin J D. 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/martinjdevaney" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Martin J D. 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Julia Basile, SPHR 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/julia-basile-sphr-99121515" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Julia Basile, SPHR 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Rachel McInerney 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/rachel-mcinerney-54141179" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Rachel McInerney 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Kathleen Fennell 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/kathleen-fennell-5799bb15" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Kathleen Fennell 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+William Wander 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/william-wander-6793ba79" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+William Wander 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Robert Chrenowski 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/robert-chrenowski-889a523" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Robert Chrenowski 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Roselyn Agar 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/roselyn-agar" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Roselyn Agar 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+vivian fernandez 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/vivian-fernandez-2ab2b719" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+vivian fernandez 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Lindsay Rivera 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/lindsayrivera47" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Lindsay Rivera 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Kelly Hutchinson 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/kelly-hutchinson-617ba857" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Kelly Hutchinson 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Anne Cardello, PHR, SHRM
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/annewenskiphr" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Anne Cardello, PHR, SHRM
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Michele Ragonese 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/michele-ragonese-a4a80725" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Michele Ragonese 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Monica Sarantidis 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/monica-sarantidis-85361313" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Monica Sarantidis 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jessica Gasser 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/jessica-gasser-36624828" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jessica Gasser 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jay Caldwell 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/jay-caldwell-2a24307" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jay Caldwell 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Kathie Keller 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/kathie-keller-4bb5523" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Kathie Keller 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Julie Ellis, MBA, SHRM
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/julie-ellis-mba-shrm-scp-54802212?trk=people-guest_people_search-card" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Julie Ellis, MBA, SHRM
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Tom Reed 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/tom-reed-hr" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Tom Reed 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Joseph Shiarappa, PHR 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/joseph-shiarappa-phr-2782221" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Joseph Shiarappa, PHR 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Melissa Lerner 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/melissalerner" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Melissa Lerner 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Kelly Brooks 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/kelly-brooks-8810a35" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Kelly Brooks 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Charles J. Carrier 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/cjcarrier" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Charles J. Carrier 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Laura Lewis 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/laura-lewis-8668107" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Laura Lewis 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Hope Cooper 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/hopelcooper" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Hope Cooper 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Andrea Harris 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/andrea-harris-0492241bb" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Andrea Harris 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jay Getto 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/jaygetto" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jay Getto 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jose Balderrama 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/jose-balderrama-762ab792" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jose Balderrama 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Natasha Biswas, MS 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/natasha-biswas-m-s-12807356" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Natasha Biswas, MS 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Paul Edwards 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/paul-edwards-61594717" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Paul Edwards 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Vickie Gonzalez 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/vickie-gonzalez-42625613" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Vickie Gonzalez 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Barbara Powderley 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/barbara-powderley-7522452" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Barbara Powderley 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Robert Zierold 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/robert-zierold-61b96a33" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Robert Zierold 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Donna Jack, SHRM
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/donna-jack-shrm-scp-sphr-5500768" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Donna Jack, SHRM
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Manuel Gonzalez, SHRM 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/mgonzalez13" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Manuel Gonzalez, SHRM 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Stefanie Armitt 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/stefaniearmitthr" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Stefanie Armitt 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Unanda Bell, PHR 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/unandabell" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Unanda Bell, PHR 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Vivian Yost 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/vivian-yost-9516a211" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Vivian Yost 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Courtney Anderson 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/courtney-anderson-44643111" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Courtney Anderson 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Terrence B. Williams, MSM, PsyD 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/terwilliams" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Terrence B. Williams, MSM, PsyD 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jeanne Schaefer 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/jeanne-schaefer-925bb218" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jeanne Schaefer 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Terry Brown, MBA, SBA 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/terry-brown-mba-sba-64448169" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Terry Brown, MBA, SBA 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Cheney R. Cherry 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/cheneycherry" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Cheney R. Cherry 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Donna Osborn 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/donna-osborn-64883545" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Donna Osborn 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Belinda Perichi 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/belinda-perichi-0354a415" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Belinda Perichi 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jeanne Mulkeen 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/jeanne-mulkeen-21659a7" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jeanne Mulkeen 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+David Glenn, MBA, SHRM
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/david-glenn-mba-shrm-scp-47348342" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+David Glenn, MBA, SHRM
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jennifer Garrard 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/jennifer-garrard-hr" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jennifer Garrard 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Karen Carpentieri 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/karen-carpentieri-bb272b8" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Karen Carpentieri 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+David Vernon 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/dlvernon01" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+David Vernon 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Mary Cataudella 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/mary-cataudella-39930913" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Mary Cataudella 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Tony Rico 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/tony-rico-92a2a71" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Tony Rico 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Brian White 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/brian-white-4a66b113" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Brian White 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Janelle Vizzi, SHRM
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/janellevizzi" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Janelle Vizzi, SHRM
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Rachel Crowley, SPHR 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/rachel-crowley-sphr-56b7b84" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Rachel Crowley, SPHR 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Sholonda Chipepo, MS SPHR, SHRM
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/schipepo" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Sholonda Chipepo, MS SPHR, SHRM
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Mirella Bednar 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/mirella-bednar-729b0786" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Mirella Bednar 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+VIVIAN LEWIS 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/vivian-lewis-35814840" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+VIVIAN LEWIS 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Neriman Botas 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/neriman-botas-44485a9" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Neriman Botas 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Robert Piaskowsky 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/robert-piaskowsky-54233b24" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Robert Piaskowsky 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Barney Drew 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/barneydrewvphr" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Barney Drew 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Victoria Bates 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/victoriabateshr-practitioner" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Victoria Bates 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Tony Napoli 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/tony-napoli-24715043" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Tony Napoli 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Kelley Meritzis, SPHR, SHRM
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/kelleymeritzis" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Kelley Meritzis, SPHR, SHRM
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Lillian Smith, MSHRM 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/lillian-smith-mshrm-6b4a5a25" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Lillian Smith, MSHRM 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Valerie Green, MPA 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/vjgreen" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Valerie Green, MPA 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jon Oravec 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/jon-oravec-9070b87" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jon Oravec 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Kevin Burke 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/kevin-burke-36a508b5" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Kevin Burke 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+David Benadon 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/david-benadon-01203b25" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+David Benadon 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Mary Snyder, PHR, SHRM
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/marysnyderhumanresources" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Mary Snyder, PHR, SHRM
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Patti Koncius 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/patti-koncius-774a5518" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Patti Koncius 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Linda Bocco 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/lindabocco" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Linda Bocco 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Deborah Knighton 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/deborah-knighton-a06559a" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Deborah Knighton 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Ayana Champagne 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/ayanachampagne" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Ayana Champagne 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Nate Ellison 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/nellison" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Nate Ellison 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jennifer Rusnak, SHRM
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/jensosa" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jennifer Rusnak, SHRM
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Mark Samolewicz 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/mark-samolewicz-78174623" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Mark Samolewicz 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Keith Aversa 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/keith-aversa-a735371b9" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Keith Aversa 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Peter Johnson 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/peter-johnson-208b914" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Peter Johnson 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Dawn Paquette 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/dawn-paquette-33725a103" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Dawn Paquette 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Donna McDermott 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/donna-mcdermott-94132b16" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Donna McDermott 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jackie Rollins 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/jackie-rollins-3277598" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jackie Rollins 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Kathy Cappeta 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/kathy-cappeta-a36998123" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Kathy Cappeta 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Lauren (Kerrigan) Zarro 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/laurenkerriganzarro" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Lauren (Kerrigan) Zarro 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jon Cochran 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/jon-cochran-449b733" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jon Cochran 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Stephanie Ojeda 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/stephanie-ojeda-4b47411b" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Stephanie Ojeda 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Eileen Drury, PHR 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/eileendrury" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Eileen Drury, PHR 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Anthony Gatto 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/anthony-gatto-755919117" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Anthony Gatto 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Debbie Green 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/debbiegreen11" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Debbie Green 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Justin Charpentier 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/justin-charpentier-25bb009" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Justin Charpentier 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Michael Haluska 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/michael-haluska-99686a3" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Michael Haluska 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jill Brown 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/jill-brown-555a3022" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jill Brown 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Kathy Lencsak 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/kathy-lencsak-801a123" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Kathy Lencsak 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Kristen Gorodetzer 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/kristengorodetzer" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Kristen Gorodetzer 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Patricia Wilson 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/patricia-wilson-49862127" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Patricia Wilson 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Catherine Geddis 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/catherine-geddis-9b52186" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Catherine Geddis 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jane Heaton 
+ (new jersey human resouces VP): <a href="https://www.linkedin.com/in/jane-heaton-11971941" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jane Heaton 
+ new jersey human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br></div></div>
+		<br><br>
+		<input type="hidden" name="term" value="new jersey human resouces VP"><br>
+		<br>
+		
+
+		<br><br>
+
+	</div>
+	</body>

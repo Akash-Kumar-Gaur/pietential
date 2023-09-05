@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    * {
+
+        font-family: 'Roboto Slab', sans-serif;
+        color: #26282b;
+        font-weight: 400;
+    }
+</style>
+
+<body>
+    <table>
+        <tr>
+            <td id="b">
+            </td>
+            <td id="l">
+            </td>
+            <td id="a">
+            </td>
+            <td id="c">
+            </td>
+            <td id="k">
+            </td>
+        </tr>
+    </table>
+    <script>
+
+        var c = `23456789ABCDEFGHJKLMNPQRSTVWXYZ23456789`.split('');
+        function shuffle(a) {
+            var c = a.length, t, r;
+            while (0 !== c) {
+                r = Math.floor(Math.random() * c);
+                c -= 1;
+                t = a[c];
+                a[c] = a[r];
+                a[r] = t;
+            } return a;
+        }
+        function codeGen(i) {
+            if (!i) {
+                return;
+            }
+
+            var collect = [];
+            for (let x = 0; x < i; x++) {
+                var code = '';
+                for (let a = 0; a < 5; a++) {
+                    code += shuffle(c)[0];
+                }
+                collect.push(code);
+            }
+            console.log(collect.length);
+            var deduped = Array.from(new Set(collect));
+            console.log(deduped.length);
+            return collect;
+        }
+        var y = codeGen(3010);
+        var s = '', m = '', f = '', t = '', h = '';
+        var i = 0;
+        biglist = [];
+        for (let a = 0; a < 500; a++) {
+            var nc = "GA" + y.pop();
+            biglist.push(nc);
+            s += nc + '<br>';
+            var nc = "PN" + y.pop();
+            biglist.push(nc);
+            m += nc + '<br>';
+            var nc = "SA" + y.pop();
+            biglist.push(nc);
+            f += nc + '<br>';
+            var nc = "XD" + y.pop();
+            biglist.push(nc);
+            t += nc + '<br>';
+            var nc = "EE" + y.pop();
+            biglist.push(nc);
+            h += nc + '<br>';
+        }
+        b.innerHTML = s;
+        l.innerHTML = m;
+        a.innerHTML = f;
+        document.getElementById("c").innerHTML = t;
+        k.innerHTML = h;
+        var promoCode = "SA5VRB3";
+        if (biglist.indexOf(promoCode) < 0) {
+            console.log(promoCode + ' is not on the list');
+        } else {
+            alert(promoCode + ' IS on the list');
+        }
+        document.body.innerHTML+= "<textarea>"+JSON.stringify(biglist)+"</textarea>";
+    </script>
+</body>
+
+</html>

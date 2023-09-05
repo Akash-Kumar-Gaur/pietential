@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-hindi="2">Pietential - The Life Balance Realization System</title>
+  <meta name="description"
+    content="Pietential is a survey-based life balance visualization tool based on Maslow’s Hierarchy of needs.">
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="https://pietential.com/social.php" />
+  <meta name="twitter:creator" content="@hankenstein" />
+  <meta name="twitter:title" content="Realize Your Growth Potential in 5 Minutes" />
+  <meta name="twitter:description"
+    content="Pietential is a survey-based life balance visualization tool based on Maslow’s Hierarchy of needs." />
+  <meta name="twitter:image" content="http://pietential.com/pie-social-banner.png" />
+  <link rel="canonical" href="https://pietential.com/" />
+  <meta property="og:title" content="Realize Your Growth Potential in 5 Minutes" />
+  <meta property="og:image" content="http://pietential.com/pie-social-banner.png" />
+  <meta property="og:image:width" content="1280" />
+  <meta property="og:image:height" content="720" />
+  <meta property="og:url" content="https://pietential.com/" />
+  <meta property="og:site_name" content="Pietential" />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <link rel="manifest" href="/pietential.webmanifest" />
+  <link rel="icon" type="image/png" href="assets/icon.png" />
+  <link rel="preload" href="/pielet/styles.css" as="style">
+  <link rel="stylesheet" href="/pielet/styles.css" type="text/css" />
+  <link rel="preload" href="/style/public.css" as="style">
+  <link rel="stylesheet" href="/style/public.css" type="text/css" />
+  <link rel="preload" href="/style/responsive.css" as="style">
+  <link rel="stylesheet" href="/style/responsive.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
+  <link rel="preload" as="style" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
+  <style>
+    .containerFLEX {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: column;
+    }
+
+    img {
+      width: 100%;
+      border-radius: 1%;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+
+<body onload="getText(); myList();">
+  <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+  <style id="stylerExtra">
+    .aboutPietentialContent {
+      max-width: 596px;
+      margin-top: 50px;
+    }
+  </style>
+  <div id="topBar"></div>
+  <section class="aboutPietential">
+    <div class="container">
+      <div class="aboutPietentialContent">
+        <p data-hindi="2">The Life Balance & Population Wellbeing <br /> Realization System</p>
+        <h1 data-hindi="3">Visualize, Benchmark, Monitor & Improve Wellbeing<span>.</span></h1>
+        <h6 data-hindi="4">Pietential is a Real-time Emotional Index of the People you Serve</h6>
+        <p data-hindi="5" class="aboutPietentialOrganization">
+          For Enterprise companies, SMBs, NGOs, NPOs and Advisors, Pietential is a wellbeing benchmarking,
+          monitoring and improvement platform that also allows you to prove the efficacy of your internal
+          programs. It provides organizations with an Administrative Dashboard displaying aggregated
+          (and anonymized unless shared by the User) comparative data visualizations of the emotional
+          wellbeing of the different segments of the populations you lead and serve.
+        </p>
+        <h4>
+          <i data-hindi="6">Allowing You to Better Understand You – and How your People are Doing.</i>
+        </h4>
+        <button data-hindi="7" onclick="gotoRegister()" class="createAccountButton">Create a free
+          account</button>
+      </div>
+      <div class="pietentialImageContainer">
+        <img src="https://pietential.com/assets/pietential-home-image-001.webp" alt="aboutPietential" width="100%"
+          height="660px" />
+      </div>
+    </div>
+  </section>
+  <section class="whatIsPietential">
+    <div class="container">
+      <div class="whatIsPietentialContent">
+        <h2 data-hindi="8">Pietential is a Wellbeing Visualization Tool and Personal Development Platform</h2>
+        <p data-hindi="9">
+          We created it by reverse-engineering Maslow's Hierarchy of Needs into an online wellbeing
+          assessment. It lets you Visualize, Analyze, Realize, and Actualize your state of being and growth
+          potential. Pietential measures and monitors your personal development progress while offering
+          observations, recommendations, and self improvement exercises to foster your personal growth.
+        </p>
+        <p><b data-hindi="70">And it’s Free for Individual Subscribers!</b></p>
+      </div>
+      <div>
+        <img class="lazy" data-src="./assets/maslow.webp" alt="What is Pietential?" width="362px" height="362px" />
+      </div>
+    </div>
+    <div class="container">
+      <div class="mapLegend">
+        <div class="mapLegendContainer">
+          <p data-hindi="10">
+            <span></span>
+            Self Actualization
+          </p>
+          <p data-hindi="11">
+            <span></span>
+            Self-Esteem and Contribution
+          </p>
+          <p data-hindi="12">
+            <span></span>
+            Love and Belonging
+          </p>
+          <p data-hindi="13">
+            <span></span>
+            Safety Needs
+          </p>
+          <p data-hindi="14">
+            <span></span>
+            Physiological Needs
+          </p>
+        </div>
+        <div class="mapLegendImageContainer" id="mapDesktopView">
+          <img class="lazy" data-src="./assets/wellbeingAssessment.webp" alt="WhatIsPietential1" width="100%"
+            height="290px">
+          <img class="lazy" data-src="./assets/adminDashboard.webp" alt="WhatIsPietential1" width="100%"
+            height="290px">
+          <img class="lazy" data-src="./assets/analysis.webp" alt="WhatIsPietential1" width="100%"
+            height="290px">
+        </div>
+        <div class="swiper slider-cards-js mapLegendImageContainer" id="mapMobileView">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img class="lazy" data-src="./assets/wellbeingAssessment.webp" alt="WhatIsPietential1" width="100%"
+                height="260px">
+            </div>
+            <div class="swiper-slide">
+              <img class="lazy" data-src="./assets/adminDashboard.webp" alt="WhatIsPietential1" width="100%"
+                height="260px">
+            </div>
+            <div class="swiper-slide">
+              <img class="lazy" data-src="./assets/analysis.webp" alt="WhatIsPietential1" width="100%"
+                height="260px">
+            </div>
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+      </div>
+  </section>
+  <section class="sliderMain">
+    <div class="swiper mySwiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <img data-src="./assets/sliderImages/measure.webp" alt="" class="sliderImage lazy" width="100px"
+            height="100px">
+        </div>
+        <div class="swiper-slide">
+          <img data-src="./assets/sliderImages/wellbeing.png" alt="" class="sliderImage lazy" width="100px"
+            height="100px">
+        </div>
+        <div class="swiper-slide active">
+          <img data-src="./assets/sliderImages/growth.webp" alt="" class="sliderImage lazy" width="100px"
+            height="100px">
+        </div>
+        <div class="swiper-slide">
+          <img data-src="./assets/sliderImages/progressTracking.png" alt="" class="sliderImage lazy" width="100px"
+            height="100px">
+        </div>
+        <div class="swiper-slide">
+          <img data-src="./assets/sliderImages/warning.svg" alt="" class="sliderImage lazy" width="100px"
+            height="100px">
+        </div>
+        <div class="swiper-slide">
+          <img data-src="./assets/sliderImages/employeWelfare.svg" alt="" class="sliderImage lazy" width="100px"
+            height="100px">
+        </div>
+        <div class="swiper-slide">
+          <img data-src="./assets/sliderImages/user.png" alt="" class="sliderImage lazy" width="100px"
+            height="100px">
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
+    </div>
+    <div class="container" style="overflow: hidden;" id="container">
+      <div class="textMainContainer">
+        <div class="swiper cvSwiper mainSwiper">
+          <div class="swiper-wrapper">
+            <!-- 1 slide text -->
+            <div class="swiper-slide me-auto user-cv textContainer">
+              <h2 data-hindi="15">Measure the Emotional Index of <br /> your Population </h2>
+              <p data-hindi="16">Pietential provides a window into the Physiological, Safety, Love and
+                Belonging, Esteem, and
+                Self-actualization levels
+                needs of your population.
+              </p>
+            </div>
+            <!-- 2 slide text -->
+            <div class="swiper-slide me-auto user-cv textContainer">
+              <h2 data-hindi="17">Infographics on the Wellbeing of <br /> your Demographics</h2>
+              <p data-hindi="18">Survey scores taken through the Pietential tool are rendered in
+                easy-to-read statistical charts; admins
+                can compare data across desired time periods and population demographics.</p>
+            </div>
+            <!-- 3 slide text -->
+            <div class="swiper-slide me-auto user-cv textContainer">
+              <h2 data-hindi="19">Accelerate Growth <br /> Culture</h2>
+              <p data-hindi="20">Observations, recommendations, and personal growth-hacking exercises are
+                offered instantly in order to enable users to access their full growth potential. </p>
+            </div>
+            <!-- 4 slide text -->
+            <div class="swiper-slide me-auto user-cv textContainer">
+              <h2 data-hindi="21">Dynamic Progress <br /> Tracking</h2>
+              <p data-hindi="22">Users can log back in at any time and track their personal growth
+                progress. Admins can track the
+                progress of their populations.
+              </p>
+            </div>
+            <!-- 5 slide text -->
+            <div class="swiper-slide me-auto user-cv textContainer">
+              <h2 data-hindi="23">Early Warning <br /> System</h2>
+              <p data-hindi="24">Pietential has a diagnostic system to detect a drop in employee
+                wellbeing, alerting admins to take action and offer
+                support.
+              </p>
+            </div>
+            <!-- 6 slide text -->
+            <div class="swiper-slide me-auto user-cv textContainer">
+              <h2 data-hindi="257">Benchmark <br /> Employee Welfare</h2>
+              <p data-hindi="25">Prove the efficacy of your DEI strategies, and attract the right talent.
+                With Pietential, you can
+                showcase your organization's positive culture.
+              </p>
+            </div>
+            <!-- 7 slide text -->
+            <div class="swiper-slide me-auto user-cv textContainer">
+              <h2 data-hindi="300">User <br /> Confidentiality</h2>
+              <p data-hindi="26"> Individual users' data is anonymized and reported only in aggregate
+                charts. Users can choose to share, at their own discretion, the individual information
+                with admins.
+              </p>
+            </div>
+          </div>
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+        </div>
+      </div>
+  </section>
+  <section class="whatWeOffer" id="products">
+    <div class="container">
+      <h2 data-hindi="136">Here's what we offer!</h2>
+      <p data-hindi="27">
+        Based on what type of organization you’re a part of, and its needs, you can choose the Pietential plan
+        that’s right for you and your people.
+      </p>
+    </div>
+    <div class="container">
+      <div class="advisorContainer enterprisesContainer" id="enterprisesContainer">
+        <div class="enterprisesImageContainer">
+          <img class="lazy" data-src="./assets/enterprises.webp" alt="Pietential Advisor" width="100%" height="250px" />
+        </div>
+        <div class="pietentialAdvisor enterprisesAdvisor">
+          <span>Pietential</span>
+          <p>ENTERPRISE</p>
+        </div>
+        <p class="connectedText" data-hindi="29">
+          Securely connect Pietential to your HRIS, visualizing and monitoring wellbeing data according to
+          your employee demographic categories.
+        </p>
+      </div>
+      <div class="advisorContainer businessContainer" id="businessContainer">
+        <div class="enterprisesImageContainer">
+          <img class="lazy" data-src="./assets/business.webp" alt="Pietential Advisor" width="100%" height="250px" />
+        </div>
+        <div class="pietentialAdvisor businessAdvisor">
+          <span>Pietential</span>
+          <p>BUSINESS</p>
+        </div>
+        <p class="connectedText" data-hindi="30">
+          Choosing from over 50 demographic categories, SMBs can monitor and compare employee wellbeing, while
+          offering personal growth support.
+        </p>
+      </div>
+      <div class="advisorContainer" id="advisorContainer">
+        <div class="enterprisesImageContainer">
+          <img class="lazy" data-src="./assets/advisor.webp" alt="Pietential Advisor" width="100%" height="250px" />
+        </div>
+        <div class="pietentialAdvisor">
+          <span>Pietential</span>
+          <p>Advisor</p>
+        </div>
+        <p class="connectedText" data-hindi="31">
+          Build understanding and trust with clients (and potential clients) more quickly, and stay connected
+          to them through wellbeing alerts.
+        </p>
+      </div>
+      <div class="advisorContainer ngoContainer" id="ngoContainer">
+        <div class="enterprisesImageContainer">
+          <img class="lazy" data-src="./assets/ngo.webp" alt="Pietential Ngo" width="100%" height="250px" />
+        </div>
+        <div class="pietentialAdvisor ngoAdvisor">
+          <span>Pietential</span>
+          <p>ngo</p>
+        </div>
+        <p class="connectedText" data-hindi="32">
+          Measure and monitor the good you do for the populations you serve, and prove the efficacy of your
+          programs in improving their wellbeing.
+        </p>
+      </div>
+    </div>
+  </section>
+  <section id="fourProducts">
+    <div class="modalOverlay" id="modalOverlay">
+      <div class="modalInner modal_inner" id="modalInner">
+        <img data-src="./assets/close.png" alt="Close Icon" class="closeIcon lazy" id="closeIcon">
+        <div class="modalImageContainer">
+          <div class="pietentialAdvisor" id="desktopView">
+            <span>Pietential</span>
+            <p>ADVISOR</p>
+          </div>
+          <p class="heading" id="desktopView">Build Trust More Quickly and Stay <br> Connected to Clients</p>
+          <div class="swiper processSwiper swiper-initialized swiper-horizontal swiper-pointer-events">
+            <div class="swiper-wrapper" id="swiper-wrapper-9abbf6edcb0e77ea" aria-live="off"
+              style="transition-duration: 0ms;">
+              <div data-category="PietentialAdvisor-22" class="swiper-slide swiperSlider">
+                <img class="lazy"
+                  data-src="https://pietential.com/assets/modalImages/01-Pietential-Advisor-Dashboard.webp">
+                <p class="advisorText" data-hindi="400">Invite New User(s): Invite new users directly by
+                  either manually adding their emails or uploading files.</p>
+              </div>
+              <div data-category="PietentialAdvisor-23" class="swiper-slide swiperSlider">
+                <img class="lazy"
+                  data-src="https://pietential.com/assets/modalImages/02-Pietential-Advisor-Dashboard.webp">
+                <p class="advisorText" data-hindi="401">Population Average: Visualize the wellbeing of
+                  your client or client organization’s population over the selected time period.</p>
+              </div>
+              <div data-category="PietentialAdvisor-24" class="swiper-slide swiperSlider">
+                <img class="lazy"
+                  data-src="https://pietential.com/assets/modalImages/03-Pietential-Advisor-Dashboard.webp">
+                <p class="advisorText" data-hindi="402">Individual Scores: Visualize the wellbeing of an
+                  individual over the selected time period and track their progress.</p>
+              </div>
+              <div data-category="PietentialAdvisor-25" class="swiper-slide swiperSlider">
+                <img class="lazy"
+                  data-src="https://pietential.com/assets/modalImages/04-Pietential-Advisor-Dashboard.webp">
+                <p class="advisorText" data-hindi="403">Create Cohort: Create Cohorts within your client
+                  with any combination of demographics.</p>
+              </div>
+              <div data-category="PietentialAdvisor-26" class="swiper-slide swiperSlider">
+                <img class="lazy"
+                  data-src="https://pietential.com/assets/modalImages/05-Pietential-Advisor-Dashboard.webp">
+                <p class="advisorText" data-hindi="404">Create Cohort: You can also select more than one
+                  category for each demography, as required.</p>
+              </div>
+              <div data-category="PietentialAdvisor-27" class="swiper-slide swiperSlider">
+                <img class="lazy"
+                  data-src="https://pietential.com/assets/modalImages/06-Pietential-Advisor-Dashboard.webp">
+                <p class="advisorText" data-hindi="405">Cohort Average: Visualize the wellbeing of any
+                  cohort for the selected time period and track their progress.</p>
+              </div>
+              <div data-category="PietentialAdvisor-28" class="swiper-slide swiperSlider">
+                <img class="lazy"
+                  data-src="https://pietential.com/assets/modalImages/07-Pietential-Advisor-Dashboard.webp">
+                <p class="advisorText" data-hindi="406">Comparative Analysis: Compare and analyze the
+                  wellbeing of two individuals, demographies, or existing cohorts at a selected time
+                  period.</p>
+              </div>
+              <div data-category="PietentialAdvisor-29" class="swiper-slide swiperSlider">
+                <img class="lazy"
+                  data-src="https://pietential.com/assets/modalImages/08-Pietential-Advisor-Dashboard.webp">
+                <p class="advisorText" data-hindi="407">Adjust Threshold: You can set an alert threshold
+                  at a given range in order to track if the wellbeing of an individual, cohort or
+                  organization drops below the selected threshold.</p>
+              </div>
+              <div data-category="PietentialAdvisor-30" class="swiper-slide swiperSlider">
+                <img class="lazy"
+                  data-src="https://pietential.com/assets/modalImages/09-Pietential-Advisor-Dashboard.webp">
+                <p class="advisorText" data-hindi="408">Adjust Threshold: Since every human has five
+                  core needs, you can set an alert threshold for each category.</p>
+              </div>
+              <div data-category="PietentialAdvisor-31" class="swiper-slide swiperSlider">
+                <img class="lazy"
+                  data-src="https://pietential.com/assets/modalImages/10-Pietential-Advisor-Dashboard.webp">
+                <p class="advisorText" data-hindi="409">Pietetial Advisor is for trusted advisors to
+                  individuals and organizations and helps them visualize and improve wellbeing.</p>
+              </div>
+            </div>
+            <div class="swiper-button-next" tabindex="0" role="button" aria-label="Next slide"
+              aria-controls="swiper-wrapper-9abbf6edcb0e77ea" aria-disabled="false"></div>
+            <div class="swiper-button-prev" tabindex="0" role="button" aria-label="Previous slide"
+              aria-controls="swiper-wrapper-9abbf6edcb0e77ea" aria-disabled="false"></div>
+            <div
+              class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets swiper-pagination-horizontal">
+            </div>
+            <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+          </div>
+        </div>
+        <div class="modalContent">
+          <div class="pietentialAdvisor adv23" id="mobileView">
+            <span>Pietential</span>
+            <p>ADVISOR</p>
+          </div>
+          <p class="heading" id="mobileView" data-hindi="31">Pietential helps you to get (and stay ) more
+            deeply connected to the people you advise
+          </p>
+          <p class="mainSubtitle" data-hindi="38">Pietential <b>ADVISOR</b> is for people who serve as a
+            trusted advisor to their clients (and prospective clients): Life coaches, counselors,
+            therapists, financial advisors, nutritionist and personal trainers; CEO Mastermind group
+            facilitators and business consultants; CVAs, exit planners, business brokers, and other types of
+            professional advisors can use it to monitor the well being of the people they advise. <br><br>
+            Pietential helps you to get (and stay ) more deeply connected to the people you advise, and even
+            allows you to set alerts notifying you when an advisee’s wellbeing has dipped.<br><br>
+            And, when used as a business development tool, Pietential can be distributed by you as a
+            freemium that helps you build trust more quickly by getting into a conversation with prospective
+            clients about life balance, and what's important to them.<br><br>
+          </p>
+          <a href="https://pietentialdiscovery.as.me/" class="demoButton" data-hindi="256">Book a free
+            demo</a>
+          <p style="height: 10px;"></p>
+        </div>
+      </div>
+    </div>
+    <div class="modalOverlay" id="modalOverlayEnterprises">
+      <div class="modalInner modal_inner" id="modalInner">
+        <img data-src="./assets/close.png" alt="Close Icon" class="enterprisesCloseIcon lazy" id="closeIcon">
+        <div class="modalImageContainer">
+          <div class="pietentialAdvisor enterprisesAdvisor" id="desktopView">
+            <span>Pietential</span>
+            <p>ENTERPRISE</p>
+          </div>
+          <p class="heading" id="desktopView">Get Comparative Analytics on <br> Employee Demographics</p>
+          <div class="swiper processSwiper swiper-initialized swiper-horizontal swiper-pointer-events">
+            <div class="swiper-wrapper" id="swiper-wrapper-72ade4a5eb1bc5c5" aria-live="off"
+              style="transition-duration: 0ms;">
+              <div data-category="PietentialEnterprise-1" class="swiper-slide swiperSlider">
+                <img class="lazy"
+                  data-src="https://pietential.com/assets/modalImages/01-Pietential-Enterprise-Dashboard.webp">
+                <p class="advisorText" data-hindi="410">Invite New User(s): Invite new users directly by
+                  either manually adding their emails, uploading files, or making Pietential securely
+                  relational to your HR database.</p>
+              </div>
+              <div data-category="PietentialEnterprise-2" class="swiper-slide swiperSlider">
+                <img class="lazy"
+                  data-src="https://pietential.com/assets/modalImages/02-Pietential-Enterprise-Dashboard.webp">
+                <p class="advisorText" data-hindi="411">Population Average: Visualize the wellbeing of
+                  your entire population over a selected time period.</p>
+              </div>
+              <div data-category="PietentialEnterprise-3" class="swiper-slide swiperSlider">
+                <img class="lazy"
+                  data-src="https://pietential.com/assets/modalImages/03-Pietential-Enterprise-Dashboard.webp">
+                <p class="advisorText" data-hindi="412">Individual Scores: Visualize the wellbeing of
+                  any individual (who has opted to share their direct scores) for the selected time
+                  period and track their progress.</p>
+              </div>
+              <div data-category="PietentialEnterprise-4" class="swiper-slide swiperSlider">
+                <img class="lazy"
+                  data-src="https://pietential.com/assets/modalImages/04-Pietential-Enterprise-Dashboard.webp">
+                <p class="advisorText" data-hindi="413">Create Cohort: Create New Cohorts within your
+                  population with any combination of demographics.</p>
+              </div>
+              <div data-category="PietentialEnterprise-5" class="swiper-slide swiperSlider">
+                <img class="lazy"
+                  data-src="https://pietential.com/assets/modalImages/05-Pietential-Enterprise-Dashboard.webp">
+                <p class="advisorText" data-hindi="414">Create Cohort: You can select more than one
+                  category for each demography, as required.</p>
+              </div>
+              <div data-category="PietentialEnterprise-6" class="swiper-slide swiperSlider">
+                <img class="lazy"
+                  data-src="https://pietential.com/assets/modalImages/06-Pietential-Enterprise-Dashboard.webp">
+                <p class="advisorText" data-hindi="415">Cohort Average: Visualize the wellbeing of any
+                  cohort for the selected time period and track their progress.</p>
+              </div>
+              <div data-category="PietentialEnterprise-7" class="swiper-slide swiperSlider">
+                <img class="lazy"
+                  data-src="https://pietential.com/assets/modalImages/07-Pietential-Enterprise-Dashboard.webp">
+                <p class="advisorText" data-hindi="416">Comparative Analysis: Compare and analyze the
+                  wellbeing of individuals, demographies, or existing cohorts at a selected time
+                  period.</p>
+              </div>
+              <div data-category="PietentialEnterprise-8" class="swiper-slide swiperSlider">
+                <img class="lazy"
+                  data-src="https://pietential.com/assets/modalImages/08-Pietential-Enterprise-Dashboard.webp">
+                <p class="advisorText" data-hindi="417">Adjust Threshold: You can set an alert threshold
+                  at a given range in order to track if the wellbeing of an individual, cohort or the
+                  entire population drops below the selected threshold.</p>
+              </div>
+              <div data-category="PietentialEnterprise-9" class="swiper-slide swiperSlider">
+                <img class="lazy"
+                  data-src="https://pietential.com/assets/modalImages/09-Pietential-Enterprise-Dashboard.webp">
+                <p class="advisorText" data-hindi="418">Adjust Threshold: Since every human has five
+                  core needs, you can set an alert threshold for each category.</p>
+              </div>
+              <div data-category="PietentialEnterprise-10" class="swiper-slide swiperSlider">
+                <img class="lazy"
+                  data-src="https://pietential.com/assets/modalImages/10-Pietential-Enterprise-Dashboard.webp">
+                <p class="advisorText" data-hindi="419">Pietential Enterprise allows for custom
+                  integration with your HR database, so you can visualize the information that’s
+                  important to you.</p>
+              </div>
+            </div>
+            <div class="swiper-button-next" tabindex="0" role="button" aria-label="Next slide"
+              aria-controls="swiper-wrapper-72ade4a5eb1bc5c5" aria-disabled="false"></div>
+            <div class="swiper-button-prev" tabindex="0" role="button" aria-label="Previous slide"
+              aria-controls="swiper-wrapper-72ade4a5eb1bc5c5" aria-disabled="false"></div>
+            <div
+              class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets swiper-pagination-horizontal">
+            </div>
+            <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+          </div>
+          <p style="height: 10px;"></p>
+        </div>
+        <div class="modalContent">
+          <div class="pietentialAdvisor enterprisesAdvisor" id="mobileView">
+            <span>Pietential</span>
+            <p>ENTERPRISE</p>
+          </div>
+          <p class="heading" id="mobileView">Offer Support towards Personal Growth and Get Comparative
+            Analytics on Employee Demographics</p>
+          <p class="mainSubtitle" data-hindi="33">Pietential <b>ENTERPRISE</b> is for large companies using
+            HRIS platforms that are looking for a combined EXS/EES system.
+            <br> <br>
+            For the individuals that the organization employs and/or serves, Pietential is an Employee
+            Experience System (EXS). It affords every person that the organization serves the ability to
+            visualize, monitor, improve and share their own personal (at their own discretion) with their
+            HR, DEI or Wellbeing officers, management and leadership.<br> <br>
+            For large organizations with decentralized populations, like national and global corporations,
+            School and University Systems; and Local, State and Federal Agencies, Pietential is an Employee
+            (or student) Engagement System (EES) that allows the organization to visualize, quantify and
+            better understand their population’s wellbeing, in order that they can take steps to improve
+            it.<br> <br>
+            Pietential gives the organization's leadership the ability to securely visualize anonymized data
+            regarding the wellbeing of the organizationin aggregate, and to view any number of comparative
+            visualizations segmented into cohorts in any manner in which the client's HR database is already
+            architected.
+          </p>
+          <a href="https://pietentialdiscovery.as.me/" class="demoButton" data-hindi="256">Book a free
+            demo</a>
+          <p style="height: 10px;"></p>
+        </div>
+      </div>
+    </div>
+    <div class="modalOverlay" id="modalOverlayBusiness">
+      <div class="modalInner modal_inner" id="modalInner">
+        <img data-src="./assets/close.png" alt="Close Icon" class="businessCloseIcon lazy" id="closeIcon">
+        <div class="modalImageContainer">
+          <div class="pietentialAdvisor businessAdvisor" id="desktopView">
+            <span>Pietential</span>
+            <p>BUSINESS</p>
+          </div>
+          <p class="heading" id="desktopView">Monitor Employee Wellbeing and <br> DEI Initiatives</p>
+          <div class="swiper processSwiper swiper-initialized swiper-horizontal swiper-pointer-events">
+            <div class="swiper-wrapper" id="swiper-wrapper-f5b1c3c90b17107102" aria-live="off"
+              style="transition-duration: 0ms;">
+              <div data-category="PietentialBusiness-12" class="swiper-slide swiperSlider">
+                <img class="lazy"
+                  data-src="https://pietential.com/assets/modalImages/01-Pietential-Business-Dashboard.webp">
+                <p class="advisorText" data-hindi="420">Create Cohort: Upload your employee population
+                  and create Cohorts choosing from over 50 demographic categories.</p>
+              </div>
+              <div data-category="PietentialBusiness-13" class="swiper-slide swiperSlider">
+                <img class="lazy"
+                  data-src="https://pietential.com/assets/modalImages/02-Pietential-Business-Dashboard.webp">
+                <p class="advisorText" data-hindi="421">Create Cohort: You can select more than one
+                  category for each demography, as required.</p>
+              </div>
+              <div data-category="PietentialBusiness-14" class="swiper-slide swiperSlider">
+                <img class="lazy"
+                  data-src="https://pietential.com/assets/modalImages/03-Pietential-Business-Dashboard.webp">
+                <p class="advisorText" data-hindi="422">Invite New User(s): Invite new users directly by
+                  either manually adding their emails, or uploading files. </p>
+              </div>
+              <div data-category="PietentialBusiness-15" class="swiper-slide swiperSlider">
+                <img class="lazy"
+                  data-src="https://pietential.com/assets/modalImages/04-Pietential-Business-Dashboard.webp">
+                <p class="advisorText" data-hindi="423">Population Average: Visualize the wellbeing of
+                  your entire population for the selected time period.</p>
+              </div>
+              <div data-category="PietentialBusiness-16" class="swiper-slide swiperSlider">
+                <img class="lazy"
+                  data-src="https://pietential.com/assets/modalImages/05-Pietential-Business-Dashboard.webp">
+                <p class="advisorText" data-hindi="424">Individual Scores: Visualize the wellbeing of
+                  any individual (who has opted to share their direct scores) for the selected time
+                  period and track their progress.</p>
+              </div>
+              <div data-category="PietentialBusiness-17" class="swiper-slide swiperSlider">
+                <img class="lazy"
+                  data-src="https://pietential.com/assets/modalImages/06-Pietential-Business-Dashboard.webp">
+                <p class="advisorText" data-hindi="425">Cohort Average: Visualize the wellbeing of any
+                  cohort for the selected time period and track their progress.</p>
+              </div>
+              <div data-category="PietentialBusiness-18" class="swiper-slide swiperSlider">
+                <img class="lazy"
+                  data-src="https://pietential.com/assets/modalImages/07-Pietential-Business-Dashboard.webp">
+                <p class="advisorText" data-hindi="426">Comparative Analysis: Compare and analyze the
+                  wellbeing of two individuals, demographies, or existing cohorts at a selected time
+                  period.</p>
+              </div>
+              <div data-category="PietentialBusiness-19" class="swiper-slide swiperSlider">
+                <img class="lazy"
+                  data-src="https://pietential.com/assets/modalImages/08-Pietential-Business-Dashboard.webp">
+                <p class="advisorText" data-hindi="427">Adjust Threshold: You can set a threshold at a
+                  given range in order to track if the wellbeing score drops below the selected
+                  threshold.</p>
+              </div>
+              <div data-category="PietentialBusiness-20" class="swiper-slide swiperSlider">
+                <img class="lazy"
+                  data-src="https://pietential.com/assets/modalImages/09-Pietential-Business-Dashboard.webp">
+                <p class="advisorText" data-hindi="428">Adjust Threshold: Since every human has five
+                  core needs, you can set a threshold for each category.</p>
+              </div>
+              <div data-category="PietentialBusiness-21" class="swiper-slide swiperSlider">
+                <img class="lazy"
+                  data-src="https://pietential.com/assets/modalImages/10-Pietential-Business-Dashboard.webp">
+                <p class="advisorText" data-hindi="429">Pietential Business is for Small and Medium
+                  Businesses that want a plug and play wellbeing improvement and monitoring platform.
+                </p>
+              </div>
+            </div>
+            <div class="swiper-button-next" tabindex="0" role="button" aria-label="Next slide"
+              aria-controls="swiper-wrapper-f5b1c3c90b17107102" aria-disabled="false"></div>
+            <div class="swiper-button-prev" tabindex="0" role="button" aria-label="Previous slide"
+              aria-controls="swiper-wrapper-f5b1c3c90b17107102" aria-disabled="false"></div>
+            <div
+              class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets swiper-pagination-horizontal">
+            </div>
+            <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+          </div>
+          <p style="height: 10px;"></p>
+        </div>
+        <div class="modalContent">
+          <div class="pietentialAdvisor businessAdvisor" id="mobileView">
+            <span>Pietential</span>
+            <p>BUSINESS</p>
+          </div>
+          <p class="heading" id="mobileView">Choosing from over 50 demographic categories, SMBs can monitor
+            and compare employee wellbeing, while offering personal growth support.</p>
+          <p class="mainSubtitle" data-hindi="35">The Pietential <b>BUSINESS</b> Platform allows owners of
+            small and medium businesses (SMBs) to offer Pietential to their employees in order to support
+            employee wellbeing on an individual basis, and better understand employee population wellbeing
+            on an aggregate basis through data visualizations. <br><br>
+            Pietential BUSINESS does not require that you have an HRIS system (that’s Pietential
+            Enterprise). “Business” offers a front-end employee demographic survey with over 50 predefined
+            categories. It gives organizational leadership the ability to visualize and analyze employee
+            wellbeing by location, job title, age, or any other demographic factors that your human resource
+            department keeps track of. And, give you the ability to customize the survey, and download
+            reports as CSV and XML files. <br><br>
+            System settings allow company employees to choose whether or not share their individual
+            Pietential status with their HR Department, management and company ownership, and the company
+            always receives anonymized aggregate visualizations showing the well being of the employee
+            population as charts, without revealing individual employees’ status.
+          </p>
+          <a href="https://pietentialdiscovery.as.me/" class="demoButton" data-hindi="256">Book a free
+            demo</a>
+          <p style="height: 10px;"></p>
+        </div>
+      </div>
+    </div>
+    <div class="modalOverlay" id="modalOverlayNgo">
+      <div class="modalInner modal_inner" id="modalInner">
+        <img data-src="./assets/close.png" alt="Close Icon" class="ngoCloseIcon lazy" id="closeIcon">
+        <div class="modalImageContainer">
+          <div class="pietentialAdvisor ngoAdvisor" id="desktopView">
+            <span>Pietential</span>
+            <p>NGO</p>
+          </div>
+          <p class="heading" id="desktopView">Measure the Good you do for the <br> Populations you Serve</p>
+          <div class="swiper processSwiper swiper-initialized swiper-horizontal swiper-pointer-events">
+            <div class="swiper-wrapper" id="swiper-wrapper-f7d7fb31f9cede32" aria-live="off"
+              style="transition-duration: 0ms;">
+              <div data-category="PietentialNGO-32" class="swiper-slide swiperSlider">
+                <img class="lazy" data-src="https://pietential.com/assets/modalImages/01-Pietential-NGO-Dashboard.webp">
+                <p class="advisorText" data-hindi="430">Invite New User(s): Invite new users directly by
+                  either manually adding their emails, performing field interviews, or uploading
+                  files.<br></p>
+              </div>
+              <div data-category="PietentialNGO-33" class="swiper-slide swiperSlider">
+                <img class="lazy" data-src="https://pietential.com/assets/modalImages/02-Pietential-NGO-Dashboard.webp">
+                <p class="advisorText" data-hindi="431">Create Community: Create a New Community with
+                  any combination of demographics.</p>
+              </div>
+              <div data-category="PietentialNGO-34" class="swiper-slide swiperSlider">
+                <img class="lazy" data-src="https://pietential.com/assets/modalImages/03-Pietential-NGO-Dashboard.webp">
+                <p class="advisorText" data-hindi="432">Create Community: You can also select more than
+                  one category for each demography, as required.</p>
+              </div>
+              <div data-category="PietentialNGO-35" class="swiper-slide swiperSlider">
+                <img class="lazy" data-src="https://pietential.com/assets/modalImages/04-Pietential-NGO-Dashboard.webp">
+                <p class="advisorText" data-hindi="433">Population Average: Visualize the wellbeing of
+                  your entire population for the selected time period.</p>
+              </div>
+              <div data-category="PietentialNGO-36" class="swiper-slide swiperSlider">
+                <img class="lazy" data-src="https://pietential.com/assets/modalImages/05-Pietential-NGO-Dashboard.webp">
+                <p class="advisorText" data-hindi="434">Individual Scores: Visualize the wellbeing of
+                  any individual for the selected time period and track their progress.</p>
+              </div>
+              <div data-category="PietentialNGO-37" class="swiper-slide swiperSlider">
+                <img class="lazy" data-src="https://pietential.com/assets/modalImages/06-Pietential-NGO-Dashboard.webp">
+                <p class="advisorText" data-hindi="435">Community Average: You can also visualize the
+                  wellbeing of any community for the selected time period and track its progress.</p>
+              </div>
+              <div data-category="PietentialNGO-38" class="swiper-slide swiperSlider">
+                <img class="lazy" data-src="https://pietential.com/assets/modalImages/07-Pietential-NGO-Dashboard.webp">
+                <p class="advisorText" data-hindi="436">Comparative Analysis: Compare and analyze the
+                  wellbeing of two individuals, demographies, or existing communities at a selected
+                  time period.</p>
+              </div>
+              <div data-category="PietentialNGO-39" class="swiper-slide swiperSlider">
+                <img class="lazy" data-src="https://pietential.com/assets/modalImages/08-Pietential-NGO-Dashboard.webp">
+                <p class="advisorText" data-hindi="437">Adjust Threshold: You can set an alert threshold
+                  at a given range in order to track if the wellbeing of an individual or community
+                  drops below the selected threshold.</p>
+              </div>
+              <div data-category="PietentialNGO-40" class="swiper-slide swiperSlider">
+                <img class="lazy" data-src="https://pietential.com/assets/modalImages/09-Pietential-NGO-Dashboard.webp">
+                <p class="advisorText" data-hindi="438">Adjust Threshold: Since every human has five
+                  core needs, you can set an alert threshold for each category.</p>
+              </div>
+              <div data-category="PietentialNGO-41" class="swiper-slide swiperSlider">
+                <img class="lazy" data-src="https://pietential.com/assets/modalImages/10-Pietential-NGO-Dashboard.webp">
+                <p class="advisorText" data-hindi="439">Pietential NGO helps organizations understand
+                  and prove the efficacy of their social programs.</p>
+              </div>
+            </div>
+            <div class="swiper-button-next" tabindex="0" role="button" aria-label="Next slide"
+              aria-controls="swiper-wrapper-f7d7fb31f9cede32" aria-disabled="false"></div>
+            <div class="swiper-button-prev" tabindex="0" role="button" aria-label="Previous slide"
+              aria-controls="swiper-wrapper-f7d7fb31f9cede32" aria-disabled="false"></div>
+            <div
+              class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets swiper-pagination-horizontal">
+            </div>
+            <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+          </div>
+          <p style="height: 10px;"></p>
+        </div>
+        <div class="modalContent">
+          <div class="pietentialAdvisor ngoAdvisor" id="mobileView">
+            <span>Pietential</span>
+            <p>NGO</p>
+          </div>
+          <p class="heading" id="mobileView">Measure the Good you do for the
+            Populations you Serve and Prove the Efficacy of your Programs
+          </p>
+          <p class="mainSubtitle" data-hindi="42">The Pietential <b>NGO</b> Platform allows directors and
+            staff of Non-governmental Organizations the ability to offer Pietential to their populations in
+            order to measure and monitor wellbeing on an individual basis, and aggregate basis. <br><br>
+            It offers a customizable front-end employee survey which allows the administrator to visualize
+            and analyze individual and community wellbeing by age, race, location, gender, caste, education
+            level, or any other demographic factors that the NGO would like to monitor.<br><br>
+            Pietential <b>NGO</b> is a wellbeing visualization and monitoring tool designed for NGOs that
+            support at-risk, marginalized and under-served communities; therefore, with the consent of the
+            individual community members, through acceptance of the Subscriber Terms of Use, the client's
+            information is automatically shared with the NGO.<br><br>
+            Pietential <b>NGO</b> includes observations and recommendations for the individuals that the NGO
+            administers it to, as well as Pietential’s “Actualize It” personal growth exercises, but NGOs
+            also have the option to turn off our wellbeing programs in order to specifically measure the
+            effectiveness of their own programs. This means that NGOs now have the power to prove their
+            value to their funders!
+          </p>
+          <p data-hindi="43"></p>
+          <p data-hindi="44"></p>
+          <a href="https://pietentialdiscovery.as.me/" class="demoButton" data-hindi="256">Book a free
+            demo</a>
+          <p style="height: 10px;"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="navi"></section>
+  <div id="dashBar" style=" display:none; background: #333; padding: 22px; ">
+    <div id="innerDashBar" style="color: white; max-width:1100px; margin: auto; text-align: center;font-size: 13px;">
+    </div>
+  </div>
+  <style>
+    .aboxi {
+      max-width: 1200px;
+      margin: auto;
+      text-align: left;
+      margin: 20px;
+    }
+  </style>
+  <section class="howWeDoMain" onmouseover="changeLanguage()">
+    <p data-hindi="60">Our Process</p>
+    <h2 data-hindi="61">How we do it</h2>
+    <div class="tabs">
+      <a href="javascript://" id="userButton" data-hindi="62" class="userButton tabButton"
+        onclick="onListClick('user', 0)">User</a>
+      <a href="javascript://" id="adminButton" class="adminButton active tabButton" data-hindi="72"
+        onclick="onListClick('admin', 1)">admin</a>
+      <div class="triangle">
+        <div class="empty"></div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="howWeDo activeClass" id="admin">
+        <div class="howWeDoContainer">
+          <div class="imageContainer">
+            <img data-src="./assets/tabsImages/adminSubscription.webp" width="100%" height="430px" alt="Admin Image"
+              id="adminImage" class="adminImage lazy" />
+          </div>
+          <div class="howWeDoContent">
+            <ul>
+              <img data-src="./assets/tabsImages/adminSubscription.webp" alt="" id="adminImage" class="admin2 lazy" />
+              <li onmouseover="onListItem('./assets/tabsImages/adminSubscription.webp', 0);" id="progressContainer">
+                <span class="progress" id="progress"></span>
+                <div class="contentContainer">
+                  <a href="javascript://" data-hindi="73">Submit your Admin Subscription request.</a>
+                  <p id="subtitle" class="subtitle">Pietential Admin services are customized based on
+                    your organization
+                    and the populations you lead and serve. So, the query form is designed to help
+                    us better understand
+                    your requirements.
+                  </p>
+                </div>
+              </li>
+              <img data-src="./assets/tabsImages/thankyou.webp" alt="" id="adminImage" class="admin2 lazy" />
+              <li onmouseover="onListItem('./assets/tabsImages/thankyou.webp', 1)" id="progressContainer">
+                <span class="progress" id="progress"></span>
+                <div class="contentContainer">
+                  <a href="javascript://" data-hindi="74">We will contact you within 48 hours to schedule a meeting.
+                  </a>
+                  <p id="subtitle" class="subtitle" data-hindi="75">Once we receive your request, our
+                    team will schedule a call with
+                    you. It’s important for us to understand your potential use case for the
+                    Pietential platform so that
+                    we can help you be successful with it.</p>
+                </div>
+              </li>
+              <img data-src="./assets/tabsImages/adminRegister.webp" alt="" id="adminImage" class="admin2 lazy" />
+              <li onmouseover="onListItem('./assets/tabsImages/adminRegister.webp', 2)" id="progressContainer">
+                <span class="progress" id="progress"></span>
+                <div class="contentContainer">
+                  <a href="javascript://" data-hindi="76">We will give you a detailed demo and share the terms to be
+                    signed.</a>
+                  <p id="subtitle" class="subtitle" data-hindi="77">After both parties agree and the
+                    terms are signed, we will invoice
+                    you for the payment. Shortly after, you will receive a link to register your
+                    Admin account. You can
+                    always book onboarding support calls if needed.
+                  </p>
+                </div>
+              </li>
+              <img data-src="./assets/tabsImages/demographics.webp" alt="" id="adminImage" class="admin2 lazy" />
+              <li onmouseover="onListItem('./assets/tabsImages/demographics.webp', 3)" id="progressContainer">
+                <span class="progress" id="progress"></span>
+                <div class="contentContainer">
+                  <a href="javascript://" data-hindi="78">Customize your demographic categories. </a>
+                  <p id="subtitle" class="subtitle">Every organization and population is different;
+                    based on your
+                    choices, we will help you build a customized demographic profile for your
+                    population. These
+                    demographics will later be used to draw a comparative analysis.</p>
+                </div>
+              </li>
+              <img data-src="./assets/tabsImages/congratulations.webp" alt="" id="adminImage" class="admin2 lazy" />
+              <li onmouseover="onListItem('./assets/tabsImages/congratulations.webp', 4)" id="progressContainer">
+                <span class="progress" id="progress"></span>
+                <div class="contentContainer">
+                  <a href="javascript://" data-hindi="80">Receive a organization code to onboard your population. </a>
+                  <p id="subtitle" class="subtitle" data-hindi="81">Once you have set up your Admin
+                    account, you will receive a organization
+                    code that you can share with your population so they can use the platform.
+                  </p>
+                </div>
+              </li>
+              <img data-src="./assets/tabsImages/dashboard.webp" alt="" id="adminImage" class="admin2 lazy" />
+              <li onmouseover="onListItem('./assets/tabsImages/dashboard.webp', 5)" id="progressContainer">
+                <span class="progress" id="progress"></span>
+                <div class="contentContainer">
+                  <a href="javascript://">Familiarize yourself with the Admin dashboard.</a>
+                  <p id="subtitle" class="subtitle" data-hindi="82">Log in with your active Admin Id
+                    and start using your customized
+                    Admin dashboard. If you need any support, you can book a Zoom call with us.</p>
+                </div>
+              </li>
+              <img data-src="./assets/tabsImages/inviteNewUsers.webp" alt="" id="adminImage" class="admin2 lazy" />
+              <li onmouseover="onListItem('./assets/tabsImages/inviteNewUsers.webp', 6)" id="progressContainer">
+                <span class="progress" id="progress"></span>
+                <div class="contentContainer">
+                  <a href="javascript://" data-hindi="83"> Invite new users and Monitor your population’s wellbeing.
+                  </a>
+                  <p id="subtitle" class="subtitle" data-hindi="84">You can invite new users into your
+                    population by uploading contacts
+                    manually or via XML/CSV files, or you can use our custom API. The “Population
+                    Average” feature lets
+                    you monitor and track your entire population’s wellbeing.
+                  </p>
+                </div>
+              </li>
+              <img data-src="./assets/tabsImages/analysis.webp" alt="" id="adminImage" class="admin2 lazy" />
+              <li onmouseover="onListItem('./assets/tabsImages/analysis.webp', 7)" id="progressContainer">
+                <span class="progress" id="progress"></span>
+                <div class="contentContainer">
+                  <a href="javascript://" data-hindi="85">Create, Compare, and Analyze different individuals, cohorts,
+                    and
+                    demographics within your
+                    population.
+                  </a>
+                  <p id="subtitle" class="subtitle" data-hindi="86">You can create different segmented
+                    cohorts within your population.
+                    The “Comparative Analysis” feature lets you compare and analyze the wellbeing of
+                    different cohorts,
+                    demographics, and individuals.
+                  </p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="howWeDo" id="user">
+        <div class="howWeDoContainer">
+          <div class="imageContainer">
+            <img data-src="./assets/tabsImages/userRegister.webp" alt="" id="adminImageTwo"
+              class="adminImage admin-image lazy" />
+          </div>
+          <div class="howWeDoContent">
+            <ul>
+              <img data-src="./assets/tabsImages/userRegister.webp" alt="" id="adminImage" class="admin2 admin_two lazy" />
+              <li onmouseover="onListItem('./assets/tabsImages/userRegister.webp', 8)" id="progressContainer">
+                <span class="progress" id="progress"></span>
+                <div class="contentContainer" onmouseover="changeLanguage()">
+                  <a href="javascript://" data-hindi="63">Sign up as a user.</a>
+                  <p id="subtitle" class="subtitle">Fill in your details, and you are ready to
+                    experience Pietential. If
+                    you have a organization code, you will receive an additional form regarding the
+                    demographic details
+                    requested by your Admin.</p>
+                </div>
+              </li>
+              <img data-src="./assets/tabsImages/survey.webp" alt="" id="adminImage" class="admin2 lazy" />
+              <li onmouseover="onListItem('./assets/tabsImages/survey.webp', 9)" id="progressContainer">
+                <span class="progress" id="progress"></span>
+                <div class="contentContainer">
+                  <a href="javascript://" data-hindi="64">Complete a simple survey.</a>
+                  <p id="subtitle" class="subtitle" data-hindi="65">Complete a 5-7 minutes survey to
+                    evaluate your current state of life
+                    balance and wellbeing. Be authentic; it’s not a test. There are no right or
+                    wrong answers to these
+                    questions.</p>
+                </div>
+              </li>
+              <img data-src="./assets/tabsImages/visualization.webp" alt="" id="adminImage" class="admin2 lazy" />
+              <li onmouseover="onListItem('./assets/tabsImages/visualization.webp', 10)" id="progressContainer">
+                <span class="progress" id="progress"></span>
+                <div class="contentContainer">
+                  <a href="javascript://" data-hindi="66">Receive a Visualization of your life balance.</a>
+                  <p id="subtitle" class="subtitle" data-hindi="67">Once you answer all the questions,
+                    you will receive a visualization
+                    of your life balance in the form of a pie chart and bar graph.</p>
+                </div>
+              </li>
+              <img data-src="./assets/tabsImages/surveyAnalysis.webp" alt="" id="adminImage" class="admin2 lazy" />
+              <li onmouseover="onListItem('./assets/tabsImages/surveyAnalysis.webp', 11)" id="progressContainer">
+                <span class="progress" id="progress"></span>
+                <div class="contentContainer">
+                  <a href="javascript://" data-hindi="68">Get instant observations, recommendations, and personal
+                    growth-hacking exercises.</a>
+                  <p id="subtitle" class="subtitle">Based on your current wellbeing scores, Pietential
+                    provides instant
+                    observations, recommendations, and personal growth-hacking exercises to help you
+                    take your wellbeing
+                    to the next level.</p>
+                </div>
+              </li>
+              <img data-src="./assets/tabsImages/userDashboard.webp" alt="" id="adminImage" class="admin2 lazy" />
+              <li onmouseover="onListItem('./assets/tabsImages/userDashboard.webp', 12)" id="progressContainer">
+                <span class="progress" id="progress"></span>
+                <div class="contentContainer">
+                  <a href="javascript://">Track your progress and personal growth.</a>
+                  <p id="subtitle" class="subtitle" data-hindi="69">You can retake the Pietential
+                    survey as many times as you want.
+                    Simply log in and click on retake the survey. Once you have taken survey more
+                    than once, you will
+                    see a line graph of your life balance which will help you track your progress.
+                  </p>
+                </div>
+              </li>
+              <img data-src="./assets/tabsImages/homePage.webp" alt="" id="adminImage" class="admin2 lazy" />
+              <li onmouseover="onListItem('./assets/tabsImages/homePage.webp', 13)" id="progressContainer">
+                <span class="progress" id="progress"></span>
+                <div class="contentContainer">
+                  <a href="javascript://" data-hindi="70">And it is completely Free!</a>
+                  <p id="subtitle" class="subtitle" data-hindi="71">Pietential is on a Mission to
+                    bring its Life Balance Realization
+                    System to the world. To achieve that, our Individual Subscription is completely
+                    free!</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div id="ourStory" class="containerFLEX" style="text-align: center;">
+    <div class="container">
+      <h2 class="hearFromText" data-hindi="278">Hear from the creators</h2>
+    </div>
+    <div class="container">
+      <div class="videoContainer">
+        <video class="lazy" data-src="https://pietential.com/images/Pietential-Origin-Story-Jan-17-2023.mp4"
+          controls="true"></video>
+      </div>
+    </div>
+  </div>
+  </div>
+  <section class="contactUsSection">
+    <div class="">
+      <p data-hindi="87">Contact us</p>
+      <h2 data-hindi="88">We would love to <br /> speak to you</h2>
+      <form action="https://formsubmit.co/pratheepa@pietential.com" method="POST">
+        <input type="text" id="name" name="name" placeholder="Full Name" required>
+        <input type="email" id="email" name="email" placeholder="Email" required>
+        <input type="hidden" name="_captcha" value="false" />
+        <textarea name="message" id="message" cols="1" rows="1" class="textarea" placeholder="Your Message"></textarea>
+        <div class="buttonContainer">
+          <button type="submit" class="loginButton forHover">submit</button>
+          <a href="https://pietentialdiscovery.as.me/" class="zoomWithUS" data-hindi="170">zoom with us</a>
+        </div>
+      </form>
+    </div>
+  </section>
+  <section id="footi"></section>
+  <script type="text/javascript" src="/navigation/bottomNav.js"></script>
+  <script src="./js/index.js"></script>
+  <script src="./js/animation.js"></script>
+  <script src="./js/main.js"></script>
+  <script src="./js/latestQuestionsResponse.js"></script>
+  <script>
+    function gotoRegister() {
+      window.location.href = `${window.location.origin}/register.html`
+    }
+  </script>
+  <script id="addLogo">
+    function addLogoToPrices() {
+      var inter = document.getElementById("main-logo-top").outerHTML;
+      for (let a of document.getElementsByClassName("logoholder")) {
+        a.innerHTML = inter;
+      }
+    }
+  </script>
+  <script id="hank-added-4-10-2023-social-linking-tools">
+    var k = [
+      { "key": "enterprise", "id": "enterprisesImageContainer" },
+      { "key": "advisor", "id": "adv23" },
+      { "key": "business", "id": "businessAdvisor" },
+      { "key": "ngo", "id": "ngoContainer" },
+      alert('will open');
+    arr.push(t);
+    localStorage.openedURLS = JSON.stringify(arr);
+    window.open(t);
+    break;
+];
+    for (let a of k) {
+      var re = new RegExp(a.key, 'ig');
+      if (location.href.match(re)) {
+        document.getElementsByTagName('h2')[18].scrollIntoView();
+        document.getElementsByClassName(a.id)[0].click();
+      }
+    }
+/*
+    https://pietential.com/?enterprise
+    https://pietential.com/?advisor
+    https://pietential.com/?business
+    https://pietential.com/?ngo
+    */
+  </script>
+  <script type="text/javascript" src="/navigation/topNav.js?87"></script>
+  <script id="initPD">
+    if (location.href.match(/\?hindi/)) {
+      localStorage.currentLanguage = 'hindi';
+    }
+    function changeLanguage() {
+      // Look for this attribute: data-hindi="3";
+      // var originalLanguage = {};
+      // for (let a of document.querySelectorAll('[data-hindi]')) {
+      // var index = +a.dataset.hindi;
+      // originalLanguage[index] = a.innerHTML;
+      // }
+      // window.originalLanguage = originalLanguage; 
+      //return;
+      if (!localStorage.currentLanguage) {
+        return;
+      }
+      if (localStorage.currentLanguage !== 'hindi') {
+        console.log(localStorage.currentLanguage);
+        return;
+      }
+      lang = localStorage.currentLanguage;
+      fetch("translations.txt")
+        .then(r => {
+          return r.text()
+        })
+        .then(a => {
+          window.translations = JSON.parse(a);
+          for (let a of document.querySelectorAll('[data-hindi]')) {
+            var index = +a.dataset.hindi;
+            for (let b of translations) {
+              if (+b.hindiID == +index) {
+                a.innerHTML = b[lang];
+              }
+            }
+            // a.innerHTML = translations[index][lang];
+          }
+        });
+    }
+    changeLanguage();
+  </script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-K3VEYCTX6E"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+    gtag("config", "G-K3VEYCTX6E");
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script src="../js/commonLinks.js"></script>
+  <script>includeCommonHeader('Admin Register')</script>
+</head>
+
+<body>
+  <section class="login">
+    <div class="container">
+      <div class="logInImageContainer">
+        <a href="/">
+          <img src="../assets/pietentialBlackLogo.svg" alt="Pietential Logo" class="logo" />
+        </a>
+        <img src="../assets/loginPageImage.svg" alt="" class="loginPageImage" width="100%" height="730px" />
+      </div>
+      <div class="formMainContainer">
+        <div class="formContainer">
+          <h2>Submit Your Admin Subscription Request.</h2>
+          <div class="form">
+            <form id="signup">
+              <input type="text" name="name" placeholder="First Name" required id="fname" required />
+              <input type="text" name="last name" id="lname" placeholder="Last Name" required />
+              <input type="email" name="email" placeholder="Enter your Email" required id="email" />
+              <input type="text" name="company name" placeholder="Your Company name" required id="companyName" />
+              <input type="text" name="title" placeholder="Your Title" required id="title" />
+              <div class="buttonContainer" id="buttonContainer">
+                <div class="termsMainContainer">
+                  <input type="checkbox" class="termsContainer" id="agreeCheck" />
+                  <label for="checkbox" class="termsLabel">I agree to the Subscriber
+                    <a href="/pielet/privacy" target="_blank">Terms of Use.</a>
+                  </label>
+                </div>
+                <div class="buttonOuter" id="buttonOuter">
+                  <a href="" class="reset">reset all</a>
+                  <a id="submitButton" class="loginButton" onclick="checkForTerms()">
+                    submit
+                  </a>
+                </div>
+              </div>
+              <div class="modalOverlay" id="modalOverlay"></div>
+              <script src="../js/apiHelper.js"></script>
+              <script src="../js/main.js"></script>
+              <script src="../js/apiService.js"></script>
+              <script>
+                let modal = getElementById("modalOverlay");
+
+                function hideModal() {
+                  modal.style.display = "none";
+                }
+
+                function getView(title) {
+                  return `<div class="alertMain"><div class="alertInner" id="modalInner"><p>${title}</p>
+                        <a class="loginButton" onclick="hideModal()" style="margin: auto">Ok</a>
+                        </div></div>`;
+                }
+
+                const onEmail = async () => {
+                  let nameInput = getElementById("fname")
+                  let lastNameInput = getElementById("lname")
+                  let emailInput = getElementById("email")
+                  let companyNameInput = getElementById("companyName")
+                  let titleInput = getElementById("title")
+                  await handleSendEmailToAdmin(companyNameInput.value, titleInput.value, 
+                  nameInput.value, lastNameInput.value, emailInput.value).then((response) => {
+                    if (response) {
+                    return (
+                      (window.location.href = `/pages/thankyou.html`)
+                    );
+                  }
+                  })
+                };
+                function checkForTerms() {
+                  var validRegex =
+                    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+                  var f =
+                    `fname,lname,email,companyName,title`.split(
+                      ","
+                    );
+                  for (let a of f) {
+                    if (getElementById(a).value?.length < 2) {
+                      modal.innerHTML = ""
+                      modal.style.display = "block"
+                      modal.innerHTML += getView(`You need to fill out the ${a} field with at least 2 characters`)
+                      return;
+                    }
+                  }
+                  if (getElementById("agreeCheck").checked == false) {
+                    modal.innerHTML = ""
+                    modal.style.display = "block"
+                    modal.innerHTML += getView(`You need to agree to the terms to use Pietential.`)
+                    return;
+                  }
+                  if (
+                    getElementById("email").value.match(validRegex)
+                  ) {
+                    return onEmail();
+                  } else {
+                    modal.innerHTML = ""
+                    modal.style.display = "block"
+                    modal.innerHTML += getView(`Invalid email address!`)
+                    return;
+                  }
+                }
+              </script>
+            </form>
+          </div>
+        </div>
+      </div>
+  </section>
+</body>
+
+</html>

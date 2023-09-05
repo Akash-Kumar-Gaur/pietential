@@ -1,0 +1,755 @@
+<body style="padding:20px;/*text-align:center;*/" id="theBody" cz-shortcut-listen="true">
+				<br>
+	<br>
+	<script>
+		function cleanit() {
+			var term = `Florida Healthcare VP`;
+			var r = document.getElementsByClassName("g");
+			var links = [];
+			var out = '';
+			console.log("starting cleaner...");
+			if (!document.getElementsByName("file")[0]) {
+				return;
+			}
+			if (r.length<4) {
+				console.log("No G divs yet.");
+				return;
+			}
+			//
+			
+			for (let a of r) {
+				var obj = {};
+				obj.mainLink = a.getElementsByTagName("a")[0].href;
+				obj.title = a.getElementsByTagName("a")[0].innerText;
+				obj.title = obj.title.replace(/\-.+/, "");
+				obj.title = obj.title.replace(/www\.lin.+/, "");
+				obj.title = obj.title.replace(/https:\/\//, "");
+				links.push(obj);
+			}
+			localStorage.scrapeData = JSON.stringify(links);
+			localStorage.scrapeTerm = term;
+			for (let obj of links) {
+				out += `${obj.title} (${term}): <a href="${obj.mainLink}" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href='https://www.google.com/search?q=${obj.title} ${term}' class='lil'  style="color:white" target='_blank' >Google search</a><br>`;
+			}
+			out = `
+			<style>
+			* {
+        font-family: 'Segoe UI', sans-serif;
+    
+			}
+			.lil {
+				text-decoration: none;
+				display:inline-block;
+				cursor:pointer;
+				margin: 1px;
+				color: white;
+				padding: 5px;
+				background-color: rgb(52, 73, 94);
+			}
+			</style>
+			<div id="cleanResults">${out}</div>`;
+			document.getElementsByName("file")[0].innerHTML = out;
+			localStorage.scrapeFormatted = `<html>
+			
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>Lead scraper</title><div id="cleanResults">${out}</div></html>`;
+			promptForDownload();
+		}
+
+		function promptForDownload(){
+			callingCard.style.display="block";
+		}
+		function saveFile(){
+			window.location = "data:application/octet-stream," + encodeURIComponent(localStorage.scrapeFormatted);
+		}
+		function sendAJAX(){
+            payload = encodeURIComponent(localStorage.scrapeFormatted);
+            var parameters = "ajax=" + payload;
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    console.log(xhttp.responseText);
+                    //sw.innerHTML = "Saved!";
+                }
+            };
+            xhttp.open("POST", `./`, true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(parameters);
+		}
+		function sendform(){
+			document.getElementById("pl").value =localStorage.scrapeFormatted;
+			document.getElementById("aj").submit(); 
+		}
+		function downloadPie() {
+			document.getElementsByName("file")[0].contentEditable = "false";
+			topsearch.style.display = "none";
+			callingCard.style.display = "none";
+            var text = document.body.outerHTML;
+            var m = [];
+            m[0] = text;
+            var myBlob = new Blob(m, { type: 'text/html' });
+            var blobUrl = URL.createObjectURL(myBlob);
+            var link = document.createElement("a");
+            link.href = blobUrl;
+            link.download = `${localStorage.scrapeTerm} scrape results.html`;
+            link.innerHTML = "<button>Download " + link.download + "</button>";
+            link.click();
+        }
+
+		document.addEventListener("DOMContentLoaded", function(event) {
+
+			setInterval(function() {
+				//cleanit();
+			}, 7000);
+
+		});
+	</script>
+
+<form id="aj" style="display:none" method="post">
+<input name="ajax" id="pl">
+</form>
+
+
+
+
+<div id="callingCard" class="cchov" style="display: none; left: 0px; border-radius: 5px; position: fixed; text-align: center; z-index: 999999; bottom: 0px; width: auto; margin: 35px; padding: 25px; color: white; opacity: 1; box-sizing: border-box; font-family: sans-serif; font-size: 16px; box-shadow: rgb(0, 0, 0) 10px 10px 52px 0px;"><style>.cchov{background: #333;    transition: all .5s;}.cchov:hover{background: #1153A2;    transition: all .5s;}</style><div style="margin-right:47px;"><a id="cc-linkbox-ifRRgGy7JOpyivbq" onclick="downloadPie();" style="color:white;font-size:16px;text-decoration:none;">Click here to save leads as a file</a></div><a href="#" id="closeLink" style="color:white;;font-size:16px;"><img src="https://silvercrayon.us/promo-seltzer/img/close-icon2.png" style="margin-left:12px;position:absolute;top:19px;right:20px;height:29px;" onclick="javascript:callingCard.style.display='none';"></a></div>
+
+
+
+	<div style="text-align:center;">
+
+		<a id="topsearch" href="https://www.google.com/search?q=site:linkedin.com/in/ Florida Healthcare VP&amp;num=100" target="_blank" style="text-decoration: none; margin: 0px; color: white; padding: 15px; text-transform: uppercase; background-color: rgb(41, 128, 185); width: 800px; display: none;">
+			Florida Healthcare VP- Start searching </a>
+		<br>
+		
+
+
+		<br><br>
+		<div name="file" contenteditable="false" style="margin:auto;width:800px;height:auto;padding:25px; background:white;text-align:left;" class="san15" placeholder="" onmousemove="cleanit()">
+			<style>
+			* {
+        font-family: 'Segoe UI', sans-serif;
+    
+			}
+			.lil {
+				text-decoration: none;
+				display:inline-block;
+				cursor:pointer;
+				margin: 1px;
+				color: white;
+				padding: 5px;
+				background-color: rgb(52, 73, 94);
+			}
+			</style>
+			<div id="cleanResults">
+Amanda Mullan 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/amanda-mullan-4421991" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Amanda Mullan 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Beth Silver 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/bethellensilver" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Beth Silver 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Santo Barravecchio 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/santo-barravecchio-2253a87" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Santo Barravecchio 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Melanie Kennedy 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/melanie-kennedy-5ab19a2a" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Melanie Kennedy 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Martin J D. 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/martinjdevaney" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Martin J D. 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Julia Basile, SPHR 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/julia-basile-sphr-99121515" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Julia Basile, SPHR 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Rachel McInerney 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/rachel-mcinerney-54141179" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Rachel McInerney 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Kathleen Fennell 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/kathleen-fennell-5799bb15" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Kathleen Fennell 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+William Wander 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/william-wander-6793ba79" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+William Wander 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Robert Chrenowski 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/robert-chrenowski-889a523" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Robert Chrenowski 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Roselyn Agar 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/roselyn-agar" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Roselyn Agar 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+vivian fernandez 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/vivian-fernandez-2ab2b719" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+vivian fernandez 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Lindsay Rivera 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/lindsayrivera47" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Lindsay Rivera 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Kelly Hutchinson 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/kelly-hutchinson-617ba857" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Kelly Hutchinson 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Anne Cardello, PHR, SHRM
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/annewenskiphr" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Anne Cardello, PHR, SHRM
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Michele Ragonese 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/michele-ragonese-a4a80725" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Michele Ragonese 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Monica Sarantidis 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/monica-sarantidis-85361313" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Monica Sarantidis 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jessica Gasser 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/jessica-gasser-36624828" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jessica Gasser 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jay Caldwell 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/jay-caldwell-2a24307" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jay Caldwell 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Kathie Keller 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/kathie-keller-4bb5523" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Kathie Keller 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Julie Ellis, MBA, SHRM
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/julie-ellis-mba-shrm-scp-54802212?trk=people-guest_people_search-card" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Julie Ellis, MBA, SHRM
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Tom Reed 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/tom-reed-hr" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Tom Reed 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Joseph Shiarappa, PHR 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/joseph-shiarappa-phr-2782221" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Joseph Shiarappa, PHR 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Melissa Lerner 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/melissalerner" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Melissa Lerner 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Kelly Brooks 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/kelly-brooks-8810a35" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Kelly Brooks 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Charles J. Carrier 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/cjcarrier" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Charles J. Carrier 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Laura Lewis 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/laura-lewis-8668107" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Laura Lewis 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Hope Cooper 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/hopelcooper" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Hope Cooper 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Andrea Harris 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/andrea-harris-0492241bb" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Andrea Harris 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jay Getto 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/jaygetto" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jay Getto 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jose Balderrama 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/jose-balderrama-762ab792" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jose Balderrama 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Natasha Biswas, MS 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/natasha-biswas-m-s-12807356" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Natasha Biswas, MS 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Paul Edwards 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/paul-edwards-61594717" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Paul Edwards 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Vickie Gonzalez 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/vickie-gonzalez-42625613" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Vickie Gonzalez 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Barbara Powderley 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/barbara-powderley-7522452" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Barbara Powderley 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Robert Zierold 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/robert-zierold-61b96a33" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Robert Zierold 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Donna Jack, SHRM
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/donna-jack-shrm-scp-sphr-5500768" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Donna Jack, SHRM
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Manuel Gonzalez, SHRM 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/mgonzalez13" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Manuel Gonzalez, SHRM 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Stefanie Armitt 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/stefaniearmitthr" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Stefanie Armitt 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Unanda Bell, PHR 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/unandabell" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Unanda Bell, PHR 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Vivian Yost 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/vivian-yost-9516a211" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Vivian Yost 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Courtney Anderson 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/courtney-anderson-44643111" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Courtney Anderson 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Terrence B. Williams, MSM, PsyD 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/terwilliams" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Terrence B. Williams, MSM, PsyD 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jeanne Schaefer 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/jeanne-schaefer-925bb218" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jeanne Schaefer 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Terry Brown, MBA, SBA 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/terry-brown-mba-sba-64448169" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Terry Brown, MBA, SBA 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Cheney R. Cherry 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/cheneycherry" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Cheney R. Cherry 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Donna Osborn 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/donna-osborn-64883545" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Donna Osborn 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Belinda Perichi 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/belinda-perichi-0354a415" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Belinda Perichi 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jeanne Mulkeen 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/jeanne-mulkeen-21659a7" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jeanne Mulkeen 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+David Glenn, MBA, SHRM
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/david-glenn-mba-shrm-scp-47348342" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+David Glenn, MBA, SHRM
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jennifer Garrard 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/jennifer-garrard-hr" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jennifer Garrard 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Karen Carpentieri 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/karen-carpentieri-bb272b8" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Karen Carpentieri 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+David Vernon 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/dlvernon01" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+David Vernon 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Mary Cataudella 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/mary-cataudella-39930913" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Mary Cataudella 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Tony Rico 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/tony-rico-92a2a71" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Tony Rico 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Brian White 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/brian-white-4a66b113" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Brian White 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Janelle Vizzi, SHRM
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/janellevizzi" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Janelle Vizzi, SHRM
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Rachel Crowley, SPHR 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/rachel-crowley-sphr-56b7b84" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Rachel Crowley, SPHR 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Sholonda Chipepo, MS SPHR, SHRM
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/schipepo" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Sholonda Chipepo, MS SPHR, SHRM
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Mirella Bednar 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/mirella-bednar-729b0786" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Mirella Bednar 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+VIVIAN LEWIS 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/vivian-lewis-35814840" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+VIVIAN LEWIS 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Neriman Botas 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/neriman-botas-44485a9" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Neriman Botas 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Robert Piaskowsky 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/robert-piaskowsky-54233b24" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Robert Piaskowsky 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Barney Drew 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/barneydrewvphr" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Barney Drew 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Victoria Bates 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/victoriabateshr-practitioner" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Victoria Bates 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Tony Napoli 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/tony-napoli-24715043" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Tony Napoli 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Kelley Meritzis, SPHR, SHRM
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/kelleymeritzis" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Kelley Meritzis, SPHR, SHRM
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Lillian Smith, MSHRM 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/lillian-smith-mshrm-6b4a5a25" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Lillian Smith, MSHRM 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Valerie Green, MPA 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/vjgreen" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Valerie Green, MPA 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jon Oravec 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/jon-oravec-9070b87" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jon Oravec 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Kevin Burke 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/kevin-burke-36a508b5" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Kevin Burke 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+David Benadon 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/david-benadon-01203b25" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+David Benadon 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Mary Snyder, PHR, SHRM
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/marysnyderhumanresources" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Mary Snyder, PHR, SHRM
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Patti Koncius 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/patti-koncius-774a5518" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Patti Koncius 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Linda Bocco 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/lindabocco" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Linda Bocco 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Deborah Knighton 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/deborah-knighton-a06559a" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Deborah Knighton 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Ayana Champagne 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/ayanachampagne" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Ayana Champagne 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Nate Ellison 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/nellison" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Nate Ellison 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jennifer Rusnak, SHRM
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/jensosa" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jennifer Rusnak, SHRM
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Mark Samolewicz 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/mark-samolewicz-78174623" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Mark Samolewicz 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Keith Aversa 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/keith-aversa-a735371b9" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Keith Aversa 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Peter Johnson 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/peter-johnson-208b914" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Peter Johnson 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Dawn Paquette 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/dawn-paquette-33725a103" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Dawn Paquette 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Donna McDermott 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/donna-mcdermott-94132b16" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Donna McDermott 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jackie Rollins 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/jackie-rollins-3277598" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jackie Rollins 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Kathy Cappeta 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/kathy-cappeta-a36998123" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Kathy Cappeta 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Lauren (Kerrigan) Zarro 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/laurenkerriganzarro" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Lauren (Kerrigan) Zarro 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jon Cochran 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/jon-cochran-449b733" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jon Cochran 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Stephanie Ojeda 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/stephanie-ojeda-4b47411b" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Stephanie Ojeda 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Eileen Drury, PHR 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/eileendrury" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Eileen Drury, PHR 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Anthony Gatto 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/anthony-gatto-755919117" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Anthony Gatto 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Debbie Green 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/debbiegreen11" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Debbie Green 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Justin Charpentier 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/justin-charpentier-25bb009" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Justin Charpentier 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Michael Haluska 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/michael-haluska-99686a3" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Michael Haluska 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jill Brown 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/jill-brown-555a3022" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jill Brown 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Kathy Lencsak 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/kathy-lencsak-801a123" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Kathy Lencsak 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Kristen Gorodetzer 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/kristengorodetzer" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Kristen Gorodetzer 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Patricia Wilson 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/patricia-wilson-49862127" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Patricia Wilson 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Catherine Geddis 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/catherine-geddis-9b52186" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Catherine Geddis 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jane Heaton 
+ (Florida Healthcare VP): <a href="https://www.linkedin.com/in/jane-heaton-11971941" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jane Heaton 
+ Florida Healthcare VP" class="lil" style="color:white" target="_blank">Google search</a><br></div></div>
+		<br><br>
+		<input type="hidden" name="term" value="Florida Healthcare VP"><br>
+		<br>
+		
+
+		<br><br>
+
+	</div>
+	</body>

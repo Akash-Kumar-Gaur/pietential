@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="theAvgs"></div>
+
+
+
+
+
+  <script>
+    fetch("../ids/all.json")
+      .then(r => {
+        return r.text()
+      })
+      .then(a => {
+        window.all = JSON.parse(a);
+        window.averages = calcAvg(window.all);
+        console.log(window.averages);
+        theAvgs.innerHTML = JSON.stringify(window.averages);
+      });
+
+    function calcAvg(all) {
+      var arr = [];
+      for (let a of all.users) {
+        if (a.LBscorevalues) {
+          arr.push(a.LBscorevalues);
+        }
+      }
+      var SAT = 0,
+        ECT = 0,
+        LBT = 0,
+        SNT = 0,
+        PNT = 0;
+      for (let a of arr) {
+        SAT += a.SA;
+        ECT += a.EC;
+        LBT += a.LB;
+        SNT += a.SN;
+        PNT += a.SA;
+      }
+      var averages = {};
+      averages.SAavg = Math.ceil(SAT / arr.length);
+      averages.ECavg = Math.ceil(ECT / arr.length);
+      averages.LBavg = Math.ceil(LBT / arr.length);
+      averages.SNavg = Math.ceil(SNT / arr.length);
+      averages.PNavg = Math.ceil(PNT / arr.length);
+      return (averages);
+    }
+  </script>
+</body>
+
+</html>

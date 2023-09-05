@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <script>
+
+        localStorage.pieWidgetData = '{"PN":38,"SA":48,"EC":60,"LB":55,"SN":63,"snapshots":[{"Q0response":4,"Q1response":9,"Q2response":9,"Q3response":7,"Q4response":5,"Q5response":3,"Q6response":8,"Q7response":8,"Q8response":4,"Q9response":3,"Q10response":2,"Q11response":4,"Q12response":2,"Q13response":5,"Q14response":4,"Q15response":6,"Q16response":8,"Q17response":5,"Q18response":6,"Q19response":4,"Q20response":8,"Q21response":8,"Q22response":7,"Q23response":5,"Q24response":7,"Q25response":5,"Q26response":7,"Q27response":3,"Q28response":5,"Q29response":10,"timestamp":"2021-10-31","snapShotCompletionDate":"2021-10-31"},{"Q0response":4,"Q1response":3,"Q2response":9,"Q3response":2,"Q4response":7,"Q5response":9,"Q6response":4,"Q7response":4,"Q8response":3,"Q9response":9,"Q10response":4,"Q11response":4,"Q12response":3,"Q13response":9,"Q14response":9,"Q15response":6,"Q16response":5,"Q17response":2,"Q18response":2,"Q19response":3,"Q20response":5,"Q21response":5,"Q22response":6,"Q23response":9,"Q24response":5,"Q25response":4,"Q26response":5,"Q27response":7,"Q28response":7,"Q29response":8,"timestamp":"2021-11-2","snapShotCompletionDate":"2021-11-2"},{"Q0response":3,"Q1response":5,"Q2response":6,"Q3response":7,"Q4response":6,"Q5response":8,"Q6response":6,"Q7response":7,"Q8response":7,"Q9response":6,"Q10response":6,"Q11response":7,"Q12response":5,"Q13response":6,"Q14response":6,"Q15response":7,"Q16response":6,"Q17response":6,"Q18response":7,"Q19response":6,"Q20response":5,"Q21response":5,"Q22response":4,"Q23response":6,"Q24response":5,"Q25response":7,"Q26response":6,"Q27response":7,"Q28response":6,"Q29response":7,"timestamp":"2021-11-3","snapShotCompletionDate":"2021-11-3"},{"Q0response":6,"Q1response":8,"Q2response":7,"Q3response":8,"Q4response":6,"Q5response":8,"Q6response":3,"Q7response":9,"Q8response":2,"Q9response":8,"Q10response":6,"Q11response":2,"Q12response":3,"Q13response":9,"Q14response":4,"Q15response":5,"Q16response":2,"Q17response":5,"Q18response":5,"Q19response":8,"Q20response":9,"Q21response":4,"Q22response":8,"Q23response":2,"Q24response":9,"Q25response":4,"Q26response":4,"Q27response":2,"Q28response":6,"Q29response":6,"timestamp":"2021-11-3","snapShotCompletionDate":"2021-11-3"},{"Q0response":3,"Q1response":5,"Q2response":6,"Q3response":6,"Q4response":3,"Q5response":9,"Q6response":8,"Q7response":7,"Q8response":4,"Q9response":2,"Q10response":4,"Q11response":5,"Q12response":2,"Q13response":8,"Q14response":4,"Q15response":2,"Q16response":9,"Q17response":7,"Q18response":9,"Q19response":8,"Q20response":7,"Q21response":2,"Q22response":2,"Q23response":8,"Q24response":9,"Q25response":4,"Q26response":5,"Q27response":4,"Q28response":8,"Q29response":6,"timestamp":"2021-11-3","snapShotCompletionDate":"2021-11-3"}]}';
+
+
+
+
+        function simplifySnapshots() {
+            a = localStorage.pieWidgetData;
+            p = JSON.parse(a);
+            var ss = [];
+            if (!p.snapshots) {
+                console.log("could not read snapshots!");
+                return;
+            } else {
+                for (let a of p.snapshots) {
+                    var SA = 0;
+                    var EC = 0;
+                    var PN = 0;
+                    var LB = 0;
+                    var SN = 0;
+                    for (let property in a) {
+                        var obj = {};
+                        obj.time = a['timestamp'];
+
+                        if (property.match(/Q0response|Q1response|Q2response|Q3response|Q4|Q5/g) && Number.isInteger(a[property])) {
+                            SA += parseInt(a[property]) * 1.66;
+                            SA = Math.ceil(SA);
+                        }
+                        obj.SA = SA;
+                        if (property.match(/Q6|Q7|Q8|Q9|Q10|Q11/g) && Number.isInteger(a[property])) {
+                            EC += parseInt(a[property]) * 1.66;
+                            EC = Math.ceil(EC);
+                        }
+                        obj.EC = EC;
+                        if (property.match(/Q12|Q13|Q14|Q15|Q16|Q17/g) && Number.isInteger(a[property])) {
+                            LB += parseInt(a[property]) * 1.66;
+                            LB = Math.ceil(LB);
+                        }
+                        obj.LB = LB;
+                        if (property.match(/Q18|Q19|Q20|Q21|Q22|Q23/g) && Number.isInteger(a[property])) {
+                            //33-38
+                            SN += parseInt(a[property]) * 1.66;
+                            SN = Math.ceil(SN);
+                        }
+                        obj.SN = SN;
+                        if (property.match(/Q24|Q25|Q26|Q27|Q28|Q29/g) && Number.isInteger(a[property])) {
+                            //40-45
+                            PN += parseInt(a[property]) * 1.66;
+                            PN = Math.ceil(PN);
+                        }
+                    }
+                    ss.push(obj);
+                }
+            }
+            console.log(ss);
+            p.snapshots = ss;
+        }
+        simplifySnapshots();
+       
+       function detectHeadlines(tagName){
+        for (let b of `h1,h2,h3,h3,h4,h5`.split(",")) {
+            for (let a of document.getElementsByTagName(tagName)) {
+                var re = new RegExp(b, 'ig');
+                if (a.innerHTML.match(re)) {
+                    a.outerHTML = `<${b}>${a.innerHTML}</${b}>`;
+                }
+            }
+        }
+    }
+    detectHeadlines("p");
+
+    </script>
+</body>
+
+</html>

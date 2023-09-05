@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pietential</title>
+</head>
+<link href="https://pietential.com/pielet/styles.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,800&amp;display=swap" rel="stylesheet">
+
+<body>
+    <script type="text/javascript" src="/navigation/topNav.js"></script>
+    <div style="max-width:1000px; padding:20px;text-align:left;margin:auto;">
+        <div style="margin:auto;">
+            <div id="shellContent"> {{content}} </div>
+        </div>
+    </div>
+
+    <style>
+        .downloadButton {
+            width: 100%;
+            background: #fff;
+            padding: 6px;
+            margin: 0;
+            border-bottom-style: solid;
+            border-bottom-width: thin;
+            border-bottom-color: #cccccc;
+            color: #006699;
+            font-family: sans-serif;
+            font-size: 14px;
+        }
+
+        .downloadButton:nth-child(odd) {
+            background: #eee;
+        }
+
+        .downloadButton:hover {
+            background: rgb(146, 218, 252);
+            color: #006699;
+
+        }
+
+
+        .containerFLEX {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .innerFLEX {
+            flex: 1 1 15%;
+            padding: 30px;
+            border-radius: 12px;
+            justify-content: center;
+            align-content: center;
+            box-sizing: border-box;
+        }
+
+        .pickerDiv {
+            border-radius: 12px;
+            border: 1px solid gray;
+            margin: 6px;
+            padding: 6px;
+            font-size: 14px;
+        }
+
+        .pickerDiv input {
+            width: unset;
+            margin: unset;
+        }
+
+        .pickerDiv div {
+            font-size: 14px;
+        }
+
+        .fieldDiv {
+            background: #000000bf;
+            border-radius: 12px;
+            color: white;
+            padding: 12px;
+            margin: 2px;
+        }
+
+        .checkBoxdiv {
+            padding: 12px;
+        }
+
+        .ident {
+            float: left;
+            text-align: left;
+            width: 300px;
+        }
+
+        @media all and (max-width:500px) {
+            .ident {
+                width: 100%;
+            }
+        }
+    </style>
+
+    <script type="text/javascript" src="/navigation/bottomNav.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K3VEYCTX6E"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', 'G-K3VEYCTX6E');
+    </script>
+</body>
+
+</html>
+
+
+
+
+<div id="main" style="display:none; text-align: center;">
+    <div id="ghostForm" style="">
+        <div style="text-align: center;">
+            <h1>Survey Settings</h1>
+            Select your demographic categories:<br><br><br>
+        </div>
+        <div id="picker" style="max-width:600px; margin:auto;"></div>
+
+
+    </div>
+
+</div>
+
+<script>
+    var c = `amputeeStatus / yes,no
+annualIncome	/ under 50K,over 50k
+birthYear / 1987,1988,1998,2000,2002
+carOwner / yes,no
+caste /1,2,3,4,5
+city /washington,newyork,seattle	
+commuteDistance / under 1km, 1km-5km, over 5km
+country / USA,india,canada,spain,france	
+currentlyInPhysicianCare / yes,no
+disabilityStatus / yes,no
+educationLevel
+empolymentStatus / yes,no,parttime
+ethnicity / white,black,asian,mixed
+fname / self explanitory
+gender / mfn
+geolocationLat
+geolocationLong
+healthStatus / 1,2,3,4
+hearingStatus /1,2,3,4
+height / 5'7,5'8,5'9
+industry / cattle,finance
+lastYearWorked / 2022, 2021
+lname / self explanitory
+maritalStatus / single,married
+medicalConditions / none,cancer,flu
+medications / aspirin,tylenol,vitamins
+nativeLanguage /english,french,hindi
+numberOfDependents / 0,1,2,3,4,5
+occupation / dentist,doctor,teacher
+phone / self explanitory
+politicalParty / 1,2,3,4,5
+postalCode / 23434,66564,25443
+religion / christian,none,buddist,jewish
+sexualPrefrence / straight, gay, bi
+stateRegion / maryland, newJersey, newyourk
+street / 123 fake st, 456 main street
+title / users job title
+usingStateAssistance / yes,no
+veteranStatus /yes,no
+visionStatus / full,partial,none
+weight / 100kg, 80kg, 70kg`.split("\n");
+
+
+    var s = JSON.parse(
+        `[{ "k": "amputeeStatus", "desc": "Does the individual have an amputated limb" }, { "k": "annualIncome", "desc": "What is the average annual income for the individual" }, { "k": "birthYear", "desc": "What year was the individual born" }, { "k": "carOwner", "desc": "Does the individual own a car" }, { "k": "caste", "desc": "What is the societal rank or cast of the individual" }, { "k": "city", "desc": "What city does the individual with currently live" }, { "k": "commuteDistance", "desc": "What is the commute to work distance of the individual" }, { "k": "country", "desc": "What country does the individual currently live" }, { "k": "currentlyInPhysicianCare", "desc": "Is the individual currently under the care of a doctor " }, { "k": "disabilityStatus", "desc": "Does the individual suffer from a disability" }, { "k": "educationLevel", "desc": "What was the last level of education completed by the end of a jewel" }, { "k": "empolymentStatus", "desc": "Is the individual currently employed" }, { "k": "ethnicity", "desc": "How does the individual define their race or ethnicity" }, { "k": "fname", "desc": "What is the individuals first name" }, { "k": "gender", "desc": "What gender does the individual identify as" }, { "k": "geolocationLat", "desc": "Geographic coordinate latitude" }, { "k": "geolocationLong", "desc": "Geographic coordinate longitude" }, { "k": "healthStatus", "desc": "How would the individual overall describe their health" }, { "k": "hearingStatus", "desc": "Does the individual currently have working hearing" }, { "k": "height", "desc": "How tall is the individual" }, { "k": "industry", "desc": "What industry is the individual employed in" }, { "k": "lastYearWorked", "desc": "What was the last year worked by the individual or if currently working this year" }, { "k": "lname", "desc": "What is the individuals last name" }, { "k": "maritalStatus", "desc": "Is the individual currently married single or widowed" }, { "k": "medicalConditions", "desc": "Alist of medical conditions that the individual has" }, { "k": "medications", "desc": "What medications does the individual currently take" }, { "k": "nativeLanguage", "desc": "What would the individual described as their native language" }, { "k": "numberOfDependents", "desc": "How many children or dependents does the individual pay for" }, { "k": "occupation", "desc": "What is the current occupation or job of the individual" }, { "k": "phone", "desc": "What is the individual's phone number" }, { "k": "politicalParty", "desc": "Does the individual belong to a specific political party" }, { "k": "postalCode", "desc": "What is the individuals postal code or zip code " }, { "k": "religion", "desc": "What is the individuals religion " }, { "k": "sexualPrefrence", "desc": "Does the individual consider themselves heterosexual homosexual or bisexual" }, { "k": "stateRegion", "desc": "What is the state or region of the country does the individual live" }, { "k": "street", "desc": "What is the street address of the individual" }, { "k": "title", "desc": "What is the individuals job title" }, { "k": "usingStateAssistance", "desc": "Is the individual currently using Assistance or money from the state" }, { "k": "veteranStatus", "desc": "Is the individual of Veteran of the Armed Forces" }, { "k": "visionStatus", "desc": "Does the is the individual blind or cited" }, { "k": "weight", "desc": "What is the individuals weight " }]`
+        );
+
+    var out = '';
+    var i = 0;
+    for (let a of s) {
+        var field = a.k;
+        var color = "#fff";
+        if (i % 2) {
+            color = "#eee";
+        }
+        i++;
+
+        out += `<div style="text=align:left" class="downloadButton">
+                    <span class="ident" style="">
+                     <b style="color:black;">${field}</b><br>${a.desc}
+                    </span>
+                    <input style="width:unset;margin:unset;" onclick="go()" id="${field}tick" type="checkbox" name="${field}-accept" value="accept" title="${field}WATCHER" > Accept 
+                 <input style="width:unset;margin:unset;" onclick="go()"
+                    type="checkbox" name="${field}-required" value="required" > Require
+                     </div>`;
+
+    }
+
+
+    picker.innerHTML =
+        `<div class="containerFLEX">${out}</div><br><button  onclick="document.getElementById('status').innerHTML = 'Your preferences have been saved.'">Submit</button><br><div id="status"></div>`;
+
+    var p = document.body.innerHTML;
+    var c = document.getElementById('main').innerHTML
+    document.body.innerHTML = p.replace("{{content}}", c);
+
+
+    function syncState() {
+        if (localStorage.picker) {
+            var pickobj = JSON.parse(localStorage.picker);
+            for (let b in pickobj) {
+                if (pickobj[b] == "required") {
+                    document.getElementsByName(`${b}-required`)[0].checked = true;
+                    document.getElementsByName(`${b}-accept`)[0].checked = true;
+                }
+                if (pickobj[b] == "accept") {
+                    document.getElementsByName(`${b}-accept`)[0].checked = true;
+                }
+            }
+            syncWithPieletData();
+        }
+
+    }
+    syncState();
+    var ID = setInterval(syncState, 2000);
+
+    function syncWithPieletData() {
+        if (!localStorage.pieletDataJSON) {
+            return;
+        }
+        var pieletData = JSON.parse(localStorage.pieletDataJSON);
+        pieletData.adminFormQuestions = JSON.parse(localStorage.picker);
+        localStorage.pieletDataJSON = JSON.stringify(pieletData);
+        // console.log(JSON.parse(localStorage.pieletDataJSON).adminFormQuestions)
+    }
+
+    function go() {
+        var obj = {};
+        for (let a of document.getElementsByTagName('input')) {
+            if (a.checked) {
+                var k = a.name.split("-")[0];
+                var v = a.name.split("-")[1];
+                obj[k] = v;
+            }
+        }
+        localStorage.picker = JSON.stringify(obj);
+    }
+
+
+
+
+
+
+
+    function process() {
+        var str = document.getElementById("fback").value;
+        var fback64 = btoa(unescape(encodeURIComponent(str)));
+        if (localStorage.fixxee == document.getElementById("ghost").innerHTML.trim()) {
+            console.log("correct captured");
+            document.getElementById("ghostForm").innerHTML = `Thanks for your feedback!
+            <img style="display:none;" src="x.php?fback64=${fback64}">`;
+        }
+    }
+
+
+
+
+
+
+
+
+    function shuffle(a) {
+        var c = a.length,
+            t, r;
+        while (0 !== c) {
+            r = Math.floor(Math.random() * c);
+            c -= 1;
+            t = a[c];
+            a[c] = a[r];
+            a[r] = t;
+        }
+        return a;
+    }
+
+
+
+
+
+
+
+    /*
+
+amen@pietential.com
+gautam@pietential.com
+hank@pietential.com
+john@pietential.com
+jonathan@pietential.com
+oroosa@pietential.com
+pooja@pietential.com
+pratheepa@pietential.com
+prerit@pietential.com
+zainab@pietential.com
+
+amen@pietential.com,gautam@pietential.com,
+hank@pietential.com,john@pietential.com,
+jonathan@pietential.com,oroosa@pietential.com,
+pooja@pietential.com,pratheepa@pietential.com,
+prerit@pietential.com,zainab@pietential.com
+
+*/
+</script>

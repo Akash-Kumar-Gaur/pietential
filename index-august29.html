@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pietential - The Life Balance Realization System</title>
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="https://pietential.com/social.php">
+    <meta name="twitter:creator" content="@hankenstein">
+    <meta name="twitter:title" content="Realize Your Growth Potential in 5 Minutes">
+    <meta name="twitter:description"
+        content="Pietential is a survey-based life balance visualization tool based on Maslow’s Hierarchy of needs.">
+    <meta name="twitter:image" content="http://pietential.com/pie-social-banner.png">
+
+
+
+    <link rel="canonical" href="https://pietential.com/" />
+    <meta property="og:title" content="Realize Your Growth Potential in 5 Minutes" />
+    <meta property="og:image"
+        content="https://static.wixstatic.com/media/82f34a_c86a23ceb96c4ac7b4101649c78c83f3~mv2.png/v1/fill/w_1280,h_720,al_c/82f34a_c86a23ceb96c4ac7b4101649c78c83f3~mv2.png" />
+    <meta property="og:image:width" content="1280" />
+    <meta property="og:image:height" content="720" />
+    <meta property="og:url" content="https://pietential.com/" />
+    <meta property="og:site_name" content="Pietential" />
+    <meta property="og:type" content="website" />
+
+    <link rel="manifest" href="/pietential.webmanifest">
+    <link rel="icon" type="image/png" href="/icon.png">
+
+    <link href="/pielet/styles.css" rel="stylesheet" type="text/css">
+    <link rel="preload" href="pielet/survey/pielon.js" crossorigin="anonymous" as="script">
+</head>
+
+<body>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
+    <script src="https://pietential.com/chartjs-plugin-watermark.js"></script>
+
+
+
+
+    <script id="logoutScript">
+        if (location.href.match(/logout/)) {
+            document.cookie = "userID=; expires = Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+            document.cookie = "email=; expires = Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+            document.cookie = "partnerID=; expires = Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+            document.cookie = "dashboard=; expires = Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+            document.cookie = "percent=; expires = Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+            document.cookie = "fname=; expires = Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+            document.cookie = "account=; expires = Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+            localStorage.pieletDataJSON = "";
+            localStorage.clear();
+            console.log("new user");
+            var userID = "";
+            location.assign("?new-session");
+        }
+        if (location.href.match(/retake/)) {
+            document.cookie = "dashboard=; expires = Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+            document.cookie = "percent=; expires = Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+            location.assign("?start-new");
+        }
+
+        if (localStorage.userID)
+
+            if (document.cookie == "") {
+                console.log("new user");
+                var userID = random(12);
+                document.cookie = `userID=${userID}; SameSite=Lax; expires=31 Dec 2031 12:00:00 UTC; path=/`;
+            }
+
+        try {
+
+            var c = document.cookie.split(';');
+            var cookies = {};
+            for (let a of c) {
+                var prop = a.split("=")[0].trim();
+                var val = a.split("=")[1].trim();
+                cookies[prop] = val;
+            }
+        } catch (e4) {}
+
+        try {
+            if (cookies.dashboard.length > 0 && cookies.userID.length > 0) {
+                location.assign("pielet/dashboard/");
+            }
+        } catch (e) {}
+        try {
+            if (parseInt(cookies.percent) > 93 && cookies.userID.length > 0) {
+                location.assign("pielet/visualizeit/?welcome-back-" + cookies.email);
+            }
+        } catch (e) {}
+        try {
+            if (parseInt(cookies.email.length) > 3) {
+                pieletData = JSON.parse(localStorage.pieletDataJSON);
+                location.assign("pielet/survey/?welcome-back-" + cookies.email);
+            }
+        } catch (e) {}
+
+
+        function shuffle(a) {
+            var c = a.length,
+                t, r;
+            while (0 !== c) {
+                r = Math.floor(Math.random() * c);
+                c -= 1;
+                t = a[c];
+                a[c] = a[r];
+                a[r] = t;
+            }
+            return a;
+        }
+
+        function random(len) {
+            var str = `abcdefghjkmnpqrstuvwxyz234567894567ABCDEFGHJKLMNPQRSTUVWXYZ`;
+            var s2 = shuffle(str.split(''));
+            var out = ""
+            for (var i = 0; i < len; i++) {
+                out += s2[i];
+            }
+            return (out);
+        }
+    </script>
+
+    <script id="settingsScript">
+        var piesettings = {};
+        piesettings.shareMode = 1;
+        piesettings.remainOnPartFive = 1;
+        piesettings.endpointDomain = '//44.192.97.107/';
+        localStorage.piesettings = JSON.stringify(piesettings);
+    </script>
+
+
+    <section id="navi"></section>
+    <script type="text/javascript" src="/navigation/topNav.js"></script>
+
+
+
+
+
+
+    <!-- begin branding-->
+
+
+    <section id="brandi"></section>
+    <script>
+        fetch("pielet/branding.html")
+            .then(r => {
+                return r.text()
+            })
+            .then(a => {
+                document.getElementById("brandi").innerHTML = a;
+                if (location.href.match(/ikigro/ig)) {
+                    document.title = `Ikigro - The Life Balance Realization System`;
+                    document.getElementsByTagName("h1")[0].innerHTML = `Ikigro™`;
+                }
+            });
+    </script>
+
+
+    <!-- END branding-->
+
+    <div class="pie" id="pieCloud" style="margin-bottom:90px;max-width: 900px;margin: auto;">
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,800&amp;display=swap" rel="stylesheet">
+
+
+        <h1 style="text-align: center;">Pietential™</h1>
+        <style>
+            .col2 {
+                width: 48%;
+                float: left;
+                text-align: left;
+                margin: 12px;
+            }
+        </style>
+        <section style="max-width:1000px;margin:auto;margin-bottom: 43px;">
+            <div style="margin:0px;max-width: 900px;text-align: center;margin: auto;">
+                <div id="abstract" style="text-align: center; box-sizing:border-box">
+                    <p style="margin-top:6px;">
+
+                        <h3> The Life Balance & Population Wellbeing Realization System</h3>
+                        <div>
+                            <div>Pietential is Based on Maslow’s Hierarchy of Needs.</div>
+                            <br>
+                            <div>It's for People who want to Grow</div>
+                            <br>
+                            <div>At the individual user level, Pietential is a simple survey that helps you Visualize,
+                                and Analyze where you stand regarding the core issues that are central to what it is to
+                                be human: Physiological Needs, Safety Needs, Love and Belonging, Esteem, and
+                                Self-actualization.</div>
+                            <br>
+                            <div>Scores are rendered in an easy to read pie chart, and observations and recommendations
+                                are offered instantly, so you can work towards realizing your best life. You can log
+                                back in any time and track your progress. Unless you choose to share your Pietential
+                                it's kept confidential. Best of all it's completely free for individual users, in
+                                alignment with our Vision, Mission and Values.</div>
+                            <h3>And Organizations Investing in Human Potential</h3>
+                            <div>For advisors, small businesses & nonprofit organizations, large enterprises and NGOs
+                                that license Pietential, it's a realtime emotional index. Pietential provides your
+                                organization valuable aggregated comparative data visualizations of the emotional
+                                wellbeing of different segments of populations you lead and serve, allowing you to
+                                better understand how your people are doing.</div>
+
+
+
+
+                            <!--  Pietential is “The Life Balance Realization System.” Based on Maslow’s Hierarchy of Needs, it helps you Visualize, and Analyze where you stand regarding the core issues that are central to what it is to be human: Physiological Needs, Safety Needs, Love and Belonging, Esteem, and Self-actualization, so you can realize your best life, and track your progress towards it. And Pietential is absolutely free!-->
+
+
+
+                            <!--<h3>The Life Balance Realization System</h3> Based on Maslow’s
+                    Hierarchy of Needs, it helps you Visualize, and Analyze where you stand regarding the core
+                    issues that are central to what it is to be human: Physiological Needs, Safety Needs, Love and
+                    Belonging, Esteem, and Self-actualization, so you can set and Realize your goals, and live your
+                    best life.-->
+
+                            <br><br><img src='images/promoImage002.png' id='promoImage' style='max-width:100%;'><br>
+
+
+                    </p>
+                </div>
+            </div>
+        </section>
+        <div style="text-align:center;">
+
+            <button class='bt green sform' onclick="showForm();">Get Started</button>
+
+            <form action='pielet/accountEngine/' method='POST' id="signup"
+                style="display:none;background: #eee; padding:12px;">
+
+                <b>Realize Your Growth Potential</b>
+                <input name='fname' id='fname' placeholder='Enter your first name*' type='text' required=''><br>
+                <input name='lname' id='lname' placeholder='Enter your last name*' type='text'><br>
+                <input name='email' placeholder='Enter your email address*' id='email' required='' type='email'>
+                <input onclick="document.getElementById(`pspla`).style.display = `block`;" onkeyup="pcode()"
+                    name='promoCode' placeholder='Have a organization code? (optional)' id='promoCode' type='text'>
+                <div id="pspla" style="display: none;font-size: 15px; ">A organization code may have been given to you by your
+                    advisor. This allows survey results to be shared with them.<br>Leave this field blank if you want
+                    your results to be private (only you can view).</div>
+                <input name='password' placeholder='Choose a Password*' id='password' required='' type='password'><br>
+                <input name='userID' type='hidden'>
+                <input type="checkbox" required id="agreeBox" name="agreeToTerms" value="" style="width: unset;"
+                    onclick="document.getElementById('agreeBox').value = 'Iagree'"> I have read the <a
+                    href="/pielet/privacy/">Subscriber Terms of Use</a> and I agree to these terms.<br>
+                <input class='bt green' value='Continue' type='submit'><br>
+                <!--<b>It's Free</b>--><br>
+
+                Already have an account? <a href='login/'>Login</a>
+            </form>
+
+
+
+
+
+
+
+            <script>
+                function showForm() {
+                    document.getElementById(`signup`).style.display = `block`;
+                    document.getElementById("signup")
+                        .scrollIntoView({
+                            behavior: "smooth",
+                            block: "end",
+                            inline: "nearest"
+                        });
+                    for (let a of document.getElementsByClassName('sform')) {
+                        a.style.display = 'none';
+                    }
+
+                }
+
+
+
+                document.getElementsByName("userID")[0].value = random(12);
+
+                function pcode() {
+                    if (document.getElementById("promoCode").value.length > 0) {
+                        document.getElementById("pspla").style.display = "block";
+                    } else {
+                        document.getElementById("pspla").style.display = "none";
+                    }
+                }
+            </script>
+        </div>
+        <br>
+
+
+    </div>
+
+
+    <div id="thepriceisright" style="text-align: center;margin:20px 0;">
+        <h2>Pricing:</h2>
+        <section id="pricingBlock"></section>
+        <script type="text/javascript" src="/pricing/pricing.js"></script>
+    </div>
+
+    <div style="text-align:center;">
+        <button class='bt green sform' onclick="showForm();">Get Started</button>
+    </div>
+
+    <script>
+        // if (!window.location.href.match(/https/ig)) {
+        //     location.assign(`https://pietential.com/`);
+        // }
+        // if (window.location.href.match(/jstar/ig)) {
+        //     location.assign(`https://pietential.com/`);
+        // }
+
+        function updateOther() {
+            var carny = document.getElementById(`otherType`).value.trim();
+            var jsname = carny.replace(/[^a-z]+/ig, "");
+            document.getElementById(`TYPEnewCat`).value = `TYPE` + jsname;
+            document.getElementById(`newBizType`).innerHTML = carny;
+            getBusinessType();
+            document.getElementById('businessCategories').value = jsname;
+            window.userSelectedType = 1;
+        }
+
+        function handleOtherType() {
+            document.getElementById(`otherType`).style.display = `block`;
+            document.getElementById(`businessCategories`).value = document.getElementById(`otherType`).value.replace(
+                /[^a-z]+/ig, "");
+        }
+
+        function getBusinessType() {
+            window.userSelectedType = 1;
+            var businessType = "";
+            for (let a of document.getElementsByTagName("input")) {
+                if (a.id.match(/TYPE/)) {
+                    if (a.checked) {
+                        businessType += a.id.replace(/TYPE/ig, "") + " ";
+                    }
+                }
+            }
+
+            document.getElementById('businessCategories').value = businessType.trim();
+            if (document.getElementById(`TYPEnewCat`).checked) {
+                document.getElementById('businessCategories').value = document.getElementById(`TYPEnewCat`).value;
+            }
+            console.log(businessType);
+            return businessType;
+        }
+    </script>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K3VEYCTX6E"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-K3VEYCTX6E');
+    </script>
+
+
+
+    <section id="footi"></section>
+    <script type="text/javascript" src="/navigation/bottomNav.js"></script>
+
+
+    <script>
+        fetch(`pielet/calcEngine/?mode=generateQuestions&userID=jUfL4Zxd3mWD`)
+            .then(r => {
+                return r.text()
+            })
+            .then(a => {
+                localStorage.formQuestions = a;
+                console.log(`Successfully loaded questions from ${location.href}.`);
+            });
+    </script>
+
+    <div id="scaz" style="display:none"></div>
+
+    <script id="cacheSurvey">
+        fetch(`pielet/survey/htm.html`)
+            .then(r => {
+                return r.text()
+            })
+            .then(a => {
+                document.getElementById("scaz").innerHTML = a;
+                console.log(`loaded htm.html`);
+            });
+    </script>
+
+
+
+    <link rel="preload" href="pielet/survey/pielon.js" as="script">
+
+
+
+</body>
+
+</html>

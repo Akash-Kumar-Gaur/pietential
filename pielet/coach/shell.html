@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+</head>
+<style>
+    div {
+        font-size: 23px;
+    }
+
+    .col2 {
+        width: 48%;
+        float: left;
+        text-align: left;
+        margin: 12px;
+    }
+</style>
+
+<body>
+    <div class="pie" id="pieCloud" style="margin-bottom:90px;">
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,800&display=swap" rel="stylesheet">
+        <link href="https://pietential.com/pielet/styles.css" rel="stylesheet" type="text/css">
+        <link href="https://pietential.com/pielet/styles.css" rel="stylesheet" type="text/css">
+        <div id="minibranding" style="padding-top:50px;margin: auto; text-align: center; display:none;">
+            <a href="#"><img onmouseover="" src="https://pietential.com/pietential.png"
+                class="minibrand"></a>
+        </div>
+        <div id="branding" style="margin: auto; text-align: center; display: block;">
+            <img onmouseover="" src="https://pietential.com/pietential.png"
+                style="width: 90%;max-width: 500px;margin-bottom:10px;margin: auto;">
+            <h1>{{headline}}</h1>
+            <section style="max-width:1000px; margin:auto">
+                <div style="margin:0px;max-width: 900px;text-align: center;margin: auto;">
+                    <div id="abstract" style="text-align: left; box-sizing:border-box">
+                        <p style="margin-top:6px;">{{content}}</p>
+                    </div>
+                    <div style="margin:auto;">
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</body>
+<script>
+    function showresults() {
+        var matchcounter = 0;
+        var filter = document.getElementById("filter").value;
+        console.log("realtime filtering for " + filter);
+        var elements = document.getElementsByClassName("resultList");
+        for (var i = 0; i < elements.length; i++) {
+            var re = new RegExp(filter, "ig");
+            if (elements[i].id.match(re)) {
+                elements[i].style.display = "block";
+                matchcounter++;
+                document.getElementById("filterButton").innerHTML = matchcounter + " results found";
+            } else {
+                elements[i].style.display = "none";
+            }
+        }
+        //document.getElementById("filterButton").innerHTML = matchcounter + " results found";
+    }
+</script>
+</html>

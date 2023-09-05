@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>user-data-model.html</title>
+</head>
+
+<body>
+    <script>
+
+let propertiesForEachUser = ['userID', 'adminID','adminhash', 'userLevel', 'proguest', 'partnerID', 'email', 'fname', 'lname', 'phone', 'joinDate', 'hash', 'promoCode', 'purchaseCode', 'company', 'companyList', 'purchaseLevel', 'companycode', 'companyCode', 'timestamp', 'title', 'percent', 'EC', 'LB', 'SA', 'SN', 'PN', 'LBscorevalues', 'Part1Completed', 'Part2Completed', 'businessCategories', 'Part3Completed', 'Part4Completed', 'Part5Completed', 'Q0response', 'Q1response', 'Q2response', 'Q3response', 'Q4response', 'Q5response', 'Q6response', 'Q7response', 'Q8response', 'Q9response', 'Q10response', 'Q11response', 'Q12response', 'Q13response', 'Q14response', 'Q15response', 'Q16response', 'Q17response', 'Q18response', 'Q19response', 'Q20response', 'Q21response', 'Q22response', 'Q23response', 'Q24response', 'Q25response', 'Q26response', 'Q27response', 'Q28response', 'Q29response', 'accountEngine', 'completionDate', 'currentColor', 'currentPart', 'restrequest', 'saveMethod', 'scroll2', 'scroll3', 'scroll4', 'scroll5', 'snapshots', 'userURL', 'website'];
+
+
+let propertiesOnNewlinesAndExplanation = `
+
+userID / a random 12 char unique ID similar to zGX676w1F2ry
+hash / a hash of their password + cleartext salt
+adminID / unique ID if the user is also an admin******
+adminhash / a hash of their password + cleartext salt (for admin accounts)
+userLevel / pro or ""
+proguest / anyvalue or ""
+partnerID / legacy prop now known as companycode
+email / users email address
+fname / self explanitory
+lname / self explanitory
+phone / self explanitory
+joinDate / formatted as 2022-03-09--21-41-14
+promoCode / legacy prop now known as companycode
+purchaseCode / for paying customers
+company / self explanitory
+companyList / listing of sub-companies if an admin*******
+purchaseLevel / for paying customers - level of service
+companycode / code to match admin to users*****
+companyCode / alternate id for companycode******
+timestamp / 2022-03-09--21-41-14
+title / users job title
+percent / percent completed in the survey, used to determine app state
+EC / average score for esteem questions - this calcs the pie piece
+LB / average score for love questions - this calcs the pie piece
+SA / average score for self questions - this calcs the pie piece
+SN / average score for saftey questions - this calcs the pie piece
+PN / average score for physical questions - this calcs the pie piece
+LBscorevalues / array of EC,LB,SA,SN,PN
+Part1Completed / Y-N, used to determine app state
+Part2Completed / Y-N, used to determine app state
+Part3Completed / Y-N, used to determine app state
+Part4Completed / Y-N, used to determine app state
+Part5Completed / Y-N, used to determine app state
+Q0response / 0-10 response to the survey question
+Q1response / 0-10 response to the survey question
+Q2response / 0-10 response to the survey question
+Q3response / 0-10 response to the survey question
+Q4response / 0-10 response to the survey question
+Q5response / 0-10 response to the survey question
+Q6response / 0-10 response to the survey question
+Q7response / 0-10 response to the survey question
+Q8response / 0-10 response to the survey question
+Q9response / 0-10 response to the survey question
+Q10response / 0-10 response to the survey question
+Q11response / 0-10 response to the survey question
+Q12response / 0-10 response to the survey question
+Q13response / 0-10 response to the survey question
+Q14response / 0-10 response to the survey question
+Q15response / 0-10 response to the survey question
+Q16response / 0-10 response to the survey question
+Q17response / 0-10 response to the survey question
+Q18response / 0-10 response to the survey question
+Q19response / 0-10 response to the survey question
+Q20response / 0-10 response to the survey question
+Q21response / 0-10 response to the survey question
+Q22response / 0-10 response to the survey question
+Q23response / 0-10 response to the survey question
+Q24response / 0-10 response to the survey question
+Q25response / 0-10 response to the survey question
+Q26response / 0-10 response to the survey question
+Q27response / 0-10 response to the survey question
+Q28response / 0-10 response to the survey question
+Q29response / 0-10 response to the survey question
+accountEngine / manner in which AJAX saved user data
+businessCategories / legacy array not used
+completionDate / date completed
+currentColor / app state details
+currentPart / app state details
+restrequest / app state details
+saveMethod / app state details
+scroll2 / app state details
+scroll3 / app state details
+scroll4 / app state details
+scroll5 / app state details
+snapshots / array of previous results for the user - this is the data that builds the graph
+userURL / last url the user visited
+website / the users site optional
+
+`;
+
+// the admin list is compiled by selecting userIDs that have
+// adminID property
+// to compile the list of users that are associated with an admin  account, cross reference companyCode from the admins companyList array 
+
+
+var out = '';
+for (let a of propertiesOnNewlinesAndExplanation.trim().split('\n')){
+    out += `${a.replace(/\/[\s\S]+/ig, '').trim()} <br>\n`;
+}
+document.body.innerHTML = out;
+    </script>
+</body>
+
+</html>

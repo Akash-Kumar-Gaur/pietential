@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Repair your data</title>
+    <link href="/pielet/styles.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <section id="navi"></section>
+    <script type="text/javascript" src="/navigation/topNav.js"></script>
+
+    <div id="results" style="max-width:700px; margin:auto;word-break: break-all; text-align: center;"></div>
+    <script>
+        function saveState() {
+
+            if (!localStorage.pieletDataJSON) {
+                results.innerHTML = `Data missing (you currently appear as a new user) Contact tech support for help.`;
+                return;
+            }
+            try {
+                var pieletData = JSON.parse(localStorage.pieletDataJSON);
+            } catch (e) {}
+            var repair = {};
+            for (let a in pieletData) {
+                if (!a.match(/(SA|EC|PN|SN|LB)response/ig)) {
+                    repair[a] = pieletData[a];
+                }
+            }
+            repair.saveMethod = "repair";
+            const fd = new FormData();
+            fd.append('pdpost', btoa(JSON.stringify(repair)));
+            const options = {
+                method: 'POST',
+                //mode: 'no-cors',
+                body: fd
+            };
+
+            fetch("/pielet/accountEngine/", options)
+                .then(r => {
+                    return r.text()
+                })
+                .then(a => {
+                    console.log("ajax success.");
+                    console.log(a);
+                    var p = JSON.parse(a.replace(/^[^\{]+/ig, ''));
+                    results.innerHTML = `Your data has been restored.<br>userID: ${p.userID}`;
+                });
+        }
+        saveState();
+    </script>
+</body>
+
+</html>

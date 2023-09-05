@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Onboard Users</title>
+    <link href="/pielet/styles.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,800&display=swap" rel="stylesheet">
+</head>
+
+
+<style type="text/css">
+    #sheetPaste {
+        transition: all .5s;
+        transform: scale(1);
+    }
+
+    #sheetPaste:hover {
+        transition: all .5s;
+        /* opacity: 0; */
+        /* filter: blur(2px); */
+        transform: scale(1.3);
+        /* max-width: 70%; */
+        z-index: 4;
+        /* position: absolute; */
+        text-align: center;
+        /* left: 16%; */
+    }
+
+
+
+    @keyframes donut-spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    .donutSpinner {
+        display: inline-block;
+        border: 19px solid rgba(0, 0, 0, 0.1);
+        border-left-color: #5778F3;
+        border-radius: 50%;
+        width: 61px;
+        height: 61px;
+        animation: donut-spin 1.2s linear infinite;
+        margin: 30px;
+    }
+
+    @keyframes bouncing-loader {
+        to {
+            opacity: 0.1;
+            transform: translate3d(0, -16px, 0);
+        }
+    }
+
+    .bouncingLoader {
+        display: flex;
+        justify-content: center;
+    }
+
+    .bouncingLoader>div {
+        width: 13px;
+        height: 13px;
+        margin: 32px 3px;
+        background: #5778F3;
+        border-radius: 50%;
+        animation: bouncing-loader 0.6s infinite alternate;
+    }
+
+    .bouncingLoader>div:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+
+    .bouncingLoader>div:nth-child(3) {
+        animation-delay: 0.4s;
+    }
+
+    .pasteTable {
+        height: 200px;
+        font-size: 13px;
+        border: 1px solid black;
+        overflow: scroll;
+        padding: 20px;
+        border-radius: 8px;
+        line-height: 1.5em;
+        margin: 20px;
+        opacity: .5;
+        width: 90%;
+        min-height: 50px;
+        line-height: 175%;
+        background-repeat: no-repeat;
+        background-image: url(https://whodoipage.com/images/SSBG.png);
+        background-size: cover;
+        padding: 20px;
+    }
+
+    td {
+        font-size: 13px;
+    }
+</style>
+
+<body>
+    <script id="topNavScript" type="text/javascript" src="/navigation/topNav.js"></script>
+
+    <div id="branding" style="padding-top:50px;margin: auto; text-align: center;">
+        <a href="/"><img onmouseover="" src="https://pietential.com/pietential.png" class="minibrand"></a>
+    </div>
+    <div style="max-width:700px; text-align:center;margin: auto;">
+        <h2>Set Your Password</h2>
+        Your email (email your administrator used):
+        <input name="email" id="email" type="email" placeholder="email"><br>
+
+        <button onclick="verify()" id="nb">Next</button>
+        <div id="message"></div>
+        <script>
+            if (localStorage.emailChallenge) {
+                document.getElementById("email").value = localStorage.emailChallenge;
+            }
+
+            function gid(id) {
+                return (document.getElementById(id));
+            }
+
+
+            function verify() {
+                var e = gid("email").value.trim().toLowerCase();
+                localStorage.emailChallenge = e;
+                document.cookie = `email=0000; expires=31 Dec 2020 12:00:00 UTC; path=/`;
+                document.cookie = `userID=0000; expires=31 Dec 2020 12:00:00 UTC; path=/`;
+                localStorage.pieletDataJSON = '';
+                localStorage.email = '';
+                localStorage.userID = '';
+                fetch(`verify.php?email=${e}`)
+                    .then(r => {
+                        return r.text()
+                    })
+                    .then(a => {
+                        if (a == "hash") {
+                            message.innerHTML = "<br>Email found, password has already been set. <br>Please <a href='/contact'>contact tech support</a> to resolve."
+                        }
+                        if (a == "0") {
+                            message.innerHTML = "<br>Email not found."
+                        }
+                        if (a[0] == "{") { // got a good json response
+//markus.ferguson@testcompany.net
+// o8fjrbcngh4rt56
+// action="/pielet/accountEngine/"
+                            var p = JSON.parse(a);
+                            gid("nb").style.display = "none";
+                            gid("message").innerHTML = `<br><b>Success</b>, your email was found.
+                            <br>
+                            Your email/login:<b> ${p.email}</b><br><br>
+
+                            <form method="post" 
+                            action="/pielet/accountEngine/"
+                            
+                            >
+    <input type="hidden" name="email" id="email" value="${e}">
+    <input type="hidden" name="userID" id="userID" value="${p.userID}">
+    <input type="hidden" name="promoCode" id="promoCode" value="${p.promoCode}">
+    <span style="color:red;">Choose a secure password:</span><br>
+    <input type="password" name="password"><br>
+    <input type="submit" value="Submit">
+                            
+                            
+                            `;
+
+                        }
+                    });
+            }
+        </script>
+
+
+
+
+
+
+        </form>
+
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-K3VEYCTX6E"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-K3VEYCTX6E');
+</script>
+
+
+</body>
+
+</html>

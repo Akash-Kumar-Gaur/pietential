@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>adjust-site-map.html</title>
+    <link href="/pielet/styles.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,800&display=swap" rel="stylesheet">
+</head>
+<style>
+    .bt {
+        font-size: 16px;
+    }
+
+    body {
+        padding: 20px;
+    }
+
+    input {
+        width: 250px;
+    }
+
+    a {
+        text-decoration: none;
+    }
+</style>
+
+<script>
+    if (!document.cookie.match(/uuHash/)) {
+        location.assign('./?bad-credentials/');
+    }
+</script>
+
+
+<h2>Adjust site map:</h2>
+
+<div id="main">
+    <textarea id="mappy" style=" width: 628px; height: 400px; "></textarea>
+    <br><br>
+    <button class="bt" onclick="process()">Process</button>
+</div>
+<br><br>
+
+1 URL per line, separate with newlines.<br>
+Pro tip: You may have to refresh a few times to removed cached data.
+
+<script>
+    function gid(id) {
+        return document.getElementById(id);
+    }
+
+
+    fetch("https://pietential.com/map.txt")
+        .then(r => {
+            return r.text()
+        })
+        .then(a => {
+            var arr = a.trim().replace(/\s+/ig, "\n").split("\n");
+            arr.sort();
+            var out = '';
+            for (let a of arr) {
+                out += `${a}\n`;
+            }
+            gid("mappy").value = out.trim();
+        });
+
+
+    function process() {
+
+        const fd = new FormData();
+        var obj = {};
+        var m = gid("mappy").value.trim();
+        m = m.replace(/\s+/ig, "\n");
+        fd.append("mappy", m);
+        const options = {
+            method: 'POST',
+            //mode: 'no-cors',
+            body: fd
+        };
+        fetch("ab.php", options)
+            .then(r => {
+                return r.text()
+            })
+            .then(a => {
+                console.log("ajax success.");
+                console.log(a);
+                gid("main").innerHTML = a;
+            });
+    }
+
+
+    /*
+https://pietential.com/about
+https://pietential.com/changepassword
+https://pietential.com/contact
+https://pietential.com/faq
+https://pietential.com/help
+https://pietential.com/hr
+https://pietential.com/login
+https://pietential.com/onboard
+https://pietential.com/pieWidget
+https://pietential.com/pielet/analyzeit
+https://pietential.com/pielet/dashboard
+https://pietential.com/pielet/download
+https://pietential.com/pielet/login
+https://pietential.com/pielet/privacy
+https://pietential.com/pielet/promocode
+https://pietential.com/pielet/retake
+https://pietential.com/pielet/share
+https://pietential.com/pielet/shareMyChart
+https://pietential.com/pielet/survey
+https://pietential.com/pielet/visualizeit
+https://pietential.com/pricing
+https://pietential.com/resources
+https://pietential.com/share
+https://pietential.com/slice
+https://pietential.com/slice/2022/09/09/role-of-organizations-in-work-life-balance/
+https://pietential.com/unsubscribe
+https://pietential.com/welcome
+
+*/
+</script>

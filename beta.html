@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pietential - The Life Balance Realization System</title>
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="https://pietential.com/social.php">
+    <meta name="twitter:creator" content="@hankenstein">
+    <meta name="twitter:title" content="Realize Your Growth Potential in 5 Minutes">
+    <meta name="twitter:description"
+        content="Pietential is a survey-based life balance visualization tool based on Maslow’s Hierarchy of needs.">
+    <meta name="twitter:image" content="http://pietential.com/pie-social-banner.png">
+
+
+
+    <link rel="canonical" href="https://pietential.com/" />
+    <meta property="og:title" content="Realize Your Growth Potential in 5 Minutes" />
+    <meta property="og:image"
+        content="https://static.wixstatic.com/media/82f34a_c86a23ceb96c4ac7b4101649c78c83f3~mv2.png/v1/fill/w_1280,h_720,al_c/82f34a_c86a23ceb96c4ac7b4101649c78c83f3~mv2.png" />
+    <meta property="og:image:width" content="1280" />
+    <meta property="og:image:height" content="720" />
+    <meta property="og:url" content="https://pietential.com/" />
+    <meta property="og:site_name" content="Pietential" />
+    <meta property="og:type" content="website" />
+
+    <link rel="manifest" href="https://pietential.com/pietential.webmanifest">
+    <link rel="icon" type="image/png" href="https://pietential.com/icon.png">
+
+    <link href="https://pietential.com/pielet/styles.css" rel="stylesheet" type="text/css">
+    <link rel="preload" href="https://pietential.com/pielet/survey/pielon.js" crossorigin="anonymous" as="script">
+
+    <style>
+        .mtop {
+            color: white;
+            background: black;
+            padding: 4px 4px 4px 9px;
+            display: block;
+            margin-top: 260px;
+            font-size: 14px;
+        }
+
+        .ihi4 {
+            padding: 3px;
+            border-radius: 4px;
+            font-size: 15px;
+            /* background: white; */
+            opacity: .9;
+            /* margin-top: 6%; */
+        }
+
+        .col2 {
+            width: 48%;
+            float: left;
+            text-align: left;
+            margin: 12px;
+        }
+
+        div {
+            font-size: 18px;
+        }
+
+        .containerFLEX {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .innerFLEX {
+            flex: 1 1 40%;
+            padding: 30px;
+            border-radius: 12px;
+            justify-content: center;
+            align-content: center;
+            box-sizing: border-box;
+            background: white;
+            margin: 3%;
+            background-size: cover;
+            background-position: center;
+
+        }
+
+        .icell {
+            width: 50%;
+            float: right;
+        }
+
+
+
+        .mobile100 {
+            width: 50%;
+            float: left;
+        }
+
+        .centerImage {
+            text-align: center;
+        }
+
+
+        img {
+            width: 100%;
+            max-width: 220px;
+            border-radius: 1%;
+            margin-top: 30px;
+        }
+        #modal {
+            box-sizing: border-box;
+            display: none;
+            width: 80%;
+            max-width: 1100px;
+            height: auto;
+            border-radius: 28px;
+            background: rgb(238, 238, 238, .96);
+            margin: auto;
+            padding: 30px;
+            position: absolute;
+            text-align: left;
+            box-shadow: 0px 10px 22px 0px rgb(0 0 0 / 60%);
+            transition: all .5s;
+            /* margin-left: 9%; */
+            margin-top: 20%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        #mflex {
+            margin: auto;
+            text-align: center;
+            transition: all .5s;
+        }
+        #modal img {
+            border-radius: 8px;
+            max-width: 50%;
+            display: none;
+        }
+
+        #modal .bt {
+            margin: 12px;
+        }
+
+        .productBox {
+            text-align: center;
+        }
+
+        #pieCloud {
+            width:80%;
+            margin-bottom:90px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        @media all and (max-width:1000px) {
+            .innerFLEX {
+                flex: 1 1 100%;
+            }
+            #pieCloud {
+            width:95%;
+        }
+        }
+
+        .fancyButton1 {
+            font-size: unset;
+        }
+
+        @media all and (max-width:800px) {
+            div {
+                font-size: 14px;
+            }
+            #scan{
+                margin:10px;
+            }
+            #abstract{
+                margin:10px;
+            }
+            #ourvalues{
+                margin:10px;
+            }
+            #modal{
+                width:95%;
+            }
+            #ourteam{
+                margin:10px;
+            }
+            .outer{
+                margin:10px;
+            }
+            body {
+                margin:10px;
+            }
+
+            .icell {
+                font-size: 13px;
+            }
+
+            .mobile100 {
+                width: 100%;
+                float: left;
+            }
+
+            #maslowPic {
+                display: none;
+            }
+
+            #masSpace {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
+    <script src="https://pietential.com/chartjs-plugin-watermark.js"></script>
+
+
+
+
+    <script id="logoutScript">
+        if (location.href.match(/logout/)) {
+            document.cookie = "userID=; expires = Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+            document.cookie = "email=; expires = Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+            document.cookie = "partnerID=; expires = Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+            document.cookie = "dashboard=; expires = Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+            document.cookie = "percent=; expires = Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+            document.cookie = "fname=; expires = Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+            document.cookie = "account=; expires = Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+            localStorage.pieletDataJSON = "";
+            localStorage.clear();
+            console.log("new user");
+            var userID = "";
+            location.assign("?new-session");
+        }
+        if (location.href.match(/retake/)) {
+            document.cookie = "dashboard=; expires = Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+            document.cookie = "percent=; expires = Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+            location.assign("?start-new");
+        }
+
+        if (localStorage.userID)
+
+            if (document.cookie == "") {
+                console.log("new user");
+                var userID = random(12);
+                document.cookie = `userID=${userID}; SameSite=Lax; expires=31 Dec 2031 12:00:00 UTC; path=/`;
+            }
+
+        try {
+
+            var c = document.cookie.split(';');
+            var cookies = {};
+            for (let a of c) {
+                var prop = a.split("=")[0].trim();
+                var val = a.split("=")[1].trim();
+                cookies[prop] = val;
+            }
+        } catch (e4) {}
+
+        try {
+            if (cookies.dashboard.length > 0 && cookies.userID.length > 0) {
+                // location.assign("pielet/dashboard/");
+            }
+        } catch (e) {}
+        try {
+            if (parseInt(cookies.percent) > 93 && cookies.userID.length > 0) {
+                //  location.assign("pielet/visualizeit/?welcome-back-" + cookies.email);
+            }
+        } catch (e) {}
+        try {
+            if (parseInt(cookies.email.length) > 3) {
+                pieletData = JSON.parse(localStorage.pieletDataJSON);
+                //  location.assign("pielet/survey/?welcome-back-" + cookies.email);
+            }
+        } catch (e) {}
+
+
+        function shuffle(a) {
+            var c = a.length,
+                t, r;
+            while (0 !== c) {
+                r = Math.floor(Math.random() * c);
+                c -= 1;
+                t = a[c];
+                a[c] = a[r];
+                a[r] = t;
+            }
+            return a;
+        }
+
+        function random(len) {
+            var str = `abcdefghjkmnpqrstuvwxyz234567894567ABCDEFGHJKLMNPQRSTUVWXYZ`;
+            var s2 = shuffle(str.split(''));
+            var out = ""
+            for (var i = 0; i < len; i++) {
+                out += s2[i];
+            }
+            return (out);
+        }
+    </script>
+
+    <script id="settingsScript">
+        var piesettings = {};
+        piesettings.shareMode = 1;
+        piesettings.remainOnPartFive = 1;
+        piesettings.endpointDomain = '//44.192.97.107/';
+        localStorage.piesettings = JSON.stringify(piesettings);
+    </script>
+
+    <script>
+        var pb = `<div id="thepriceisright" style="text-align: center;margin:20px 0;">
+        <h2>Pricing:</h2>
+        <section id="pricingBlock"></section>
+        
+    </div>`;
+
+        function popModal(id, html) {
+            closeModal();
+            var pb = document.getElementById(id).innerHTML;
+            var payload =
+                `<div id="modal" class="myes" style="display:block"><img onclick="closeModal()" src="https://pietential.com/images/close-icon2.png" style=" display: block; width: 32px; float: right; position: relative; top: -32px; "><br>${pb}<br><a class="bt login-bar" onclick="closeModal()" href="javascript://">Close</a></div>`;
+            mflex.innerHTML += payload;
+            modal.scrollIntoView({
+                behavior: "smooth",
+                block: "center",
+                inline: "nearest"
+            });
+        }
+
+        function popbModal(html) {
+            closeModal();
+            var pb = html;
+            var payload =
+                `<div id="modal" class="myes" style="display:block"><img onclick="closeModal()" src="https://pietential.com/images/close-icon2.png" style=" display: block; width: 32px; float: right; position: relative; top: -32px; "><br>${pb}<br><a class="bt login-bar" onclick="closeModal()" href="javascript://">Close</a></div>`;
+            bflex.innerHTML += payload;
+            modal.scrollIntoView({
+                behavior: "smooth",
+                block: "center",
+                inline: "nearest"
+            });
+        }
+
+        function closeModal() {
+            for (let a of document.getElementsByClassName("myes")) {
+                a.outerHTML = '';
+            }
+        }
+    </script>
+
+    <div id="price1" style="display:none">
+        <div id="pipro" class="productBox pifocused piblurred"
+            style="z-index: 5; opacity: 1; filter: blur(0px); transform: scale(1);">
+            <h3 class="fancyHeadline">Pietential</h3><span class="fancySub"><strong>Track and Share your Progress with
+                    Pietential</strong></span><br> <img class="pic800"
+                src="https://pietential.com/images/promoImage-pro.png" alt="">
+            <section class="explain" style="display: block;"> <button id="piproButton" class="fancyButton1 bt"
+                    style="background: rgb(251, 0, 0); transform: scale(1); z-index: 2;"
+                    onclick="window.open(`/?pietential-sign-up`)">Subscribe</button><br><br>
+                <p style="text-align: center;"> <b>Pietential is “The Life Balance Realization System”</b> <br> <br>
+                    Pietential is for individuals who want to be able to visualize their current life balance, receive
+                    feedback and observations on their current state of being, and take action towards a more fulfilled,
+                    more balanced life. <br> <br> It allows you to set reminders to retake Pietential at your
+                    convenience, so you can <b>“Visualize it. Analyze it. </b>And <b>Realize it.”</b> any time you like.
+                    And it automatically tracks your progress each time you log in, by line graphing your journey
+                    towards improved wellbeing over time. <br> <br> And, Pietential allows you to share your Pietential
+                    results on social media platforms in order to let your friends know how you’re doing, where you
+                    might need their support - and the progress you’re making towards being the best version of
+                    yourself. <br> </p>
+                <p></p>
+            </section>
+        </div>
+    </div>
+    <div id="price2" style="display:none">
+        <div id="piadv" class="productBox piblurred pifocused"
+            style="opacity: 1; z-index: 5; filter: blur(0px); transform: scale(1);">
+            <h3 class="fancyHeadline">PietentialADVISOR</h3><span class="fancySub"><strong>Build Trust More Quickly and
+                    Stay Connected with PietentialADVISOR</strong></span><br> <img class="pic800 pic400"
+                src="https://pietential.com/images/promoImage-pro.png" alt=""> <img class="pic800 pic400"
+                src="https://pietential.com/images/promoImage-advisor.png" alt="">
+            <section class="explain">
+                <div style="text-align: center;"> <button id="piproButton" class="fancyButton1 bt"
+                        style="background: rgb(251, 0, 0); transform: scale(1); z-index: 2;"
+                        onclick="window.open(`https://buy.stripe.com/dR67wreR07fS5AkdQR`)">Start free trial</button>
+                    -OR- <button class="fancyButton1 bt"
+                        style="background: rgb(251, 0, 0); transform: scale(1); z-index: 2;"
+                        onclick="window.open(`https://app.acuityscheduling.com/schedule.php?owner=18765814&amp;appointmentType=31604298`)">Zoom
+                        with us</button><br><br>
+                    <div dir="ltr"> <b>Designed for People who are in the Business of Advising Others!</b> <br></div>
+                    <div dir="ltr"> <br> </div>
+                    <div dir="ltr"> PietentialADVISOR is for people who serve as a trusted advisor to their clients (and
+                        prospective clients): life coaches, counselors, therapists, financial advisors, nutritionist and
+                        personal trainers; CEO Mastermind group facilitators and business consultants; CVAs, exit
+                        planners, business brokers, and other types of professional advisors can use it to monitor the
+                        well being of the people they advise, and to get and <i>stay</i> more deeply connected to them.
+                    </div>
+                    <div dir="ltr"> <br> </div>
+                    <div dir="ltr"> And, when used as a business development tool, it helps you build trust more quickly
+                        by getting into a conversation with prospective clients about life balance, and what’s important
+                        to them. </div>
+                </div>
+                <div style="text-align: center;"> <img src="https://pietential.com/images/60-day.png"
+                        style="max-width:200px;margin:20px;"></div>
+            </section>
+        </div>
+    </div>
+    <div id="price3" style="display:none">
+        <div id="pibiz" class="productBox piblurred pifocused"
+            style="opacity: 1; z-index: 5; filter: blur(0px); transform: scale(1);">
+            <h3 class="fancyHeadline">PietentialBusiness</h3> <strong class="fancySub">Support Employee Wellbeing with
+                PietentialBUSINESS</strong><br> <img class="pic800 pic400"
+                src="https://pietential.com/images/promoImage-pro.png" alt=""> <img class="pic800 pic400"
+                src="https://pietential.com/images/promoImage-business-list.png" alt=""> <img class="pic800 pic400"
+                src="https://pietential.com/images/promoImage-business-chart.png" alt="">
+            <section class="explain" style="display: block;">
+                <div style="text-align: center;"> <button id="piproButton" class="fancyButton1 bt"
+                        style="background: rgb(251, 0, 0); transform: scale(1); z-index: 2;"
+                        onclick="document.getElementById('businessChoices').style.display = 'block'">See
+                        Options</button> -OR- <button class="fancyButton1 bt"
+                        style="background: rgb(251, 0, 0); transform: scale(1); z-index: 2;"
+                        onclick="window.open(`https://app.acuityscheduling.com/schedule.php?owner=18765814&amp;appointmentType=31604298`)">Zoom
+                        with us</button><br><br>
+                    <style>
+                        .employeeLevel {
+                            display: inline-block;
+                            width: 400px;
+                        }
+                    </style>
+                    <div id="businessChoices"
+                        style="display:none;margin: 30px;padding: 12px;background: #d2e2f5;border-radius: 12px;">
+                        <div id="ch250">
+                            <div class="employeeLevel"> Up to 250 employees: $250/month</div> <button id="piproButton"
+                                class="fancyButton1 bt"
+                                style="background: rgb(251, 0, 0); transform: scale(1); z-index: 2;"
+                                onclick="window.open(`https://buy.stripe.com/14kaIDdMWas4faU4gi`)">Start free
+                                trial</button>
+                        </div>
+                        <div id="ch500">
+                            <div class="employeeLevel"> Up to 500 employees: $500/month</div> <button id="piproButton"
+                                class="fancyButton1 bt"
+                                style="background: rgb(251, 0, 0); transform: scale(1); z-index: 2;"
+                                onclick="window.open(`https://buy.stripe.com/14k03Z10afMo9QA8wz`)">Start free
+                                trial</button>
+                        </div>
+                        <div id="ch750">
+                            <div class="employeeLevel"> Up to 750 employees: $750/month</div> <button id="piproButton"
+                                class="fancyButton1 bt"
+                                style="background: rgb(251, 0, 0); transform: scale(1); z-index: 2;"
+                                onclick="window.open(`https://buy.stripe.com/aEU8AvaAKbw80g0aEI`)">Start free
+                                trial</button>
+                        </div>
+                        <div id="ch1000">
+                            <div class="employeeLevel"> Up to 1000 employees: $1000/month</div> <button id="piproButton"
+                                class="fancyButton1 bt"
+                                style="background: rgb(251, 0, 0); transform: scale(1); z-index: 2;"
+                                onclick="window.open(`https://buy.stripe.com/28o4kf4cmcAc1k428d`)">Start free
+                                trial</button>
+                        </div>
+                    </div> The PietentialBUSINESS Platform allows owners of small and medium businesses, and directors
+                    of nonprofit organizations to offer Pietential (with all of its features and benefits) to all of
+                    their employees in order to support employee wellbeing on an individual, or an aggregate basis.
+                </div>
+                <div style="text-align: center;"> <img src="https://pietential.com/images/60-day.png"
+                        style="max-width:200px;margin:20px;"></div>
+                <div style="text-align: center;"> Pietential Business offers a customizable front-end employee survey
+                    which allows organizational leadership to visualize and analyze employee wellbeing by location, job
+                    title, age, or any other demographic factors that their human resource department keeps track of.
+                </div>
+                <div style="text-align: center;"> User settings allow company employees to choose whether or not share
+                    their Pietential status with their employer's HR Department and/or ownership. In any case, the
+                    company receives aggregate visualizations, showing the well being of the employee population as
+                    charts without revealing individual employees' status. </div>
+                <p style="text-align: center;"> </p>
+            </section>
+        </div>
+    </div>
+    <div id="price4" style="display:none">
+
+        <div id="pient" class="productBox piblurred pifocused"
+            style="opacity: 1; z-index: 5; filter: blur(0px); transform: scale(1);" onmouseenter="adjustBlurred()">
+            <h3 class="fancyHeadline">PietentialENTERPRISE</h3><strong class="fancySub">Visualize Population Wellbeing
+                with PietnetialENTERPRISE</strong><br> <img class="pic800 pic400"
+                src="https://pietential.com/images/promoImage-pro.png" alt=""> <img class="pic800 pic400"
+                src="https://pietential.com/images/promoImage-advisor.png" alt=""> <img style="display:none;"
+                class="pic800 pic400" src="https://pietential.com/images/promoImage-business-list.png" alt=""> <img
+                class="pic800 pic400" src="https://pietential.com/images/promoImage-profile.png"> <img
+                class="pic800 pic400" src="https://pietential.com/images/promoImage-enterprise-june2.png"
+                style="display:none">
+            <section class="explain">
+                <div style="text-align: center;"> <button id="piproButton" class="fancyButton1 bt"
+                        style="background: rgb(251, 0, 0); transform: scale(1); z-index: 2;"
+                        onclick="moreForm()">Contact for Details</button> -OR- <button class="fancyButton1 bt"
+                        style="background: rgb(251, 0, 0); transform: scale(1); z-index: 2;"
+                        onclick="window.open(`https://app.acuityscheduling.com/schedule.php?owner=18765814&amp;appointmentType=31604298`)">Zoom
+                        with us</button><br><br> The “PietentialENTERPRISE” population wellbeing monitoring platform is
+                    for organizations with large population (often de-centralized populations) like national and global
+                    corporations, School Systems; Colleges, Universities and University Systems; large NPOs and NGOs;
+                    and Local, State and Federal Agencies who want to be able to to visualize, quantify and better
+                    understand their population wellbeing in order that they can take steps to improve it. </div>
+                <div style="text-align: center;"> <img src="https://pietential.com/images/60-day.png"
+                        style="max-width:200px;margin:20px;"></div>
+                <div style="text-align: center;"> PietentialENTERPRISE affords every member of the organization a
+                    Pietential license and the ability to visualize their own personal well being.&nbsp; And, through a
+                    custom API integration it gives the organization’s leadership the ability to visualize the wellbeing
+                    of the entire organization in aggregate, or to view any number of comparative visualizations
+                    segmented in any manner in which the client’s HR database is already architected.</div>
+                <div> &nbsp;</div>
+                <p style="text-align: center;"> </p>
+            </section>
+        </div>
+
+
+    </div>
+    <style>
+      
+    </style>
+
+
+
+
+    <section id="navi"></section>
+    <script type="text/javascript" src="https://pietential.com/navigation/topNav.js"></script>
+
+
+
+    <div id="maslowPic" style="background-image: url(images/abraham-maslow.jpg);
+max-height: 500px;
+min-height: 640px;
+width: 100%;
+background-size: cover;
+z-index: -9;
+opacity: .4;
+position: absolute;">
+    </div>
+
+
+
+
+
+    <!-- begin branding-->
+
+
+    <section id="brandi"></section>
+    <script>
+        fetch("pielet/branding.html")
+            .then(r => {
+                return r.text()
+            })
+            .then(a => {
+                document.getElementById("brandi").innerHTML = a;
+                if (location.href.match(/ikigro/ig)) {
+                    document.title = `Ikigro - The Life Balance Realization System`;
+                    document.getElementsByTagName("h1")[0].innerHTML = `Ikigro™`;
+                }
+                document.getElementById("brandi").getElementsByTagName("img")[0].style.width = '800px';
+            });
+    </script>
+
+
+    <!-- END branding-->
+
+    <div class="pie" id="pieCloud" style="">
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,800&amp;display=swap" rel="stylesheet">
+
+
+        <h1 style="text-align: center;">Pietential™</h1>
+
+        <section style="max-width:1200px;margin:auto;margin-bottom: 43px;">
+            <div  style="margin:0px;max-width: 1200px;text-align: center;margin: auto;">
+                <div id="abstract" style="text-align: center; box-sizing:border-box">
+                    <button class='bt green sform' onclick="showForm();">Get Started</button>
+
+                    <p style="margin-top:250px;text-align: left;" id="masSpace">
+
+                        
+                        <div id="scan" style="text-align: left;"><h3> 
+                            
+                            The Life Balance & Population Wellbeing Realization System</h3>
+                            <div>Pietential is Based on Maslow’s Hierarchy of Needs.</div><br>
+                            <div>It&#8217;s for People who want to Grow</div><br>
+                            <div>At the individual user level, Pietential is a simple survey that helps you Visualize,
+                                and Analyze where you stand regarding the core issues that are central to what it is to
+                                be human: Physiological Needs, Safety Needs, Love and Belonging, Esteem, and
+                                Self-actualization.</div><br>
+                            <div>Scores are rendered in an easy to read pie chart, and observations and recommendations
+                                are offered instantly, so you can work towards realizing your best life. You can log
+                                back in any time and track your progress. Unless you choose to share your Pietential
+                                it&#8217;s kept confidential. Best of all it&#8217;s completely free for individual
+                                users, in alignment with our Vision, Mission and Values.</div><br>
+                            <h3>And Organizations Investing in Human Potential</h3>
+                            <div>For advisors, small businesses & nonprofit organizations, large enterprises and NGOs
+                                that license Pietential, it&#8217;s a realtime emotional index. Pietential provides your
+                                organization valuable aggregated comparative data visualizations of the emotional
+                                wellbeing of different segments of populations you lead and serve, allowing you to
+                                better understand how your people are doing.</div>
+
+
+                            <!-- <br><br><img src='images/promoImage002.png' id='promoImage' style='max-width:100%;'> -->
+
+                            <br>
+
+                            <b>Realize Your Growth Potential</b>
+                    </p>
+                </div>
+            </div>
+        </section>
+        <div style="text-align:center;">
+
+
+
+            <form action='https://pietential.com/pielet/accountEngine/' method='POST' id="signup"
+                style="display:none;background: #eee; padding:12px;">
+
+
+                <input name='fname' id='fname' placeholder='Enter your first name*' type='text' required=''><br>
+                <input name='lname' id='lname' placeholder='Enter your last name*' type='text'><br>
+                <input name='email' placeholder='Enter your email address*' id='email' required='' type='email'>
+                <input onclick="document.getElementById(`pspla`).style.display = `block`;" onkeyup="pcode()"
+                    name='promoCode' placeholder='Have a organization code? (optional)' id='promoCode' type='text'>
+                <div id="pspla" style="display: none;font-size: 15px; ">A organization code may have been given to you by your
+                    advisor. This allows survey results to be shared with them.<br>Leave this field blank if you want
+                    your results to be private (only you can view).</div>
+                <input name='password' placeholder='Choose a Password*' id='password' required='' type='password'><br>
+                <input name='userID' type='hidden'>
+                <input type="checkbox" required id="agreeBox" name="agreeToTerms" value="" style="width: unset;"
+                    onclick="document.getElementById('agreeBox').value = 'Iagree'"> I have read the <a
+                    href="https://pietential.com/pielet/privacy/">Subscriber Terms of Use</a> and I agree to these
+                terms.<br>
+                <input class='bt green' value='Continue' type='submit'><br>
+                <!--<b>It's Free</b>--><br>
+
+                Already have an account? <a href='https://pietential.com/login/'>Login</a>
+            </form>
+
+
+
+
+
+
+
+            <script>
+                function showForm() {
+                    document.getElementById(`signup`).style.display = `block`;
+                    document.getElementById("signup")
+                        .scrollIntoView({
+                            behavior: "smooth",
+                            block: "end",
+                            inline: "nearest"
+                        });
+                    for (let a of document.getElementsByClassName('sform')) {
+                        a.style.display = 'none';
+                    }
+
+                }
+
+
+
+                document.getElementsByName("userID")[0].value = random(12);
+
+                function pcode() {
+                    if (document.getElementById("promoCode").value.length > 0) {
+                        document.getElementById("pspla").style.display = "block";
+                    } else {
+                        document.getElementById("pspla").style.display = "none";
+                    }
+                }
+            </script>
+        </div>
+        <br>
+
+
+    </div>
+
+    <div id="mflex"></div>
+    <div id="cflex" class="containerFLEX"
+        style="width:100%; background:#377DD4; min-height: 400px;padding:0px; text-align: center;">
+        <div class="pricePod innerFLEX" style="background-image:url(https://pietential.com/images/betaBlocker_01.jpg)">
+
+            <div class="icell">Build Trust More Quickly and Stay Connected
+                <h3>PietentialADVISOR</h3>
+                <button class="bt  login-bar" id="rm1"
+                    onclick="popModal(`price1`,document.getElementById(`scan`).innerHTML)">Read More</button></div>
+
+
+
+        </div>
+        <div class="pricePod innerFLEX" style="background-image:url(https://pietential.com/images/betaBlocker_02.jpg)">
+            <div class="icell">Support Employee Wellbeing
+                <h3>PietentialBUSINESS</h3>
+                <button class="bt  login-bar" id="rm2"
+                    onclick="popModal(`price2`,document.getElementById(`scan`).innerHTML)">Read More</button>
+            </div>
+        </div>
+        <div class="pricePod innerFLEX" style="background-image:url(https://pietential.com/images/betaBlocker_03.jpg)">
+            <div class="icell">Visualize Population Wellbeing
+                <h3>PietentialENTERPRISE</h3>
+                <button class="bt  login-bar" id="rm3"
+                    onclick="popModal(`price3`,document.getElementById(`scan`).innerHTML)">Read More</button></div>
+        </div>
+        <div class="pricePod innerFLEX" style="background-image:url(https://pietential.com/images/betaBlocker_04.jpg)">
+            <div class="icell">Measure the good that you do in the world
+                <h3>PietentialNGO</h3>
+                <button class="bt  login-bar" id="rm4"
+                    onclick="popModal(`price4`,document.getElementById(`scan`).innerHTML)">Read More</button></div>
+        </div>
+    </div>
+
+
+    <div id="aboutUs" class="containerFLEX"
+        style="width:100%; background:white; min-height: 400px;padding:0px; text-align: center;">
+
+        <div id="outer" style="margin: auto;">
+            <div id="main" style="width:80%; text-align: center; max-width: 1200px;margin: auto;">
+
+
+
+
+
+
+            </div>
+            <div style="min-height: 100px;">
+                <div style="width:80%;max-width:1200px; margin: auto;">
+                    <b>
+                        <h1 id="aboutus" style="text-align: center;">About Us</h1>
+                    </b>
+
+                </div>
+
+
+            </div>
+
+            <style>
+                .aboxi{
+                    max-width:1200px; 
+                    margin: auto;
+                    text-align: left;
+                    margin:20px;
+                }
+            </style>
+
+
+
+            <div style="background: #eee;min-height: 100px;overflow: auto;margin:20px 0;">
+                <div class="aboxi"><b>
+                    </b>
+                    <div class="mobile100" style="text-align: left;">
+                        <section style="margin:15px"><b>
+                                <h3 style="text-align: left;">Our Vision</h3>
+                            </b>
+                            <p>Our Vision is that of a more balanced, more equitable world, where every person and every
+                                organization has the opportunity to understand and realize their full potential.</p>
+                        </section>
+
+
+
+                    </div>
+                    <div class="mobile100" style="text-align: left;">
+                        <section style="margin:15px">
+                            <h3 style="text-align: left;">Our Mission</h3>
+                            <p></p>
+                            <p>Pietential is on a Mission to bring its Life Balance Realization System to the world.
+                                Every day we wake up and share this opportunity for personal, organizational, community,
+                                and global growth. </p>
+                        </section>
+
+
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div style="clear: both;"></div>
+
+
+
+            <div id="ourvalues" style="min-height: 100px;"> 
+                <div  class="aboxi"><b>
+
+                        <h3 >Our Values</h3>
+                    </b>
+                    <p>Pietential is a democratizing force for personal, organizational, community and global
+                        well-being. </p><br>
+                    <p>Pietential empowers people to Visualize their current state of being, Analyze ideas and actions
+                        towards improvement, and Realize their human and/or organizational potential by monitoring
+                        progress towards the life and organizational balance they envision.</p>
+                </div>
+            </div>
+            <div id="ourteam"  style="min-height: 100px;text-align: left;">
+
+
+                <div  class="aboxi">
+                    <b>
+                        <h3>Our Team</h3>
+                    </b>
+                    <p>Pietential, LLC is headquartered in Philadelphia, Pennsylvania “The birthplace of America” and
+                        was founded by John Starling and Henry “Hank” Mitchell in 2019, and we’re on a mission to bring
+                        our “Life Balance Realization System” to the world, empowering people and organizations to
+                        understand and realize their full potential. And, as a company with a double bottom line we are
+                        committed to being a democratizing force for people and communities around the world that can’t
+                        afford professional coaching. </p><br>
+                    <p>Many of our team members are based in India, the world’s largest democracy - and one of the
+                        world’s great cradles of wisdom. Please take a moment to get to know our team. To know them is
+                        to love them. </p><br>
+                    <p> We’re looking to expand our team in the U.S., India, and around the world. If you’d like to join
+                        our team, please contact us. We’re always looking for bright, driven people who want to improve
+                        business culture, life balance and results, and change their communities (and the world for the
+                        better) one person at a time.</p>
+
+                    <style>
+                        .t4 {
+                            flex: 1 1 20%;
+                            background: #eee;
+                            min-width: 200px;
+                            min-height: 200px;
+                            margin: 22px;
+                            background-size: cover;
+                            background-position: center;
+                        }
+
+                        .bioButton {
+                            margin: 10px 0;
+                            padding: 2px 15px;
+                            display:none;
+                        }
+                    </style>
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <div id="bflex"></div>
+    <!-- <div id="teamDivs4" class="containerFLEX" style="max-width: 1200px;margin: auto;">
+
+
+    </div> -->
+    <div id="bioBox" class="containerFLEX" style="max-width: 1200px;margin: auto;">
+
+    </div>
+    <script>
+        var teamMembers = `
+
+        Dr. Amen Xavier Kaushal, Head of Social Work;https://pietential.com/images/Amen.JPG@
+Dr. Amen Xavier Kaushal is a developmental professional from India and holds a Doctorate in Social Work. In 2011, he obtained the prestigious Ford Foundation International Fellowship and completed his master’s in  Human Rights from Sussex University, UK. 
+#
+Given his professional background, he has vast experience working with various NGOs at the local and national levels. Presently, he takes courses on Social Work at the postgraduate level at Matru Sewa Sangh Institute of Social Work, India.
+#
+Outside of Pietential, Amen works as an independent consultant building grassroot organizations, performing project monitoring and evaluation of development projects, and conducting social impact assessment.
+#
+Amen is Pietential's Head Social Worker, responsible for expert research and academic writing as part of the company’s organizing of the 80th Anniversary of Maslow's Hierarchy of Needs Seminar Series. Additionally, he functions as the Editorial Consultant for the Editorial Team in the process of content curation.
+@@@
+Prerit Bathri, NGO Partnership Lead, MA, MSW, MPhil;https://pietential.com/images/Prerit.JPG@
+Prerit Bathri is a Ph.D. scholar specializing in Social Work at Rashtrasant Tukadoji Maharaj Nagpur University, India. For the past 12 years, he has regularly contributed to social work through education and fieldwork.
+#
+Prerit enjoys traveling to various geographical locations to explore their social conditions by establishing contact with the local residents. Among others, his favorite place to visit is the forest region, which grants him a perspective on the lifestyle and struggles of the communities settled there. 
+#
+As a researcher, the social worker writes on social issues to identify with their respective movements. In his free time, he expresses his artistic sentiments through landscape photography.
+#
+Prerit is drawn to Pietential for its dedication to social service and community development. He resonates with the purpose of Pietential and aims to strike balance and justice among social beings, alongside helping individuals discover their untapped potential.
+#
+Prerit is Pietential’s lead in working with NGOs across India in an effort to bring the company’s Life Balance Realization to organizations that care for their population’s well-being.
+@@@
+Isha, Research Associate;https://pietential.com/images/Isha.JPG@
+Isha is a result-oriented commerce undergraduate aspiring to explore, learn, and grow in the field of research and writing. She is also curious and conscious regarding self-care and personal growth. 
+#
+Owing to her interests, Isha works as a freelancer specializing in academic writing focused on research projects, case studies, and articles. She sees herself as a continuous learner who evolves by engaging with people and their unique experiences. This trait, she believes, can help her become an asset to Pietential’s mission. 
+#
+Isha is a Research Associate at Pietential, responsible for data building and compiling relevant statistics to assist the Awareness Team.
+@@@
+Gautam Bhat, Social Media Lead, B. Tech;https://pietential.com/images/Gautam.jpg@
+Gautam is a teacher by day and Growth Hacker by night. He is driven by his passion for technology, marketing, game theory, mathematics, and creative content creation. While he isn't working, one can find him motorbiking across India, learning about different cultures, and meeting people. 
+#
+Presently, Gautam is spending his days educating children as a volunteer in the Himalayas and building their aptitude for competitive exams while experiencing everything the mountains have to offer.
+#
+Having earned his degree from one of India’s top ten engineering colleges, he has also managed to be in the top 0.1% of India in the Mathematical Olympiads. In addition, Gautam’s interest in Game Theory led him to participate in the Indian Innovation Design Contest, where the Government of India awarded his team the Quarter Finalist Bronze Certificate for their technical project on Robotics.
+#
+At Pietential, the Growth Hacker has found the opportunity to work with a diverse and talented team, where he actively contributes to each member’s growth. Gautam is the Social Media Lead who assists different Pietential teams with tool research and technical setups.
+@@@Pratheepa, Awareness Team Lead;https://pietential.com//images/pratheepa-bio-pic.jpg@
+Pratheepa is an engineer by degree but a writer by passion. She has 2.5 years of experience as an Assistant Manager in a public sector bank. But most of all, being a mom is her pride and comfort. So she coined a profession around her two passions—writing and family.
+#
+She is a versatile content writer with 3+ years of experience in different genres of writing. Having worked with a variety of clients, she has an eye for detail and people. Pratheepa is also a published co-author of three anthologies: ‘An Unheard Soul,’ ‘Light Through the Crevices,’ and ‘A Little More of Life.’
+#
+With Pietential, she has finally found a place to strike a balance in her life as an inquirer, writer, and awareness creator! She is the Awareness Team Lead at Pietential, and she is responsible for taking Pietential’s mission forward seamlessly alongside her team.
+@@@
+Jonathan Hanna, Partnership Lead;https://pietential.com/images/jonathan-hanna.jpg@
+Jonathan is a student and observer of human and non-human nature, dedicated to serving the wellbeing and flourishing of others through direct personal encounters and leveraging interventions to impact wider audiences positively.
+#
+He draws on more than 30 years of studying consciousness in Eastern and Western traditions, from scientific-rationalist and contemplative-experiential perspectives, and more importantly, immersed in the living book of wisdom called Life. His mindset resonates with the philosophy behind Pietential’s embrace of Abraham Maslow’s Hierarchy of Needs, drawing him closer to the company’s purpose.
+#
+Jonathan is a husband, and father to a young daughter, seeking to do as little harm as possible to the Earth and others (human and non-human). This is foundational to his service work and gives him tremendous freedom to channel his work outside the family into projects that truly care for the psychic and physical environment.
+#
+To truly be of benefit to oneself and others, the work one does must be in integrity with the way one lives, and this life practice guides Jonathan as a professional.
+@@@
+Zainab Fatma, Research Lead;https://pietential.com/images/zainab-bio-pic.jpg@
+Zainab is a student of English Literature. She is an avid reader with an interest in research. She has been a content writer for over two years and has worked in a variety of genres. Ms. Fatma has also published her research article on gender equality in a Gutenberg journal. She has won national and international awards in debating and research writing, alongside being recognized for her passion for composing poetry.
+#
+She contributes as the Research Lead at Pietential, being responsible for research and data building. Employing her people skills, Zainab is also a member of the Awareness Team at Pietential.
+@@@
+Farhat Nesim, Research Associate;https://pietential.com/images/farhat-bio-pic.jpg@
+Farhat has completed her Master’s in Psychology from Aligarh Muslim University. She has a keen interest in talking to people and getting to know them and their behavior and approach to life.
+#
+As a member of the Psychological Society and later as the co-editor of the Psychology department’s journal, Farhat has assisted in organizing offline and online mental health events.
+#
+With hands-on experience in counseling, she aspires to help people with their mental health issues and struggles. She believes that everybody is unique in terms of their experiences and environment; hence, one approach cannot benefit or suit them all. According to her, everybody deserves to be treated with a unique strategy complementing their needs.
+#
+In her role as a research associate with Pietential, Farhat intends to investigate eclectic approaches that could benefit individuals and organizations.
+@@@
+Oroosa Anwar, Content Lead;https://pietential.com/images/oroosa2.jpg@
+Oroosa holds a postgraduate degree in English Literature and loves spinning words to create new realities. Apart from being a writer, Oroosa is an orator, poetry performer, and food connoisseur. She takes delight in exploring the human mind through works of art, literature, and philosophy—something that has helped her adopt multiple outlooks on life.
+#
+Ms. Anwar holds over three years of expertise in personal branding and content creation, aside from curating marketing material for individuals and businesses. Oroosa is also an ardent scholar and fights for gender equality, social justice, and her literary interests through research projects. And Pietential is where she seeks to amalgamate her scholarly and marketing sensibilities to create an exponential impact. For her, words are where all the magic happens, so she gives them her all.
+#
+Apart from writing and researching, Oroosa seeks pleasure in reading comics, savoring dank memes, or cooking something up in the kitchen!
+@@@
+Pooja Semwal, Director of Operations;https://pietential.com/about/pooja-semwal-003.jpg@
+Pooja Semwal is trained as a professional social worker and is a recipient of an Indian educational honor, a gold medal in Bachelor of Social Work.
+#
+With two master’s degrees, one in social work and the other in rural development, she particularly likes solving people-oriented issues and helping individuals find workable and sustainable solutions. She was a frontline worker with many organizations in her academic field and did multiple research projects. Pooja also worked full-time as a fundraiser trainer for MSF (Doctors Without Borders).
+#
+In 2018, after years of experiencing different ailments, she was finally diagnosed with an autoimmune disorder called Lupus. This changed her approach but not her impact.
+#
+Pooja joined Pietential to continue to make a difference through her initiative, writing, research, and advocacy. As Director of Operations at Pietential, she oversees a wide range of strategic initiatives and keeps the team streamlined and organized.
+@@@
+Hank Mitchell, CTO;https://pietential.com/about/hank-mitchell-003.jpg@
+For more than two decades, Henry “Hank” Mitchell has been the quiet, creative force behind the web apps of countless client companies, and has developed a number of digital marketing apps through his company Silvercrayon Labs, including Leadsaber, Skiptalk, and Mailstripe email systems.
+#
+Hank is a Baltimore native, and is a graduate of the New York University with a degree in music composition who loves playing bluegrass and attending bluegrass festivals. He is also the founder of a nonprofit that supports families dealing with breast cancer, “The Red Devils”.
+#
+As Pietential’s Chief Technology Officer, Hank is responsible for the ongoing development of the Pietential product platform, and is the technical liaison for Pietnential’s application development strategic partners when Pietential is integrated with client HR databases.
+@@@
+John Starling, CEO;https://pietential.com/about/john-starling-003.jpg@
+John Starling has dedicated his life to helping people define and achieve what’s important to them, and is the creator of “Pietential”.
+#
+Since 1999 he’s owned and operated several management consulting firms, and has been a trusted business advisor and coach to nearly 400 companies (from start-ups to Fortune 50 companies) and countless individuals.
+#
+He is currently in private practice as professional coach (Starling Growth Advisory) and leads CEO peer advisory groups for Learner Leader Cohorts.
+#
+In 2010 he founded a first of its kind MMA (Mentoring & Martial Arts) school for low income, at-risk youth in Baltimore, and in 2016 he founded a girls soccer club for elementary aged school girls in South Korea who had no opportunity to play organized sports in their schools, due to institutional & cultural gender discrimination.
+#
+A creative at his core, John is the author of a children’s book about being okay with being yourself “Flight of the Platypus” - a story of self-discovery, and an Americana singer-songwriter.
+
+`;
+        var peep = teamMembers.split("@@@");
+        var array = [];
+        for (let a of peep) {
+            var obj = {};
+            obj.name = a.split('@')[0].trim().split(';')[0].split(/,/)[0];
+            obj.title = a.split('@')[0].trim().split(';')[0].split(/,/)[1].trim();
+            obj.aid = rndmID();
+            obj.photo = a.split('@')[0].trim().split(';')[1];
+            obj.bio = a.split('@')[1].trim().replace(/#/ig, "<br><br>");
+            array.push(obj);
+        }
+        console.log(array);
+        shuffle(array)
+        window.bios = array;
+
+        var out = '';
+        for (let a of array) {
+            out +=
+                `<div class="t4" style="background-image:url(${a.photo}); cursor:pointer;" onclick="getBio('${a.aid}')" id="${a.aid}"><span class="mtop">${a.name},<br>${a.title}<br><button class="bioButton bt  login-bar" onclick="getBio('${a.aid}')">Bio</button></span></div>`;
+        }
+
+        // teamDivs4.innerHTML = out;
+
+        function getBio(aid) {
+            for (let a of bios) {
+                if (a.aid == aid) {
+                    var theBio = a.bio;
+                    var theName = `${a.name},<br>${a.title}`;
+                }
+            }
+
+            popbModal(
+                `<div class="exBio" style="flex: 1 1 40%"><b>${theName}<br></b><br>${theBio}<br></div>`
+            );
+        }
+
+        function resetBios() {
+            for (let a of document.getElementsByClassName("t4")) {
+                a.style.display = "block";
+            }
+            for (let a of document.getElementsByClassName("exBio")) {
+                a.outerHTML = ``;
+            }
+            for (let a of document.getElementsByClassName("mtop")) {
+                a.style.display = "block";
+            }
+        }
+
+        function rndmID() {
+            var id = '';
+            var s = `1234567890poiuytreABCDEFGHIJwqasdfghjklmnbvcxz`.split('');
+            for (var i = 0; i < 8; i++) {
+                id += shuffle(s)[0];
+            }
+            return id;
+        }
+    </script>
+
+
+
+
+
+    <div id="ourStory" class="containerFLEX"
+        style="width:100%; background:black; min-height: 400px;padding:0px; text-align: center;margin-top: 2%;">
+        <div class="innerFLEX" style="background: black;">
+            <h1 style="text-align: center;color:white;position: relative;margin-top: 25%;
+    ">Our Story</h1>
+        </div>
+        <div class="innerFLEX" style="background: black;">
+            <div style="text-align: center; margin-top: 60px;max-width:650px;margin: auto;">
+                <video src="https://pietential.com/images/Pietential-Origin-Story.mp4" controls="true"
+                    style="width:100%;"></video>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <!-- <div id="thepriceisright" style="text-align: center;margin:20px 0;">
+        <h2>Pricing:</h2>
+        <section id="pricingBlock"></section>
+        <script type="text/javascript" src="https://pietential.com/pricing/pricing.js"></script>
+    </div> -->
+
+
+
+    <script>
+        // if (!window.location.href.match(/https/ig)) {
+        //     location.assign(`https://pietential.com/`);
+        // }
+        // if (window.location.href.match(/jstar/ig)) {
+        //     location.assign(`https://pietential.com/`);
+        // }
+
+        function updateOther() {
+            var carny = document.getElementById(`otherType`).value.trim();
+            var jsname = carny.replace(/[^a-z]+/ig, "");
+            document.getElementById(`TYPEnewCat`).value = `TYPE` + jsname;
+            document.getElementById(`newBizType`).innerHTML = carny;
+            getBusinessType();
+            document.getElementById('businessCategories').value = jsname;
+            window.userSelectedType = 1;
+        }
+
+        function handleOtherType() {
+            document.getElementById(`otherType`).style.display = `block`;
+            document.getElementById(`businessCategories`).value = document.getElementById(`otherType`).value.replace(
+                /[^a-z]+/ig, "");
+        }
+
+        function getBusinessType() {
+            window.userSelectedType = 1;
+            var businessType = "";
+            for (let a of document.getElementsByTagName("input")) {
+                if (a.id.match(/TYPE/)) {
+                    if (a.checked) {
+                        businessType += a.id.replace(/TYPE/ig, "") + " ";
+                    }
+                }
+            }
+
+            document.getElementById('businessCategories').value = businessType.trim();
+            if (document.getElementById(`TYPEnewCat`).checked) {
+                document.getElementById('businessCategories').value = document.getElementById(`TYPEnewCat`).value;
+            }
+            console.log(businessType);
+            return businessType;
+        }
+    </script>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K3VEYCTX6E"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-K3VEYCTX6E');
+    </script>
+
+
+
+    <section id="footi"></section>
+    <script type="text/javascript" src="https://pietential.com/navigation/bottomNav.js"></script>
+
+
+    <script>
+        fetch(`pielet/calcEngine/?mode=generateQuestions&userID=jUfL4Zxd3mWD`)
+            .then(r => {
+                return r.text()
+            })
+            .then(a => {
+                localStorage.formQuestions = a;
+                console.log(`Successfully loaded questions from ${location.href}.`);
+            });
+    </script>
+
+    <div id="scaz" style="display:none"></div>
+
+    <script id="cacheSurvey">
+        fetch(`pielet/survey/htm.html`)
+            .then(r => {
+                return r.text()
+            })
+            .then(a => {
+                document.getElementById("scaz").innerHTML = a;
+                console.log(`loaded htm.html`);
+            });
+    </script>
+
+
+
+    <link rel="preload" href="https://pietential.com/pielet/survey/pielon.js" as="script">
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pieWidget Builder/API</title>
+</head>
+<script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
+<script src="//pietential.com/chartjs-plugin-watermark.js"></script>
+<script src="//pietential.com/pieWidget/pie.js"></script>
+<style>
+    * {
+        font-family: roboto slab, sans-serif;
+    }
+
+    textarea {
+        width: 100%;
+        max-width: 600px;
+        height: 64px;
+        font-family: monospace;
+        padding: 12px;
+    }
+
+    .cell {
+        padding: 20px;
+
+    }
+
+    #et {
+        line-height: 28px;
+    }
+
+    .ce {
+        padding: 12px;
+        border: 1px solid gray;
+        max-width: 400px;
+        font-family: monospace;
+    }
+</style>
+
+<body>
+    <div style="padding:60px;">Enter the id: <input type="text" id="userID"> <button onclick="rrun();">GO</button>
+        <br><br>No personal details are returned, just the scores for that id(s).<br>
+    </div>
+
+
+    <div id="cp"></div>
+    <div id="et"></div>
+
+
+    <script>
+        var endpointDomain = location.href.replace(/^https?:/, "").replace(/pieWidget.+/, "");
+        if (location.href.match(/id=[a-z0-9]{12}/ig)) {
+            var userID = location.href.replace(/.+\/\?id=/ig, "");
+            go(userID);
+            document.getElementById("userID").value = userID;
+        }
+        // https://44.192.97.107/pieWidget/build/3nVKbTrZ527h
+
+        function tryIt(id) {
+            if (id == "ta4") {
+                localStorage.tryitCode = document.getElementById("userID").innerText;
+                window.open('../test/?id=' + document.getElementById("userID").innerText);
+                return;
+            }
+            if (id == "ta5") {
+                document.getElementById(id).outerHTML = document.getElementById(id).innerText;
+                return;
+            }
+            if (id == 'ta2') {
+                var out = '';
+                var temp = document.getElementById(id).innerText;
+                var arr = temp.replace(/[\s\S]+=/, "").split(/[^a-z0-9]+/ig);
+                for (let a of arr) {
+                    if (a.match(/[a-z0-9]{12}/ig)) {
+                        out += a.trim() + ",";
+                    }
+                }
+                var g = out.replace(/,$/, '');
+                document.getElementById(id).innerText = `${endpointDomain}pielet/accountEngine/?getAPI=${g}`;
+            }
+            fetch(document.getElementById(id).innerText.trim())
+                .then(r => {
+                    return r.text()
+                })
+                .then(a => {
+                    document.getElementById(id).innerText = a;
+                    document.getElementById(id).style.background = "gold";
+                });
+        }
+        function rrun() {
+            var userID = document.getElementById("userID").value;
+            go(userID);
+        }
+        if (location.href.match(/\/build\/[a-z0-9]{12}/ig)) {
+            var userID = location.href.replace(/[\s\S]+\//ig, "");
+            go(userID);
+            document.getElementById("userID").value = userID;
+        }
+
+        function go(userID) {
+            var inject = `<section id="pieWidget" class="{{userID}}"></section><script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"><\/script><script src="${endpointDomain}chartjs-plugin-watermark.js"><\/script>
+<script src="${endpointDomain}pieWidget/pie.js"><\/script>`.replace(/{{userID}}/ig, userID);
+            var iframe = `<iframe src="${endpointDomain}pieWidget/?id={{userID}}" width="600" height="600" frameBorder="0" ></iframe>`.replace(/{{userID}}/ig, userID);
+            var rawData = `${endpointDomain}pielet/accountEngine/?getAPI={{userID}}`.replace(/{{userID}}/ig, userID);
+
+            var rawComma = `${endpointDomain}pielet/accountEngine/?getAPI=["92WurVF5BTJm","kTm6HM4c4ywj","gwUYaL478Aqb","3nVKbTrZ527h","qHCQXnBSgbEv","HxqMA6CecYhW","tfDrZJg66ycS","f6RtHvGS4c6h","CkBvJ2fQTMty","Rk83UM4FZ7mL","dGxAa4Z6gXqf","m6y7hnDBWU5g","b6HCfnXZSTJA","9E68zraxubS4","UAEGhW4uCgKY","At4q9bD5HdQC","XJe7u9CjtZK4","7L6uJ9Nnya4w"]`;
+
+            var rawNewline = `${endpointDomain}pielet/accountEngine/?getAPI=zGX676w1F2ry*pKAC2N6ttAXR,WJqagytmB4rU:tvAc7q9WUGSg;%Fm27rChUWNwv.pSqFCKPT5kE8`;
+
+
+            inject = inject.replace(/</ig, "&lt;");
+            iframe = iframe.replace(/</ig, "&lt;");
+            rawComma = rawComma.replace(/</ig, "&lt;");
+            rawNewline = rawNewline.replace(/</ig, "&lt;");
+
+            cp.innerHTML = `<div style="padding:60px;">
+               
+                <div style="float:left;" class="cell">
+                <b>Pre-built visual/gui code for web apps (dashboards, CMSs, etc.)<br>Specify the user id as a class name.<br>Example html syntax:<br><br></b>
+                
+                JS Widget Method:(preferred)<br><div class="ce" contenteditable="true" id="ta4">${inject}</div><br><br>
+                (for best results, this DOM-altering code needs to originate server side)<br>
+                <button  onclick="location.assign('../test.html')">Try it</button> <br><br>
+
+                <div id="ssr" style="width:100%"></div>
+                
+                <br><br>Iframe Method:<br><div class="ce" contenteditable="true"  id="ta5">${iframe}</div><br><br>
+
+                <button onclick="tryIt('ta5')">Try it</button><br><br>
+                </div>
+
+
+                <div style="float:right;background:#c3c3c36e"  class="cell">
+                    <b>JSON data endpoint</b><br>(your developer can build charts with your preferred charting tools, or use the data for some other purpose)<br>Send a get or post request with the user id(s):<br><br>
+                
+                <div class="ce" contenteditable="true"  id="ta1">${rawData}</div><br><br><button onclick="tryIt('ta1')">Try it</button><br><br>
+                
+                You can also request an array of many user ids by sending separated data. <br>Separate with any non alpha/num/url character. <code>(;:,.'"*%$)<br>
+                    </code>(This also means you can send a json string).<br><br><b>Example:</b><br><br>
+                
+
+                <div class="ce" contenteditable="true"  id="ta2">${rawComma}</div><br><br>
+                <button onclick="tryIt('ta2')">Try it</button><br><br>
+
+                For AJAX method charts, the best method is to use the endpoints or the<br>
+                iframe widget. 
+                <br>
+                
+            </div>
+                
+                </div>
+            `;
+
+
+            colorGold("ta1");
+            colorGold("ta2");
+            colorGold("ta5");
+            colorGold("ta4");
+        }
+        function colorGold(id) {
+            var f = document.getElementById(id).innerHTML.match(/[a-z0-9]{12}/ig);
+            try {
+                for (let a of f) {
+                    if (!a.match(/account/ig)) {
+                        var re = new RegExp(a, 'ig');
+                        console.log(re);
+                        document.getElementById(id).innerHTML = document.getElementById(id).innerHTML.replace(a, "<span style='background:gold;'>" + a + "</span>");
+                    }
+                }
+            } catch (e) { }
+        }
+        fetch("../../pielet/ids/emailTable.json.txt")
+            .then(r => {
+                return r.text()
+            })
+            .then(a => {
+                var out = '';
+                var snort = '';
+                var w = JSON.parse(a);
+                for (let s in w) {
+                    var email = s.toLowerCase();
+                    snort += `${email};${w[s]}\n`;
+                }
+                var port = snort.split("\n").sort();
+                for (let x of port) {
+                    var email = x.split(";")[0];
+                    var id = x.split(";")[1];
+                    out += `${email}: <a href="?userID=${id}">${id}</a><br>`;
+
+                }
+                if (location.href.match(/list/)) {
+                    et.innerHTML = "<br><br>" + out;
+                }
+            });
+
+
+    </script>
+</body>
+
+</html>

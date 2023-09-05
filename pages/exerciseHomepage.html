@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script src="../js/commonLinks.js"></script>
+  <script>includeCommonHeader('Exercise Home')</script>
+</head>
+
+<body>
+  <script src="../js/language.js"></script>
+  <script>
+    let userProgress = [];
+  </script>
+  <div id="topBar"></div>
+  <section class="theJourney" style="margin-bottom: 50px">
+    <div id="main">
+      <div class="container">
+        <h1 class="welcomeToPieMind">
+          <script>
+            get_i18n("welcomeToPieMind");
+          </script>
+        </h1>
+        <p class="recommendedText exercisesRecommendation">
+          <script>
+            get_i18n("exercisesRecommendation");
+          </script>
+        </p>
+        <div class="exerciseProgressContainer"
+          onclick="window.location.href = '/pages/exercise.html'; sessionStorage.setItem('sectionNumber', 5);">
+          <div class="exerciseContentContainer">
+            <div class="rowWrapper">
+              <h3 class="selfActualization">
+                <script>
+                  get_i18n("selfActualization");
+                </script>
+              </h3>
+              <p class="content" id="self"></p>
+            </div>
+            <div class="rowWrapper">
+              <h5 class="outerSpan">
+                <span class="innerSpan innerActualization" id="firstSpan"></span>
+              </h5>
+              <p class="outerSpanContainer" id="actualizeScore"></p>
+            </div>
+          </div>
+          <div class="arrowContainer">
+            <img src="../assets/arrowForwardBlack.png" alt="Arrow Forward" />
+          </div>
+        </div>
+        <div class="exerciseProgressContainer"
+          onclick="window.location.href = '/pages/exercise.html', sessionStorage.setItem('sectionNumber', 10);">
+          <div class="exerciseContentContainer esteemContentContainer">
+            <div class="rowWrapper">
+              <h3 class="selfEsteem" style="border: 0px; color: #020202">
+                <script>
+                  get_i18n("selfEsteem");
+                </script>
+              </h3>
+              <p class="content" id="esteem"></p>
+            </div>
+            <div class="rowWrapper">
+              <h5 class="outerSpan">
+                <span class="innerSpan" id="secondSpan"></span>
+              </h5>
+              <p class="outerSpanContainer" id="esteemScore"></p>
+            </div>
+          </div>
+          <div class="arrowContainer">
+            <img src="../assets/arrowForwardBlack.png" alt="Arrow Forward" />
+          </div>
+        </div>
+        <div class="exerciseProgressContainer"
+          onclick="window.location.href = '/pages/exercise.html'; sessionStorage.setItem('sectionNumber', 15);">
+          <div class="exerciseContentContainer belongingContentContainer">
+            <div class="rowWrapper">
+              <h3 class="loveBelonging">
+                <script>
+                  get_i18n("loveBelonging");
+                </script>
+              </h3>
+              <p class="content" id="belonging"></p>
+            </div>
+            <div class="rowWrapper">
+              <h5 class="outerSpan">
+                <span class="innerSpan" id="thirdSpan"></span>
+              </h5>
+              <p class="outerSpanContainer" id="belongingScore"></p>
+            </div>
+          </div>
+          <div class="arrowContainer">
+            <img src="../assets/arrowForwardBlack.png" alt="Arrow Forward" />
+          </div>
+        </div>
+        <div class="exerciseProgressContainer"
+          onclick="window.location.href = '/pages/exercise.html'; sessionStorage.setItem('sectionNumber', 20);">
+          <div class="exerciseContentContainer needsContentContainer">
+            <div class="rowWrapper">
+              <h3 class="safetyNeeds">
+                <script>
+                  get_i18n("safetyNeeds");
+                </script>
+              </h3>
+              <p class="content" id="needs"></p>
+            </div>
+            <div class="rowWrapper">
+              <h5 class="outerSpan">
+                <span class="innerSpan" id="fourthSpan"></span>
+              </h5>
+              <p class="outerSpanContainer" id="needScore"></p>
+            </div>
+          </div>
+          <div class="arrowContainer">
+            <img src="../assets/arrowForwardBlack.png" alt="Arrow Forward" />
+          </div>
+        </div>
+        <div class="exerciseProgressContainer"
+          onclick="window.location.href = '/pages/exercise.html'; sessionStorage.setItem('sectionNumber', 25);">
+          <div class="exerciseContentContainer PhysiologyContentContainer">
+            <div class="rowWrapper">
+              <h3 class="physiologicalNeeds">
+                <script>
+                  get_i18n("physiologicalNeeds");
+                </script>
+              </h3>
+              <p class="content" id="physio"></p>
+            </div>
+            <div class="rowWrapper">
+              <h5 class="outerSpan">
+                <span class="innerSpan" id="fifthSpan"></span>
+              </h5>
+              <p class="outerSpanContainer" id="physioScore"></p>
+            </div>
+          </div>
+          <div class="arrowContainer">
+            <img src="../assets/arrowForwardBlack.png" alt="Arrow Forward" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="loaderContainer" style="display: none">
+      <div class="loader_inner">
+        <img src="../assets/pie-spinner.png" alt="Pie" />
+      </div>
+    </div>
+  </section>
+  <div class="modalOverlay" id="modalOverlay"></div>
+  <script src="../js/apiHelper.js"></script>
+  <script src="../js/main.js"></script>
+  <script src="../js/apiService.js"></script>
+  <script>
+    let arrayOfData = [];
+    var fetchTarget = "../json/exes.txt";
+    if (localStorage.currentLanguage == "hindi") {
+      fetchTarget = "../json/exes.hindi.txt";
+    }
+    function get() {
+      getElementById("loaderContainer").style.display = "block";
+      getElementById("main").style.display = "none";
+      let sectionNumber = sessionStorage.getItem("sectionNumber");
+      let lastActualizeScore = sessionStorage.getItem("surveyList");
+      let lastEsteemScore = sessionStorage.getItem("lastEsteemScore");
+      let lastBelongingScore = sessionStorage.getItem("lastBelongingScore");
+      let lastNeedsScore = sessionStorage.getItem("lastNeedsScore");
+      let lastPhysioScore = sessionStorage.getItem("lastPhysioScore");
+      fetch(fetchTarget)
+        .then((r) => {
+          return r.text();
+        })
+        .then((a) => {
+          window.k8 = JSON.parse(a);
+          arrayOfData = JSON.parse(a);
+          console.log("arr", arrayOfData);
+          let lastActualizationScore = sessionStorage.getItem("surveyList");
+          let lastEsteemScore = sessionStorage.getItem("lastEsteemScore");
+          let lastBelongingScore =
+            sessionStorage.getItem("lastBelongingScore");
+          let lastNeedsScore = sessionStorage.getItem("lastNeedsScore");
+          let lastPhysioScore = sessionStorage.getItem("lastPhysioScore");
+          let self = getElementById("self");
+          let esteem = getElementById("esteem");
+          let belonging = getElementById("belonging");
+          let needs = getElementById("needs");
+          let physio = getElementById("physio");
+
+          for (let i = 0; i <= 4; i++) {
+            if (
+              lastActualizationScore >= i * 20 &&
+              lastActualizationScore <= 20 * (i + 1)
+            ) {
+              self.innerHTML = arrayOfData[i].title;
+            }
+          }
+
+          for (let i = 0; i <= 4; i++) {
+            if (
+              lastEsteemScore >= i * 20 &&
+              lastEsteemScore <= 20 * (i + 1)
+            ) {
+              esteem.innerHTML = arrayOfData[i + 5].title;
+            }
+          }
+
+          for (let i = 0; i <= 4; i++) {
+            if (
+              lastBelongingScore >= i * 20 &&
+              lastBelongingScore <= 20 * (i + 1)
+            ) {
+              belonging.innerHTML = arrayOfData[i + 10].title;
+            }
+          }
+
+          for (let i = 0; i <= 4; i++) {
+            if (lastNeedsScore >= i * 20 && lastNeedsScore <= 20 * (i + 1)) {
+              needs.innerHTML = arrayOfData[i + 15].title;
+            }
+          }
+
+          for (let i = 0; i <= 4; i++) {
+            if (
+              lastPhysioScore >= i * 20 &&
+              lastPhysioScore <= 20 * (i + 1)
+            ) {
+              physio.innerHTML = arrayOfData[i + 20].title;
+            }
+          }
+
+          getElementById("loaderContainer").style.display = "none";
+          getElementById("main").style.display = "block";
+        })
+        .catch((error) => {
+          getElementById("loaderContainer").style.display = "none";
+          getElementById("main").style.display = "block";
+        });
+    }
+    get();
+  </script>
+  <script>
+    let hindi = localStorage.currentLanguage == "hindi";
+    let actualizeScore = 0;
+    let esteemScore = 0;
+    let belongingScore = 0;
+    let safetyScore = 0;
+    let physioScore = 0;
+
+    let modal = getElementById("modalOverlay");
+
+    function hideModal() {
+      modal.style.display = "none";
+    }
+
+    function getView(title) {
+      return `<div class="alertMain"><div class="alertInner" id="modalInner"><p>${title}</p>
+                        <a class="loginButton" onclick="hideModal()" style="margin: auto">Ok</a>
+                        </div></div>`;
+    }
+    const getProgress = async () => {
+      getElementById("loaderContainer").style.display = "block";
+      getElementById("main").style.display = "none";
+      let actualizeScore = getElementById("actualizeScore");
+      let esteemScore = getElementById("esteemScore");
+      let belongingScore = getElementById("belongingScore");
+      let needScore = getElementById("needScore");
+      let physioScore = getElementById("physioScore");
+      let first = getElementById("firstSpan");
+      let second = getElementById("secondSpan");
+      let third = getElementById("thirdSpan");
+      let fourth = getElementById("fourthSpan");
+      let fifth = getElementById("fifthSpan");
+      await getUserProgress().then((response) => {
+        let completedText = hindi ? "पूर्ण" : "Completed";
+        actualizeScore.innerHTML += `${response.users[0].sa_progress}% ${completedText}`;
+        esteemScore.innerHTML += `${response.users[0].se_progress}% ${completedText}`;
+        belongingScore.innerHTML += `${response.users[0].lb_progress}% ${completedText}`;
+        needScore.innerHTML += `${response.users[0].sn_progress}% ${completedText}`;
+        physioScore.innerHTML += `${response.users[0].pn_progress}% ${completedText}`;
+        first.style.width = `${response.users[0].sa_progress}%`;
+        second.style.width = `${response.users[0].se_progress}%`;
+        third.style.width = `${response.users[0].lb_progress}%`;
+        fourth.style.width = `${response.users[0].sn_progress}%`;
+        fifth.style.width = `${response.users[0].pn_progress}%`;
+        data = response.users[0];
+        actualizeScore = response.users[0].sa_progress;
+        esteemScore = response.users[0].se_progress;
+        belongingScore = response.users[0].lb_progress;
+        safetyScore = response.users[0].sn_progress;
+        physioScore = response.users[0].pn_progress;
+        actualizeSteps = response.users[0].sa_step_count;
+        esteemSteps = response.users[0].se_step_count;
+        belongingSteps = response.users[0].lb_step_count;
+        safetySteps = response.users[0].sn_step_count;
+        physioSteps = response.users[0].pn_step_count;
+        let progressEx = {
+          actualizeScore,
+          esteemScore,
+          belongingScore,
+          safetyScore,
+          physioScore,
+        };
+        let stepsCount = {
+          actualizeSteps,
+          esteemSteps,
+          belongingSteps,
+          safetySteps,
+          physioSteps,
+        };
+        sessionStorage.setItem("progress", JSON.stringify(progressEx));
+        sessionStorage.setItem("stepsCount", JSON.stringify(stepsCount));
+        getElementById("loaderContainer").style.display = "none";
+        getElementById("main").style.display = "block";
+        if (response.error) {
+          modal.innerHTML = "";
+          modal.style.display = "block";
+          modal.innerHTML += getView(`some error occurred`);
+          getElementById("loaderContainer").style.display = "none";
+          getElementById("main").style.display = "block";
+          return;
+        }
+      });
+    };
+    getProgress();
+  </script>
+  <script type="text/javascript" src="../navigation/topNav.js?87"></script>
+  <script type="text/javascript" src="../navigation/bottomNav.js"></script>
+</body>
+
+</html>

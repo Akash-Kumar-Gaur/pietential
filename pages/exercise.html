@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script src="../js/commonLinks.js"></script>
+  <script>includeCommonHeader('Exercises')</script>
+</head>
+
+<body style="overflow-y: hidden;">
+  <script src="../js/language.js"></script>
+  <div id="topBar"></div>
+  <div id="colorbar" style="font-family: jost, sans-serif">
+    <div style="
+          background: linear-gradient(
+            90deg,
+            rgb(245, 127, 26) 0%,
+            rgb(245, 127, 26) 20%,
+            rgb(229, 28, 40) 20%,
+            rgb(229, 28, 40) 40%,
+            rgb(0, 184, 251) 40%,
+            rgb(0, 184, 251) 60%,
+            rgb(106, 202, 99) 60%,
+            rgb(106, 202, 99) 80%,
+            rgb(248, 186, 12) 80%
+          );
+          height: 8px;
+          font-family: jost, sans-serif;
+        "></div>
+  </div>
+  <div id="noData" style="margin: 120px 0 40px 0; text-align: center">
+    <div class="noDataMain">
+      <div class="noDataInner">
+        <p>
+          Please complete your survey to receive your self- development
+          exercises
+        </p>
+        <br />
+        <div class="tryItButtonContainer" style="display: flex; justify-content: center">
+          <button class="tryItButton" style="margin: 0 20px 0 0" onclick="onTakeSurvey()">
+            Take Survey
+          </button>
+          <button class="tryItButton actualizeButton" onclick="window.location.href = `/`">
+            Go back to home
+          </button>
+        </div>
+        <p></p>
+      </div>
+    </div>
+  </div>
+  <div id="parentMainContainer">
+    <div id="mainOuter">
+      <div id="sidebarMain">
+        <div id="mainContainer" style="
+            width: 300px;
+            border-right: 1px solid rgb(0, 184, 251);
+            padding-top: 20px;
+          ">
+          <div>
+            <div class="rb2 selfActualizationButton" id="SAclicker" style="display: none" onclick="addClass()">
+              <div class="rb3 selfActualization">
+                <script>get_i18n('selfActualization')</script>
+              </div>
+              <img src="https://pietential.com/assets/arrowBackward.png" alt="" id="image" onclick="collapseSidebar(1)"
+                class="arrowBackward" />
+              <div id="dotContainer"></div>
+            </div>
+            <section class="stepper" id="steps1" style="text-align: right"></section>
+          </div>
+          <div>
+            <div class="rb2 selfActualizationButton" id="ECclicker" style="display: none" onclick="addClass()">
+              <div class="rb3 selfEsteem" style="border: 0px;">
+                <script>get_i18n('selfEsteem')</script>
+              </div>
+              <img src="https://pietential.com/assets/arrowBackward.png" alt="" id="image" onclick="collapseSidebar(2)"
+                class="arrowBackward" />
+              <div id="dotContainer"></div>
+            </div>
+            <section class="stepper" id="steps2"></section>
+          </div>
+          <div>
+            <div class="rb2 selfActualizationButton" id="LBclicker" style="display: none" onclick="addClass()">
+              <div class="rb3 loveBelonging">
+                <script>get_i18n('loveBelonging')</script>
+              </div>
+              <img src="https://pietential.com/assets/arrowBackward.png" alt="" id="image" onclick="collapseSidebar(3)"
+                class="arrowBackward" />
+              <div id="dotContainer"></div>
+            </div>
+            <section class="stepper" id="steps3"></section>
+          </div>
+          <div>
+            <div class="rb2 selfActualizationButton" id="SNclicker" style="display: none" onclick="addClass()">
+              <div class="rb3 safetyNeeds">
+                <script>get_i18n('safetyNeeds')</script>
+              </div>
+              <img src="https://pietential.com/assets/arrowBackward.png" alt="" id="image" onclick="collapseSidebar(4)"
+                class="arrowBackward" />
+              <div id="dotContainer"></div>
+            </div>
+            <section class="stepper" id="steps4"></section>
+          </div>
+          <div>
+            <div class="rb2 selfActualizationButton" id="PNclicker" style="display: none" onclick="addClass()">
+              <div class="rb3 physiologicalNeeds">
+                <script>get_i18n('physiologicalNeeds')</script>
+              </div>
+              <img src="https://pietential.com/assets/arrowBackward.png" alt="" id="image" onclick="collapseSidebar(5)"
+                class="arrowBackward" />
+              <div id="dotContainer"></div>
+            </div>
+            <section class="stepper" id="steps5"></section>
+          </div>
+          <section id="stepLinks" class="slinky" style="margin:7px;">
+            <div class="sectionSteps" id="sectionSteps">
+              <div class="stepLinks step" style="text-align:right; padding-left: 10px">
+                <h4 id="exerciseTitle">
+                  </h2>
+                  <a onclick="onNeed()" id="needToBeginText" style="color:#000"
+                    class="steppers whatToBegin activeTextTab">
+                    <script>get_i18n('whatToBegin')</script>
+                  </a>
+                  <div id="reqHolder"></div>
+                  <a id="journeyText" onclick="onJourney()" style="color:#000" class="steppers theJourneyText">
+                    <script>get_i18n('theJourneyText')</script><img src="https://pietential.com/assets/arrowDown.svg"
+                      class="arrow_down" alt="Arrow Down" />
+                  </a>
+                  <div id="stepHolder" style="text-align:right;display:none;font-size:13px;line-height: 1.1em;"></div>
+                  <a style="color:#000" class="steppers howToPractice" onclick="onPractice()" id="practiceText">
+                    <script>get_i18n('howToPractice')</script>
+                  </a>
+                  <div id="overTimeHolder"></div>
+                  <a style="color:#000" onclick="onBenefit()" class="steppers benefitsOfExercise" id="benefitsText">
+                    <script>get_i18n('benefitsOfExercise')</script>
+                  </a>
+                  <div id="benefitsHolder"></div>
+                  <a href="javascript://" onclick="onMoreExerCises();" style="color:#000; text-decoration: underline"
+                    class="steppers moreExercises moreExercisesText">
+                    <script>get_i18n('moreExercisesText')</script>
+                  </a>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div id="rightSide" style="width: 68%; margin-bottom: 40px">
+        <div class="indexContainer">
+          <div style="display: flex; align-items: center">
+            <div id="index" class="initHidden" style="
+                  display: none;
+                  font-size: 50px;
+                  font-weight: 900;
+                  float: left;
+                ">
+              01.
+            </div>
+            <div id="summ" style="margin-left: 18px"></div>
+          </div>
+        </div>
+        <div id="abc"></div>
+        <div id="contentMainContainer"></div>
+        <div class="contentMainContainer"></div>
+        <div id="exerciseMainContent"></div>
+
+        <div id="tableMainContent">
+          <div class="container">
+          </div>
+        </div>
+      </div>
+      <div id="parentContainer">
+        <div class="outer initHidden" id="out599" style="display: none; margin-top: 10%">
+        </div>
+        <div id="in2">
+          <div style="font-weight: 400; font-size: 18px">
+            <div style="font-weight: 800"></div>
+            <div id="fadeBlock" class="klj" style="font-size: 15px; overflow: auto"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="../js/apiHelper.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/apiService.js"></script>
+    <script>
+
+      if (localStorage.getItem("res") > 0) {
+        getElementById("parentMainContainer").style.display =
+          "block";
+        getElementById("noData").style.display = "none";
+      } else {
+        getElementById("parentMainContainer").style.display =
+          "none";
+        getElementById("noData").style.display = "block";
+      }
+      let text = ""
+
+      function onTakeSurvey() {
+        if (!sessionStorage.getItem("userID"))
+          window.location.href = "/pages/register.html";
+        else window.location.href = "/pages/score.html";
+      }
+
+      let mobile = window.matchMedia(
+        "(min-width: 0px) and (max-width: 480px)"
+      );
+
+      function addClass() {
+        let sectionNumber = sessionStorage.getItem("sectionNumber")
+        let mainContainer = getElementById("mainContainer")
+        if (mainContainer) {
+          mainContainer.classList.toggle("mobileView")
+        }
+        let mobileView = getElement(".mobileView")
+        if (mobileView) {
+          if (sectionNumber > 5 && sectionNumber <= 10) {
+            mobileView.style.background = "#20b24b"
+          }
+          if (sectionNumber > 10 && sectionNumber <= 15) {
+            mobileView.style.background = "#f6b918"
+          }
+          if (sectionNumber > 15 && sectionNumber <= 20) {
+            mobileView.style.background = "#f57e20"
+          }
+          if (sectionNumber > 20) {
+            mobileView.style.background = "#ed1c24"
+          }
+        }
+      }
+
+      let sectionNumber = sessionStorage.getItem("sectionNumber")
+      let exerciseProgress = JSON.parse(sessionStorage.getItem("progress"))
+      let exercisesSteps = JSON.parse(sessionStorage.getItem("stepsCount"))
+      let stepCount = 0
+      const userProgress = async (progress) => {
+        if ((sectionNumber <= 5 && exerciseProgress.actualizeScore < progress) || (sectionNumber > 5 && sectionNumber <= 10 && exerciseProgress.esteemScore < progress) || (sectionNumber > 10 && sectionNumber <= 15 && exerciseProgress.belongingScore < progress) || (sectionNumber > 15 && sectionNumber <= 20 && exerciseProgress.safetyScore < progress) || (sectionNumber > 20 && exerciseProgress.physioScore < progress)) {
+            await handleUserProgress(progress, text, stepCount)
+        }
+      }
+
+      function collapseSidebar(index) {
+        let main = getElementById("mainContainer");
+        let parentMainContainer = getElementById("parentMainContainer")
+        let rightSideClass = getElementById("rightSide");
+        rightSideClass.classList.toggle("right_side_width");
+        main.classList.toggle("add");
+        parentMainContainer.classList.toggle("forSidebar")
+      }
+
+      let stepIndex = 0;
+      let progressLength = 0;
+      let arrayOfData = [];
+
+      if (location.href.match(/hindi/)) {
+        localStorage.currentLanguage = "hindi";
+      }
+
+      function getSubStepsCount() {
+        if (sectionNumber <= 5) {
+          return exercisesSteps.actualizeSteps - 1
+        }
+        else if (sectionNumber > 5 && sectionNumber <= 10) {
+          return exercisesSteps.esteemSteps - 1
+        }
+        else if (sectionNumber > 10 && sectionNumber <= 15) {
+          return exercisesSteps.belongingSteps - 1
+        }
+        else if (sectionNumber > 15 && sectionNumber <= 20) {
+          return exercisesSteps.safetySteps - 1
+        }
+        else return exercisesSteps.physioSteps - 1
+      }
+
+      function getPercentage() {
+        if ((sectionNumber <= 5 && (exerciseProgress.actualizeScore <= 10)) || (sectionNumber > 5 && sectionNumber <= 10 && (exerciseProgress.esteemScore <= 10)) || (sectionNumber > 10 && sectionNumber <= 15 && (exerciseProgress.belongingScore <= 10)) || (sectionNumber > 15 && sectionNumber <= 20 && (exerciseProgress.safetyScore <= 10)) || (sectionNumber > 25 && (exerciseProgress.physioScore <= 10))) {
+          onWhatNeedToBegin()
+        }
+        else if ((sectionNumber <= 5 && (exerciseProgress.actualizeScore > 10 && exerciseProgress.actualizeScore <= 30)) || (sectionNumber > 5 && sectionNumber <= 10 && (exerciseProgress.esteemScore > 10 && exerciseProgress.esteemScore <= 30)) || (sectionNumber > 10 && sectionNumber <= 15 && (exerciseProgress.belongingScore > 10 && exerciseProgress.belongingScore <= 30)) || (sectionNumber > 15 && sectionNumber <= 20 && (exerciseProgress.safetyScore > 10 && exerciseProgress.safetyScore <= 30)) || (sectionNumber > 20 && (exerciseProgress.safetyScore > 10 && exerciseProgress.safetyScore <= 30))) {
+          onWhatNeedToBegin()
+          getSteps()
+          getSubSteps(getSubStepsCount())
+        }
+        else if ((sectionNumber <= 5 && (exerciseProgress.actualizeScore > 30 && exerciseProgress.actualizeScore <= 60)) || (sectionNumber > 5 && sectionNumber <= 10 && (exerciseProgress.esteemScore > 30 && exerciseProgress.esteemScore <= 60)) || (sectionNumber > 10 && sectionNumber <= 15 && (exerciseProgress.belongingScore > 30 && exerciseProgress.belongingScore <= 60)) || (sectionNumber > 15 && sectionNumber <= 20 && (exerciseProgress.safetyScore > 30 && exerciseProgress.safetyScore <= 60)) || (sectionNumber > 20 && (exerciseProgress.safetyScore > 30 && exerciseProgress.safetyScore <= 60))) {
+          onWhatNeedToBegin()
+          getSteps()
+          getSubSteps(getSubStepsCount())
+        }
+        else if ((sectionNumber <= 5 && (exerciseProgress.actualizeScore > 60 && exerciseProgress.actualizeScore < 80)) || (sectionNumber > 5 && sectionNumber <= 10 && (exerciseProgress.esteemScore > 60 && exerciseProgress.esteemScore <= 80)) || (sectionNumber > 10 && sectionNumber <= 15 && (exerciseProgress.belongingScore > 60 && exerciseProgress.belongingScore <= 80)) || (sectionNumber > 15 && sectionNumber <= 20 && (exerciseProgress.safetyScore > 60 && exerciseProgress.safetyScore <= 80)) || (sectionNumber > 20 && (exerciseProgress.safetyScore > 60 && exerciseProgress.safetyScore <= 80))) {
+          practiceVisible = true
+          stepsVisible = true
+          onWhatNeedToBegin()
+          getSteps()
+          getSubSteps(getSubStepsCount())
+          getHowToPracticeItOverTime()
+        }
+        else if ((sectionNumber <= 5 && (exerciseProgress.actualizeScore >= 80)) || (sectionNumber > 5 && sectionNumber <= 10 && (exerciseProgress.esteemScore >= 80)) || (sectionNumber > 10 && sectionNumber <= 15 && (exerciseProgress.belongingScore >= 80)) || (sectionNumber > 15 && sectionNumber <= 20 && (exerciseProgress.safetyScore >= 80)) || (sectionNumber > 25 && (exerciseProgress.safetyScore >= 80))) {
+          practiceVisible = true
+          stepsVisible = true
+          benefitVisible = true
+          onWhatNeedToBegin()
+          getSteps()
+          getSubSteps(getSubStepsCount())
+          getHowToPracticeItOverTime()
+          getBenefitsOfThisExercise()
+        }
+      }
+
+
+      var fetchTarget = "https://pietential.com/json/exes.txt";
+      if (localStorage.currentLanguage == "hindi") {
+        fetchTarget = "https://pietential.com/json/exes.hindi.txt";
+      }
+      let lastScore = []
+      function get() {
+        let sectionNumber = sessionStorage.getItem("sectionNumber");
+        let lastActualizeScore = sessionStorage.getItem("surveyList");
+        let lastEsteemScore = sessionStorage.getItem("lastEsteemScore");
+        let lastBelongingScore = sessionStorage.getItem("lastBelongingScore");
+        let lastNeedsScore = sessionStorage.getItem("lastNeedsScore");
+        let lastPhysioScore = sessionStorage.getItem("lastPhysioScore");
+        fetch(fetchTarget)
+          // note: json files are blocked for direct loading
+          // so you need a server side script to output anything
+          .then((r) => {
+            return r.text();
+          })
+          .then((a) => {
+            window.k8 = JSON.parse(a);
+            var exes = [];
+            var SA = [];
+            var xcodes = [];
+            var section = sectionNumber;
+            var index = 0;
+            arrayOfData = JSON.parse(a);
+            console.log("arr", arrayOfData)
+            if (sectionNumber <= 5) {
+              for (let i = 0; i <= 4; i++) {
+                if (lastActualizeScore >= i * 20 && lastActualizeScore <= 20 * (i + 1)) {
+                  lastScore = arrayOfData[i]
+                }
+              }
+            }
+            else if (sectionNumber > 5 && sectionNumber <= 10) {
+              for (let i = 0; i <= 4; i++) {
+                if (lastEsteemScore >= i * 20 && lastEsteemScore <= 20 * (i + 1)) {
+                  lastScore = arrayOfData[i + 5]
+                }
+              }
+            }
+            else if (sectionNumber > 10 && sectionNumber <= 15) {
+              for (let i = 0; i <= 4; i++) {
+                if (lastBelongingScore >= i * 20 && lastBelongingScore <= 20 * (i + 1)) {
+                  lastScore = arrayOfData[i + 10]
+                }
+              }
+            }
+            else if (sectionNumber > 15 && sectionNumber <= 20) {
+              for (let i = 0; i <= 4; i++) {
+                if (lastNeedsScore >= i * 20 && lastNeedsScore <= 20 * (i + 1)) {
+                  lastScore = arrayOfData[i + 15]
+                }
+              }
+            }
+            else {
+              for (let i = 0; i <= 4; i++) {
+                if (lastPhysioScore >= i * 20 && lastPhysioScore <= 20 * (i + 1)) {
+                  lastScore = arrayOfData[i + 20]
+                }
+              }
+            }
+            getPercentage()
+            onWhatNeedToBegin()
+            let exerciseTitle = getElementById("exerciseTitle")
+            exerciseTitle.innerHTML += lastScore.title
+          });
+        if (location.href.match(/192.168/gi)) {
+        }
+      }
+
+      get();
+
+      function onMoreExerCises() {
+        window.location.href = `https://pietential.com/exerciseHomepage.html`
+      }
+
+      let step_index = 0
+      let dotContainerIndex = 0
+
+      function getLength(getLengthCount) {
+        let rb = getElements("#dotContainer")
+        let section = sessionStorage.getItem("sectionNumber");
+        if (sectionNumber <= 5) {
+          dotContainerIndex = 0
+        }
+        else if (section > 5 && section <= 10) {
+          dotContainerIndex = 1
+        }
+        else if (section > 10 && section <= 15) {
+          dotContainerIndex = 2
+        }
+        else if (section > 15 && section <= 20) {
+          dotContainerIndex = 3
+        }
+        else dotContainerIndex = 4
+        rb[dotContainerIndex].innerHTML = ""
+        rb[dotContainerIndex].innerHTML +=
+          Array(getLengthCount).fill(getLengthCount).map((i, index) => {
+            return (
+              `<div class="dot"></div>`
+            )
+          }).join("")
+      }
+
+      getLength(4)
+
+      function getSteps() {
+        let journeyText = getElementById("journeyText")
+        journeyText.style.fontWeight = "600"
+        let needToBegin = getElementById("needToBeginText")
+        needToBegin.classList.remove("activeTextTab")
+        let benefitsText = getElementById("benefitsText")
+        benefitsText.classList.remove("activeTextTab")
+        let practiceText = getElementById("practiceText")
+        practiceText.classList.remove("activeTextTab")
+        let stepHolder = getElementById("stepHolder")
+        let image = getElement(".arrow_down")
+        stepHolder.classList.toggle("show")
+        image.classList.toggle("arrowTransform")
+        stepHolder.innerHTML = lastScore.steps.map((item, index) => {
+          step_index = index
+          return (
+            `<a class="linktosub" href="javascript://" style="text-decoration:none; color: #000; font-size: 22px; font-weight: 500; line-height: 1.26; margin-bottom: 18px; position: relative" onclick="onSubStep(${index})">${localStorage.currentLanguage == "hindi" ? "चरण" : "Step"} ${index + 1}</a>`
+          )
+        })
+          .join("")
+      }
+
+      let prevIndexSteps = 0;
+      let prevIndex = 0
+      let isVisible = false
+      let stepsVisible = false
+
+      function getSubSteps(index) {
+        if (index != 0) {
+          stepCount = stepCount + 1
+        }
+        isVisible = true
+        let dot = getElements(".dot")
+        dot[0].classList.remove("activeDot")
+        dot[dot.length - 1].classList.remove("activeDot")
+        dot[dot.length - 2].classList.remove("activeDot")
+        let contentMainContainer = getElement(".contentMainContainer")
+        let main = getElementById("mainContainer")
+        if (main.classList.contains("mobileView")) {
+          main.classList.remove("mobileView")
+        }
+        let benefitsText = getElementById("benefitsText")
+        if (benefitsText.classList.contains("activeTextTab")) {
+          benefitsText.classList.remove("activeTextTab")
+        }
+        let practiceText = getElementById("practiceText")
+        if (practiceText.classList.contains("activeTextTab")) {
+          practiceText.classList.remove("activeTextTab")
+        }
+        let linktosub = getElements(".linktosub")
+        for (let i = 0; i < linktosub.length; i++) {
+          linktosub[i].classList.remove("dothighlight")
+        }
+        linktosub[index].classList.add("dothighlight")
+        contentMainContainer.innerHTML = ""
+        exerciseMainContent.innerHTML = ""
+        let fadeBlock = getElementById("tableMainContent")
+        fadeBlock.innerHTML = `<div class="headingContainer"><h3 id="heading" style="margin-bottom: 12px; display: flex"><b style="margin-right: 8px">0${index + 1}.</b>${lastScore.steps[index].title}</h3>
+        ${lastScore.steps[index].description != "" ? `<h4>${lastScore.steps[index].description}</h4>` : ""}
+        </div>
+        <div class="forScroll"></div>
+          <div class="main" style="display: flex; flex-direction: column">
+            <div class="main_inner">
+              ${index != lastScore.steps.length && lastScore.steps[index].substeps.map((item, i) => {
+          subStepIndex = index
+          if (item.description) {
+            return (
+              `<div style="display: flex" class="substep" id="substep${i}"><div id="dynamicContentContainer" style="display: flex"><div style="display: flex; flex-wrap: wrap" class="combineContainer" onclick="onDescriptionAnimation('${i}','${item.image}')" id="text${i}"><div id="progress0"><div class="progresse plight" id="plight"></div></div><p class="descText" onclick="onDescriptionAnimation('${i}','${item.image}')">${item.description}</p></div><div class="imgContainer"><img class="animationImage" src="${item.image}" id="image${i}" /></div></div></div>`
+            )
+          }
+        }).join("")
+          }
+          <button class="tryItButton actualizeButton startButton" id="startButton" onclick={getSubSteps(${index + 1});onStart();forStorage(${index})} style="margin-bottom: 20px; display: ${lastScore.steps[index].substeps.length == 1 ? "block" : "none"}">Next</button>
+         </div> </div>`
+        prevIndex = 0
+        if (getElement("#text0")) {
+          let text = getElement("#text0")
+          text.classList.add("combineContainerActive")
+        }
+        if (getElement("#image0")) {
+          let image = getElement("#image0")
+          image.classList.add("show")
+        }
+
+        if (index === 2) {
+          userProgress(30);
+        }
+        if (index + 1 === lastScore.steps.length) {
+          let startButton = getElement(".startButton")
+          startButton.addEventListener("click", () => {
+            let stepHolder = getElementById("stepHolder")
+            let icon = getElement(".arrow_down")
+            stepHolder.classList.remove("show")
+            icon.classList.remove("arrowTransform")
+            getElement("#parentMainContainer").scrollIntoView({ behavior: "smooth", block: "start" })
+            getHowToPracticeItOverTime()
+            userProgress(60);
+          })
+        }
+        dot[prevIndexSteps].classList.remove("activeDot")
+        dot[index].classList.add("activeDot")
+        prevIndexSteps = index
+      }
+
+      function forStorage(index) {
+        sessionStorage.setItem("index", index + 1)
+      }
+
+      function onSubStep(index) {
+        let getIndex = sessionStorage.getItem("index");
+        arrayReadItems = ['0']
+        if (index <= getIndex) {
+          getSubSteps(index)
+        }
+      }
+
+      var value = 0;
+      let subStepIndex = 0
+      let benefitVisible = false
+      let arrayReadItems  = ['0']
+
+      function getHowToPracticeItOverTime() {
+        let dot = getElements(".dot")
+        let linktosub = getElements(".linktosub")
+        for (let i = 0; i < dot.length; i++) {
+          dot[i].classList.remove("activeDot")
+        }
+        for (let i = 0; i < linktosub.length; i++) {
+          linktosub[i].classList.remove("dothighlight")
+        }
+        dot[dot.length - 2].classList.add("activeDot")
+        stepsVisible = true
+        benefitVisible = true
+        journeyText.style.fontWeight = "500"
+        let needToBegin = getElementById("needToBeginText")
+        needToBegin.classList.remove("activeTextTab")
+        let benefitsText = getElementById("benefitsText")
+        benefitsText.classList.remove("activeTextTab")
+        let practiceText = getElementById("practiceText")
+        practiceText.classList.add("activeTextTab")
+        let exerciseMainContent = getElementById("exerciseMainContent")
+        let tableMainContent = getElementById("tableMainContent")
+        let contentMainContainer = getElement(".contentMainContainer")
+        exerciseMainContent.innerHTML = ""
+        tableMainContent.innerHTML = ""
+        tableMainContent.style.paddingTop = 0
+        contentMainContainer.innerHTML = ""
+        contentMainContainer.innerHTML += `<h2>${localStorage.currentLanguage == "hindi" ? "समय के साथ अभ्यास कैसे करें" : "How to Practice it over time"}</h2>
+                      ${lastScore.howToPracticeItOverTime} 
+                      <button class="tryItButton actualizeButton startButton" onclick="getBenefitsOfThisExercise();userProgress(100);forScroll()" 
+                      style="margin-bottom: 5px">Next</button>`
+      }
+
+      function forScroll() {
+        getElement("#sidebarMain").scrollIntoView({ behavior: "smooth", inline: "start" })
+      }
+
+      let practiceVisible = false
+
+      function getBenefitsOfThisExercise() {
+        let dot = getElements(".dot")
+        let linktosub = getElements(".linktosub")
+        for (let i = 0; i < dot.length; i++) {
+          dot[i].classList.remove("activeDot")
+        }
+        for (let i = 0; i < linktosub.length; i++) {
+          linktosub[i].classList.remove("dothighlight")
+        }
+        dot[dot.length - 1].classList.add("activeDot")
+        practiceVisible = true
+        journeyText.style.fontWeight = "500"
+        let needToBegin = getElementById("needToBeginText")
+        needToBegin.classList.remove("activeTextTab")
+        let benefitsText = getElementById("benefitsText")
+        benefitsText.classList.add("activeTextTab")
+        let practiceText = getElementById("practiceText")
+        practiceText.classList.remove("activeTextTab")
+        let exerciseMainContent = getElementById("exerciseMainContent")
+        let tableMainContent = getElementById("tableMainContent")
+        let contentMainContainer = getElement(".contentMainContainer")
+        exerciseMainContent.innerHTML = ""
+        tableMainContent.innerHTML = ""
+        tableMainContent.style.paddingTop = 0
+        contentMainContainer.innerHTML = ""
+        contentMainContainer.innerHTML += `<h2>${localStorage.currentLanguage == "hindi" ? "अभ्यास के लाभ" : "Benefits of This \nExercise"}</h2>
+                      ${lastScore.benefitsOfThisExercise}
+                      <button class="tryItButton actualizeButton startButton" onclick="onMoreExerCises();"
+                       style="margin-bottom: 5px">More Exercises</button>`
+      }
+
+      function onWhatNeedToBegin() {
+        let dot = getElements(".dot")
+        for (let i = 0; i < dot.length; i++) {
+          dot[i].classList.remove("activeDot")
+        }
+        dot[0].classList.add("activeDot")
+        let i = 0
+        let tableMainContent = getElementById("tableMainContent")
+        let contentMainContainer = getElement(".contentMainContainer")
+        tableMainContent.innerHTML = ""
+        tableMainContent.style.paddingTop = 0
+        contentMainContainer.innerHTML = ""
+        let exerciseMainContent = getElementById(
+          "exerciseMainContent"
+        );
+        exerciseMainContent.innerHTML = `<h3 style="margin-bottom: 12px">${lastScore.title}</h3>
+        <h4 class="whatYouNeed"> ${localStorage.currentLanguage == "hindi" ? "शुरुआत करने के लिए आपको क्या चाहिए" : "What you need to begin"}</h4>
+                  <div class="beginCardContainer">
+                  ${lastScore.requirements.map((item, i) => {
+          i = i
+          if (item.text) {
+            return (
+              `<div class="card beginCard"><h3>0${i + 1}.</h3>
+                ${getImage(item, i)}
+                 <p>${item.text}</p>
+                 </div>
+                 <br><br>`
+            )
+          }
+        }
+        ).join("")}
+                  </div>
+                  <button class="tryItButton actualizeButton startButton" onclick="getSteps();getSubSteps(${i});userProgress(10);onStart();forSecondTime();getLength(${lastScore.steps[subStepIndex].substeps.length + 3});">Start</button>`;
+      }
+
+      function getImage(item, index) {
+        if (item.image) {
+          return `<img src=${item.image} style="display: ${index == 0 ? "block" : "inherit"}" alt="What to begin"/> `
+        }
+        else return "";
+      }
+
+      function onStart() {
+        getElement("#tableMainContent").scrollIntoView({ behavior: "smooth", inline: "start" })
+      }
+
+      function getStyle() {
+        let section = sessionStorage.getItem("sectionNumber");
+        let SAclicker = getElementById("SAclicker");
+        let ECclicker = getElementById("ECclicker");
+        let LBclicker = getElementById("LBclicker");
+        let SNclicker = getElementById("SNclicker");
+        let PNclicker = getElementById("PNclicker");
+        if (section <= 5) {
+          SAclicker.style.display = "block";
+          text = "sa"
+        } else SAclicker.style.display = "none";
+        if (section > 5 && section <= 10) {
+          ECclicker.style.display = "block";
+          text = "se"
+        } else ECclicker.style.display = "none";
+        if (section > 10 && section <= 15) {
+          LBclicker.style.display = "block";
+          text = "lb"
+        } else LBclicker.style.display = "none";
+        if (section > 15 && section <= 20) {
+          SNclicker.style.display = "block";
+          text = "sn"
+        } else SNclicker.style.display = "none";
+        if (section > 20) {
+          PNclicker.style.display = "block";
+          text = "pn"
+        } else PNclicker.style.display = "none";
+      }
+
+      getStyle();
+
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
+    <script>
+
+      function onNeed() {
+        if (isVisible == true) {
+          onWhatNeedToBegin()
+          let needText = getElementById("needToBeginText")
+          let benefitsText = getElementById("benefitsText")
+          let practiceText = getElementById("practiceText")
+          needText.classList.add("activeTextTab")
+          benefitsText.classList.remove("activeTextTab")
+          practiceText.classList.remove("activeTextTab")
+        }
+      }
+
+      function forSecondTime() {
+        if (isVisible == true && benefitVisible == true) {
+          getElementById("stepHolder").classList.add("show")
+          getSteps()
+          getSubSteps(0)
+        }
+      }
+
+      function onBenefit() {
+        if (benefitVisible == true) {
+          getBenefitsOfThisExercise()
+        }
+      }
+
+      function onPractice() {
+        if (practiceVisible == true) {
+          getHowToPracticeItOverTime()
+        }
+      }
+
+      function onJourney() {
+        if (stepsVisible == true || step_index > 0) {
+          getSteps()
+          getSubSteps(0)
+          prevIndex = 0
+        }
+      }
+
+      function onDescriptionAnimation(i, item) {
+        if(!arrayReadItems.includes(i)){
+          arrayReadItems.push(i);
+        }
+        let textContainerAbove1 = getElement("#text" + (i))
+        let button = getElementById("startButton")
+        button.style.display = "none"
+        if(arrayReadItems.length === lastScore.steps[subStepIndex].substeps.length){
+          button.style.display = "block"
+        }
+        // LOGIC CHANGE by Akash ^
+        // if (parseInt(i) + 1 === lastScore.steps[subStepIndex].substeps.length) {
+        //   button.style.display = "block"
+        // }
+        if (lastScore.steps[subStepIndex].substeps.length == 1) {
+          button.style.display = "block"
+        }
+        if (getElement("#text" + (prevIndex))) {
+          let text = getElement("#text" + (prevIndex))
+          text.classList.remove("combineContainerActive")
+        }
+        if (getElement("#image" + (prevIndex))) {
+          let image = getElement("#image" + (prevIndex))
+          image.classList.remove("show")
+        }
+        if (getElement("#text" + i)) {
+          let text = getElement("#text" + i)
+          text.classList.add("combineContainerActive")
+        }
+        if (getElement("#image" + i)) {
+          let image = getElement("#image" + i)
+          image.classList.add("show")
+          image.setAttribute("src", item)
+        }
+        prevIndex = i
+      }
+
+
+    </script>
+  </div>
+  </div>
+  </div>
+  <script type="text/javascript" src="/navigation/topNav.js?87"></script>
+
+  <style>
+    .progresse {
+      width: 7px;
+      height: 119px;
+      background: rgb(0, 184, 251);
+      border-radius: 100px;
+      margin-bottom: 24px;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .forAnimation {
+      animation: height 0.7s;
+    }
+
+    @keyframes height {
+      0% {
+        height: 25px;
+      }
+
+      100% {
+        height: 119px;
+      }
+    }
+
+    .plight {
+      opacity: 0.5;
+      height: 25px;
+    }
+
+    .steppers::after {
+      content: "•";
+      font-size: 44px;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: -27px;
+      color: rgb(0, 184, 251);
+    }
+
+    .steppers {
+      text-decoration: none;
+      margin-bottom: 8px;
+      display: inline-block;
+      position: relative;
+      width: 100%;
+      font-weight: 500;
+      letter-spacing: -0.2px;
+    }
+
+    .moreExercises {
+      font-size: 18px;
+      margin-top: 50px;
+    }
+
+    .stepper {
+      text-align: right;
+    }
+
+    .rb {
+      background: #00b8fb;
+      color: white;
+      border-top-right-radius: 8px;
+      border-bottom-right-radius: 8px;
+      margin-top: 8px;
+      padding: 8px 16px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    body::-webkit-scrollbar {
+      width: 11px;
+    }
+
+    .sectionSteps {
+      padding: 1px 10px 1px 1px;
+    }
+
+    html {
+      --scrollbarBG: #cfd8dc;
+      --thumbBG: #00b8fb;
+    }
+
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+    }
+
+    *::-webkit-scrollbar-track {
+      background: var(--scrollbarBG);
+    }
+
+    *::-webkit-scrollbar-thumb {
+      background-color: var(--thumbBG);
+      border-radius: 6px;
+      border: 3px solid var(--scrollbarBG);
+    }
+
+    button {
+      background: #333;
+      color: white;
+      border-radius: 100px;
+      text-align: center;
+      border: 0;
+      margin: 2px;
+      padding: 7px 34px;
+      font-size: 17px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .rb::after {
+      content: " <";
+      color: #333;
+    }
+
+    .selfActualizationButton {
+      background: #00aeef;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding-left: 20px;
+      border-right: 26px solid #008abd;
+      border-radius: 0px 16px 16px 0;
+      width: 280px;
+      margin-bottom: 8px;
+      position: relative;
+      cursor: pointer;
+      transition: 0.5s width;
+    }
+
+    #ECclicker {
+      background: #20b24b;
+      border-color: #3b9c58;
+    }
+
+    #LBclicker {
+      background: #f6b918;
+      border-color: #967b31;
+    }
+
+    #SNclicker {
+      background: #f57e20;
+      border-color: #995d2f;
+    }
+
+    #PNclicker {
+      background: #ed1c24;
+      border-color: #a0292d;
+    }
+
+    .rb3 {
+      color: white;
+      font-weight: 700;
+      font-size: 22px;
+      cursor: pointer;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+
+    .rb3::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 1px;
+      background: #fff;
+      bottom: -8px;
+    }
+
+    #betanav {
+      margin: 20px;
+    }
+
+    .disable {
+      cursor: not-allowed;
+    }
+
+    .loginDiv {
+      background: white;
+      min-height: 60px;
+      box-sizing: border-box;
+      position: fixed;
+      top: 0px;
+      padding: 12px 27px;
+      text-align: right;
+      margin-right: 20px;
+    }
+
+    .dothighlight {
+      position: relative;
+      width: 100%;
+      display: block;
+    }
+
+    #desktopnav {
+      display: inline-block;
+    }
+
+    #main-logo-top {
+      border-radius: 1%;
+    }
+
+    #mobileNav {
+      display: none;
+    }
+
+    #mobileNav button {
+      color: white;
+      background: rgba(0, 0, 0, 0.55);
+      border: 0;
+      padding: 4px 8px;
+      border-radius: 4px;
+    }
+
+    #mobileRetakeButton {
+      display: none;
+    }
+
+    .linktosub::after {
+      content: "•";
+      font-size: 44px;
+      position: absolute;
+      right: -28px;
+      top: 50%;
+      transform: translateY(-50%);
+      visibility: visible;
+      color: rgb(0, 184, 251);
+    }
+
+    .dothighlight {
+      color: rgb(0, 184, 251) !important;
+    }
+
+    .dothighlight::after {
+      content: "•";
+      font-size: 56px;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: -30.5px;
+      color: rgb(0, 184, 251);
+    }
+
+    @media all and (max-width: 600px) {
+      body {
+        margin: 0;
+      }
+
+      #desktopnav {
+        display: none;
+      }
+
+      #tagline2 {
+        display: none;
+      }
+
+      #mobileNav {
+        display: block;
+        text-align: right;
+        margin-top: 10px;
+        box-sizing: border-box;
+        font-size: 13px;
+      }
+    }
+  </style>
+</body>
+
+</html>

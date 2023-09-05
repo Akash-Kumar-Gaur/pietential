@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        * {
+            font-family: segoe ui, sans-serif;
+            font-size: 15px;
+        }
+
+        body {
+            margin: 50px;
+        }
+
+        h2 {
+            font-size: 30px;
+        }
+
+        input {
+            width: 280px;
+            margin: 12px;
+        }
+
+        textarea {
+            width: 300px;
+            height: 200px;
+        }
+    </style>
+
+    <div id="res"></div>
+    <script>
+        fetch("bios.json")
+            .then(r => {
+                return r.text()
+            })
+            .then(a => {
+                var out = '';
+                a = a.replace(/\s+/ig, " ").replace(/<br>/ig, "@");
+
+                window.bios = JSON.parse(a);
+                for (let a of bios) {
+                    out += `<div class="staffer" title="${a.name}">`
+                    for (let b in a) {
+
+                        var value = a[b].trim().replace(/\\n/ig, " ");
+                        if (b == 'bio') {
+                            value = value.replace(/\s+@|@\s+/ig, "@");
+                            value = value.trim().replace(/@/ig, "\n");
+                            out += `${b}:<br><textarea class="${b}" name="${b}">${value}</textarea><br>`;
+                        } else {
+                            out += `${b}: <input class="${b}" name="${b}" value="${value}"><br>`;
+                        }
+                    }
+                    out += `</div><br>--------------------------<br>`
+                }
+                res.innerHTML += out;
+            });
+
+        function save() {
+            var array = [];
+            for (let a of document.getElementsByClassName("staffer")) {
+                var obj = {};
+                obj.name = a.getElementsByClassName("name")[0].value.trim();
+                obj.title = a.getElementsByClassName("title")[0].value.trim();
+                obj.photo = a.getElementsByClassName("photo")[0].value.trim();
+                obj.bio = a.getElementsByTagName("textarea")[0].value.trim();
+                obj.aid = a.getElementsByClassName("aid")[0].value.trim();
+                array.push(obj);
+            }
+            var j = JSON.stringify(array);
+            res.innerHTML += j;
+
+            const fd = new FormData();
+            fd.append('biosall', j);
+            const options = {
+                method: 'POST',
+                //mode: 'no-cors',
+                body: fd
+            };
+            fetch("p.php", options)
+                .then(r => {
+                    return r.text()
+                })
+                .then(a => {
+                    console.log("ajax success.");
+                    console.log(a);
+                });
+
+        }
+    </script>
+
+    <button onclick="save()">save</button>
+</body>
+
+</html>

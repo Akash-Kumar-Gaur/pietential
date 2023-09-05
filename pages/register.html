@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="../js/commonLinks.js"></script>
+    <script>includeCommonHeader('User Register')</script>
+  </head>
+
+  <body>
+    <section class="login">
+      <div class="container">
+        <div class="logInImageContainer">
+          <a href="/">
+            <img
+              src="../assets/pietentialBlackLogo.svg"
+              alt="Pietential Logo"
+              class="logo"
+            />
+          </a>
+          <img
+            src="../assets/loginPageImage.svg"
+            alt=""
+            class="loginPageImage"
+          />
+        </div>
+        <div class="formMainContainer">
+          <div class="formContainer">
+            <div class="button_container">
+              <a href="" class="button userActive">user login</a>
+              <a href="/pages/adminLogin.html" class="button adminButton"
+                >admin login</a
+              >
+            </div>
+            <h2>Registration</h2>
+            <form id="signup">
+              <input
+                type="text"
+                name="fname"
+                id="fname"
+                placeholder="Enter your First Name"
+                required
+              />
+              <input
+                type="text"
+                name="lname"
+                id="lname"
+                placeholder="Enter your Last Name"
+                required
+              />
+              <input
+                type="email"
+                placeholder="Enter your Email"
+                name="email"
+                id="email"
+                required
+              />
+              <input
+                type="text"
+                placeholder="Have a organization code? (Optional)"
+                name="promoCode"
+                id="promoCode"
+              />
+              <input
+                type="password"
+                placeholder="Set a Password"
+                id="password"
+                required
+                name="password"
+              />
+              <input
+                type="password"
+                id="confirmPassword"
+                placeholder="Confirm a Password"
+              />
+              <input value type="hidden" id="agreeBox" name="agreeToTerms" />
+              <div style="display: flex; align-items: center;">
+                <input type="checkbox" class="termsContainer" id="agreeCheck" />
+                <label for="checkbox" class="termsLabel"
+                  >I agree to the Subscriber
+                  <a href="/pielet/privacy" target="_blank">Terms of Use.</a>
+                </label>
+              </div>
+              <div class="button_container btnContainer">
+                <a
+                  class="loginButton"
+                  id="createAccountButton"
+                  type="submit"
+                  onclick="checkForTerms()"
+                  >create a free account</a
+                >
+                <p>Registered User? <a href="/pages/login.html">Login</a></p>
+              </div>
+              <div class="modalOverlay" id="modalOverlay"></div>
+              <script src="../js/apiHelper.js"></script>
+              <script src="../js/apiService.js"></script>
+              <script src="../js/main.js"></script>
+              <script>
+                let modal = getElementById("modalOverlay");
+
+                function hideModal() {
+                  modal.style.display = "none";
+                }
+
+                function getView(title) {
+                  return `<div class="alertMain"><div class="alertInner" id="modalInner"><p>${title}</p>
+        <a class="loginButton" onclick="hideModal()" style="margin: auto">Ok</a>
+        </div></div>`;
+                }
+                function shuffle(a) {
+                  var c = a.length,
+                    t,
+                    r;
+                  while (0 !== c) {
+                    r = Math.floor(Math.random() * c);
+                    c -= 1;
+                    t = a[c];
+                    a[c] = a[r];
+                    a[r] = t;
+                  }
+                  return a;
+                }
+                const random = (len) => {
+                  var str = `abcdefghjkmnpqrstuvwxyz234567894567ABCDEFGHJKLMNPQRSTUVWXYZ`;
+                  var s2 = shuffle(str.split(""));
+                  var out = "";
+                  for (var i = 0; i < len; i++) {
+                    out += s2[i];
+                  }
+                  return out;
+                };
+                const onUserRegister = async () => {
+                  const randomID = random(6);
+                  await handleUserCreate(
+                    getElementById("email").value,
+                    getElementById("password").value,
+                    getElementById("promoCode").value,
+                    getElementById("fname").value,
+                    getElementById("lname").value,
+                    randomID
+                  ).then((response) => {
+                    sessionStorage.setItem(
+                    "email",
+                    getElementById("email").value
+                  );
+                  console.log(response)
+                  sessionStorage.setItem("pietentialModule", response.pietentialModule)
+                  sessionStorage.setItem("userPrivacy", response.userPrivacy)
+                  if (response.error) {
+                    modal.innerHTML = "";
+                    modal.style.display = "block";
+                    modal.innerHTML += getView(`some error occurred`);
+                    return;
+                  } else if (response.message == "found") {
+                    modal.innerHTML = "";
+                    modal.style.display = "block";
+                    modal.innerHTML += getView(`Already Exists`);
+                    return;
+                  } else if (response.message) {
+                    modal.innerHTML = "";
+                    modal.style.display = "block";
+                    modal.innerHTML += getView(response.message);
+                    return;
+                  } else if (
+                    getElementById("promoCode").value.length > 11
+                  ) {
+                    sessionStorage.setItem("userID", randomID);
+                    sessionStorage.setItem("companyName", response.companyName);
+                    sessionStorage.setItem("jwt", response.token);
+                    return (window.location.href = `/pages/generalDetails.html`);
+                  } else {
+                    sessionStorage.setItem("userID", randomID);
+                    sessionStorage.setItem("companyName", "");
+                    sessionStorage.setItem("jwt", response.token);
+                    return (window.location.href = `/pages/myDashboard.html`);
+                  }
+                  })
+                };
+                function checkForTerms() {
+                  var validRegex =
+                    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+                  var f = `fname,lname,email`.split(",");
+                  var p = `password,confirmPassword`.split(",");
+                  for (let a of f) {
+                    if (getElementById(a).value?.length < 2) {
+                      modal.innerHTML = "";
+                      modal.style.display = "block";
+                      modal.innerHTML += getView(
+                        `You need to fill out the ${a} field with at least 2 characters`
+                      );
+                      return;
+                    }
+                  }
+                  for (let a of p) {
+                    if (getElementById(a).value?.length < 6) {
+                      modal.innerHTML = "";
+                      modal.style.display = "block";
+                      modal.innerHTML += getView(
+                        `You need to fill out the ${a} field with at least 6 characters`
+                      );
+                      return;
+                    }
+                  }
+                  if (
+                    getElementById("password").value !==
+                    getElementById("confirmPassword").value
+                  ) {
+                    modal.innerHTML = "";
+                    modal.style.display = "block";
+                    modal.innerHTML += getView(
+                      `You need to match confirm password with password`
+                    );
+                    return;
+                  }
+                  if (getElementById("agreeCheck").checked == false) {
+                    modal.innerHTML = "";
+                    modal.style.display = "block";
+                    modal.innerHTML += getView(
+                      `You need to agree to the terms to use Pietential.`
+                    );
+                    return;
+                  }
+                  if (
+                    getElementById("email").value.match(validRegex)
+                  ) {
+                    return onUserRegister();
+                  } else {
+                    modal.innerHTML = "";
+                    modal.style.display = "block";
+                    modal.innerHTML += getView(`Invalid email address!`);
+                    return;
+                  }
+                }
+              </script>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

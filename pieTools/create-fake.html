@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create sample cohorts</title>
+</head>
+
+<body>
+
+<style>
+    * {
+    font-family: 'Roboto Slab', sans-serif;
+}
+textarea{
+    font-family: monospace;
+}
+body {
+    margin: 50px;
+}
+
+</style>
+
+
+How many users in the cohort? <input class="form" type="text" name="numUsers" id="numUsers" > 
+<br>
+What is the promoCode?  <input  class="form"  onkeyup="trimValue('pcode')" type="text" id="pcode" name="pcode">
+<button onclick="newUrl()" >Create</button><br><br><br>
+
+<script>
+
+// https://pietential.com/pieTools/create-fake.html?60*ruggedCases
+
+/*
+
+Answers to your questions:
+
+a. The questions are just a static file - no db needed
+b. 2
+c. the codes are the same for now, but may change in the future. Keep them.
+d. scroll 2,3,4,5 are saving the state if the user partially does the survey (really just front end preference)
+e. There are 150 questions, 30 are chosen at random.
+
+Summary: 
+We only need a database for the users info, the "accountEngine" API
+
+more info:
+
+There are 2 main APIs, calcEngine and accountEngine.
+They both support public and authenticated queries.
+calcEngine never talks to a database, it just does computations
+and reads from static files. The only "write" operations it
+does is back to the browser.
+
+The initial set of thirty questions is taken from a pool of 150 questions.
+There are 5 versions of each question. For each section there are 6 questions.
+So the server side script picks a question from the 6 groups of 5, then shuffles
+the order of the questions for each section. This response does not require auth.
+If you refresh the URL below a few times, you will see the result and how it works.
+Since this information changes infrequently, the question pool is just a static file
+no database needed - e.g. "staticListOf150QuestionsGroupedBySection.json.txt"
+https://pietential.com/pielet/calcEngine/?mode=generateQuestions
+
+The authenticated mode of calcEngine is where the user's score is calculated.
+We send in the 30 responses and get back a response with the results.
+This query is authenticated by cookie or storage, and is not public.
+
+accountEngine also works similarly.
+There is a public endpoint :
+https://pietential.com/pielet/accountEngine/?getAPI=zGX676w1F2ry
+
+As well as an authenticated version of the same query
+(revealing the users personal info)
+Users who are logged in can visit the testing URL:
+https://pietential.com/mydata/
+which mimics an authenticated response.
+
+accountEngine also can SET user data, authenticated only, via POST request.
+Most of the interaction with these endpoints is done via ajax/fetch.
+(Some "old-school" forms are also used, sign-in, sign-up, contact-us, update settings, etc).
+
+I have tried to keep this pretty simple, with a model that resembles the following:
+getUser(userID) -> returns everything about the user as JSON
+updateUser(userID) -> sends up the localStorage state to sync with the server/database
+
+Our data is stored in a simple "data lake" (no-sql, no schema, file based)
+It is a file-based system with a text file representing each user.
+Each user has a 12 character user ID e.g. [a-zA-Z0-9]{12}
+For example, Hank's user ID is Msl9ZeiwE5Hz.
+
+You can also retrieve many user IDs, just separate the IDs with any punctuation character,
+API example playground:
+https://pietential.com/pieWidget/build/Msl9ZeiwE5Hz
+
+updating a file (user) generally looks like this
+
+if (logged in via authenticating cookie method){
+    send POST request to account engine
+    write file as a json string
+    return a success message
+}
+
+reading the users data (full data):
+
+if (logged in via authenticating cookie method){
+    read txt file requested via a fetch or ajax
+    spit out json string to the browser
+    return a success message
+}
+
+So, as I hope you see, it's really just the accountEngine API that
+needs a database solution.
+
+
+
+*/
+
+
+
+
+// function trash(){
+//     var id = localStorage.id;
+//     document.getElementById(id)
+//     console.log(`talking trash.`);
+//     document.getElementById(id).style.background = "white";
+//     document.getElementById(id).outerHTML += `<div style="position:relative;margin-top:-50px; width:300px;background:deeppink;padding:20px;">Los Angeles Chargers vs. Kansas City Chiefs | Week 2 Game Highlights 1,447,630 views  Sep 15, 2022  Check out our other channels.</div>`;
+// }
+// var id = "closeModalButton";
+// localStorage.id = id;
+
+// document.getElementById(id).addEventListener("mouseenter", trash);
+
+// for (let a of document.getElementsByTagName("img")){
+//     console.log(a.id);
+// }
+
+
+
+
+
+
+function restore(){
+if (localStorage.chbuild){
+    var obj = JSON.parse(localStorage.chbuild);
+    gid('pcode').value = obj.pc;
+    gid('numUsers').value = obj.n
+}
+}
+
+
+        //file:///G:/pie2/pielet/admin/create-fake.html?406
+
+        function trimValue(el){
+        gid(el).value = gid(el).value.trim().replace(/[^a-z0-9]+/ig,"");
+        }
+
+function gid(id){
+  return document.getElementById(id);
+}
+
+        function shuffle(a) {
+            var c = a.length,
+                t, r;
+            while (0 !== c) {
+                r = Math.floor(Math.random() * c);
+                c -= 1;
+                t = a[c];
+                a[c] = a[r];
+                a[r] = t;
+            }
+            return a;
+        }
+        function saveAllFormData(nameOfLocalStorageObj, mode) {
+            // mode = "save" during form save
+            // saveAllFormData('cohortGen', 'save')
+            // mode = "restore" goes onload
+            // saveAllFormData('cohortGen', 'restore')
+            if (mode == "save") {
+                var obj = {};
+                for (let a of document.getElementsByClassName("form")) {
+                    if (a.value) {
+                        obj[a.name] = a.value;
+                    }
+                }
+                localStorage[nameOfLocalStorageObj] = JSON.stringify(obj);
+                return;
+            }
+            if (mode == "restore") {
+                if (localStorage[nameOfLocalStorageObj]) {
+                    var obj = JSON.parse(localStorage[nameOfLocalStorageObj]);
+                    for (let a in obj) {
+                        if (obj[a]) {
+                            document.getElementsByName(a)[0].value = obj[a].trim();
+                        }
+                    }
+                }
+            }
+        }
+
+        function random(len) {
+            var str = `abcdefghjkmnpqrstuvwxyz234567894567ABCDEFGHJKLMNPQRSTUVWXYZ`;
+            var s2 = shuffle(str.split(''));
+            var out = ""
+            for (var i = 0; i < len; i++) {
+                out += s2[i];
+            }
+            return (out);
+        }
+
+        function randBirthYear() {
+            return (1971 + Math.round(Math.random() * 30));
+        }
+
+        function randGender() {
+            var a = 'MMMMMMFFFFFFN'.split('');
+            var r = a.length - 1;
+            return (a[Math.round(Math.random() * r)]);
+        }
+
+        function returnRealisticScore() {
+            var i = 20;
+            var arr = [];
+            while (i < 98) {
+                arr.push(i);
+                i++;
+            }
+            shuffle(arr);
+            return (arr[0]);
+        }
+
+        function returnRealisticDataSet() {
+            var i = 0;
+            var obj = {};
+            while (i < 30) {
+                var n = `Q${i}response`;
+                obj[n] = returnRealisticScore();
+                i++;
+            }
+
+            return (obj);
+        }
+
+        function return3snapshots() {
+            var arr = [];
+            var o = returnRealisticDataSet();
+            o.time = "2020-01-02";
+            o.timestamp = "2020-01-02";
+            arr.push(o);
+            var p = returnRealisticDataSet();
+            p.time = "2021-01-02";
+            p.timestamp = "2021-01-02";
+            arr.push(p);
+            var q = returnRealisticDataSet();
+            q.time = "2022-01-02";
+            q.timestamp = "2022-01-02";
+            arr.push(q);
+            return arr;
+        }
+
+        function returnEducation(){
+            var a = `masters,bachelors,highSchool,highSchool,highSchool,highSchool,highSchool,highSchool,PHd`.split(",");
+            shuffle(a);
+            return a[0];
+        }
+        function returnRace(){
+            var a = `white,asian,black,pacific,nativeAmerican`.split(",");
+            shuffle(a);
+            return a[0];
+        }
+        function returnDependents(){
+            var a = [1,0,2,3,4];
+            shuffle(a);
+            return a[0];
+        }
+        function returnPostal(){
+            var m = Math.round(Math.random()*100000);
+            return m;
+        }
+
+        function returnRandomUser(){
+            var obj = {};
+            obj.userID = random(12);
+            var score = returnRealisticDataSet();
+            for (let a in score) {
+                obj[a] = score[a];
+            }
+            obj.birthYear = randBirthYear();
+            obj.gender = randGender();
+            obj.fname = random(4);
+            obj.lname = random(4);
+            obj.email = `${obj.fname}.${obj.lname}@mitchellflooring.us`;
+            obj.education = returnEducation();
+            obj.race = returnRace();
+            obj.dependents = returnDependents();
+            obj.postalCode = returnPostal();
+            obj.snapshots = return3snapshots();
+            obj.PN = returnRealisticScore();
+            obj.SA = returnRealisticScore();
+            obj.EC = returnRealisticScore();
+            obj.LB = returnRealisticScore();
+            obj.SN = returnRealisticScore();
+            obj.LBscorevalues = "";
+            obj.timestamp = "2022-09-09";
+            obj.partnerID = "";
+            obj.companyCode = gid('pcode').value.trim();
+            obj.promoCode = obj.companyCode;
+            return(obj);
+        }
+
+        if(location.href.match(/\?/)){
+            var val = location.href.replace(/[\s\S]+\?/, '');
+            var n = val.replace(/\*[\s\S]+/, '');
+            var pc = location.href.replace(/[\s\S]+\*/, '');
+            window.pc = pc;
+            document.getElementById("numUsers").value = val.trim();
+            document.getElementById("pcode").value = pc.trim();
+            create();
+        }
+
+        function newUrl(){
+            var num = document.getElementById("numUsers").value;
+            var pcode = document.getElementById("pcode").value;
+            location.assign('?'+num+'*'+pcode);
+        }
+
+        function create(){
+            if(gid('pcode').value.length<3){
+                alert("please use a promoCome longer than 3 characters.");
+                return;
+            }
+            var num = document.getElementById("numUsers").value;
+            num = parseInt(num.trim());
+            var arr = [],i = 0;
+            while (i < num) {
+                arr.push(returnRandomUser());
+                i++;
+            }
+
+        var j = JSON.stringify(arr);
+        var kb = Math.round(j.length/1024);
+        window.j = j;
+
+        var samplesubSet = [arr[0],arr[1],arr[2],arr[3]];
+        var ssa =  JSON.stringify(samplesubSet);
+        ssa = ssa.replace(/\,{\"userID/g, `,\n\n{"userID`);
+
+        document.body.innerHTML += `Sample (first 4):<br><textarea style="width:500px;height:300px;">` + ssa + `</textarea><br>${arr.length} Users generated. ${kb} Kbytes.<br><br>
+        <button onclick="location.assign(location.href)">Rebuild</button>
+        <button onclick="downloadPie()">Save cohort as JSON</button><br>`;
+        gid("numUsers").value = num;
+        gid("pcode").value = arr[0].promoCode;
+        var obj = {};
+        obj.pc = arr[0].promoCode;
+        obj.n = num;
+        localStorage.chbuild = JSON.stringify(obj);
+        window.arr = arr; //dependents
+        inspect('dependents');
+        inspect('race');
+        inspect('gender');
+        inspect('education');
+        inspect('birthYear');
+        restore();
+        }
+
+        function inspect(prop){
+            var tar = []
+            for (let a of arr){
+                tar.push(a[prop]);
+            }
+            tar.sort();
+            console.log(tar);
+            var unit = '';
+            var members = [];
+            for (let a of tar){
+                if (a !== unit){
+                    unit = a;
+                    members.push(a);
+                }
+            } 
+            console.log(members);
+            var stats = {};
+            for (let a of members){
+                stats[a] = 0;
+                for (let b of arr){
+                    if (b[prop]==a){
+                        stats[a]++;
+                    }
+                }
+            }
+            var stout = `<br>`;
+            for (let a in stats){
+                var percent = Math.round((stats[a]/arr.length)*100);
+                stout+= `${prop}: ${a} - ${percent}% (${stats[a]}/${arr.length})<br>`;
+                stats[a] = `${stats[a]} (${percent}%)`;
+            }
+            console.log(stats);
+            document.body.innerHTML += stout+'<br>';
+        }
+
+
+        function downloadPie() {
+            var text = j;
+            var m = [];
+            m[0] = text;
+            var myBlob = new Blob(m, { type: 'text/html' });
+            var blobUrl = URL.createObjectURL(myBlob);
+            var link = document.createElement("a");
+            link.href = blobUrl;
+            link.download = `${pc}-users.json.txt`;
+            link.click();
+        }
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pietential HR</title>
+    <link href="https://pietential.com/pielet/styles.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- <script type="text/javascript" src="/navigation/topNav.js"></script>
+ <div id="minibranding" style="padding-top: 50px; margin: auto; text-align: center; display: block;">
+ <a href="/"><img onmouseover="" src="https://pietential.com/pietential.png"
+ style="width: 16%;max-width: 500px;margin-bottom:10px;margin: auto;"></a>
+ </div>-->
+    <style>
+        .containerFLEX {
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .innerFLEX {
+            flex: 1 1 12%;
+            gap: 30px 20px;
+            margin: 10px;
+            color: white;
+            padding: 18px;
+            border-radius: 12px;
+            justify-content: center;
+            align-content: center;
+            box-sizing: border-box;
+            background: #eee;
+            /* box-shadow: 4px 9px 19px #19a1ce; */
+            background-color: #0093E9;
+            background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+            min-height: 300px;
+        }
+
+        .redgrad {
+            background-image: linear-gradient(160deg, #DC0000 0%, #80D0C7 100%);
+        }
+
+        .bluegrad {
+            background-image: linear-gradient(160deg, #6E94F8 0%, #80D0C7 100%);
+        }
+
+        .yellowgrad {
+            background-image: linear-gradient(160deg, #F9BA03 0%, #80D0C7 100%);
+        }
+
+        .orangegrad {
+            background-image: linear-gradient(160deg, #F87E02 0%, #80D0C7 100%);
+        }
+
+        .greengrad {
+            background-image: linear-gradient(160deg, #02B72D 0%, #80D0C7 100%);
+        }
+
+        .fancyButton1 {
+            font-family: inherit;
+            border-width: initial;
+            border-style: none;
+            border-color: initial;
+            font-size: 14px;
+            color: rgb(255, 255, 255);
+            background: rgb(30, 101, 146);
+            cursor: pointer;
+            padding: 15px 20px;
+            margin: 5px 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            outline: none;
+            position: relative;
+            transition: all 0.3s;
+            border-radius: 7px;
+            box-shadow: rgb(8, 44, 65) 0px 5px;
+            overflow: hidden;
+            text-decoration: none;
+            word-break: break-all;
+            overflow-wrap: break-word;
+        }
+
+        .descriptor {
+            color: white;
+            min-height: 156px;
+        }
+
+        .bodyCopy {
+            max-width: 700px;
+            margin: auto;
+            display: block;
+            padding: 20px;
+        }
+
+        @media all and (max-width:1000px) {
+            .innerFLEX {
+                flex: 1 1 100%;
+            }
+        }
+
+        table,
+        tr,
+        td {
+            background: white;
+            padding: 10px;
+            text-align: left;
+            vertical-align: top;
+            font-size: 15px;
+        }
+
+        p {
+            font-size: 15px;
+            text-align: justify;
+            margin-bottom: 4px;
+        }
+
+        #lefty {
+            font-size: 75px;
+            max-width: 800px;
+            font-weight: 900;
+            line-height: .82em;
+            text-align: left;
+            position: relative;
+            margin-top: 8%;
+            color: #4c5a7a;
+        }
+
+        .nav2 {
+            margin: 10px;
+            background-image: url();
+            background-position: left;
+            background-size: contain;
+            background-repeat: no-repeat;
+            padding: 12px 3px 4px 9px;
+            padding-left: 2%;
+            height: 68px;
+            font-size: 22px;
+        }
+
+        .nav2:hover {
+            /* background: #eee; */
+        }
+
+        #block2 {
+            color: #333;
+            height: 490px;
+            /* background: #8a2be214; */
+            position: relative;
+            z-index: 0;
+            margin-top: 50px;
+        }
+
+        .krink {
+            padding: 12px;
+            border: 0;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #6E94F8
+        }
+
+        .krink:hover {
+            background: #eee;
+        }
+        td{max-width:300px;
+        word-break: break-all;}
+    </style>
+
+    <div class="nav2"><img src="../images/pietentiallogo-new.png" style="max-width:90px">
+        <!-- <div style="float:right;margin-right:12%;"><a class="krink" href="/about">About</a> <a  class="krink" href="/">Tools</a> <a  class="krink" href="/pricing">Pricing</a></div> -->
+
+    </div>
+    <div id="main" style=" max-width: 900px;margin: auto;">
+        <div id="zoom"></div>
+        <div id="su"></div>
+        <div id="res"></div>
+        <br><br><br>
+        <div>
+
+        </div>
+    </div>
+    <script>
+        fetch("a.php?getData=7")
+            .then(r => {
+                return r.text()
+            })
+            .then(a => {
+                var data = JSON.parse(a);
+                data.sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1);
+                var out = '',
+                    bcsv = '';
+                var csv = '';
+                var message = '';
+                for (let a of data) {
+                    var decode = '';
+                    var vis = 'none';
+                    try{
+                        console.log(`looking at ${a.data}`)
+                    if (a.data.match(/http[\s\S]+\?[^"]+?/ig) &&
+                        !a.data.match(/hank|rocktober|bite/ig)) {
+                        var e = a.data.trim().replace(/[\s\S]+\?/ig, "");
+                        e = atob(e);
+                        decode = `<b>Coded visit</b>: ${e}`;
+                        vis = "block";
+                    }
+                } catch(e){console.log(e)}
+
+                    out +=
+                        `
+                        <tr style="display: ${vis}">
+                            <td style="font-family:monospace;">
+                              ${a.timestamp}
+                            </td>
+                            <td style="font-family:monospace;">
+                                ${a.ip}
+                            </td>
+                            <td style="font-family:monospace;">
+                                ${a.data}
+                            </td>
+                            <td style="font-family:monospace;">
+                                ${decode}
+                            </td>
+                            </tr>
+                        `
+
+
+                    message = '';
+                }
+                res.innerHTML = `<button onclick="dlcsv()">download csv</button><button onclick ="seeUsers()">Decode URLs</button><br><br><table style="font-family:monospace;">${out}</table><br><br><button onclick="dlcsv()">download csv</button>
+                <button onclick ="seeUsers()">Decode URLs</button>`;
+                window.data = data;
+
+            });
+        var taggy = 0;
+
+        function tagInternalIP() {
+            if (taggy > 0) {
+                return;
+            }
+            taggy = 1;
+            console.log('tagInternalIP fired');
+            fetch("/pieTools/ip.php")
+                .then(r => {
+                    return r.text()
+                })
+                .then(a => {
+                    for (let x of document.getElementsByClassName(a)) {
+                        x.innerHTML = `Current ip address detected.(${a})`;
+                    }
+                    document.body.innerHTML += "<br><br>Your ip is: " + a;
+                });
+        }
+
+        function inspect(id) {
+            var decoded = '';
+            var color = "black";
+            for (let a of data) {
+                if (a.timestamp == id) {
+                    payload = JSON.stringify(a);
+                    if (a.ip.match(/172.58.191.174/)) {
+                        color = "red";
+                    }
+                    try {
+                        decoded = a.data.replace(/.+\/hr\/\??/ig, '');
+                        decoded = atob(decoded);
+                    } catch (e) {}
+                }
+            }
+            document.getElementById('zoom').innerHTML =
+                `<textarea style="color:${color};width:500px;height:230px;">${payload}\n\n${decoded}</textarea>`;
+
+        }
+
+
+
+        function tag() {
+            var list = emails.value.trim().split("\n");
+            var out = '',
+                bcsv = '';
+            var csv = '';
+            for (let a of list) {
+                var newLink = `https://pietential.com/hr/?${btoa(a.trim())}`;
+                out += `${a} : <a target="_blank" href="${newLink}">${newLink}</a><br>`;
+                csv += `${a},${newLink}\n`;
+                bcsv += `${a};`;
+            }
+            csv = `email,link\n${csv}`;
+            emails.outerHTML =
+                `<div style="font-size:13px;">
+                    <button onclick ="dlcsv()">Download as CSV</button>
+                    
+                    <br><br>${out}</div>`;
+            window.csv = csv;
+            var jcsv = JSON.stringify(csv);
+            main.innerHTML += `<img style="display:none;" src="https://pietential.com/hr/a.php?data=${bcsv}" >`;
+        }
+
+        function dlcsv() {
+            let csv = '';
+            for (let a of document.getElementsByTagName("tr")) {
+                for (let b of a.getElementsByTagName("td")) {
+                    csv += `${b.innerText},`;
+                }
+                csv += "\n";
+            }
+            var m = [];
+            m[0] = csv;
+            var myBlob = new Blob(m, {
+                type: 'text/html'
+            });
+            var blobUrl = URL.createObjectURL(myBlob);
+            var link = document.createElement("a");
+            link.href = blobUrl;
+            link.download = "download.csv";
+            link.click();
+        }
+
+        function seeUsers() {
+            var arr = [];
+            var decode = '';
+            var s = document.getElementsByTagName("td");
+            for (let a of s) {
+                if (a.innerHTML.match(/http[\s\S]+\?[^"]+?/ig) &&
+                    !a.innerHTML.match(/hank|rocktober|bite/ig)) {
+                    var e = a.innerHTML.trim().replace(/[\s\S]+\?/ig, "");
+                    e = atob(e);
+                    arr.push(e);
+                    decode += `${e} visited the site.<br>`;
+                }
+            }
+            console.log(arr);
+            su.innerHTML = decode + "<br><br>";
+        }
+    </script>
+    <!-- <script type="text/javascript" src="/navigation/bottomNav.js"></script> -->
+</body>
+
+</html>

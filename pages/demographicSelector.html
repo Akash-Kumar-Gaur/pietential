@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="../js/commonLinks.js"></script>
+    <script>includeCommonHeader('Demographic Selector')</script>
+  </head>
+
+  <body>
+    <div class="thankYouMainContainer">
+      <div class="thankYouMain" id="demographicMainContainer">
+        <a href="/">
+          <img
+            src="../assets/pietentialBlackLogo.svg"
+            alt=""
+            style="max-width: 250px; margin-bottom: 16px; width: 250px"
+          />
+        </a>
+        <h2 class="demographic">Demographic Selector</h2>
+        <p class="paragraph">
+          Please select the demographic categories for your population.
+        </p>
+        <div class="searchBoxContainer">
+          <input
+            type="text"
+            class="searchBox"
+            id="searchBox"
+            placeholder="Search Here"
+            oninput="handleSearchInput(this)"
+          />
+          <img src="../assets/searchIcon.png" alt="Search Icon" />
+        </div>
+        <div class="modalOverlay" id="modalOverlay"></div>
+        <script src="../js/apiHelper.js"></script>
+        <script src="../js/main.js"></script>
+        <script>
+          var DemographyList = [];
+          var totalSelectedDemography = [];
+          var newDemography = [];
+          var newDemographyType = [];
+
+         
+          let modal = getElementById("modalOverlay");
+
+          function hideModal() {
+            modal.style.display = "none";
+          }
+
+          function getView(title) {
+            return `<div class="alertMain"><div class="alertInner" id="modalInner"><p>${title}</p>
+        <a class="loginButton" onclick="hideModal()" style="margin: auto">Ok</a>
+        </div></div>`;
+          }
+          // if (location.href.match(/hindi/)) {
+          //   localStorage.currentLanguage = "hindi";
+          // }
+          var fetchTarget = "https://pietential.com/json/demographicFields.json";
+          // if (localStorage.currentLanguage == "hindi") {
+          //   fetchTarget = "../json/demographicFieldsHindi.json";
+          // }
+          function getData() {
+            fetch(fetchTarget)
+              .then((response) => {
+                console.log("response",response);
+                return response.json();
+              })
+              .then((data) => {
+                DemographyList = data;
+                appendData(data);
+              })
+              .catch((err) => {
+                console.log("error: " + err);
+              });
+          }
+          function appendData(data) {
+            console.log(data);
+            let mainContainer = getElementById("demographicContainer");
+            for (let i = 0; i < data.length; i++) {
+              let div = document.createElement("div");
+              let divTwo = document.createElement("div");
+              let h4 = document.createElement("h4");
+              let p = document.createElement("p");
+              let input = document.createElement("input");
+              input.type = "checkbox";
+              input.id = "checkbox" + i;
+              input.className = "checkbox";
+              if (data[i].checked == "true") {
+                input.setAttribute("checked", "true");
+              } else {
+                input.removeAttribute("checked");
+              }
+              if (data[i].disabled == "true") {
+                input.setAttribute("disabled", "true");
+              } else {
+                input.removeAttribute("disabled");
+              }
+              input.onclick = function () {
+                input?.checked == true
+                  ? input.removeAttribute("checked")
+                  : input.setAttribute("checked", "true");
+                if (input.checked == true) {
+                  totalSelectedDemography.push(
+                    data[i].k.replace(/\s/g, "_").toLowerCase()
+                  );
+                  DemographyList.forEach((element, index) => {
+                    if (element.k == data[i].k) {
+                      DemographyList[index].checked = "true";
+                    }
+                  });
+                } else {
+                  Array.prototype.remove = function (value) {
+                    this.splice(this.indexOf(value), 1);
+                  };
+                  totalSelectedDemography.remove(
+                    data[i].k.replace(/\s/g, "_").toLowerCase()
+                  );
+                  DemographyList.forEach((element, index) => {
+                    if (element.k == data[i].k)
+                      DemographyList[index].checked = "false";
+                  });
+                }
+              };
+              div.className = "demographicContainer";
+              divTwo.className = "demographicTextContainer";
+              p.className = "paragraph";
+              h4.innerHTML = data[i].k;
+              p.innerHTML = data[i].desc;
+              div.appendChild(divTwo);
+              divTwo.appendChild(h4);
+              divTwo.appendChild(p);
+              mainContainer.appendChild(div);
+              div.appendChild(input);
+            }
+          }
+          getData();
+          const handleSearchInput = (e) => {
+            const searchBox = getElementById("searchBox");
+
+            searchBox.addEventListener("keyup", (event) => {
+              if (event.key === "Enter") {
+                let mainContainer = getElementById(
+                  "demographicContainer"
+                );
+                mainContainer.innerHTML = "";
+                let matchFound = [];
+                if (searchBox.value.length > 2) {
+                  matchFound = DemographyList.filter((value, index) => {
+                    return DemographyList[index].k.includes(e.value);
+                  });
+                  if (matchFound.length > 0) appendData(matchFound);
+                  else mainContainer.innerHTML = "NO DATA FOUND";
+                } else {
+                  appendData(DemographyList);
+                }
+              }
+            });
+          };
+
+          const hideToggle = () => {
+            getElementById("hideFooterInput").style.display = "block";
+          };
+
+          const onClose = () => {
+            getElementById("hideFooterInput").style.display = "none";
+          };
+
+          let inputValueArray = [];
+
+          function onAddValues() {
+            let valueInput = getElementById("valueInput");
+            if (valueInput.value.length <= 0) {
+              modal.innerHTML = "";
+              modal.style.display = "block";
+              modal.innerHTML += getView(`Please Add Values`);
+            } else {
+              let inputValue = valueInput.value;
+              let dropdownInput = getElementById("dropdownInput");
+              inputValueArray.push(inputValue);
+              dropdownInput.value = inputValueArray.join("|");
+              valueInput.value = "";
+            }
+          }
+
+          function getValue() {
+            let select = getElementById("inputType");
+            let input = getElementById("inputContainer");
+            let valueContainer = getElementById("valueContainer");
+            let text = getElementById("oneValue");
+            let dropdownContainer =
+              getElementById("dropdownContainer");
+            let value = select.value;
+            if (value === "Input") {
+              input.style.display = "block";
+            } else input.style.display = "none";
+            if (value === "Dropdown") {
+              valueContainer.style.display = "block";
+              dropdownContainer.style.display = "block";
+              text.style.display = "block";
+            } else {
+              valueContainer.style.display = "none";
+              dropdownContainer.style.display = "none";
+              text.style.display = "none";
+            }
+          }
+          const addToDemography = async () => {
+            const params = new Proxy(
+              new URLSearchParams(window.location.search),
+              {
+                get: (searchParams, prop) => searchParams.get(prop),
+              }
+            );
+
+            const id = params.adminID;
+            const token = params.jwt;
+            const promoCode = params.promoCode;
+            sessionStorage.setItem("promoCode", promoCode);
+            const existingFields = [];
+            totalSelectedDemography.forEach((element, index) => {
+              if (element == "location_details") {
+                //Country, State/Region, City
+                existingFields.push("country");
+                existingFields.push("state_region");
+                existingFields.push("city");
+              } else if (element == "village_details") {
+                //State, District, Village Name
+                existingFields.push("state");
+                existingFields.push("district");
+                existingFields.push("village_name");
+              } else {
+                existingFields.push(element);
+              }
+            });
+
+            const response = await postRequest(
+              `/api/demographics/create`,
+              {
+                adminId: id,
+                existingFields: `${existingFields.toString()}` ?? null,
+                additionalFields: `${newDemography.toString()}` ?? null,
+                additionalFieldType: newDemographyType.join(";") ?? "",
+              },
+              token
+            );
+            if (response.error) {
+              console.error("some error occurred");
+            } else {
+              getElementById("addCategoryInput").value = "";
+              location.assign("/pages/congratulation.html");
+            }
+          };
+
+          function addCategory() {
+            let mainContainer = getElementById("demographicContainer");
+            let inputCategory = getElementById("addCategoryInput");
+            if (inputCategory.value == "") {
+              modal.innerHTML = "";
+              modal.style.display = "block";
+              modal.innerHTML += getView("Please enter demography");
+              return;
+            }
+            let inputType = getElementById("inputType");
+            let inputLength = getElementById("input");
+            let inputValue = getElementById("dropdownInput");
+            let matchFound = DemographyList.find((element) => {
+              return (
+                element.k.toLowerCase() == inputCategory.value.toLowerCase()
+              );
+            });
+            if (matchFound) {
+              modal.innerHTML = "";
+              modal.style.display = "block";
+              modal.innerHTML += getView(`Demography already exists.`);
+              return;
+            }
+            newDemography.push(
+              inputCategory.value.replace(/\s/g, "_").toLowerCase()
+            );
+            newDemographyType.push(
+              "name='" +
+                inputCategory.value.replace(/\s/g, "_").toLowerCase() +
+                "',type='" +
+                inputType.value +
+                "',length='" +
+                inputLength.value +
+                "',value='" +
+                inputValue.value +
+                "'"
+            );
+            DemographyList.push({
+              k: inputCategory.value,
+              desc:
+                "name='" +
+                inputCategory.value.replace(/\s/g, "_").toLowerCase() +
+                "',type='" +
+                inputType.value +
+                "',length='" +
+                inputLength.value +
+                "',value='" +
+                inputValue.value +
+                "'",
+              checked: "true",
+              disabled: "true",
+            });
+            inputCategory.value = "";
+            inputType.value = "";
+            inputLength.value = "";
+            inputValue.value = "";
+            inputValueArray = [];
+            getElementById("inputContainer").style.display = "none";
+            getElementById("dropdownContainer").style.display = "none";
+            getElementById("valueContainer").style.display = "none";
+            getElementById("oneValue").style.display = "none";
+            mainContainer.innerHTML = "";
+            appendData(DemographyList);
+            onClose();
+          }
+        </script>
+        <div class="inputCombo" id="hideFooterInput">
+          <div class="inputMain">
+            <div class="inputComboInner">
+              <img
+                src="../assets/close.svg"
+                class="closeIcon"
+                onclick="onClose()"
+              />
+              <div class="selectOuter">
+                <input
+                  type="text"
+                  name="addCategoryInput"
+                  placeholder="Enter Demography"
+                  id="addCategoryInput"
+                  class="addCategoryInput"
+                />
+              </div>
+              <div class="selectOuter">
+                <label for="">Input Type</label>
+                <div class="pietentialSelectContainer">
+                  <img src="../assets/arrowDown.svg" alt="" class="arrowDown" />
+                  <select
+                    id="inputType"
+                    class="pietentialSelect"
+                    onclick="getValue()"
+                  >
+                    <option selected disabled value="">Input Type</option>
+                    <option>Input</option>
+                    <option>Dropdown</option>
+                  </select>
+                </div>
+              </div>
+              <div
+                class="selectOuter"
+                id="inputContainer"
+                style="display: none"
+              >
+                <label for="">Length</label>
+                <input
+                  type="text"
+                  name="addCategoryInput"
+                  maxlength="3"
+                  onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                  id="input"
+                  class="addCategoryInput"
+                />
+              </div>
+              <div
+                class="selectOuter"
+                id="dropdownContainer"
+                style="display: none"
+              >
+                <label for="">Dropdown values</label>
+                <textarea
+                  type="text"
+                  name="addCategoryInput"
+                  id="dropdownInput"
+                  disabled
+                  class="addCategoryInput"
+                ></textarea>
+              </div>
+              <div
+                class="selectOuter"
+                id="valueContainer"
+                style="display: none"
+              >
+                <input
+                  type="text"
+                  name="addCategoryInput"
+                  placeholder="Enter Value"
+                  id="valueInput"
+                  class="addCategoryInput"
+                />
+                <input
+                  type="button"
+                  name="addCategoryButton"
+                  id="addCategoryButton"
+                  class="loginButton"
+                  value="Add"
+                  onclick="onAddValues()"
+                />
+              </div>
+              <p class="oneValue" id="oneValue" style="display: none">
+                Please add one value at a time
+              </p>
+              <div class="selectOuter" id="buttonContainer">
+                <input
+                  type="button"
+                  name="addCategoryButton"
+                  id="addCategoryButton"
+                  class="loginButton"
+                  value="ok"
+                  onclick="addCategory();"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="demographicContainer" style="width: 100%"></div>
+        <div class="demographicFooter">
+          <div class="button_main_container">
+            <a class="addNewCategory" onclick="hideToggle()"
+              >Add New Category</a
+            >
+            <div class="buttonOuter">
+              <a href="" class="reset resetAll">RESET ALL</a>
+              <a class="loginButton" onclick="addToDemography()">Submit</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="../json/demographicFields.json" id="abc"></script>
+  </body>
+</html>

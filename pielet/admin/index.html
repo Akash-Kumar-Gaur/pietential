@@ -1,0 +1,1760 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pietential Administrator</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,800&amp;display=swap" rel="stylesheet">
+</head>
+<style>
+    * {
+        font-family: Roboto Slab, 'Segoe UI', sans-serif;
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+
+    }
+
+
+
+    body {
+        min-height: 100%;
+    }
+
+    .grass {
+        background: #21BDCA;
+        padding: 20px;
+        color: white;
+    }
+
+
+    .blue {
+        background: #263DAF;
+        /* padding: 20px; */
+        color: white;
+        justify-content: center;
+        align-content: center;
+        text-align: center;
+
+    }
+
+    .offwhite {
+        background: white;
+        /* padding: 20px; */
+        color: rgba(122, 122, 122);
+        justify-content: center;
+        align-content: center;
+        text-align: center;
+        border-right: 5px solid #6e94f8;
+
+    }
+
+    .iconContainer {
+        margin-bottom: 50px;
+        margin-top: 50px;
+        cursor: pointer;
+        margin-left: 20%;
+        margin-right: 20%;
+        text-align: center;
+
+    }
+
+    .lightblue {
+        background: #4154ac;
+        /* padding: 20px; */
+        color: white;
+    }
+
+    .white {
+        background: #efefef;
+        padding: 20px;
+        color: #333;
+    }
+
+    .bright {
+        background: #fff;
+        padding: 20px;
+        color: #333;
+    }
+
+    .soft {
+        border-radius: 5px;
+        box-shadow: -5px 10px 21px 0px rgb(110 110 110 / 21%);
+
+    }
+
+    .icon {
+        filter: invert(1);
+        width: 36px;
+
+        transition: all .5s;
+    }
+
+    .icon:hover {
+        filter: invert(0);
+        transition: all .5s;
+        transform: scale(150%);
+    }
+
+    .photoIcon {
+        width: 90px;
+        height: 90px;
+        background-repeat: no-repeat;
+        background-size: cover;
+        border-radius: 50%;
+        background-image: url(miller.png);
+        margin: auto;
+        border-color: #f0ffff82;
+        border-width: 3px;
+        border-style: solid;
+        background-position: center;
+    }
+
+    .title {
+        margin: 30px;
+        font-weight: 800;
+    }
+
+    .fifty {
+        flex: 1 1 45%;
+        margin: 8px;
+    }
+
+    .userList {
+        padding: 12px;
+        display: block;
+        border: 1px solid #eee;
+        border-radius: 4px;
+        color: #336699;
+        margin: 10px;
+        cursor: pointer;
+    }
+
+    button {
+        padding: 2px 20px;
+    }
+
+    .donutSpinner {
+        display: inline-block;
+        border: 20px solid rgba(0, 0, 0, 0.1);
+        border-left-color: #5778F3;
+        border-radius: 50%;
+        width: 120px;
+        height: 120px;
+        animation: donut-spin 1.2s linear infinite;
+    }
+
+    @keyframes donut-spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+</style>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
+<script src="https://pietential.com/chartjs-plugin-watermark.js"></script>
+
+<body style="display: none;">
+    <script>
+        if (!localStorage.adminID) {
+            location.assign("adminlogin/");
+        } else {
+            document.body.style.display = "flex";
+        }
+    </script>
+    <section id="tbod"></section>
+    <div style="display:none;flex: 1 1 5%" class="lightblue" id="snav">
+        <!-- <span style="font-size: 100px;margin: auto;line-height: .2em;padding: 21px 0px;display: block;">◔</span> -->
+
+        <div class="grass" style="text-align: center;"> <img src="pie-chart.svg" alt="" class="icon"></div>
+        <!-- <div class="grass" style="text-align: center;"> <img src="https://pietential.com/pietential.png" alt="" class="icon"></div> -->
+
+
+        <div class="iconContainer"> <img src="people.svg" alt="" class="icon"></div>
+        <div class="iconContainer"> <img src="settings.svg" alt="" class="icon"></div>
+        <div class="iconContainer"> <img src="history.svg" alt="" class="icon"></div>
+    </div>
+    <div style="flex: 1 1 20%" class="offwhite">
+        <br><br>
+
+        <div style="margin: 0 0 30px 0;font-size: 23px;">Pietential</div>
+        <div class="photoIcon"></div>
+        <div class="title" id="pid">Partner ID: </div>
+
+        <div class="adminName" id="adminName">Jane Davis</div>
+        Number of users: <span id="numusers">...</span>
+        <div style="margin:2%;">
+            <span id="tthContainer" style="display:none;"> <input type="number" id="tthValue" style="width:55px"
+                    value="60"> <button onclick="confirmTTH()">Set</button> <button
+                    onclick="cancelTTH()">Cancel</button><br>Set the score value that triggers an email alert so you can
+                be alerted when a user falls below this value in any category. The default is 60.<br><br><br></span>
+
+            <section id="adminTools">
+                <button id="tth" onclick="adjustThreshold();">Adjust threshold</button> <button
+                    onclick="localStorage.adminID=``;location.assign(`adminlogin/`)">Logout</button>
+
+
+                <br><br><br><br>
+
+                <div id="userSearch">
+                    <input type="text" class="userList" id="filter" placeholder="Search users by email or name..."
+                        onkeyup="showresults()" style="width: 90%; margin: auto;">
+                    <button onclick='showAll()'>Show all</button>
+                    <button id="adc" onclick="showaddBox();">Add a new company</button>
+                    <br><br>
+                    <button id="rdb" onclick="rebuildDatabase();">Refresh Database</button>
+                    <br><br>
+                </div>
+                <div id="addCodesContainer" style="padding:12px 0">
+
+                    <div id="addBox" style="display:none">
+                        <br>
+                        <input id="nncname" placeholder="Company Name" onkeyup="updateDiv(`nncname`,`cnnmae`)"> <br>
+                        <br>
+                        <button id="adc" onclick="SendaddCodes();">Add <span id="cnnmae"></span> Now</button>
+                        <br>
+                        <div id="codeBox"></div>
+                        <img id="fakeImage" src="" style="display:none">
+                    </div>
+
+                    <div id="existingCodeBox"></div>
+                    <script>
+                        function rebuildDatabase() {
+                            gid("tth").scrollIntoView({
+                                behavior: "smooth",
+                                block: "start",
+                                inline: "nearest"
+                            });
+                            gid("adminTools").innerHTML = `<div class="donutSpinner"></div><br><br>Just a minute...`;
+                            fetch("../accountEngine?getAll=1")
+                                .then(r => {
+                                    return r.text()
+                                })
+                                .then(a => {
+                                    console.log(a);
+                                    location.assign(`?refresh`);
+                                });
+
+                        }
+
+                        function showaddBox() {
+                            gid("addBox").style.display = "";
+                        }
+
+                        function updateDiv(box, item) {
+                            gid(item).innerHTML = gid(box).value.trim();
+                            localStorage.fullCompanyName = gid(item).innerHTML;
+                        }
+
+                        function SendaddCodes() {
+
+                            var newCompany = gid("nncname").value.trim();
+                            var newCompanyCode = newCompany.replace(/[^a-z0-9]+/ig, "-")
+                                .replace(/^[^a-z0-9]+/ig, "")
+                                .replace(/[^a-z0-9]+$/ig, "").toUpperCase();
+                            localStorage.newCompanyCode = newCompanyCode;
+                            var obj = {};
+                            obj.companyCode = newCompanyCode;
+                            obj.fullCompanyName = localStorage.fullCompanyName;
+                            j = JSON.stringify(obj);
+                            gid('codeBox').innerHTML =
+                                `<br>
+                            <button id="g1000" onclick="generate1000codes('${newCompanyCode}');">Generate Codes Now</button>`;
+                            gid('fakeImage').src = `adminlogin/?addNewCompany=${j}`
+                            gid("addBox").style.display = "none";
+                            rebuildCompanyList();
+
+
+                        }
+                        // get a company list to match the code to the Nice Name
+                        function rebuildCompanyList() {
+                            gid("compBox").innerHTML = '';
+
+                            var compList = '';
+                            try {
+                                var ull = JSON.parse(localStorage.userList);
+                                console.log(ull);
+                            } catch (e) {}
+                            fetch(`adminlogin/?getCompanyList=1&adminID=${localStorage.adminID}`)
+                                .then(r => {
+                                    return r.text()
+                                })
+                                .then(a => {
+                                    if (localStorage.adminID == "johnstarling") {
+                                        var n = [];
+                                        var obj = {};
+                                        obj.companyCode = "STARLING";
+                                        obj.fullCompanyName = "Starling Growth";
+                                        companyList.push(obj);
+                                        companyList = n;
+                                    } else {
+                                        companyList = JSON.parse(a).companyList;
+                                    }
+                                    console.log(companyList);
+                                    for (let a of companyList) {
+                                        var nc = 0;
+                                        var codeName = a.companyCode;
+                                        var fullcn = a.fullCompanyName;
+                                        for (let b of JSON.parse(localStorage.userList)) {
+                                            if (b[4] == codeName || b[4] == fullcn) {
+                                                nc++;
+                                            }
+                                        }
+                                        compList += `<div id="${codeName}Container" onmouseover="showCodeButton('${codeName}CodeButton')" ><button style="margin:4px;width:215px;" class="rebuildCompanyList" onclick="sortByCompany('${codeName}')">${fullcn} (${nc})</button> 
+                                            <span class="scb" id="${codeName}CodeButton"  style="display:none;">
+                                            <button  style="background: #6e94f8;  border: 0px;  border-radius: 4px; color: white;margin:4px;padding: 2px 6px;width:215px;" onclick="kodeGen('${codeName}')" >Show Codes</button>
+                                            </span></div>`;
+                                    }
+                                    gid("compBox").innerHTML = compList;
+                                });
+                        }
+
+                        function showCodeButton(id) {
+                            var container = id.replace(/CodeButton/ig, "Container");
+                            for (let a of document.getElementsByClassName("scb")) {
+                                a.style.display = "none";
+                                a.parentElement.style.background = "";
+                            }
+
+                            gid(id).style.display = "block";
+                            gid(container).style.background = "#eee";
+                            gid(container).style.borderRadius = "4px";
+                        }
+
+                        function kodeGen(id) {
+                            gid("userSearch").style.display = "none";
+                            gid("compBox").style.display = "none";
+                            var k = `codex/${id}CodeList.codes.json.txt`;
+                            localStorage.newCompanyCode = id;
+                            console.log(k);
+                            gid("addBox").style.display = "none";
+                            gid('existingCodeBox').innerHTML = `Codes not found<br>
+                            <button id="g1000" onclick="generate1000codes('${id}');">Generate Codes Now</button>`;
+                            fetch(k)
+                                .then(r => {
+                                    return r.text()
+                                })
+                                .then(a => {
+                                    if (a.match(/^\[/)) {
+                                        console.log(a);
+                                        var ar = JSON.parse(a);
+                                        var out = '';
+                                        for (let a of ar) {
+                                            out += `${a}\n`;
+                                        }
+                                        var tas = `<br><br><b style="color:#d62626;">Existing codes found</b><br>Each code is a *single use* organization code that allows a new user tagged with ${id} to join and be associated to your account:<br><button onclick="cancelCodes()">Close code view</button><br><br><button onclick="downloadCodes()">Download as file</button>
+                            <br><br><textarea style="padding:10px; width:100%; height:400px;">${out}</textarea>`;
+                                        gid('existingCodeBox').innerHTML = tas;
+                                        gid('existingCodeBox').style.display = "block";
+                                    }
+                                });
+                        }
+
+                        function cancelCodes() {
+                            gid("compBox").style.display = "block";
+                            gid('existingCodeBox').style.display = "none";
+                            gid("userSearch").style.display = "block";
+                        }
+
+
+
+                        function generate1000codes(newCompanyCode) {
+                            gid("fakeImage").src = "";
+                            var out = '';
+                            var loks = [];
+                            for (let a of codeGen(1000)) {
+                                var uniqueCode = newCompanyCode + a.toUpperCase();
+                                out += `${uniqueCode}\n`;
+                                loks.push(uniqueCode);
+                            }
+
+                            var remName = newCompanyCode + "CodeList";
+                            localStorage[remName] = JSON.stringify(loks);
+
+                            storeCodesOnServer(JSON.stringify(loks), remName);
+                            var tas =
+                                `<br><br><b style="color:#d62626;">IMPORTANT!</b><br>Save these codes somewhere safe, each one is a *single use* organization code that allows a new user tagged with ${newCompanyCode} to join and be associated to your account:
+                            <br><br><button onclick="downloadCodes()">Download as file</button><br><br><textarea style="padding:10px; width:100%; height:400px;">${out}</textarea>`;
+                            gid('codeBox').innerHTML = tas;
+                            //console.log(tas);
+                            gid("addBox").style.display = "";
+                            gid('fakeImage').src = `../accountEngine/?buildCodex=${j}`;
+                        }
+                        var c = `23456789ABCDEFGHJKLMNPQRSTVWXYZ23456789`.split('');
+
+                        function shuffle(a) {
+                            var c = a.length,
+                                t, r;
+                            while (0 !== c) {
+                                r = Math.floor(Math.random() * c);
+                                c -= 1;
+                                t = a[c];
+                                a[c] = a[r];
+                                a[r] = t;
+                            }
+                            return a;
+                        }
+
+                        function storeCodesOnServer(payload, name) {
+                            const fd = new FormData();
+                            fd.append('uniqueCodes', payload);
+                            fd.append('name', name);
+
+                            const options = {
+                                method: 'POST',
+                                //mode: 'no-cors',
+                                body: fd
+                            };
+                            //contents = btoa(contents);
+                            fetch(`adminlogin/codeGetter.php`, options)
+                                .then(r => {
+                                    return r.text()
+                                })
+                                .then(contents => {
+                                    console.log("looks like it worked");
+                                    gid('fakeImage').src = `../ids/make-all.php`;
+                                });
+                        }
+
+                        function codeGen(i) {
+                            if (!i) {
+                                return;
+                            }
+
+                            var collect = [];
+                            for (let x = 0; x < i; x++) {
+                                var code = '';
+                                for (let a = 0; a < 5; a++) {
+                                    code += shuffle(c)[0];
+                                }
+                                collect.push(code);
+                            }
+                            console.log(collect.length);
+                            var deduped = Array.from(new Set(collect));
+                            console.log(deduped.length);
+                            return collect;
+                        }
+                    </script>
+
+                </div>
+
+            </section>
+        </div>
+
+    </div>
+    <script>
+        pid.innerHTML += localStorage.adminID;
+        adminName.innerHTML = localStorage.adminFullName;
+
+        function adjustThreshold() {
+            tthContainer.style.display = "";
+            adminTools.style.display = "none";
+        }
+
+        function confirmTTH() {
+            tthContainer.style.display = "none";
+            adminTools.style.display = "";
+            var v = tthValue.value.trim();
+            adminTools.outerHTML += `<img style="display:none;" src="adminlogin/?updateThreshold=${v}">`;
+        }
+
+        function cancelTTH() {
+            tthContainer.style.display = "none";
+            adminTools.style.display = "";
+        }
+    </script>
+    <div style="flex: 1 1 70%; display: flex; flex-wrap: wrap;" class="white">
+        <div style="flex: 1 1 100%">
+            <h2 id="masthead">Pietential Administrator Dashboard</h2>
+        </div>
+        <div class="soft bright fifty" style="min-height:1050px" id="userListDiv">User List: (waiting to populate....)
+            <br><br>
+            <div class="donutSpinner"></div>
+        </div>
+        <div class="soft bright fifty">User Stats: <b id="userTarget" onclick="edit()">(choose a user to inspect)</b>
+            <div id="userJSON" style="display:none; max-width:400px; width:100%;">
+                <div id="jj" contenteditable="true" spellcheck="false"
+                    style="width:100%; border:1px solid gray; padding:10px; font-family: monospace; font-size: 11px;">
+                </div><br>
+                <button onclick="jupdate()">update</button>
+            </div>
+            <div id="userStats"></div>
+            <canvas id="barchart" style="width:90%; top:-56px;" class="chart"></canvas>
+            <canvas id="myChart" style="width:90%;" class="chart"></canvas>
+            <section id="history" style="display:none;"><br><span id="historyLabel">History:</span><br>
+                <canvas id="graph" class="UID:${userData.userID}" style="max-height:290px;margin-top:30px"></canvas>
+            </section>
+        </div>
+    </div>
+
+
+    <script>
+        function downloadCodes() {
+            var text = document.getElementsByTagName("textarea")[0].value;
+            var m = [];
+            m[0] = text;
+            var myBlob = new Blob(m, {
+                type: 'text/html'
+            });
+            var blobUrl = URL.createObjectURL(myBlob);
+            var link = document.createElement("a");
+            link.href = blobUrl;
+            link.download = `${localStorage.newCompanyCode} organization codes.csv`;
+            link.innerHTML = "<button>Download " + link.download + "</button>";
+            link.click();
+        }
+
+        function jupdate() {
+            var payload = gid("jj").innerText.trim();
+            var pieletData = btoa(payload);
+
+            const fd = new FormData();
+            fd.append('pieletData', pieletData);
+            const options = {
+                method: 'POST',
+                //mode: 'no-cors',
+                body: fd
+            };
+            //contents = btoa(contents);
+            fetch(`../accountEngine/`, options)
+                .then(r => {
+                    return r.text()
+                })
+                .then(contents => {
+                    document.body.innerHTML += `<img src="../ids/make-all.php">`;
+                    localStorage.userList = "";
+                    console.log(contents);
+                    location.assign("?updated");
+                });
+        }
+
+        function edit() {
+            try {
+                if (!userData.userID) {
+                    return;
+                }
+            } catch (e) {
+                return;
+            }
+
+            gid("userJSON").style.display = "";
+            gid("jj").innerHTML = localStorage.userDataJSON;
+        }
+
+
+        if (!localStorage.adminID) {
+            location.assign("adminlogin/");
+        } else {
+            document.cookie = "adminID=" + localStorage.adminID + "; expires=31 Dec 2030 12:00:00 UTC; path=/";
+        }
+
+        function triggerEmail(email, userID) {
+
+        }
+
+
+
+
+        function showresults() {
+            var matchcounter = 0;
+            var filter = document.getElementById("filter").value;
+            var re = new RegExp(filter, 'ig');
+            for (let a of document.getElementsByClassName("users")) {
+                if (a.title.match(re)) {
+                    a.style.display = "block";
+                    matchcounter++;
+                } else {
+                    a.style.display = "none";
+                }
+            }
+        }
+
+        var part1color = `rgba(110, 148, 248, 1)`; //blue
+        var part2color = `rgba(2, 183, 45, 1)`; //green
+        var part3color = `rgba(249, 186, 3, 1)`; // yellow
+        var part4color = `rgba(248, 126, 2, 1)`; // orange
+        var part5color = `rgba(251, 0, 0, 1)`; // red
+        var colorParts = [];
+        colorParts.push(part1color);
+        colorParts.push(part2color);
+        colorParts.push(part3color);
+        colorParts.push(part4color);
+        colorParts.push(part5color);
+        var alphaValue = .8;
+        var border1 = part1color;
+        var border2 = part2color;
+        var border3 = part3color;
+        var border4 = part4color;
+        var border5 = part5color;
+        var fill1 = part1color.replace(" 1)", `${alphaValue})`);
+        var fill2 = part2color.replace(" 1)", `${alphaValue})`);
+        var fill3 = part3color.replace(" 1)", `${alphaValue})`);
+        var fill4 = part4color.replace(" 1)", `${alphaValue})`);
+        var fill5 = part5color.replace(" 1)", `${alphaValue})`);
+
+        function gid(id) {
+            return (document.getElementById(id));
+        }
+
+        function sortByCompany(n) {
+            for (let a of document.getElementsByClassName("userList")) {
+                a.style.display = "";
+            }
+            for (let a of document.getElementsByClassName("userList")) {
+                try {
+                    var re = new RegExp(n, 'ig');
+                    console.log(a.dataset.company);
+
+                    if (!a.dataset.company.match(re)) {
+                        a.style.display = "none";
+                    }
+                } catch (err) {
+                    console.log(err);
+                }
+            }
+        }
+
+        function showAll() {
+            for (let a of document.getElementsByClassName("userList")) {
+                a.style.display = "";
+            }
+        }
+
+        function getUsers() {
+            // https://pietential.com/pielet/admin/getusers.php?adminCode=kjinudustry
+            // var renderedAdminCode = localStorage.adminID.toUpperCase();
+            // localStorage.renderedAdminCode = renderedAdminCode;
+            // https://pietential.com/pielet/admin/getusers.php?adminCode=demo
+            // https://pietential.com/pielet/ids/all.json
+            var pc = JSON.parse(localStorage.adminJSON);
+
+            fetch(`getusers.php?adminCode=${pc.companyCode}`)
+                .then(response => {
+                    return response.text()
+                })
+                .then(userList => {
+                    localStorage.userList = userList;
+                    var us = JSON.parse(localStorage.userList).length;;
+                    numusers.innerHTML = us;
+                    console.log(userList);
+                    console.log(localStorage.adminID);
+
+
+                    var out = '<b>Current Users:</b><br><br>';
+                    var j = JSON.parse(localStorage.userList);
+                    if (!j) {
+                        out +=
+                            `No users found. Make sure you have invited users to sign up using the code "${pc.companyCode}"`;
+                    }
+                    if (j) {
+                        var mi = 1;
+                        out +=
+                            `<div data-company="${company}"  title="Cohort" class="userList users"    style="background:#eee"                    onclick="getCohort()">Cohort averages</div>`;
+                        for (let a of j) {
+                            var company = a.promoCode;
+                            var email = a.email;
+                            var userID = a.userID;
+                            out += `<div data-company="${company}"
+ id="${userID}${email}" title="${email} ${userID} ${a.fname} ${a.lname}" class="userList users" 
+                        onclick="inspectUser('${userID}')">${mi} ${a.fname} ${a.lname}</div>`;
+                            localStorage.out = out;
+                            mi++;
+                        }
+                    }
+
+
+
+                    // var companies = [];
+                    // var compList = '';
+                    // for (let a of j) {
+                    //     if (company) {
+                    //         companies.push(company);
+                    //     }
+                    // }
+                    // var companyList = JSON.parse(localStorage.adminJSON).companyList;
+                    // for (let a of companyList) {
+                    //     try {
+                    //         companies.push(a.fullCompanyName);
+                    //     }
+                    //     catch (e) { }
+                    // }
+                    // var k = JSON.stringify(companies);
+
+
+                    // var deduped = Array.from(new Set(companies));
+                    // for (let a of deduped) {
+                    //     var re = new RegExp(a, 'ig');
+                    //     var nc = k.match(re).length;
+                    //     compList += `<button style="margin:4px;" onclick="sortByCompany('${a}')">${a} (${nc})</button><br>`;
+                    // }
+                    // localStorage.compList = "<div id='compBox'><br><br>Companies found:<br><br><br>" + ` ${compList}</div>`;
+                    // gid("filter").outerHTML += localStorage.compList;
+                    // gid("userListDiv").innerHTML = localStorage.out;
+                    // gid("numusers").innerHTML = j.length;
+                    if (location.href.match(/userid/ig)) {
+                        var userID = location.href.replace(/[\s\S]+=/, "");
+                        inspectUser(userID);
+                    }
+                    if (location.href.match(/email/ig)) {
+                        var em = location.href.replace(/[\s\S]+=/, "");
+
+                        for (let a of j) {
+                            if (a.email == em) {
+                                var userID = a.userID;
+                                console.log(`the em is ${em}`);
+                            }
+                        }
+                        inspectUser(userID);
+                    }
+                    // rebuildCompanyList();
+                    showUsers(out);
+                });
+        }
+
+        function showUsers(out) {
+            userListDiv.innerHTML = out;
+        }
+
+        function drawChart(b, l, a, c, k) {
+
+            var datesHTML = "";
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var ls = ['Self Actualization', 'Esteem and Contribution', 'Love and Belonging', 'Safety Needs',
+                'Physiological Needs'
+            ];
+            //Chart.defaults.global.defaultFontSize = 18;
+            if (window.innerWidth < 1000) {
+                Chart.defaults.global.defaultFontSize = 12;
+            }
+            var myChart = new Chart(ctx, {
+                //type: toggle,
+                type: 'polarArea',
+                //type: 'bar',
+                // type: 'doughnut',
+                data: {
+                    labels: ls,
+                    datasets: [{
+                        label: 'Score',
+                        data: [b, l, a, c, k],
+                        backgroundColor: [
+                            fill1,
+                            fill2,
+                            fill3,
+                            fill4,
+                            fill5
+                        ],
+                        borderColor: [
+                            border1,
+                            border2,
+                            border3,
+                            border4,
+                            border5
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    legend: {
+                        labels: {
+                            // This more specific font property overrides the global property
+                            //defaultFontSize: 18
+                        }
+                    },
+                    // watermark: {
+                    // image: "https://pietential.com/watermark.png",
+                    // alignY: "bottom",
+                    // alignX: "right",
+                    // width: "20%",
+                    // height: "45%",
+                    // position: "back",
+                    // },
+                    scale: {
+                        display: false
+                    },
+                    scales: {
+                        xAxes: [{
+                            gridLines: {
+                                display: false
+                            },
+                            ticks: {
+                                display: false
+                            }
+                        }],
+                        yAxes: [{
+                            gridLines: {
+                                display: false
+                            },
+                            ticks: {
+                                display: false
+                            }
+                        }]
+                    }
+                }
+            });
+        }
+
+
+
+        function getCohort() {
+            window.currentUser = '';
+            if (!localStorage.userList) {
+                return;
+            }
+
+            var userList = JSON.parse(localStorage.userList);
+            var uout = '';
+            for (let a of userList) {
+                if (!a.userID.match(/ggg/ig)) {
+                    uout += a.userID + ",";
+                }
+            }
+            uout = uout.replace(/;$/, '');
+            const fd = new FormData();
+            fd.append('getAPI', uout);
+            const options = {
+                method: 'POST',
+                //mode: 'no-cors',
+                body: fd
+            };
+            fetch(`https://pietential.com/pielet/accountEngine/`, options)
+                .then(response => {
+                    return response.text()
+                })
+                .then(z => {
+                    if(z.length<20){
+                        alert('It looks like you don\'t have any users')
+                    }
+                    localStorage.cohort = z;
+                    var userData = JSON.parse(z);
+                    var av = buildAveragesFromCohort(JSON.parse(localStorage.cohort));
+                    // av.snapshots = buildTimelinesFromCohort();
+                    // res.innerHTML += `\n\n\n` + JSON.stringify(av);
+                    // showCohortRawData();
+                    var us = JSON.parse(localStorage.userList).length;
+                    av.email = `Cohort Averages<br>(${us} users)`;
+                    drawData(JSON.stringify(av));
+                    drawhistory(buildTimelinesFromCohort());
+                });
+        }
+        getCohort();
+
+        function calcCohortSnaps() {
+            var cohort2 = [];
+            cohort = JSON.parse(localStorage.cohort);
+            for (let a of cohort) {
+                var c = averageSnapshots(a.snapshots);
+                a.snapAvg = c;
+            }
+            cohort2.push(a);
+        }
+
+        function buildTimelinesFromCohort() {
+            cohort = JSON.parse(localStorage.cohort);
+            var numberOfSnapshots = 0;
+            var snaps = [];
+            for (let a of cohort) {
+                // make latest data the last time period
+                var latest = {};
+                latest.time = `Most recent`;
+                latest.PN = a.PN;
+                latest.SN = a.SN;
+                latest.LB = a.LB;
+                latest.SA = a.SA;
+                latest.EC = a.EC;
+                a.snapshots.push(latest);
+
+                try {
+                    x = a.snapshots.length;
+                    snaps.push(a.snapshots);
+                    if (x > numberOfSnapshots) {
+                        numberOfSnapshots = x;
+                    }
+                } catch (e) {}
+            }
+            var i = 0;
+            var periods = [];
+            localStorage.snaps = JSON.stringify(snaps);
+            while (i < numberOfSnapshots) {
+                var PNarr = [];
+                var SNarr = [];
+                var LBarr = [];
+                var SAarr = [];
+                var ECarr = [];
+
+                for (let a of snaps) {
+
+                    try {
+                        PNarr.push(a[i].PN);
+                        SNarr.push(a[i].SN);
+                        LBarr.push(a[i].LB);
+                        SAarr.push(a[i].SA);
+                        ECarr.push(a[i].EC);
+                    } catch (e) {}
+
+                }
+
+                var obj = {};
+                obj.time = `Period ${i+1}`;
+                obj.PN = averageValues(PNarr);
+                obj.SN = averageValues(SNarr);
+                obj.LB = averageValues(LBarr);
+                obj.SA = averageValues(SAarr);
+                obj.EC = averageValues(ECarr);
+                console.log(`the avg is ${obj.EC}`);
+                console.log(ECarr);
+                periods.push(obj);
+                i++;
+            }
+            window.periods = periods;
+            localStorage.cohortPeriods = JSON.stringify(periods);
+            return (periods);
+        }
+
+        function showCohortRawData() {
+            res.innerHTML += `\n\n\n` + localStorage.cohort;
+        }
+
+        function averageValues(array) {
+            // console.log(`averageing array with ${array.length} elements.`);
+            var total = 0;
+            for (let a of array) {
+                total += a;
+            }
+            return (Math.round(total / (array.length)));
+        }
+
+        function buildAveragesFromCohort(cohort) {
+            window.cohort = cohort;
+            var PNarr = [];
+            var SNarr = [];
+            var LBarr = [];
+            var SAarr = [];
+            var ECarr = [];
+            for (let a of cohort) {
+                PNarr.push(a.PN);
+                SNarr.push(a.SN);
+                LBarr.push(a.LB);
+                SAarr.push(a.SA);
+                ECarr.push(a.EC);
+            }
+            var obj = {};
+            obj.PN = averageValues(PNarr);
+            obj.SN = averageValues(SNarr);
+            obj.LB = averageValues(LBarr);
+            obj.SA = averageValues(SAarr);
+            obj.EC = averageValues(ECarr);
+            return (obj);
+        }
+
+
+        function inspectUser(id) {
+
+            window.currentUser = id;
+
+            // place this block to destroy old charts and prevent flashbacks
+            gid("userJSON").style.display = "none";
+            gid("barchart").outerHTML = `<canvas id="barchart" class="UID:${id}"></canvas>`;
+            gid("myChart").outerHTML = `<canvas id="myChart" class="UID:${id}"></canvas>`;
+            for (let a of document.getElementsByTagName("canvas")) {
+                if (a.id.match(/document/)) {
+                    a.outerHTML = `<canvas id="graph" class="UID:${id}"></canvas>`;
+                }
+            }
+            //gid("graph").outerHTML = `<canvas id="graph" class="UID:${id}"></canvas>`;
+            document.getElementById("barchart").style.display = "none";
+            document.getElementById("myChart").style.display = "none";
+            gid("tbod").scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+                inline: "nearest"
+            });
+            // window.scrollTo(0, 0); 
+            gid("userStats").innerHTML =
+                `<br><br><div style="text-align:center;"><div class="donutSpinner"></div></div>`;
+
+            if (id !== "cohort") {
+                fetch(`getusers.php?user=${id}`)
+                    .then(response => {
+                        return response.text()
+                    })
+                    .then(pieletJSON => {
+                        localStorage.userDataJSON = pieletJSON;
+                        drawData(pieletJSON);
+                    });
+            }
+        }
+
+        function drawData(pieletJSON) {
+            localStorage.userDataJSON = pieletJSON;
+            var userData = JSON.parse(pieletJSON);
+            var snapLength = 0;
+            window.snapLength = 0;
+            try {
+                window.snapLength = userData.snapshots.length;
+            } catch (e) {}
+            var progressChart = 'The user has 1 dataset available';
+            if (userData.email.match(/cohort/ig)) {
+                var us = JSON.parse(localStorage.userList).length;
+                progressChart = `The cohort dataset (${us} users)`;
+            }
+
+            if (window.snapLength > 0) {
+                var progressChart = `The user has ${window.snapLength + 1} datasets available`;
+            }
+            document.getElementById("userTarget").innerHTML = userData.email;
+            var out = `<b>${userData.email} User Data:</b><br><br>`;
+            out +=
+                `<!--<button onclick="zoom('${userData.userID}')">View lastest chart</button>--> <button onclick="zoom('${userData.userID}')">View history graph</button><br><br>`;
+            //out += `${pielet.email}<br>${pielet.userID}<br>${pielet.account}<br>${pielet.partnerID}<br>`;
+            //out += `<textarea>${localStorage.pieletJSON}</textarea><br><br>`;
+            var quit = 0;
+            var udj = JSON.stringify(userData);
+            if (!userData.SA) {
+                var quit = 1;
+            }
+            if (!userData.PN) {
+                var quit = 1;
+            }
+            if (!userData.EC) {
+                var quit = 1;
+            }
+            if (!userData.LB) {
+                var quit = 1;
+            }
+            if (!userData.SN) {
+                var quit = 1;
+            }
+            if (quit > 0) {
+                gid("userStats").innerHTML =
+                    '<b style="color:red;">Failed to import data.</b> This usually means the selected user has no current scores. Be sure the user has recently completed the survey.<br><br><a href="javascript://" onclick="document.getElementById(`raw`).style.display=`block`">Inspect raw data</a>.<br><br><code id="raw" style="font-size:11px;display:none; word-break:break-word;">' +
+                    udj + '</code>';
+                document.getElementById("barchart").style.display = "none";
+                document.getElementById("myChart").style.display = "none";
+                return;
+            }
+            document.getElementById("myChart").style.display = "block";
+            document.getElementById("barchart").style.display = "block";
+            userData.prcoded = null;
+            userData.salt = null;
+            userData.hash = null;
+            userData.count = 0;
+            for (a in userData) {
+                //out += `${a} - ${pielet[a]}<br>`;
+                userData.count++;
+                if (userData.count > 4) {
+                    break;
+                }
+            }
+            gid("userStats").innerHTML = `
+                     <br><br>
+                    <b>Self Actualization</b>: ${userData.SA}%<br>
+                    <b>Esteem</b>: ${userData.EC}%<br>
+                    <b>Love and Belonging</b>: ${userData.LB}%<br> 
+                    <b>Safety Needs</b>: ${userData.SN}%<br>
+                    <b>Physiological Needs</b>: ${userData.PN}%<br><br>
+                    ${progressChart}<br><br>
+                    `;
+
+
+
+            // now draw chart
+            window.userData = userData;
+
+            drawChart(userData.SA, userData.EC, userData.LB, userData.SN, userData.PN);
+            drawBar(userData.SA, userData.EC, userData.LB, userData.SN, userData.PN);
+            if (window.snapLength > 0) {
+                buildTimeAverages();
+            } else {
+                document.getElementById("history").style.display = "none";
+            }
+
+        }
+
+        //{"userID":"DLYo8nIcD5Fs","account":"organic","partnerID":"organic","joinDate":"2020-11-11","currentPart":"Part5","currentColor":"rgb(110, 148, 248)","prcoded
+
+        function roundNumber(n) {
+            n = Math.round(n);
+            if (n > 98) {
+                n = 100;
+            }
+            if (n == 59 || n == 58) {
+                n = 60;
+            }
+            return (n);
+        }
+
+
+        function drawBar(b, l, a, c, k) {
+
+            var ctx2 = document.getElementById('barchart').getContext('2d');
+            var ls = ['Self Actualization', 'Esteem and Contribution', 'Love and Belonging', 'Safety Needs',
+                'Physiological Needs'
+            ];
+            var alphaValue = 1;
+            //Chart.defaults.global.defaultFontSize = 18;
+            if (window.innerWidth < 1000) {
+                Chart.defaults.global.defaultFontSize = 12;
+            }
+
+            var barchart = new Chart(ctx2, {
+                type: 'bar',
+                data: {
+                    labels: ls,
+                    datasets: [{
+                        label: 'score',
+                        data: [b, l, a, c, k],
+                        backgroundColor: [
+                            fill1,
+                            fill2,
+                            fill3,
+                            fill4,
+                            fill5
+                        ],
+                        borderColor: [
+                            border1,
+                            border2,
+                            border3,
+                            border4,
+                            border5
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    // watermark: {
+                    // image: "https://pietential.com/watermark.png",
+                    // alignY: "top",
+                    // alignX: "right",
+                    // width: "20%",
+                    // height: "45%",
+                    // position: "back",
+                    // },
+                    legend: {
+                        display: false,
+                    },
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true,
+                                max: 100
+                            }
+                        }]
+                    }
+                }
+            });
+        }
+
+
+
+
+
+            // if (document.cookie.match(/run77/)) {
+            //     var id = userData.userID;
+            //     var link = `/pielet/accountEngine/?getAPI=${id}`;
+            //     var inspect = `<br><a href="${link}">Inspect ${id}</a>`;
+            //     var fullData = `<br><textarea>${JSON.stringify(userData)}</textarea>`;
+            //     document.getElementById("trace1").innerHTML = JSON.stringify(times) + id + inspect + fullData;
+            // }
+        
+
+        function averageSnapshots(arrOfSnapObjs) {
+            var arr = [];
+            for (let a of arrOfSnapObjs) {
+                var obj = {};
+                obj.time = a.time;
+                var vals = [];
+                for (let b in a) {
+                    if (b.match(/Q/)) {
+                        if (b.match(/Q[0|1|2|3|4|5]r/)) {
+                            vals.push(a[b] * 10);
+                        }
+                    }
+                }
+                obj.SA = averageValues(vals);
+                var vals = [];
+                for (let b in a) {
+                    if (b.match(/Q/)) {
+                        if (b.match(/Q[6|7|8|9|10|11]r/)) {
+                            vals.push(a[b] * 10);
+                        }
+                    }
+                }
+                obj.EC = averageValues(vals);
+                var vals = [];
+                for (let b in a) {
+                    if (b.match(/Q/)) {
+                        if (b.match(/Q(12r|13r|14r|15r|16r|17r)/)) {
+                            vals.push(a[b] * 10);
+                        }
+                    }
+                }
+                obj.LB = averageValues(vals);
+                var vals = [];
+                for (let b in a) {
+                    if (b.match(/Q/)) {
+                        if (b.match(/Q(18r|19r|20r|21r|22r|23r)/)) {
+                            vals.push(a[b] * 10);
+                        }
+                    }
+                }
+                obj.SN = averageValues(vals);
+                var vals = [];
+                for (let b in a) {
+                    if (b.match(/Q/)) {
+                        if (b.match(/Q(24r|25r|26r|27r|28r|29r)/)) {
+                            vals.push(a[b] * 10);
+                        }
+                    }
+                }
+                obj.PN = averageValues(vals);
+                arr.push(obj);
+            }
+            return (arr);
+        }
+
+        function buildTimeAverages() {
+            var userData = JSON.parse(localStorage.userDataJSON);
+            if (userData.SA && userData.SN) {
+                var latestResults = {
+                    "time": "LATEST",
+                    "SA": userData.SA,
+                    "EC": userData.EC,
+                    "PN": userData.PN,
+                    "LB": userData.LB,
+                    "SN": userData.SN
+                };
+                localStorage.latestResults = JSON.stringify(latestResults)
+            }
+            var r = averageSnapshots(userData.snapshots);
+            r.push(latestResults);
+            console.log(`buildTimeAverages() is returning:`);
+            console.log(r);
+            userData.snapsAveraged = r;
+            localStorage.userDataJSON = JSON.stringify(userData)
+            //buildPastChartsFromArray(r);
+            drawhistory(r);
+        }
+
+
+        function drawhistory(times) {
+            document.getElementById('history').style.display = "";
+            // kill old charts
+            document.getElementById('graph').outerHTML = `<canvas id="graph"></canvas>`;
+            var titler = "Cohort History:";
+            if (window.currentUser){
+                titler = "Individual's History:";
+            }
+            try {
+                historyLabel.innerHTML = titler;
+            } catch (e) {}
+
+            var inputs = {
+                min: 20,
+                max: 80,
+                count: 8,
+                decimals: 2,
+                continuity: 1
+            };
+            var part1color = `rgba(110, 148, 248, 1)`;
+            var part2color = `rgba(2, 183, 45, 1)`;
+            var part3color = `rgba(249, 186, 3, 1)`;
+            var part4color = `rgba(248, 126, 2, 1)`;
+            var part5color = `rgba(251, 0, 0, 1)`;
+            var colorParts = [];
+            colorParts.push(part1color);
+            colorParts.push(part2color);
+            colorParts.push(part3color);
+            colorParts.push(part4color);
+            colorParts.push(part5color);
+            var timesar = [];
+            var SAar = [];
+            var PNar = [];
+            var SNar = [];
+            var LBar = [];
+            var ECar = [];
+            var timesar = [];
+            for (var i = 0; i < times.length; i++) {
+                timesar.push(times[i].time);
+                SAar.push(times[i].SA);
+                PNar.push(times[i].PN);
+                SNar.push(times[i].SN);
+                LBar.push(times[i].LB);
+                ECar.push(times[i].EC);
+            }
+            var data = {
+                labels: timesar,
+                datasets: [{
+                    backgroundColor: "rgba(9,0,0,0.1)",
+                    borderColor: colorParts[0],
+                    data: SAar,
+                    // data: gloc[4],
+                    label: 'Self Actualization',
+                    fill: '-1'
+                }, {
+                    backgroundColor: "rgba(9,0,0,0.1)",
+                    borderColor: colorParts[1],
+                    data: ECar,
+                    //data: gloc[2],
+
+                    label: 'Self-Esteem and Contribution',
+                    fill: '-1'
+                }, {
+                    backgroundColor: "rgba(9,0,0,0.1)",
+                    borderColor: colorParts[2],
+                    data: LBar,
+                    //data: gloc[3],
+                    label: 'Love and Belonging',
+                    fill: '-1'
+                }, {
+                    backgroundColor: "rgba(9,0,0,0.1)",
+                    borderColor: colorParts[3],
+                    data: SNar,
+                    //data: gloc[1],
+                    label: 'Safety Needs',
+                    fill: '0'
+                }, {
+                    backgroundColor: "rgba(9,0,0,0.1)",
+                    borderColor: colorParts[4],
+                    data: PNar,
+                    //data: gloc[0],
+
+                    label: 'Physiological Needs',
+                    fill: '0'
+                }, ]
+            };
+
+            console.log(data);
+
+            var options = {
+                maintainAspectRatio: false,
+                spanGaps: false,
+                elements: {
+                    line: {
+                        tension: 0.4
+                    }
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                },
+                plugins: {
+                    filler: {
+                        propagate: false
+                    },
+                    'samples-filler-analyser': {
+                        target: 'chart-analyser'
+                    }
+                }
+            };
+
+            var chart = new Chart('graph', {
+                type: 'line',
+                data: data,
+                options: options
+            });
+
+        }
+
+
+
+        getUsers();
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // function buildPastChartsFromArray(times){
+        //     if (document.cookie.match(/run77/)) {
+        //             var id = userData.userID;
+        //             var link = `/pielet/accountEngine/?getAPI=${id}`;
+        //             var inspect = `<br><a href="${link}">Inspect ${id}</a>`;
+        //             var fullData = `<br><textarea>${JSON.stringify(userData)}</textarea>`;
+        //             document.getElementById("trace1").innerHTML = JSON.stringify(times) + id + inspect + fullData;
+        //         }
+        //         var inputs = {
+        //             min: 20,
+        //             max: 80,
+        //             count: 8,
+        //             decimals: 2,
+        //             continuity: 1
+        //         };
+
+
+        //         var part1color = `rgba(110, 148, 248, 1)`;
+        //         var part2color = `rgba(2, 183, 45, 1)`;
+        //         var part3color = `rgba(249, 186, 3, 1)`;
+        //         var part4color = `rgba(248, 126, 2, 1)`;
+        //         var part5color = `rgba(251, 0, 0, 1)`;
+
+        //         var colorParts = [];
+        //         colorParts.push(part1color);
+        //         colorParts.push(part2color);
+        //         colorParts.push(part3color);
+        //         colorParts.push(part4color);
+        //         colorParts.push(part5color);
+
+        //         var timesar = [];
+        //         var SAar = [];
+        //         var PNar = [];
+        //         var SNar = [];
+        //         var LBar = [];
+        //         var ECar = [];
+        //         var timesar = [];
+        //         for (var i = 0; i < times.length; i++) {
+        //             timesar.push(times[i].time);
+        //             SAar.push(times[i].SA);
+        //             PNar.push(times[i].PN);
+        //             SNar.push(times[i].SN);
+        //             LBar.push(times[i].LB);
+        //             ECar.push(times[i].EC);
+        //         }
+
+        //         var data = {
+        //             labels: timesar,
+        //             datasets: [{
+        //                 backgroundColor: "rgba(9,0,0,0.1)",
+        //                 borderColor: colorParts[0],
+        //                 data: SAar,
+        //                 // data: gloc[4],
+        //                 label: 'Self Actualization',
+        //                 fill: '-1'
+        //             }, {
+        //                 backgroundColor: "rgba(9,0,0,0.1)",
+        //                 borderColor: colorParts[1],
+        //                 data: ECar,
+        //                 //data: gloc[2],
+
+        //                 label: 'Self-Esteem and Contribution',
+        //                 fill: '-1'
+        //             }, {
+        //                 backgroundColor: "rgba(9,0,0,0.1)",
+        //                 borderColor: colorParts[2],
+        //                 data: LBar,
+        //                 //data: gloc[3],
+        //                 label: 'Love and Belonging',
+        //                 fill: '-1'
+        //             }, {
+        //                 backgroundColor: "rgba(9,0,0,0.1)",
+        //                 borderColor: colorParts[3],
+        //                 data: SNar,
+        //                 //data: gloc[1],
+        //                 label: 'Safety Needs',
+        //                 fill: '0'
+        //             }, {
+        //                 backgroundColor: "rgba(9,0,0,0.1)",
+        //                 borderColor: colorParts[4],
+        //                 data: PNar,
+        //                 //data: gloc[0],
+
+        //                 label: 'Physiological Needs',
+        //                 fill: '0'
+        //             }, ]
+        //         };
+
+        //         console.log(data);
+
+        //         var options = {
+        //             maintainAspectRatio: false,
+        //             spanGaps: false,
+        //             elements: {
+        //                 line: {
+        //                     tension: 0.4
+        //                 }
+        //             },
+        //             scales: {
+        //                 yAxes: [{
+        //                     ticks: {
+        //                         beginAtZero: true
+        //                     }
+        //                 }]
+        //             },
+        //             plugins: {
+        //                 filler: {
+        //                     propagate: false
+        //                 },
+        //                 'samples-filler-analyser': {
+        //                     target: 'chart-analyser'
+        //                 }
+        //             }
+        //         };
+
+        //         var chart = new Chart(now, {
+        //             type: 'line',
+        //             data: data,
+        //             options: options
+        //         });
+        // }
+
+
+        // function buildPastCharts() {
+        //     var userData = JSON.parse(localStorage.userDataJSON);
+        //     var now = "document" + Date.now();
+        //     document.getElementById("history").style.display = "block";
+        //     document.getElementById("history").outerHTML =
+        //         `<!--the userID is ${userData.userID} --><section id="history"><br><b>User History:</b><br><canvas id="${now}" class="UID:${userData.userID}" style="max-height:290px;margin-top:30px"></canvas>
+        //             <div id="trace1"></div>
+        //             </section>`;
+        //     var counter = 1;
+        //     var times = [];
+        //     var ar = [];
+        //     for (let c of userData.snapshots) {
+        //         var obj = {};
+        //         obj.time = c.timestamp;
+        //         for (let d in c) {
+        //             if (d.match(/^Q/)) {
+        //                 obj[d] = c[d];
+        //             }
+        //         }
+
+        //         ar.push(obj);
+        //         //past.innerHTML += counter + `. Timestamp: ` + obj.time + JSON.stringify(obj) + `<br>`;
+        //         counter++;
+        //     }
+        //     if (userData.SA && userData.SN) {
+        //         var latestResults = {"time":"LATEST",
+        //         "SA":userData.SA,
+        //         "EC":userData.EC,
+        //         "PN":userData.PN,
+        //         "LB":userData.LB,
+        //         "SN":userData.SN };
+        //         localStorage.latestResults = JSON.stringify(latestResults)
+        //     }
+        //     // see if the latest form has been filled out
+        //     if (userData.SA && userData.SN) {
+        //         var currentResults = {};
+        //         //var latestResults = [SA,EC,PN,LB,SN]
+        //         for (let d in userData) {
+        //             if (d.match(/^Q/)) {
+        //                 currentResults[d] = userData[d];
+        //             }
+        //         }
+        //         currentResults.time = userData.completionDate;
+        //         currentResults.time = 'Latest';
+        //         //ar.push(currentResults);
+        //     }
+        //     console.log(ar);
+        //     userData.ar = ar;
+        //     var tcx = 2;
+        //     var timelist = [];
+        //     for (let t of ar) {
+        //         var SA = 0;
+        //         var EC = 0;
+        //         var PN = 0;
+        //         var LB = 0;
+        //         var SN = 0;
+        //         for (const property in t) {
+
+        //             if (property.match(/Q0response|Q1response|Q2response|Q3response|Q4|Q5/g) && Number.isInteger(t[
+        //                     property])) {
+        //                 SA += parseInt(t[property]) * 1.66;
+        //                 SA = roundNumber(SA);
+        //             }
+        //             if (property.match(/Q6|Q7|Q8|Q9|Q10|Q11/g) && Number.isInteger(t[property])) {
+        //                 EC += parseInt(t[property]) * 1.66;
+        //                 EC = roundNumber(EC);
+        //             }
+        //             if (property.match(/Q12|Q13|Q14|Q15|Q16|Q17/g) && Number.isInteger(t[property])) {
+        //                 LB += parseInt(t[property]) * 1.66;
+        //                 LB = roundNumber(LB);
+        //             }
+        //             if (property.match(/Q18|Q19|Q20|Q21|Q22|Q23/g) && Number.isInteger(t[property])) {
+        //                 //33-38
+        //                 SN += parseInt(t[property]) * 1.66;
+        //                 SN = roundNumber(SN);
+        //             }
+        //             if (property.match(/Q24|Q25|Q26|Q27|Q28|Q29/g) && Number.isInteger(t[property])) {
+        //                 //40-45
+        //                 PN += parseInt(t[property]) * 1.66;
+        //                 PN = roundNumber(PN);
+        //             }
+        //             if (property.match(/time/g)) {
+
+        //                 for (let tvf of timelist) {
+        //                     if (t[property] == tvf) {
+        //                         t[property] += " " + tcx;
+        //                         tcx++;
+        //                     }
+
+        //                 }
+        //                 var time = t[property];
+        //                 timelist.push(time);
+        //                 // console.log(time);
+        //             }
+
+
+
+
+        //         }
+        //         if (SA) {
+        //             var obj = {};
+        //             obj.time = time;
+        //             obj.SA = SA;
+        //             obj.EC = EC;
+        //             obj.LB = LB;
+        //             obj.SN = SN;
+        //             obj.PN = PN;
+
+        //             times.push(obj); //gval()
+        //             //console.log(obj);
+        //         }
+
+        //         if (document.cookie.match(/run77/)) {
+        //             var id = userData.userID;
+        //             var link = `/pielet/accountEngine/?getAPI=${id}`;
+        //             var inspect = `<br><a href="${link}">Inspect ${id}</a>`;
+        //             var fullData = `<br><textarea>${JSON.stringify(userData)}</textarea>`;
+        //             document.getElementById("trace1").innerHTML = JSON.stringify(times) + id + inspect + fullData;
+        //         }
+        //         var inputs = {
+        //             min: 20,
+        //             max: 80,
+        //             count: 8,
+        //             decimals: 2,
+        //             continuity: 1
+        //         };
+
+
+        //         var part1color = `rgba(110, 148, 248, 1)`;
+        //         var part2color = `rgba(2, 183, 45, 1)`;
+        //         var part3color = `rgba(249, 186, 3, 1)`;
+        //         var part4color = `rgba(248, 126, 2, 1)`;
+        //         var part5color = `rgba(251, 0, 0, 1)`;
+
+        //         var colorParts = [];
+        //         colorParts.push(part1color);
+        //         colorParts.push(part2color);
+        //         colorParts.push(part3color);
+        //         colorParts.push(part4color);
+        //         colorParts.push(part5color);
+
+        //         var timesar = [];
+        //         var SAar = [];
+        //         var PNar = [];
+        //         var SNar = [];
+        //         var LBar = [];
+        //         var ECar = [];
+        //         var timesar = [];
+        //         for (var i = 0; i < times.length; i++) {
+        //             timesar.push(times[i].time);
+        //             SAar.push(times[i].SA);
+        //             PNar.push(times[i].PN);
+        //             SNar.push(times[i].SN);
+        //             LBar.push(times[i].LB);
+        //             ECar.push(times[i].EC);
+        //         }
+
+        //         var data = {
+        //             labels: timesar,
+        //             datasets: [{
+        //                 backgroundColor: "rgba(9,0,0,0.1)",
+        //                 borderColor: colorParts[0],
+        //                 data: SAar,
+        //                 // data: gloc[4],
+        //                 label: 'Self Actualization',
+        //                 fill: '-1'
+        //             }, {
+        //                 backgroundColor: "rgba(9,0,0,0.1)",
+        //                 borderColor: colorParts[1],
+        //                 data: ECar,
+        //                 //data: gloc[2],
+
+        //                 label: 'Self-Esteem and Contribution',
+        //                 fill: '-1'
+        //             }, {
+        //                 backgroundColor: "rgba(9,0,0,0.1)",
+        //                 borderColor: colorParts[2],
+        //                 data: LBar,
+        //                 //data: gloc[3],
+        //                 label: 'Love and Belonging',
+        //                 fill: '-1'
+        //             }, {
+        //                 backgroundColor: "rgba(9,0,0,0.1)",
+        //                 borderColor: colorParts[3],
+        //                 data: SNar,
+        //                 //data: gloc[1],
+        //                 label: 'Safety Needs',
+        //                 fill: '0'
+        //             }, {
+        //                 backgroundColor: "rgba(9,0,0,0.1)",
+        //                 borderColor: colorParts[4],
+        //                 data: PNar,
+        //                 //data: gloc[0],
+
+        //                 label: 'Physiological Needs',
+        //                 fill: '0'
+        //             }, ]
+        //         };
+
+        //         console.log(data);
+
+        //         var options = {
+        //             maintainAspectRatio: false,
+        //             spanGaps: false,
+        //             elements: {
+        //                 line: {
+        //                     tension: 0.4
+        //                 }
+        //             },
+        //             scales: {
+        //                 yAxes: [{
+        //                     ticks: {
+        //                         beginAtZero: true
+        //                     }
+        //                 }]
+        //             },
+        //             plugins: {
+        //                 filler: {
+        //                     propagate: false
+        //                 },
+        //                 'samples-filler-analyser': {
+        //                     target: 'chart-analyser'
+        //                 }
+        //             }
+        //         };
+
+        //         var chart = new Chart(now, {
+        //             type: 'line',
+        //             data: data,
+        //             options: options
+        //         });
+
+        //     }
+
+        // }
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+    <img src="getusers.php?pic=1">
+</body>
+
+</html>

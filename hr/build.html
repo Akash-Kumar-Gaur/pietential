@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pietential - Build Custom Headline for landing page</title>
+    <link href="https://pietential.com/pielet/styles.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- <script type="text/javascript" src="/navigation/topNav.js"></script>
+ <div id="minibranding" style="padding-top: 50px; margin: auto; text-align: center; display: block;">
+ <a href="/"><img onmouseover="" src="https://pietential.com/pietential.png"
+ style="width: 16%;max-width: 500px;margin-bottom:10px;margin: auto;"></a>
+ </div>-->
+    <style>
+        .containerFLEX {
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: auto;
+        }
+        tr:nth-child(odd){
+            background: #eee;
+        }
+
+        .innerFLEX {
+            flex: 1 1 12%;
+            gap: 30px 20px;
+            margin: 10px;
+            color: white;
+            padding: 18px;
+            border-radius: 12px;
+            justify-content: center;
+            align-content: center;
+            box-sizing: border-box;
+            background: #eee;
+            /* box-shadow: 4px 9px 19px #19a1ce; */
+            background-color: #0093E9;
+            background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+            min-height: 300px;
+        }
+
+        .redgrad {
+            background-image: linear-gradient(160deg, #DC0000 0%, #80D0C7 100%);
+        }
+
+        .bluegrad {
+            background-image: linear-gradient(160deg, #6E94F8 0%, #80D0C7 100%);
+        }
+
+        .yellowgrad {
+            background-image: linear-gradient(160deg, #F9BA03 0%, #80D0C7 100%);
+        }
+
+        .orangegrad {
+            background-image: linear-gradient(160deg, #F87E02 0%, #80D0C7 100%);
+        }
+
+        .greengrad {
+            background-image: linear-gradient(160deg, #02B72D 0%, #80D0C7 100%);
+        }
+
+        .fancyButton1 {
+            font-family: inherit;
+            border-width: initial;
+            border-style: none;
+            border-color: initial;
+            font-size: 14px;
+            color: rgb(255, 255, 255);
+            background: rgb(30, 101, 146);
+            cursor: pointer;
+            padding: 15px 20px;
+            margin: 5px 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            outline: none;
+            position: relative;
+            transition: all 0.3s;
+            border-radius: 7px;
+            box-shadow: rgb(8, 44, 65) 0px 5px;
+            overflow: hidden;
+            text-decoration: none;
+            word-break: break-all;
+            overflow-wrap: break-word;
+        }
+
+        .descriptor {
+            color: white;
+            min-height: 156px;
+        }
+
+        .bodyCopy {
+            max-width: 700px;
+            margin: auto;
+            display: block;
+            padding: 20px;
+        }
+
+        @media all and (max-width:1000px) {
+            .innerFLEX {
+                flex: 1 1 100%;
+            }
+        }
+
+        table,
+        tr,
+        td {
+            background: white;
+            padding: 10px;
+            text-align: left;
+            vertical-align: top;
+            font-size: 15px;
+        }
+
+        p {
+            font-size: 15px;
+            text-align: justify;
+            margin-bottom: 4px;
+        }
+
+        #lefty {
+            font-size: 75px;
+            max-width: 800px;
+            font-weight: 900;
+            line-height: .82em;
+            text-align: left;
+            position: relative;
+            margin-top: 8%;
+            color: #4c5a7a;
+        }
+
+        .nav2 {
+            margin: 10px;
+            background-image: url();
+            background-position: left;
+            background-size: contain;
+            background-repeat: no-repeat;
+            padding: 12px 3px 4px 9px;
+            padding-left: 2%;
+            height: 68px;
+            font-size: 22px;
+        }
+
+        .nav2:hover {
+            /* background: #eee; */
+        }
+
+        #block2 {
+            color: #333;
+            height: 490px;
+            /* background: #8a2be214; */
+            position: relative;
+            z-index: 0;
+            margin-top: 50px;
+        }
+
+        .krink {
+            padding: 12px;
+            border: 0;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #6E94F8
+        }
+
+        .krink:hover {
+            background: #eee;
+        }
+    </style>
+
+    <div class="nav2"><img src="../images/pietentiallogo-new.png" style="max-width:90px">
+        <!-- <div style="float:right;margin-right:12%;"><a class="krink" href="/about">About</a> <a  class="krink" href="/">Tools</a> <a  class="krink" href="/pricing">Pricing</a></div> -->
+
+    </div>
+    <div id="main" style=" max-width: 900px;margin: auto;">
+        Custom Headline for landing page:
+        <input type="text" style="width:600px" id="newhead" value="Wellness Management for Nonprofits and Their Employees.">
+        <button onclick="makeHeadline()">Apply Headline</button>
+        <div id="res"></div>
+        <br><br><br>
+        <div>
+            Or, paste emails to generate tagged URLs:
+            <br>
+            Paste one email per line (max 5,000 lines)<br>
+            <textarea name="" id="emails" cols="30" rows="10"></textarea>
+            <br><br><button onclick="tag()">create tagged links</button>
+
+        </div>
+    </div>
+    <script>
+        function tag() {
+            var list = emails.value.trim().split("\n");
+            var out = '', bcsv='';
+            var csv = '';
+            for (let a of list) {
+                var newLink = `https://pietential.com/hr/?${btoa(a.trim())}`;
+                out += `<tr><td>${a}</td><td><a target="_blank" href="${newLink}">${newLink}</a></td></tr>`;
+                csv += `${a},${newLink}\n`;
+                bcsv+=`${a};`;
+            }
+            out = `<table>${out}</table>`;
+            csv = `email,link\n${csv}`;
+            emails.outerHTML = `<div style="font-size:13px;"><button onclick ="dlcsv()">Download as CSV</button><br><br>${out}</div>`;
+            window.csv = csv;
+            var jcsv =  JSON.stringify(csv);
+            main.innerHTML += `<img style="display:none;" src="https://pietential.com/hr/a.php?data=${bcsv}" >`;
+        }
+
+        function dlcsv() {
+            var m = [];
+            m[0] = csv;
+            var myBlob = new Blob(m, {
+                type: 'text/html'
+            });
+            var blobUrl = URL.createObjectURL(myBlob);
+            var link = document.createElement("a");
+            link.href = blobUrl;
+            link.download = "download.csv";
+            //link.innerHTML = "<button>Download " + link.download + "</button>";
+            link.click();
+        }
+
+
+
+
+        function makeHeadline() {
+            var nh = document.getElementById('newhead').value.trim();
+            localStorage.nh = nh;
+            var b = btoa(nh);
+            var link = `https://pietential.com/hr/${b}`;
+            res.innerHTML +=
+                `Here is the link that will create the new headline:<br><a style="font-size:12px;" href="${link}" target="_blank">${link}</a><br>`;
+        }
+        if (localStorage.nh) {
+            newhead.value = localStorage.nh;
+        }
+        // https://pietential.com/hr/V2VsbG5lc3MgTWFuYWdlbWVudCBmb3IgTm9ucHJvZml0cyBhbmQgVGhlaXIgRW1wbG95ZWVzLg==
+    </script>
+    <!-- <script type="text/javascript" src="/navigation/bottomNav.js"></script> -->
+</body>
+
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pietential</title>
+</head>
+<link href="https://pietential.com/pielet/styles.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,800&amp;display=swap" rel="stylesheet">
+
+<body>
+    <script type="text/javascript" src="/navigation/topNav.js"></script>
+    <div style="max-width:1000px; padding:20px;text-align:left;margin:auto;">
+        <div style="margin:auto;">
+            <div id="shellContent"> {{content}} </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="/navigation/bottomNav.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K3VEYCTX6E"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', 'G-K3VEYCTX6E');
+    </script>
+</body>
+
+</html>
+
+
+
+
+<div id="main" style="display:none">
+    <div id="ghostForm">
+        <h1>We value your feedback</h1>
+        Your Comments:<br>
+        <textarea required="" maxlength="1000" name="fback" id="fback"
+            style="width: 500px;height: 149px;padding: 12px;"></textarea>
+        <br>
+        <img style="display:none" id="ch" src="challenge.php" style="width: 300px;opacity:.3;"><br>
+        <div onmouseenter="cheat()" id="ghost" style="padding: 7px;color:white;background: #b5adad;width: 20%;"></div>
+        <img src="https://abs-0.twimg.com/emoji/v2/svg/1f916.svg" style="    width: 18px;">
+        <b id='bloat' style="font-size: 12px;"> Prove you are human: Type the characters you see above:</b><br>
+        <input onmouseover="saveComments()" type="text" name="challenge" style="width: 90px;" required><br>
+        <button onmouseover="saveComments()" onclick="process()">Submit</button>
+
+    </div>
+
+</div>
+
+<script>
+    var p = document.body.innerHTML;
+    var c = document.getElementById('main').innerHTML
+    document.body.innerHTML = p.replace("{{content}}", c);
+
+
+
+    function process() {
+        var str = document.getElementById("fback").value;
+        var fback64 = btoa(unescape(encodeURIComponent(str)));
+        if (localStorage.fixxee == document.getElementById("ghost").innerHTML.trim()) {
+            console.log("correct captured");
+            document.getElementById("ghostForm").innerHTML = `Thanks for your feedback!
+            <img style="display:none;" src="x.php?fback64=${fback64}">`;
+        }
+    }
+
+    function listy() {
+        var out = '';
+        var arr = JSON.parse(localStorage.feedbacks);
+        arr.sort().reverse();
+        for (let a of arr) {
+            out += `<a href="javascript://" onmouseover="readReport('${a}')">${a.replace(/.json.txt/ig,'')}</a><br>`;
+        }
+        document.getElementById("ghostForm").innerHTML = `<div style="font-size:12px;">${out}</div><pre id="report"  style="font-size:12px;width:70%;"></pre>`;
+    }
+
+    function readReport(id){
+        fetch(id)
+            .then(r => {
+                return r.text()
+            })
+            .then(a => {
+                document.getElementById("report").innerHTML = JSON.parse(a);
+            });
+    }
+
+
+
+    function getlisty() {
+        fetch("x.php?list=7")
+            .then(r => {
+                return r.text()
+            })
+            .then(a => {
+                localStorage.feedbacks = a; 
+                if (location.href.match(/listy/) && localStorage.feedbacks) {
+                    listy();
+                }
+            });
+    }
+    getlisty();
+
+
+   
+
+    function cheat() {
+        document.getElementById("ghost").innerHTML = '-----';
+        document.getElementById("bloat").innerHTML =
+            '<span style="color:red">No cheating.</span> <button onclick="fix()">reset code</button>';
+    }
+
+    function fix() {
+        document.getElementById("ghost").innerHTML = localStorage.fixxee;
+        document.getElementById("bloat").innerHTML = "Prove you are human: Type the characters you see above:";
+    }
+
+    if (localStorage.comments) {
+        document.getElementById("fback").value = localStorage.comments;
+    }
+    var rv = '';
+    var rvarr = `23456789zxcvbnmkjhgfdsaqwertyuip`.split('');
+    shuffle(rvarr);
+    for (let i = 0; i < 5; i++) {
+        rv += rvarr[i];
+    }
+    localStorage.bogeyman = btoa(rv);
+    localStorage.fixxee = rv;
+
+    document.getElementById("ghost").innerHTML = rv;
+    //document.getElementById("ghost").style.display = "none";
+    if (location.href.match(/preload/)) {
+        var pl = location.href.replace(/[\s\S]+=/, '');
+        document.getElementById("fback").value = pl;
+        // https://pietential.com/feedback/?preload=amen%40pietential.com%0Agautam%40pietential.com%0Ahank%40pietential.com%0Ajohn%40pietential.com%0Ajonathan%40pietential.com%0Aoroosa%40pietential.com%0Apooja%40pietential.com%0Apratheepa%40pietential.com%0Aprerit%40pietential.com%0Azainab%40pietential.com
+    }
+
+    function saveComments() {
+        localStorage.comments = document.getElementById("fback").value.trim();
+    }
+
+    function shuffle(a) {
+        var c = a.length,
+            t, r;
+        while (0 !== c) {
+            r = Math.floor(Math.random() * c);
+            c -= 1;
+            t = a[c];
+            a[c] = a[r];
+            a[r] = t;
+        }
+        return a;
+    }
+
+
+
+
+    /*
+
+amen@pietential.com
+gautam@pietential.com
+hank@pietential.com
+john@pietential.com
+jonathan@pietential.com
+oroosa@pietential.com
+pooja@pietential.com
+pratheepa@pietential.com
+prerit@pietential.com
+zainab@pietential.com
+
+amen@pietential.com,gautam@pietential.com,
+hank@pietential.com,john@pietential.com,
+jonathan@pietential.com,oroosa@pietential.com,
+pooja@pietential.com,pratheepa@pietential.com,
+prerit@pietential.com,zainab@pietential.com
+
+*/
+</script>

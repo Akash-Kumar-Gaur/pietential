@@ -1,0 +1,141 @@
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="styles.css" rel="stylesheet" type="text/css">
+    <link rel="icon" type="image/png" href="icon.png">
+    <title>Pietential - Growth Potential Visualization Survey</title>
+</head>
+
+
+<style>
+    .rangeScore {
+        font-size: 60px;
+        cursor: pointer;
+    }
+
+    .rangeScore:hover {
+        color: #1a82da;
+    }
+
+    .rangeButton {
+        color: white;
+        padding: 12px 24px;
+        background-color: rgb(55, 125, 212);
+        background-color: black;
+        border-radius: 15px;
+        font-weight: bold;
+        display: inline;
+        cursor: pointer;
+        font-size: 30px;
+        text-decoration: none;
+        font-family: sans-serif;
+        margin: 2px;
+        cursor: pointer;
+        box-sizing: border-box;
+        opacity: .2;
+    }
+
+    .rangeHolder {
+
+        padding: 20px;
+        /* transform: scale(.5); */
+    }
+
+    .rangeButton:hover {
+
+        background-color: black;
+    }
+    @media all and (max-width:1000px) {
+        .rangeButton {
+            font-size: 12px;
+            padding: 3px 6px;
+            border-radius: 6px;
+            margin: unset;
+        }
+    }
+
+
+</style>
+<BR><BR>
+    Personal Development: I'm actively engaged in my own personal development to become the best me I can be<BR>
+<div class="rangeHolder">
+    <span onclick="setvalue(1,'Q0response' );" class="rangeButton Q0response">1</span>
+    <span onclick="setvalue(2,'Q0response');" class="rangeButton Q0response">2</span>
+    <span onclick="setvalue(3,'Q0response');" class="rangeButton Q0response">3</span>
+    <span onclick="setvalue(4,'Q0response');" class="rangeButton Q0response">4</span>
+    <span onclick="setvalue(5,'Q0response');" class="rangeButton Q0response">5</span>
+    <span onclick="setvalue(6,'Q0response');" class="rangeButton Q0response">6</span>
+    <span onclick="setvalue(7,'Q0response');" class="rangeButton Q0response">7</span>
+    <span onclick="setvalue(8,'Q0response');" class="rangeButton Q0response">8</span>
+    <span onclick="setvalue(9,'Q0response');" class="rangeButton Q0response">9</span>
+    <span onclick="setvalue(10,'Q0response');" class="rangeButton Q0response">10</span>
+</div>
+Contribution: I've made contributions to my community that I'm proud of
+<div class="rangeHolder">
+    <span onclick="setvalue(1,'Q6response' );" class="rangeButton Q6response">1</span>
+    <span onclick="setvalue(2,'Q6response');" class="rangeButton Q6response">2</span>
+    <span onclick="setvalue(3,'Q6response');" class="rangeButton Q6response">3</span>
+    <span onclick="setvalue(4,'Q6response');" class="rangeButton Q6response">4</span>
+    <span onclick="setvalue(5,'Q6response');" class="rangeButton Q6response">5</span>
+    <span onclick="setvalue(6,'Q6response');" class="rangeButton Q6response">6</span>
+    <span onclick="setvalue(7,'Q6response');" class="rangeButton Q6response">7</span>
+    <span onclick="setvalue(8,'Q6response');" class="rangeButton Q6response">8</span>
+    <span onclick="setvalue(9,'Q6response');" class="rangeButton Q6response">9</span>
+    <span onclick="setvalue(10,'Q6response');" class="rangeButton Q6response">10</span>
+</div>
+
+<script>
+function setvalue(n,className){
+    makeAllButtonsBlack(className);
+    window[className] = n;
+    var  r = document.getElementsByClassName(className);
+    for (var i = 0; i<r.length; i++){
+        var val = parseInt(r[i].innerHTML);
+        if(val<=n){
+            r[i].style.background = "rgb(55, 125, 212)";
+            r[i].style.opacity = "1";
+        }
+        if(val==n){
+            r[i].style.background = "rgb(24, 75, 138)";
+        }
+    }
+    //alert(Q0response);
+}
+function makeAllButtonsBlack(className){
+    var  r = document.getElementsByClassName(className);
+    for (var i = 0; i<r.length; i++){
+        r[i].style.background = "black";
+        r[i].style.opacity = ".2";
+    }
+}
+
+
+</script>
+
+
+
+<BR><BR><BR><BR><BR>
+<!--
+<div style="">
+    <span onclick="setvalue(1);" class="rangeScore">❶</span>
+    <span onclick="setvalue(2); " class="rangeScore">❷</span>
+    <span onclick="setvalue(3); " class="rangeScore">❸</span>
+    <span onclick="setvalue(4);" class="rangeScore">❹</span>
+    <span onclick="setvalue(5);" class="rangeScore">❺</span>
+    <span onclick="setvalue(6);" class="rangeScore">❻</span>
+    <span onclick="setvalue(7);" class="rangeScore">❼</span>
+    <span onclick="setvalue(8);" class="rangeScore">❽</span>
+    <span onclick="setvalue(9);" class="rangeScore">❾</span>
+    <span onclick="setvalue(10);" class="rangeScore">❿</span>
+</div>
+
+
+❶ ❷ ❸ ❹ ❺ ❻ ❼ ❽ ❾ ❿
+
+<div style="max-width:90%; margin: auto;" id="rangeHolder">
+    <input value="0" type="range" min="0" max="10" name="Q0response" onchange="addValues();"
+        placeholder="I'm actively engaged in my own personal development to become the best me I can be. Rate on a 0 - 10 scale"
+        alt="Self Actualization" title="Part 1">
+</div>
+
+-->

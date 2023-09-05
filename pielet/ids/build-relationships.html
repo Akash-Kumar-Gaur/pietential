@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <pre>
+
+    <textarea name="" id="jdiv" cols="30" rows="10"></textarea>
+    <script>
+
+        fetch("all.json")
+            .then(r => {
+                return r.text()
+            })
+            .then(a => {
+                var master = JSON.parse(a);
+                var i = 0;
+                br(master);
+            });
+
+        function br(master) {
+            var r = [];
+            var out = '';
+            var i = 0;
+            for (let a of master.users) {
+                i++;
+                if (a.promoCode && !a.promoCode.match(/starling|organic|Stanley/ig)) {
+                    a.company = a.promoCode.replace(a.promoCode.substr(-5), "");
+                    r.push(a);
+                }
+            }
+            var usersWithPromoCodes = r;
+            var relate = [];
+            for (let a of r) {
+                for (let b of master.admins) {
+                    i++;
+                    if (b.companyList) {
+                        for (let c of b.companyList) {
+                            if (c.companyCode == a.company) {
+                                out += `${a.email} is associated with ${b.company} and  used code ${a.promoCode} for ${c.fullCompanyName}\n`;
+                                a.company = b.company;
+                                relate.push(a);
+                            }
+                        }
+                    }
+                }
+            }
+
+
+
+
+            
+            out += `\n\n${i} loops\n\n`
+            document.body.innerHTML += "<pre>" + out;
+            jdiv.value = JSON.stringify(relate);
+            
+        }
+    </script>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        function randomize() {
+            var reg = [];
+            reg.push(new RegExp('^Q[0|1|2|3|4|5]$', 'ig'));
+            reg.push(new RegExp('^Q[6|7|8|9|10|11]$', 'ig'));
+            reg.push(new RegExp('^Q[12|13|14|15|16|17]$', 'ig'));
+            reg.push(new RegExp('^Q[18|19|20|21|22|23]$', 'ig'));
+            reg.push(new RegExp('^Q[24|25|26|27|28|29]$', 'ig'));
+            for (let a of reg) {
+                scrambleQuestions(a)
+            }
+        }
+        function scrambleQuestions(regex) {
+            var l = [];
+            var r = [];
+            for (let a of document.getElementsByTagName("div")) {
+                if (a.id.match(regex)) {
+                    l.push(a);
+                    r.push(a);
+                }
+            }
+            l = shuffle(l);
+            var i = 0;
+            for (let a of r) {
+                a.outerHTML = l[i].outerHTML;
+                i++;
+            }
+        }
+        function shuffle(a) {
+            var c = a.length, t, r;
+            while (0 !== c) {
+                r = Math.floor(Math.random() * c);
+                c -= 1;
+                t = a[c];
+                a[c] = a[r];
+                a[r] = t;
+            } return a;
+        }
+
+
+    </script>
+</body>
+
+</html>

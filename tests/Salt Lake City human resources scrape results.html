@@ -1,0 +1,756 @@
+<body style="padding:20px;/*text-align:center;*/" id="theBody" cz-shortcut-listen="true">
+				<br>
+	<br>
+	<script>
+		function cleanit() {
+			var term = `Salt Lake City human resources`;
+			var r = document.getElementsByClassName("g");
+			var links = [];
+			var out = '';
+			console.log("starting cleaner...");
+			if (!document.getElementsByName("file")[0]) {
+				return;
+			}
+			if (r.length<4) {
+				console.log("No G divs yet.");
+				return;
+			}
+			//
+			
+			for (let a of r) {
+				var obj = {};
+				obj.mainLink = a.getElementsByTagName("a")[0].href;
+				obj.title = a.getElementsByTagName("a")[0].innerText;
+				obj.title = obj.title.replace(/\-.+/, "");
+				obj.title = obj.title.replace(/www\.lin.+/, "");
+				obj.title = obj.title.replace(/https:\/\//, "");
+				links.push(obj);
+			}
+			localStorage.scrapeData = JSON.stringify(links);
+			localStorage.scrapeTerm = term;
+			for (let obj of links) {
+				out += `${obj.title} (${term}): <a href="${obj.mainLink}" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href='https://www.google.com/search?q=${obj.title} ${term}' class='lil'  style="color:white" target='_blank' >Google search</a><br>`;
+			}
+			out = `
+			<style>
+			* {
+        font-family: 'Segoe UI', sans-serif;
+    
+			}
+			.lil {
+				text-decoration: none;
+				display:inline-block;
+				cursor:pointer;
+				margin: 1px;
+				color: white;
+				padding: 5px;
+				background-color: rgb(52, 73, 94);
+			}
+			</style>
+			<div id="cleanResults">${out}</div>`;
+			document.getElementsByName("file")[0].innerHTML = out;
+			localStorage.scrapeFormatted = `<html>
+			
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>Lead scraper</title><div id="cleanResults">${out}</div></html>`;
+			promptForDownload();
+		}
+
+		function promptForDownload(){
+			callingCard.style.display="block";
+		}
+		function saveFile(){
+			window.location = "data:application/octet-stream," + encodeURIComponent(localStorage.scrapeFormatted);
+		}
+		function sendAJAX(){
+            payload = encodeURIComponent(localStorage.scrapeFormatted);
+            var parameters = "ajax=" + payload;
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    console.log(xhttp.responseText);
+                    //sw.innerHTML = "Saved!";
+                }
+            };
+            xhttp.open("POST", `./`, true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(parameters);
+		}
+		function sendform(){
+			document.getElementById("pl").value =localStorage.scrapeFormatted;
+			document.getElementById("aj").submit(); 
+		}
+		function downloadPie() {
+			document.getElementsByName("file")[0].contentEditable = "false";
+			topsearch.style.display = "none";
+			callingCard.style.display = "none";
+            var text = document.body.outerHTML;
+            var m = [];
+            m[0] = text;
+            var myBlob = new Blob(m, { type: 'text/html' });
+            var blobUrl = URL.createObjectURL(myBlob);
+            var link = document.createElement("a");
+            link.href = blobUrl;
+            link.download = `${localStorage.scrapeTerm} scrape results.html`;
+            link.innerHTML = "<button>Download " + link.download + "</button>";
+            link.click();
+        }
+
+		document.addEventListener("DOMContentLoaded", function(event) {
+
+			setInterval(function() {
+				//cleanit();
+			}, 7000);
+
+		});
+	</script>
+
+<form id="aj" style="display:none" method="post">
+<input name="ajax" id="pl">
+</form>
+
+
+
+
+<div id="callingCard" class="cchov" style="display: none; left: 0px; border-radius: 5px; position: fixed; text-align: center; z-index: 999999; bottom: 0px; width: auto; margin: 35px; padding: 25px; color: white; opacity: 1; box-sizing: border-box; font-family: sans-serif; font-size: 16px; box-shadow: rgb(0, 0, 0) 10px 10px 52px 0px;"><style>.cchov{background: #333;    transition: all .5s;}.cchov:hover{background: #1153A2;    transition: all .5s;}</style><div style="margin-right:47px;"><a id="cc-linkbox-ifRRgGy7JOpyivbq" onclick="downloadPie();" style="color:white;font-size:16px;text-decoration:none;">Click here to save leads as a file</a></div><a href="#" id="closeLink" style="color:white;;font-size:16px;"><img src="https://silvercrayon.us/promo-seltzer/img/close-icon2.png" style="margin-left:12px;position:absolute;top:19px;right:20px;height:29px;" onclick="javascript:callingCard.style.display='none';"></a></div>
+
+
+
+	<div style="text-align:center;">
+
+		<a id="topsearch" href="https://www.google.com/search?q=site:linkedin.com/in/ Salt Lake City human resources&amp;num=100" target="_blank" style="text-decoration: none; margin: 0px; color: white; padding: 15px; text-transform: uppercase; background-color: rgb(41, 128, 185); width: 800px; display: none;">
+			Salt Lake City human resources- Start searching </a>
+		<br>
+		
+
+
+		<br><br>
+		<div name="file" contenteditable="false" style="margin:auto;width:800px;height:auto;padding:25px; background:white;text-align:left;" class="san15" placeholder="">
+			<style>
+			* {
+        font-family: 'Segoe UI', sans-serif;
+    
+			}
+			.lil {
+				text-decoration: none;
+				display:inline-block;
+				cursor:pointer;
+				margin: 1px;
+				color: white;
+				padding: 5px;
+				background-color: rgb(52, 73, 94);
+			}
+			</style>
+			<div id="cleanResults">
+Heather Jordan, SPHR, SCP 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/heatherjordansphrscp" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Heather Jordan, SPHR, SCP 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Debra Alexander 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/debra-alexander-52455599" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Debra Alexander 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Ryan Bell 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/ryan-bell-583586103" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Ryan Bell 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Shweta Sharma 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/shweta-sharma-78a96713a" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Shweta Sharma 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Emilee Bagley 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/emileebagley" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Emilee Bagley 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Ryan Webb 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/rwebbnd" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Ryan Webb 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Kathleen Johnston, MBA, SPHR, SHRM
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/kathleenjohnstonsphr" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Kathleen Johnston, MBA, SPHR, SHRM
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jake Reyes, MBA 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/jakereyes" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jake Reyes, MBA 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Robyn Holsten 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/robyn-holsten-24086a49" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Robyn Holsten 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Alyson Harris 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/alyson-harris-19542667" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Alyson Harris 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Candace Roberts 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/candace-roberts-4956294b" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Candace Roberts 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Keri Kraatz 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/kerikraatz" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Keri Kraatz 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Bruce Boucher 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/bruce-boucher-89102715" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Bruce Boucher 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Rachel Bebbington PHR 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/rachel-bebbington-phr-6a18b27" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Rachel Bebbington PHR 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Sonia Genoves 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/sonia-genoves-90a64550" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Sonia Genoves 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Dave Buchanan 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/dave-buchanan" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Dave Buchanan 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Human Resources 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/human-resources-48139a5a" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Human Resources 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Holly AY 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/hollyayoung" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Holly AY 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Dusty Hardy 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/dustyhardy" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Dusty Hardy 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Amy Muller 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/1amymuller" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Amy Muller 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Scott Carter 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/scottcartersphr" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Scott Carter 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Lauren (Allmer) Knotts 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/laurenknotts" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Lauren (Allmer) Knotts 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Kari Grover, PHR 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/kari-grover-phr-597999a" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Kari Grover, PHR 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Yoshika Sanders 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/yoshika-sanders-35b49064" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Yoshika Sanders 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jennifer Jeppson 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/jenniferjeppson" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jennifer Jeppson 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Beth Brewer 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/brewerba" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Beth Brewer 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Paige Bailey, SHRM 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/paigebailey1" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Paige Bailey, SHRM 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Chris Bone SPHR, SHRM
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/chris-bone-sphr-shrm-scp-02920716" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Chris Bone SPHR, SHRM
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Joel Dunn, PHR, SHRM
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/joel-dunn-phr-shrm-cp-228b1a25" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Joel Dunn, PHR, SHRM
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Tina Sergakis, SPHR 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/tina-sergakis-sphr-7132b5b" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Tina Sergakis, SPHR 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Willie Finch 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/williefinch" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Willie Finch 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Beccy DeCriscio 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/beccy-decriscio" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Beccy DeCriscio 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Tracy Byington 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/tracy-byington-38990225" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Tracy Byington 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Justin Draper, SPHR 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/justin-draper-sphr-a55b031b" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Justin Draper, SPHR 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Chanda Carling 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/chanda-carling" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Chanda Carling 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Ryan Fowler 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/ryfowl" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Ryan Fowler 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Josh Lockhart 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/joshlockhart" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Josh Lockhart 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Amber Allred, aPHR 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/amber-allred-aphr-86b6b489" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Amber Allred, aPHR 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jonathan Cowan 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/jonathancowanvail" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jonathan Cowan 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Grant Langston, SPHR, MSHR 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/hrleader-langston" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Grant Langston, SPHR, MSHR 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Kathy Oyler 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/kathy-oyler-941046a" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Kathy Oyler 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Angalene Finlay 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/angalene-finlay-977836a4" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Angalene Finlay 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Craig Pollock 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/craiginhr" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Craig Pollock 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Tina Linderman 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/tina-linderman-09357163" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Tina Linderman 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Kellen Camp 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/kellen-camp" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Kellen Camp 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Fernando Herrera, PHR (he/him/his) 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/fernando-herrera7" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Fernando Herrera, PHR (he/him/his) 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Rhonda Barrow 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/rhonda-barrow-248b2825" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Rhonda Barrow 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Elli Black 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/elli-black-30a61378" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Elli Black 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Kristina Cavin, SHRM
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/kristina-cavin-shrm-cp-sphr-7195314" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Kristina Cavin, SHRM
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Kari Plaster 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/kari-plaster-9102628" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Kari Plaster 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Laurie McKinnon 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/mckinnonlaurie" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Laurie McKinnon 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jeff Norton 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/jeff-norton-hr" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jeff Norton 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Stephanie C. 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/stephanie-c-0568738a" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Stephanie C. 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Big
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/big-d-human-resources-130523a7" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Big
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Heather Hancock, MSHR, SHRM
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/heather-hancock-mshr-shrm-cp-627670140" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Heather Hancock, MSHR, SHRM
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Ashley West 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/ashleybodell" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Ashley West 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+David Heier 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/david-heier-4b679813" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+David Heier 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Megan Ware 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/megan-ware-70825656" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Megan Ware 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Michael J. Head 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/michael-j-head-35978541" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Michael J. Head 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Elizabeth Whisamore, SPHR, SHRM
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/elizabethwhisamore" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Elizabeth Whisamore, SPHR, SHRM
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Patti Timm 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/pattitimm" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Patti Timm 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Kelly Thomas 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/kelly-thomas-b2898320" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Kelly Thomas 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Anne Tippetts, PHR 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/anne-tippetts-phr-b489b758" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Anne Tippetts, PHR 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Suko Mdlawuzo 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/suko-mdlawuzo-10769811" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Suko Mdlawuzo 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Linda Cowley 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/linda-cowley-151a8a7b" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Linda Cowley 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Craig Sandberg 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/craig-sandberg-0669089" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Craig Sandberg 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Alpa Parker 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/alpa-parker-834aa79" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Alpa Parker 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Garet Hawley, SHRM
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/garethawley" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Garet Hawley, SHRM
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Harold Stewart, MSHR, SPHR 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/harold-stewart-mshr-sphr-aaab7527" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Harold Stewart, MSHR, SPHR 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Paul Ledesma, SPHR 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/paul-ledesma-sphr-450b67130" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Paul Ledesma, SPHR 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Connie Campbell 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/connie-campbell-6ab4ab37" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Connie Campbell 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Russell Mason 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/russell-mason-8a6a615" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Russell Mason 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Christine Kilpack 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/christine-kilpack-a3881b2b" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Christine Kilpack 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Brooke Barnes, BS, MPS, SHRM
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/brooke-barnes-bs-mps-shrm-cp-257a1220" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Brooke Barnes, BS, MPS, SHRM
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Shawn Craig 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/shawn-craig-81208b4b" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Shawn Craig 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Tyler Ennis 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/tyler-ennis-a62aa219" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Tyler Ennis 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Anna Recksiek 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/anna-recksiek-115342a" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Anna Recksiek 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Rhett Nielsen 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/rhett-nielsen-bb15762b" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Rhett Nielsen 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Connie L. Harris, PHR 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/connie-l-harris-phr-94b4b75" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Connie L. Harris, PHR 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Sarah Wilson, SPHR, MA 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/sarah-wilson-sphr-ma" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Sarah Wilson, SPHR, MA 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jonathan Malan 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/jonathanmalan" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jonathan Malan 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Katie Cartwright, PHR 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/katie-cartwright-phr-a47a4995" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Katie Cartwright, PHR 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Lori Gaitin 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/lori-gaitin-525752b" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Lori Gaitin 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Bradley Keyes 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/bradley-keyes-035570124" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Bradley Keyes 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Lynette T. Varga 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/lynette-t-varga-719a914" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Lynette T. Varga 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Chris Olsen 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/colsen" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Chris Olsen 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jesse Stacey 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/jesse-stacey-21158b217" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jesse Stacey 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Cailey Tadic, PHR 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/caileystewart" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Cailey Tadic, PHR 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Heather Anderson 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/heather-anderson-18113036" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Heather Anderson 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Rebekah Rogers, PHR 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/rebekah-rogers-phr-b6b4a820" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Rebekah Rogers, PHR 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Bridget Anderson 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/bridget-anderson-49281199" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Bridget Anderson 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Julie Mulcock 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/juliemulcock" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Julie Mulcock 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Erik Ekberg 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/erikekberg" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Erik Ekberg 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Debbie Valdez 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/debbie-valdez-04445828" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Debbie Valdez 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Kalen Williams, MBA 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/kalen-williams-mba-99519a1a" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Kalen Williams, MBA 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+John Turner 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/john-turner-a6a5a513" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+John Turner 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Tiffany Lewis 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/tiffany-lewis-0099476" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Tiffany Lewis 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jarrod Lloyd 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/jarrod-lloyd-13b89868" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jarrod Lloyd 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Kari G. 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/karigardner311" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Kari G. 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br>
+Lawrence Maestas 
+ (Salt Lake City human resources): <a href="https://www.linkedin.com/in/lawrence-maestas-05934a4" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Lawrence Maestas 
+ Salt Lake City human resources" class="lil" style="color:white" target="_blank">Google search</a><br></div></div>
+		<br><br>
+		<button onclick="cleanit()">Clean Results</button>
+		<input type="hidden" name="term" value="Salt Lake City human resources"><br>
+		<br>
+		
+
+		<br><br>
+
+	</div>
+	</body>

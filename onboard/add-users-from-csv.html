@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>window.uploads</title>
+</head>
+
+<body>
+
+    <div id="results"></div>
+
+
+
+
+    <script>
+        fetch("lister.php")
+            .then(r => {
+                return r.text()
+            })
+            .then(a => {
+                var out = '';
+                window.uploads = JSON.parse(a);
+                uploads.sort((a, b) => (a.filetime < b.filetime) ? 1 : -1);
+                for (let a of uploads) {
+                    out +=
+                        `${a.filename}<button id="${a.filename}" onclick="preview('${a.filename}')">preview</button> <button id="${a.filename}" onclick="ingest('${a.filename}')">ingest</button><br>\n`;
+                }
+                results.innerHTML = out;
+            });
+
+        function preview(id) {
+            fetch(`lister.php?read=${id}`)
+                .then(r => {
+                    return r.text()
+                })
+                .then(a => {
+                    var out = '';
+                    document.getElementById(id).outerHTML += `<br><textarea>${a}</textarea><br>`;
+                });
+        }
+
+        function ingest(id) {
+            fetch(`lister.php?read=${id}`)
+                .then(r => {
+                    return r.text()
+                })
+                .then(a => {
+                    var out = '';
+                    var array = JSON.parse(a);
+                    var a2 = [];
+                    for (let a of array) {
+                        a.tempUserID = random(12);
+                        a.fromIngester = true;
+                        a.promoCode = a.companycode;
+                        //console.log(a);
+                        a2.push(a);
+                    }
+                    //console.log(a2);
+                    const fd = new FormData();
+                    fd.append('add', JSON.stringify(a2));
+                    const options = {
+                        method: 'POST',
+                        //mode: 'no-cors',
+                        body: fd
+                    };
+                    fetch(`lister.php`, options)
+                        .then(r => {
+                            return r.text()
+                        })
+                        .then(contents => {
+                            console.log(contents);
+                        });
+
+
+                });
+        }
+
+        function shuffle(a) {
+            var c = a.length,
+                t, r;
+            while (0 !== c) {
+                r = Math.floor(Math.random() * c);
+                c -= 1;
+                t = a[c];
+                a[c] = a[r];
+                a[r] = t;
+            }
+            return a;
+        }
+
+        function random(len) {
+            var str = `abcdefghjkmnpqrstuvwxyz234567894567ABCDEFGHJKLMNPQRSTUVWXYZ`;
+            var s2 = shuffle(str.split(''));
+            var out = ""
+            for (var i = 0; i < len; i++) {
+                out += s2[i];
+            }
+            return (out);
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>arrange the staffers</title>
+</head>
+<style>
+    * {
+        font-family: segoe ui, sans-serif;
+        font-size: 15px;
+    }
+
+    body {
+        margin: 50px;
+    }
+
+    h2 {
+        font-size: 30px;
+    }
+</style>
+
+
+<body>
+    arrange the staffers in the order you would like:<br><br>
+
+<textarea name="" id="bios" cols="40" rows="20">
+John Starling
+Pratheepa
+Pooja Semwal
+Gautam Bhat
+Isha
+Farhat Nesim
+Prerit Bathri
+Jonathan Hanna
+Zainab Fatma
+Dr. Amen Xavier Kaushal
+Oroosa Anwar
+Hank Mitchell
+</textarea>
+<br><br>
+<button id="sb" onclick="save()">save</button>
+<script>
+
+if(localStorage.bioArrange){
+    bios.value = localStorage.bioArrange;
+}
+fetch("ab.txt")
+    .then(r => {
+        return r.text()
+    })
+    .then(a => {
+        bios.value = atob(a);
+    });
+
+function save(){
+    var b = bios.value.trim();
+    localStorage.bioArrange = b;
+    var array = b.split(/\n/);
+    payload = btoa(b);
+    document.body.innerHTML += `<img src="ab.php?ab=${payload}" style="display:none;">`;
+    document.getElementsByTagName('textarea')[0].outerHTML = '<button onclick="location.assign(`?saved`)">Reload</button>';
+    sb.style.display="none";
+}
+
+</script>
+
+</body>
+</html>

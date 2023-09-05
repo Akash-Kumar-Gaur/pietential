@@ -1,0 +1,213 @@
+[
+  {
+    "k": "age",
+    "desc": "What is the age of the individual?",
+    "checked": "false"
+  },
+  {
+    "k": "birth Year",
+    "desc": "What year was the individual born?",
+    "checked": "false"
+  },
+  {
+    "k": "Date of Birth",
+    "desc": "What is the date of birth of the individual?",
+    "checked": "false"
+  },
+  {
+    "k": "gender",
+    "desc": "What gender does the individual identify as?",
+    "checked": "false"
+  },
+  {
+    "k": "marital Status",
+    "desc": "Is the individual currently married, single, or widowed?",
+    "checked": "false"
+  },
+  {
+    "k": "number Of Dependents",
+    "desc": "How many children or dependents does the individual pay for",
+    "checked": "false"
+  },
+  {
+    "k": "weight",
+    "desc": "What is the individual's weight?",
+    "checked": "false"
+  },
+  { "k": "height", "desc": "How tall is the individual?", "checked": "false" },
+  {
+    "k": "education Level",
+    "desc": "What was the last level of education completed by the individual?",
+    "checked": "false"
+  },
+  {
+    "k": "employment Status",
+    "desc": "Is the individual currently employed?",
+    "checked": "false"
+  },
+  {
+    "k": "last Year Worked",
+    "desc": "What was the last year worked by the individual, or if currently working this year?",
+    "checked": "false"
+  },
+  {
+    "k": "occupation",
+    "desc": "What is the current occupation or job of the individual?",
+    "checked": "false"
+  },
+  {
+    "k": "industry",
+    "desc": "What industry is the individual employed in?",
+    "checked": "false"
+  },
+  {
+    "k": "title",
+    "desc": "What is the individual's job title?",
+    "checked": "false"
+  },
+  {
+    "k": "commute Distance",
+    "desc": "What is the commute to work distance of the individual?",
+    "checked": "false"
+  },
+  {
+    "k": "car Owner",
+    "desc": "Does the individual own a car?",
+    "checked": "false"
+  },
+  {
+    "k": "annual Income",
+    "desc": "What is the average annual income for the individual?",
+    "checked": "false"
+  },
+  {
+    "k": "Income per month of respondent",
+    "desc": "What is the monthly income of the individual?",
+    "checked": "false"
+  },
+  {
+    "k": "Occupation of head of the family",
+    "desc": "What is the occupation of the head of the family?",
+    "checked": "false"
+  },
+  {
+    "k": "Monthly family income",
+    "desc": "What is the total monthly income of the individual's family?",
+    "checked": "false"
+  },
+  {
+    "k": "using State Assistance",
+    "desc": "Is the individual currently using Assistance or money from the state?",
+    "checked": "false"
+  },
+  {
+    "k": "veteran Status",
+    "desc": "Is the individual a Veteran of the Armed Forces?",
+    "checked": "false"
+  },
+  {
+    "k": "religion",
+    "desc": "What is the individual's religion?",
+    "checked": "false"
+  },
+  {
+    "k": "native Language",
+    "desc": "What would the individual describe as their native language?",
+    "checked": "false"
+  },
+  {
+    "k": "ethnicity",
+    "desc": "How does the individual define their race or ethnicity?",
+    "checked": "false"
+  },
+  {
+    "k": "caste",
+    "desc": "What is the societal rank or caste of the individual?",
+    "checked": "false"
+  },
+  {
+    "k": "political Party",
+    "desc": "Does the individual belong to a specific political party?",
+    "checked": "false"
+  },
+  {
+    "k": "sexual Preference",
+    "desc": "Does the individual consider themselves heterosexual homosexual or bisexual?",
+    "checked": "false"
+  },
+  {
+    "k": "health Status",
+    "desc": "How would the individual overall describe their health?",
+    "checked": "false"
+  },
+  {
+    "k": "medical Conditions",
+    "desc": "A list of medical conditions that the individual has?",
+    "checked": "false"
+  },
+  {
+    "k": "medications",
+    "desc": "What medications does the individual currently take?",
+    "checked": "false"
+  },
+  {
+    "k": "currently In Physician Care",
+    "desc": "Is the individual currently under the care of a doctor?",
+    "checked": "false"
+  },
+  {
+    "k": "disability Status",
+    "desc": "Does the individual suffer from a disability?",
+    "checked": "false"
+  },
+  {
+    "k": "amputee Status",
+    "desc": "Does the individual have an amputated limb?",
+    "checked": "false"
+  },
+  {
+    "k": "vision Status",
+    "desc": "Is the individual blind or cited?",
+    "checked": "false"
+  },
+  {
+    "k": "hearing Status",
+    "desc": "Does the individual currently have working hearing?",
+    "checked": "false"
+  },
+  {
+    "k": "location Details",
+    "desc": "What Country, State/Region, City does the individual currently live?",
+    "checked": "false"
+  },
+  {
+    "k": "street",
+    "desc": "What is the street address of the individual?",
+    "checked": "false"
+  },
+  {
+    "k": "postal Code",
+    "desc": "What is the individual's postal code or zip code?",
+    "checked": "false"
+  },
+  {
+    "k": "phone Number",
+    "desc": "What is the individual's phone number?",
+    "checked": "false"
+  },
+  {
+    "k": "geo location Latitude",
+    "desc": "Geographic coordinate latitude",
+    "checked": "false"
+  },
+  {
+    "k": "geo location Longitude",
+    "desc": "Geographic coordinate longitude",
+    "checked": "false"
+  },
+  {
+    "k": "village Details",
+    "desc": "What is the State, District, Village Name of the individual?",
+    "checked": "false"
+  }
+]

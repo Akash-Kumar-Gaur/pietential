@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My data</title>
+    <link href="/pielet/styles.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <section id="navi"></section>
+    <script type="text/javascript" src="/navigation/topNav.js"></script>
+
+    <div id="branding" style="padding-top:50px;margin: auto; text-align: center;">
+        <a href="/"><img onmouseover="" src="https://pietential.com/pietential.png" class="minibrand"></a>
+    </div>
+
+Local Data:
+    <div id="results" style="max-width:700px; margin:auto;word-break: break-all;"></div>
+Server Data:
+    <div id="results2" style="max-width:700px; margin:auto;word-break: break-all;"></div>
+
+
+
+    <script>
+        if(!localStorage.nogo && !location.href/match(/nogo/)){
+    document.getElementsByTagName('h1')[0].style.display="none";
+    document.getElementsByClassName('site-identity')[0].style.display="none";
+    location.assign('http://unbouncepages.com/cirrusinvestments/');	
+        }
+    </script>
+
+
+
+
+
+    <script>
+        function showData() {
+            var out ='';
+            var pieletData = JSON.parse(localStorage.pieletDataJSON);
+            for (let a in pieletData){
+                if (!a.match(/(SA|EC|PN|SN|LB)response|salt|hash/ig)){
+                    if(typeof pieletData[a] === 'object' ){
+                        out +=  `${a}: ${JSON.stringify(pieletData[a])}<br>`;
+                    } else {
+                        out +=  `${a}: ${pieletData[a]}<br>`;
+                    }
+                   
+                }
+            }
+                results.innerHTML =out;
+                
+            fetch(`/pielet/accountEngine/?getAPI=${pieletData.userID}`)
+                .then(r => {
+                    return r.text()
+                })
+                .then(a => {
+                    results2.innerHTML = a;
+                });
+        }
+        showData();
+    </script>
+</body>
+
+</html>

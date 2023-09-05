@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create your signature</title>
+</head>
+<style>
+    * {
+        font-family: segoe ui, sans-serif;
+        font-size: 15px;
+    }
+
+    body {
+        margin: 50px;
+    }
+
+    h2 {
+        font-size: 30px;
+    }
+</style>
+
+<body>
+    <h2>Create your signature</h2>
+    <b id="progress" style="display:none; opacity: 0.2;
+    font-style: italic; margin: -24px 12px 12px 12px;"></b><br>
+    <div onmouseenter="resetToSave()">
+        First Line <br>
+        <input onkeyup="process()" type="text" id="Q1firstName" name="Q1firstName" style="margin-bottom:10px;"><br>
+
+        Second Line (optional)<br>
+        <input onkeyup="process()" type="text" id="Q2fullName" name="Q2fullName" style="margin-bottom:10px;"><br>
+
+        Third Line (optional)<br>
+        <input onkeyup="process()" type="text" id="Q3title" name="Q3title" style="margin-bottom:10px;"><br>
+
+        Fourth Line (optional)<br>
+        <input onkeyup="process()" type="text" id="Q6address" name="Q6address" style="margin-bottom:10px;"><br>
+
+        email address<br>
+        <input onkeyup="process()" type="text" id="Q4emailAddress" name="Q4emailAddress"
+            style="margin-bottom:10px;"><br>
+
+        Phone<br>
+        <input onkeyup="process()" type="text" id="Q5phone" name="Q5phone" style="margin-bottom:10px;"><br>
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+<div id="focusTarget" onmouseenter="process()" >
+
+    <div id="sig" style="font-family: segoe ui, sans-serif; font-size: 15px; color: rgb(0, 0, 0);">
+
+        <table cellspacing="0">
+            <tbody style="box-sizing: border-box;">
+                <tr>
+                    <td style="border-top: 1px solid #80808045;box-sizing: border-box; color: dimgray; padding: 10px;">
+                        <strong id="Q1firstNameOUT"></strong>
+                        <span id="Q2fullNameOUT"></span>
+                        <span id="Q3titleOUT"></span>
+                        <span id="Q5phoneOUT"
+                            style="box-sizing: border-box; font-family: segoe ui, open sans, sans-serif; text-align: center;"></span>
+                        <span id="Q4emailAddressOUT"></span>
+                        <span id="Q6addressOUT"></span>
+                        <span id="longAddress2" style="font-weight:bold">
+                            Pietential - <i>The Life Balance & Population Wellbeing Realization System™</i><br></span>
+                        
+
+                        <span id="longAddress3"></span>Realize Your Growth Potential at <a
+                            href="https://pietential.com/?from-email-sig">www.pietential.com</a></span>
+                            <br><br>
+                            <a href="https://pietential.com/?from-email-sig"><img  style="max-width:100%; width:900px;" src="https://pietential.com/pieTools/pietential-signature.png" id="lowerImage" title="Pietential is “The Life Balance Realization System.” Based on Maslow’s Hierarchy of Needs, it helps you Visualize, and Analyze where you stand regarding the core issues that are central to what it is to be human: Physiological Needs, Safety Needs, Love and Belonging, Esteem, and Self-actualization, so you can realize your best life, and track your progress towards it. And Pietential is absolutely free!"></a>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+    </div>
+</div>
+    <div >
+        <button id="ctc2" style="display:none" onclick="location.assign(`?r=3`);">Save</button>
+
+        <button id="bbi" onclick="swap();">Swap bottom image</button>
+        <input type="file" style="display:none" id="ffi">
+
+
+    <button id="ctc"  onclick="CopyToClipboard(`sig`);">Copy to clipboard</button>
+    <b id="progress2" style="opacity: 0.6;
+    font-style: italic; margin: -24px 12px 12px 12px;"></b>
+    </div>
+</body>
+
+
+<script>
+//<span id="longAddress">1700 Market Street, Ste 1005, Philadelphia, PA 19103<br></span>
+
+    if (localStorage.fsbuild) {
+        var data = JSON.parse(localStorage.fsbuild);
+        for (let a in data) {
+            document.getElementById(a).value = data[a];
+        }
+        process();
+    }
+
+    if(localStorage.b64){
+        document.getElementById("lowerImage").src = localStorage.b64;
+    }
+
+    function swap(){
+        ffi.click();
+    }
+
+    let fileReader = new FileReader();
+        fileReader.onload = go;
+        ffi.onchange = function (event) {
+            fileReader.readAsDataURL(event.target.files[0]);
+        };
+
+        function go() {
+            // var b64 = fileReader.result.replace(/[\s\S]+base64,/, '');
+            // window.b64 = b64;
+            document.getElementById("lowerImage").src = fileReader.result;
+            localStorage.b64 = fileReader.result;
+        }
+
+    function resetToSave(){
+        document.getElementById("ctc2").style.display="block";
+        document.getElementById("ctc").style.display="none";
+    }
+
+    function process() {
+        var token = '';
+        var fsbuild = {};
+        var fields = `Q1firstName,Q2fullName,Q3title,Q4emailAddress,Q5phone,Q6address`.split(",");
+        for (let a of fields) {
+            var target = `${a}OUT`;
+            var payload = document.getElementById(a).value.trim();
+            if (payload.length > 0) {
+                payload += "<br>";
+                token = 100;
+            }
+            document.getElementById(target).innerHTML = payload;
+            if (token > 0) {
+                progress.innerHTML = "Your work is saved as you type";
+                progress.style.display = "block";
+            }
+        }
+
+
+        try {
+            fsbuild.Q1firstName = document.getElementById("Q1firstName").value.trim();
+        }
+        catch (e) { };
+        try {
+            fsbuild.Q2fullName = document.getElementById("Q2fullName").value.trim();
+        }
+        catch (e) { };
+        try {
+            fsbuild.Q3title = document.getElementById("Q3title").value.trim();
+        }
+        catch (e) { };
+        try {
+            fsbuild.Q4emailAddress = document.getElementById("Q4emailAddress").value.trim();
+        }
+        catch (e) { };
+        try {
+            fsbuild.Q5phone = document.getElementById("Q5phone").value.trim();
+        }
+        catch (e) { };
+        try {
+            fsbuild.Q6address = document.getElementById("Q6address").value.trim();
+        }
+        catch (e) { };
+        localStorage.fsbuild = JSON.stringify(fsbuild);
+    }
+
+
+
+    function CopyToClipboard(containerid) {
+        document.getElementById("ctc").style.display = "none";
+        document.getElementById("ctc2").style.display = "none";
+        var htmlCode = document.getElementById(containerid).outerHTML.trim().replace(/\s+/ig, ' ').trim();
+        //if (window.getSelection) {
+            try {
+                var range = document.createRange();
+                range.selectNode(document.getElementById(containerid));
+                console.log(range.toString().trim());
+                window.getSelection().addRange(range);
+                document.execCommand("Copy");
+            } catch (e) {
+                document.getElementById("progress2").innerHTML = "COPY FAILED, refresh this page and try again";
+            }
+       // }
+        document.getElementById("progress2").innerHTML = `If the signature block appears highlighted the signature was copied successfully.<br>If it does not appear to be highlighted, refresh this page and try again<br><br>
+        <a href="?reload" style="cursor:pointer"><button style="cursor:pointer;font-size:20px;">refresh</button></a><br><br>If you are feeling adventurous, here is the raw html:<br>
+        <textarea style="width:500px; height:400px;">${htmlCode}</textarea>
+        
+        
+        `;
+
+
+    }
+</script>
+
+</html>

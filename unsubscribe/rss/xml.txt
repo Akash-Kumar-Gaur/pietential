@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <rss version="2.0">
+    <channel>
+     <title>Pietential Unsubscribes</title>
+     <description>unsubscribes</description>
+     <link>https://pietential.com</link>
+    
+     <copyright>2022</copyright>
+     <lastBuildDate>2022-07-08--11-22-43</lastBuildDate>
+     <pubDate>2022-07-08--11-22-43</pubDate>
+     <ttl>1800</ttl>
+     <item>
+      <title>Pietential Unsubscribes</title>
+      <description>data listed as unsub1, unsub2, etc.</description>
+      <message>No new unsubscribers</message>
+<link>
+https://pietential.com/unsubscribe/rss/feed.txt</link>
+      <guid isPermaLink="false">2022-07-08--11-22-43</guid>
+      <pubDate>2022-07-08--11-22-43</pubDate>
+     </item>
+    
+    </channel>
+    </rss>

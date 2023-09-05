@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <link rel="manifest" href="https://pietential.com/pietential.webmanifest">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://pietential.com/styles.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,800&display=swap" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
+    <script src="https://pietential.com/chartjs-plugin-watermark.js"></script>
+
+    <link rel="icon" type="image/png" href="../../icon.png">
+    <title>Pietential - The Life Balance Realization System</title>
+    <!-- All Black vs All Hispanic vs All Asian Pacific Islander vs Caucasian Soldiers 
+    
+    https://youtu.be/2FGrv9DndVk
+
+
+-->
+
+
+
+</head>
+
+<body>
+
+    <style>
+        input {
+            width: 220px;
+            margin: 5px;
+            font-size: 15px;
+        }
+
+        #jay {
+            font-size: 12px;
+        }
+    </style>
+
+    <div id="cboxdiv"
+        style="display:none;position:absolute;top:30px;width:1200px;height:auto;background: #999;padding: 12px;">Pick
+        5 Categories:<br><br>
+        Headline: <input style="width:600px;" type="text" id="headline1"><br>
+        Category 1: <input type="text" id="m1"><br>
+        Category 2: <input type="text" id="m2"><br>
+        Category 3: <input type="text" id="m3"><br>
+        Category 4: <input type="text" id="m4"><br>
+        Category 5: <input type="text" id="m5"><br>
+        label 1: <input type="text" id="lab1"><br>
+        label 2: <input type="text" id="lab2"><br>
+        label 3: <input type="text" id="lab3"><br>
+        <br><br>
+       
+        <br>
+        <div id="jay"></div>
+    </div>
+
+    <script>
+        function gid(id) {
+            return document.getElementById(id);
+        }
+        function savestate() {
+            var ls7 = {};
+            ls7.headline1 = gid("headline1").value;
+            ls7.m1 = gid("m1").value;
+            ls7.m2 = gid("m2").value;
+            ls7.m3 = gid("m3").value;
+            ls7.m4 = gid("m4").value;
+            ls7.m5 = gid("m5").value;
+            ls7.lab1 = gid("lab1").value;
+            ls7.lab2 = gid("lab2").value;
+            ls7.lab3 = gid("lab3").value;
+            gid('cboxdiv').style.display = `none`;
+            localStorage.ls7 = JSON.stringify(ls7);
+            saveGrids();
+            location.assign("?edited");
+        }
+
+        if (!localStorage.ls7) {
+            var ls7 = {};
+            ls7.headline1 = 'Click this headline to edit. Refresh page for new chart data.';
+            ls7.m1 = `Black Service Members`;
+            ls7.m2 = `Hispanic Service Members`;
+            ls7.m3 = `Pacific Islander Service Members`;
+            ls7.m4 = `Asian Service Members`;
+            ls7.m5 = `Caucasian Service Members`;
+            ls7.lab1 = `2019 Averages`;
+            ls7.lab2 = `2020 Averages`;
+            ls7.lab3 = `2021 Averages`;
+            localStorage.ls7 = JSON.stringify(ls7);
+        }
+
+    </script>
+
+
+    <!-- <div contenteditable="true" style="text-align: center;">
+        <h1>(You can edit this headline) 
+        </h1>
+        <h3>Keep hitting refresh to get a new sample graph</h3>
+    </div> -->
+    <div style="text-align: center;">
+        <h1 id="headlineh1" onclick="showEdit();">rtrtg</h1>
+
+    </div>
+    <canvas id="canvas" style="height:500px;"></canvas>
+    <section id="pastPieCharts" style="text-align: center;"></section>
+    <script>
+
+        // var clasf = `All Black vs All Hispanic vs All Asian Pacific Islander vs Caucasian Soldiers`.split("vs");
+        var ls7 = JSON.parse(localStorage.ls7);
+        var clasf = [ls7.m1, ls7.m2, ls7.m3, ls7.m4, ls7.m5];
+        var labels = `Self Actualization,Self-Esteem and Contribution,Love and Belonging,Safety Needs,Physiological Needs`.split(",");
+        var labels = clasf;
+
+        function showEdit() {
+            gid("cboxdiv").style.display = "block";
+        }
+
+
+        function rrand() {
+            var f = Math.floor(Math.random() * 100) + 40;
+            if (f > 99) {
+                f = f * .6;
+            }
+            return f;
+        }
+        // var data1 = [1,2,3];
+        // var data2 = [5,4,3];
+        // var data3 = [2,3,4];
+        // var data4 = [4,5,6];
+        // var data5 = [6,7,8];
+        
+        // //cusscordata.y1.SA
+        // var data1 = [cusscordata.y1.SA, cusscordata.y1.EC, cusscordata.y1.LB, cusscordata.y1.SN, cusscordata.y1.PN];
+        // var data2 = [cusscordata.y2.SA, cusscordata.y2.EC, cusscordata.y2.LB, cusscordata.y2.SN, cusscordata.y2.PN];
+        // var data3 = [cusscordata.y3.SA, cusscordata.y3.EC, cusscordata.y3.LB, cusscordata.y3.SN, cusscordata.y3.PN];
+        // var data4 = [cusscordata.y1.SN, cusscordata.y2.SN, cusscordata.y3.SN, rrand(), rrand()];
+        // var data5 = [cusscordata.y1.PN, cusscordata.y2.PN, cusscordata.y3.PN, rrand(), rrand()];
+        
+        if (!localStorage.customScoreData) {
+            var obj={};
+            var awe = ["SA","LB","EC","SN","PN"];
+            for (let a of "1,2,3".split(",")){
+                var ys = `y${a}`;
+                obj[ys] ={};
+                for (let b of awe){
+                    obj[ys][b] = rrand();
+                }
+            }
+            localStorage.customScoreData = JSON.stringify(obj);
+        }
+
+        var ccd = JSON.parse(localStorage.customScoreData);
+        var data1 = [ccd.y1.SA, ccd.y2.SA, ccd.y3.SA];
+        var data2 = [ccd.y1.LB, ccd.y2.LB, ccd.y3.LB];
+        var data3 = [ccd.y1.EC, ccd.y2.EC, ccd.y3.EC];
+        var data4 = [ccd.y1.SN, ccd.y2.SN, ccd.y3.SN];
+        var data5 = [ccd.y1.PN, ccd.y2.PN, ccd.y3.PN];
+        var ds = [data1, data2,data3,data4,data5];
+
+
+        var part1color = `rgba(110, 148, 248, 1)`;
+        var part2color = `rgba(2, 183, 45, 1)`;
+        var part3color = `rgba(249, 186, 3, 1)`;
+        var part4color = `rgba(248, 126, 2, 1)`;
+        var part5color = `rgba(251, 0, 0, 1)`;
+
+        var colorParts = [];
+        colorParts.push(part1color);
+        colorParts.push(part2color);
+        colorParts.push(part3color);
+        colorParts.push(part4color);
+        colorParts.push(part5color);
+        var data = {
+            labels: [ls7.lab1, ls7.lab2, ls7.lab3],
+            datasets: [{
+                backgroundColor: "rgba(9,0,0,0.1)",
+                borderColor: colorParts[0],
+                data: data1,
+                // data: gloc[4],
+                label: labels[0],
+                fill: '-1'
+            }, {
+                backgroundColor: "rgba(9,0,0,0.1)",
+                borderColor: colorParts[1],
+                data: data2,
+                label: labels[1],
+                fill: '-1'
+            }, {
+                backgroundColor: "rgba(9,0,0,0.1)",
+                borderColor: colorParts[2],
+                data: data3,
+                label: labels[2],
+                fill: '-1'
+            }, {
+                backgroundColor: "rgba(9,0,0,0.1)",
+                borderColor: colorParts[3],
+                data: data4,
+                label: labels[3],
+                fill: '0'
+            }, {
+                backgroundColor: "rgba(9,0,0,0.1)",
+                borderColor: colorParts[4],
+                data: data5,
+                label: labels[4],
+                fill: '0'
+            },]
+        };
+        var options = {
+            maintainAspectRatio: false,
+            spanGaps: false,
+            elements: {
+                line: {
+                    tension: 0.4
+                }
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            },
+            plugins: {
+                filler: {
+                    propagate: false
+                },
+                'samples-filler-analyser': {
+                    target: 'chart-analyser'
+                }
+            }
+        };
+        try {
+            chart.destroy();
+        }
+        catch (e) { }
+        var chart = new Chart('canvas', {
+            type: 'line',
+            data: data,
+            options: options
+        });
+        var ls7 = JSON.parse(localStorage.ls7);
+
+
+
+        /////////////////////////////////////////////////////
+
+        var d1 = "Date: 2019-02-14";
+        var d2 = "Date: 2020-02-14";
+        var d3 = "Date: 2021-02-14";
+        var ss = [];
+        var year1 = {};
+        var year2 = {};
+        var year3 = {};
+
+
+
+        function scoree(q) {
+            var color = "black";//"#377dd4";
+            var color2 = "white";
+            var year = parseInt(q[1]);
+            
+            var rest = q.replace(/^../, "");
+            var score = parseInt(rest.split("s")[1]);
+            var question = rest.split("s")[0].replace(/q/, "");
+            var nscore = `Q${question}response`;
+            if (year == 1) {
+                year1[nscore] = score;
+            }
+            if (year == 2) {
+                year2[nscore] = score;
+            }
+            if (year == 3) {
+                year3[nscore] = score;
+            }
+            console.log(`year is ${year} ${nscore} is ${score}`);
+            for (var i = 1; i < 11; i++) {
+                if (i < score + 1) {
+                    gid(`y${year}q${question}s${i}`).style.background = color;
+                    gid(`y${year}q${question}s${i}`).title = score;
+                } else {
+                    gid(`y${year}q${question}s${i}`).style.background = color2;
+                }
+            }
+            window.ss = [year1, year2, year3];
+            gid("tsco").innerHTML = calcit();
+        }
+
+        function saveGrids() {
+            var arr = [];
+            for (let a of document.getElementsByClassName("scorbird")) {
+                var obj = {};
+                obj.id = a.id;
+                obj.score = a.title;
+                obj.color = a.style.background;
+                arr.push(obj);
+                // var year = parseInt(a.id.split("q")[0].replace(/y/, ""));
+                // var qnum = parseInt(a.id.split("q")[1].replace(/s+/, ""));
+            }
+            localStorage.checkedSquares = JSON.stringify(arr);
+        }
+        function resetGrid() {
+            var arr = JSON.parse(localStorage.checkedSquares)
+            for (let a of arr) {
+                gid(a.id).title = a.score;
+                gid(a.id).style.background = a.color;
+            }
+            var i = 0;
+            for (let a of document.getElementsByClassName("scorbird")) {
+                if (a.id.match(/s1$/ig)) {
+                    console.log(a.title);
+                    i++;
+                    var q = a.id.replace(/s1/, "s" + a.title);
+                    console.log(`${i} will try to score ${q}`);
+                    scoree(q);
+                }
+            }
+        }
+
+
+        function scoreYear(yobj) {
+            var SAt = 0; var ECt = 0; var LBt = 0; var SNt = 0; var PNt = 0;
+            for (let a in yobj) {
+                if (a.match(/q0r|q1r|q2r|q3r|q4r|q5r/ig)) {
+                    SAt += parseInt(yobj[a]) * 10;
+                }
+            }
+            for (let a in yobj) {
+                if (a.match(/q6r|q7r|q8r|q9r|q10r|q11r/ig)) {
+                    LBt += parseInt(yobj[a]) * 10;
+                }
+            }
+            for (let a in yobj) {
+                if (a.match(/q12r|q13r|q14r|q15r|q16r|q17r/ig)) {
+                    ECt += parseInt(yobj[a]) * 10;
+                }
+            }
+            for (let a in yobj) {
+                if (a.match(/q18r|q19r|q20r|q21r|q22r|q23r/ig)) {
+                    SNt += parseInt(yobj[a]) * 10;
+                }
+            }
+            for (let a in yobj) {
+                if (a.match(/q24r|q25r|q26r|q27r|q28r|q29r/ig)) {
+                    PNt += parseInt(yobj[a]) * 10;
+                }
+            }
+            var obj = {};
+            obj.SA = Math.floor(SAt / 6);
+            obj.LB = Math.floor(LBt / 6);
+            obj.EC = Math.floor(ECt / 6);
+            obj.SN = Math.floor(SNt / 6);
+            obj.PN = Math.floor(PNt / 6);
+            return (obj);
+        }
+
+
+
+        function calcit() {
+            y1 = scoreYear(ss[0]);
+            y2 = scoreYear(ss[1]);
+            y3 = scoreYear(ss[2]);
+            var obj = {};
+            obj.y1 = scoreYear(ss[0]);
+            obj.y2 = scoreYear(ss[1]);
+            obj.y3 = scoreYear(ss[2]);
+            localStorage.customScoreData = JSON.stringify(obj);
+            var out = `Year 1: <span style="color:blue">${y1.SA},</span><span style="color:green">${y1.LB},</span><span style="color:yellow">${y1.EC},</span><span style="color:orange">${y1.SN},</span><span style="color:red">${y1.PN}</span><br>`;
+            out += `Year 2: <span style="color:blue">${y2.SA},</span><span style="color:green">${y2.LB},</span><span style="color:yellow">${y2.EC},</span><span style="color:orange">${y2.SN},</span><span style="color:red">${y2.PN}</span><br>`;
+            out += `Year 3: <span style="color:blue">${y3.SA},</span><span style="color:green">${y3.LB},</span><span style="color:yellow">${y3.EC},</span><span style="color:orange">${y3.SN},</span><span style="color:red">${y3.PN}</span><br>`;
+            return out;
+        }
+
+        var unit = '';
+        for (var j = 0; j < 30; j++) {
+            var czs;
+            if (j == 0) {
+                unit += `<div style="background: blue">`;
+            }
+            if (j == 6) {
+                unit += `</div><div style="background: green">`;
+            }
+            if (j == 12) {
+                unit += `</div><div style="background: yellow">`;
+            }
+            if (j == 18) {
+                unit += `</div><div style="background: orange">`;
+            }
+            if (j == 24) {
+                unit += `</div><div style="background: red">`;
+            }
+            for (var m = 1; m < 11; m++) {
+                unit += `<div id="y1q${j}s${m}" class="scorbird" title="0" style="float:left;width:20px;height:10px;background:gray;color:white;margin:2px;font-size:10px" onmouseover="scoree('y1q${j}s${m}')">${m}</div>`;
+                if (m == 10) {
+                    unit += `<div style="clear:both;"></div>`;
+                }
+            }
+            if (j == 29) {
+                unit += `</div>`;
+            }
+        }
+        var unit2 = unit.replace(/y1q/ig, `y2q`);
+        var unit3 = unit.replace(/y1q/ig, `y3q`);
+        var ts = `
+    Projected Scores: <span id="tsco"></span><br>
+    <button onclick="savestate();">Save and hide this box</button>
+    <table><tr><td style="width:170px;color:white;">Year 1<br>${unit}</td><td  style="width:170px;color:white;">Year 2<br>${unit2}</td><td  style="width:170px;color:white;">Year 3<br>${unit3}</td></tr></table>`;
+
+        gid("cboxdiv").innerHTML += ts;
+
+        gid("headlineh1").innerHTML = ls7.headline1;
+        gid("headline1").value = ls7.headline1;
+
+        gid("m1").value = ls7.m1;
+        gid("m2").value = ls7.m2;
+        gid("m3").value = ls7.m3;
+        gid("m4").value = ls7.m4;
+        gid("m5").value = ls7.m5;
+        gid("lab1").value = ls7.lab1;
+        gid("lab2").value = ls7.lab2;
+        gid("lab3").value = ls7.lab3;
+
+        gid("jay").innerHTML = JSON.stringify(ls7);
+
+        resetGrid();
+        calcit();
+    </script>
+</body>
+
+</html>

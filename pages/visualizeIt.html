@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="../js/commonLinks.js"></script>
+    <script>includeCommonHeader('Visualize It')</script>
+  </head>
+  <script>
+    if (!sessionStorage.getItem("userID"))
+      window.location.href = "https://pietential.com";
+  </script>
+  <body>
+    <script src="../js/language.js"></script>
+    <section id="navi"></section>
+    <script type="text/javascript" src="../navigation/topNav.js"></script>
+    <div class="scoreContainer analyzeItMainContainer">
+      <div class="sidebarMain">
+        <div class="wellbeingTextContainer">
+          <p class="wellbeingText wellbeing" id="wellbeing">
+            <script>
+              get_i18n("wellbeing");
+            </script>
+          </p>
+          <img
+            src="../assets/gredientArrow.svg"
+            alt="Arrow"
+            onclick="collapseSidebar()"
+          />
+        </div>
+        <p
+          class="assessIt assessText assess assessText"
+          style="font-weight: 500"
+          id="assessIt"
+        >
+          <script>
+            get_i18n("assessText");
+          </script>
+        </p>
+        <p
+          class="assessIt visualizeIt selfText visualizeItText"
+          style="font-weight: 700"
+          id="visualizeIt"
+        >
+          <script>
+            get_i18n("visualizeIt");
+          </script>
+        </p>
+        <p class="assessIt analyzeIt selfText visualizeItText forHiding" id="analyzeIt">
+          <script>
+            get_i18n("analyzeIt");
+          </script>
+        </p>
+        <p
+          class="assessIt realizeItText selfText visualizeItText"
+          id="realizeIt"
+        >
+          <script>
+            get_i18n("realizeItText");
+          </script>
+        </p>
+        <p
+          class="assessIt actualizeText selfText visualizeItText forHiding"
+          id="actualizeIt"
+        >
+          <script>
+            get_i18n("actualizeText");
+          </script>
+        </p>
+      </div>
+      <div id="forLoader" style="width: 100%">
+        <div class="visualizeItContainer">
+          <h2 class="yourGrowth">Your Growth Potential Visualized</h2>
+          <div class="container graphContainer">
+            <div id="polarArea"><canvas id="myChart"></canvas></div>
+            <canvas id="barchart"></canvas>
+          </div>
+          <button
+            class="analyzeIt analyzeIt tryItButton forTextChange"
+            id="analyzeIt"
+            onclick="onSubmit()"
+            style="margin: auto"
+          >
+            <script>
+              get_i18n("analyzeIt");
+            </script>
+          </button>
+        </div>
+      </div>
+      <div id="loaderContainer" style="display: none">
+        <div class="loader_inner">
+          <img src="../assets/pie-spinner.png" alt="Pie" />
+        </div>
+      </div>
+    </div>
+    <section id="footi"></section>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/chart.js"></script>
+    <script src="../js/apiHelper.js"></script>
+    <script src="../js/apiService.js"></script>
+    <script>
+      let analyzeIt = getElement(".forTextChange")
+      if (pietentialModule == 1) {
+        analyzeIt.innerHTML = 'Realize It'
+      }
+      function onSubmit(){
+        if (pietentialModule == 1) window.location.href = "/pages/dashboard.html"
+        else window.location.href = "/pages/analyzeIt.html"
+      }
+      function collapseSidebar() {
+        let main = getElement(".sidebarMain");
+        let rightSideClass = getElement(".visualizeItContainer");
+        let assessIt = getElements(".assessIt");
+        rightSideClass.classList.toggle("visualize_it_container");
+        main.classList.toggle("minWidth");
+      }
+      let data = [];
+      const getQuestionsResponse = async () => {
+        getElementById("loaderContainer").style.display = "block";
+        getElementById("forLoader").style.display = "none";
+        await getAllQuestionsResponse().then((res) => {
+          let reverseList = res.QuestionsResponse.reverse();
+          sessionStorage.setItem("resLength", reverseList.length);
+          let q = reverseList[0];
+          let a = Math.round(
+            ((Number(q.Q0response) +
+              Number(q.Q1response) +
+              Number(q.Q2response) +
+              Number(q.Q3response) +
+              Number(q.Q4response) +
+              Number(q.Q5response)) /
+              60) *
+              100
+          );
+          let b = Math.round(
+            ((Number(q.Q6response) +
+              Number(q.Q7response) +
+              Number(q.Q8response) +
+              Number(q.Q9response) +
+              Number(q.Q10response) +
+              Number(q.Q11response)) /
+              60) *
+              100
+          );
+          let c = Math.round(
+            ((Number(q.Q12response) +
+              Number(q.Q13response) +
+              Number(q.Q14response) +
+              Number(q.Q15response) +
+              Number(q.Q16response) +
+              Number(q.Q17response)) /
+              60) *
+              100
+          );
+          let d = Math.round(
+            ((Number(q.Q18response) +
+              Number(q.Q19response) +
+              Number(q.Q20response) +
+              Number(q.Q21response) +
+              Number(q.Q22response) +
+              Number(q.Q23response)) /
+              60) *
+              100
+          );
+          let e = Math.round(
+            ((Number(q.Q24response) +
+              Number(q.Q25response) +
+              Number(q.Q26response) +
+              Number(q.Q27response) +
+              Number(q.Q28response) +
+              Number(q.Q29response)) /
+              60) *
+              100
+          );
+          drawChart(a, b, c, d, e);
+          getElementById("loaderContainer").style.display = "none";
+          getElementById("forLoader").style.display = "block";
+        });
+      };
+      getQuestionsResponse();
+    </script>
+    <script type="text/javascript" src="../navigation/bottomNav.js"></script>
+  </body>
+</html>

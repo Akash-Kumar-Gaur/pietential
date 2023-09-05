@@ -1,0 +1,279 @@
+<style>
+  .disable {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
+  .loginDiv {
+    background: white;
+    min-height: 60px;
+    box-sizing: border-box;
+    position: fixed;
+    top: 0px;
+    padding: 12px 27px;
+    text-align: right;
+    margin-right: 20px;
+  }
+
+  .emailHolderDiv {
+    text-align: right;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 15px;
+  }
+
+  .dashboardHolderDiv {
+    text-align: right;
+    position: absolute;
+    left: 5px;
+    top: 20px;
+    font-size: 15px;
+  }
+
+  #desktopnav {
+    display: inline-block;
+    background: white;
+  }
+
+  #mobileNav {
+    display: none;
+  }
+
+  #mobileNav button {
+    color: white;
+    background: rgba(0, 0, 0, 0.55);
+    border: 0;
+    padding: 4px 8px;
+    border-radius: 4px;
+  }
+
+  #mobileRetakeButton {
+    display: none;
+  }
+
+  @media all and (max-width: 600px) {
+    body {
+      margin: 0;
+    }
+    #desktopnav {
+      display: none;
+    }
+
+    #mobileNav {
+      display: block;
+      text-align: right;
+      margin-top: 10px;
+      /* padding-right: 23px; */
+      box-sizing: border-box;
+      font-size: 13px;
+    }
+  }
+</style>
+
+<div id="desktopnav" class="march">
+  <div id="betanav" class="march">
+    <style>
+      #betanav {
+        margin: 20px;
+      }
+      .vertPad {
+        margin: 12px 0;
+        display: block;
+      }
+
+      .bgorange {
+        background: #f87f02;
+        background-color: #f87f02;
+      }
+
+      .bgyellow {
+        background: #f8bb04;
+        background-color: #f8bb04;
+      }
+
+      .bgred {
+        background: #fb0001;
+        background-color: #fb0001;
+      }
+    </style>
+    <a
+      onmouseover="document.getElementById(`dropdown`).style.display=`none`"
+      class="bt login-bar"
+      id=""
+      href="/login/"
+      >login</a
+    >
+    <a
+      onmouseover="document.getElementById(`dropdown`).style.display=`block`"
+      class="bt green login-bar"
+      id=""
+      href="javascript://"
+      >Tools</a
+    >
+    <div
+      id="dropdown"
+      onmouseleave="document.getElementById(`dropdown`).style.display=`none`"
+      style="
+        display: none;
+        position: absolute;
+        top: 41px;
+        left: 87px;
+        padding: 12px;
+        margin: 4px;
+        max-width: 400px;
+      "
+    >
+      <a
+        href="javascript://"
+        id="emailAddressHolder"
+        class="bt login-bar vertPad"
+        style="width: auto; display: none"
+        >logged in: <span id="emailAddress"></span>
+      </a>
+      <a
+        href="/pielet/dashboard"
+        id="gotodash"
+        class="bt green login-bar disable vertPad"
+        >Progress Dashboard</a
+      >
+      <a
+        href="/pielet/visualizeit/?returnView=1"
+        id="returnLink"
+        class="bt green login-bar vertPad disable"
+        >Latest Visualization</a
+      >
+
+      <a
+        href="/pielet/download/"
+        id="printResults"
+        class="bt green login-bar vertPad disable"
+        >Download and Print</a
+      >
+      <a
+        href="/pielet/retake/"
+        id="retakeLink"
+        class="bt green login-bar vertPad disable"
+        >Retake Survey (for subscribers)</a
+      >
+    </div>
+    <a
+      onmouseover="document.getElementById(`dropdown`).style.display=`none`"
+      class="bt bgyellow login-bar"
+      id=""
+      href="/share/"
+      >Share</a
+    >
+    <a
+      onmouseover="document.getElementById(`dropdown`).style.display=`none` "
+      class="bt bgorange login-bar"
+      id=""
+      href="/about/"
+      >About</a
+    >
+    <a
+      onmouseover="document.getElementById(`dropdown`).style.display=`none` "
+      class="bt bgred login-bar disable"
+      id="logoutLink"
+      href="/?logout/"
+      >Logout</a
+    >
+  </div>
+
+  <div id="libar" class="libar loginDiv" style="display: none">
+    <span id="emailHolder" class="emailHolderDiv">
+      <a class="bt green login-bar disable" id="loginLink" href="/login/"
+        >login</a
+      >
+      <span id="emailAddress"></span>
+      <a
+        class="bt generate-login-bar red disable"
+        href="/?logout"
+        id="logoutLink"
+        >Logout</a
+      >
+    </span>
+
+    <span id="dashboardHolder" class="dashboardHolderDiv">
+      <a id="gotodash" class="bt login-bar disable" href="/pielet/dashboard/"
+        >Dashboard</a
+      >
+      <a
+        id="returnLink"
+        class="bt generate-login-bar disable"
+        href="/pielet/visualizeit/?returnView=1"
+        >Return to latest visualization</a
+      >
+      <a
+        id="printResults"
+        class="bt login-bar disable"
+        href="/pielet/download/"
+        target="_blank"
+        >Download Analysis</a
+      >
+      <a
+        id="retakeLink"
+        class="bt login-bar disable green"
+        href="/pielet/retake/"
+        >Retake and track progress</a
+      >
+      <a id="shareLink" class="bt login-bar green" href="/pielet/share/"
+        >Share</a
+      >
+    </span>
+  </div>
+</div>
+
+<div id="mobileNav">
+  <style>
+    #mobileNav {
+      background: #6e94f8;
+      color: white;
+      position: relative;
+      margin: 0px;
+      width: 100%;
+    }
+    #mobileNav div {
+      text-align: center;
+      cursor: pointer;
+      margin: 0px;
+      color: white;
+
+      padding: 4px;
+      margin: 0px;
+    }
+    #mobileNav div:hover {
+      background: #5e8bfc;
+    }
+    #mobileNav a {
+      text-decoration: none;
+    }
+    #mitems {
+      display: none;
+    }
+    #ham {
+      background: #2d4ea3;
+    }
+  </style>
+  <a
+    onclick="if(document.getElementById(`mitems`).style.display==`none`){document.getElementById(`mitems`).style.display=`block`}else{document.getElementById(`mitems`).style.display=`none`}"
+    id="mobileHomeButton"
+    ><div id="ham">=</div></a
+  >
+  <span id="mitems" style="display: none">
+    <a href="/"><div>Home</div></a>
+    <a href="/login/"><div>Login</div></a>
+    <a href="/pielet/dashboard/"><div>Dashboard</div></a>
+    <a href="/about/"><div>About Us</div></a>
+    <a href="/pielet/retake/"> <div>Retake</div></a>
+    <a href="/share/"><div>Latest Visualization</div></a>
+    <a href="/pielet/download/"><div>Download / Print</div></a>
+    <a href="/?logout"><div>Logout</div></a>
+  </span>
+
+  <script>
+    function toggleMenu() {
+      alert("helllo");
+    }
+  </script>
+</div>

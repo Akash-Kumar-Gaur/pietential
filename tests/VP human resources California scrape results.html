@@ -1,0 +1,755 @@
+<body style="padding:20px;/*text-align:center;*/" id="theBody" cz-shortcut-listen="true">
+				<br>
+	<br>
+	<script>
+		function cleanit() {
+			var term = `VP human resources California`;
+			var r = document.getElementsByClassName("g");
+			var links = [];
+			var out = '';
+			console.log("starting cleaner...");
+			if (!document.getElementsByName("file")[0]) {
+				return;
+			}
+			if (r.length<4) {
+				console.log("No G divs yet.");
+				return;
+			}
+			//
+			
+			for (let a of r) {
+				var obj = {};
+				obj.mainLink = a.getElementsByTagName("a")[0].href;
+				obj.title = a.getElementsByTagName("a")[0].innerText;
+				obj.title = obj.title.replace(/\-.+/, "");
+				obj.title = obj.title.replace(/www\.lin.+/, "");
+				obj.title = obj.title.replace(/https:\/\//, "");
+				links.push(obj);
+			}
+			localStorage.scrapeData = JSON.stringify(links);
+			localStorage.scrapeTerm = term;
+			for (let obj of links) {
+				out += `${obj.title} (${term}): <a href="${obj.mainLink}" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href='https://www.google.com/search?q=${obj.title} ${term}' class='lil'  style="color:white" target='_blank' >Google search</a><br>`;
+			}
+			out = `
+			<style>
+			* {
+        font-family: 'Segoe UI', sans-serif;
+    
+			}
+			.lil {
+				text-decoration: none;
+				display:inline-block;
+				cursor:pointer;
+				margin: 1px;
+				color: white;
+				padding: 5px;
+				background-color: rgb(52, 73, 94);
+			}
+			</style>
+			<div id="cleanResults">${out}</div>`;
+			document.getElementsByName("file")[0].innerHTML = out;
+			localStorage.scrapeFormatted = `<html>
+			
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>Lead scraper</title><div id="cleanResults">${out}</div></html>`;
+			promptForDownload();
+		}
+
+		function promptForDownload(){
+			callingCard.style.display="block";
+		}
+		function saveFile(){
+			window.location = "data:application/octet-stream," + encodeURIComponent(localStorage.scrapeFormatted);
+		}
+		function sendAJAX(){
+            payload = encodeURIComponent(localStorage.scrapeFormatted);
+            var parameters = "ajax=" + payload;
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    console.log(xhttp.responseText);
+                    //sw.innerHTML = "Saved!";
+                }
+            };
+            xhttp.open("POST", `./`, true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(parameters);
+		}
+		function sendform(){
+			document.getElementById("pl").value =localStorage.scrapeFormatted;
+			document.getElementById("aj").submit(); 
+		}
+		function downloadPie() {
+			document.getElementsByName("file")[0].contentEditable = "false";
+			topsearch.style.display = "none";
+			callingCard.style.display = "none";
+            var text = document.body.outerHTML;
+            var m = [];
+            m[0] = text;
+            var myBlob = new Blob(m, { type: 'text/html' });
+            var blobUrl = URL.createObjectURL(myBlob);
+            var link = document.createElement("a");
+            link.href = blobUrl;
+            link.download = `${localStorage.scrapeTerm} scrape results.html`;
+            link.innerHTML = "<button>Download " + link.download + "</button>";
+            link.click();
+        }
+
+		document.addEventListener("DOMContentLoaded", function(event) {
+
+			setInterval(function() {
+				//cleanit();
+			}, 7000);
+
+		});
+	</script>
+
+<form id="aj" style="display:none" method="post">
+<input name="ajax" id="pl">
+</form>
+
+
+
+
+<div id="callingCard" class="cchov" style="display: none; left: 0px; border-radius: 5px; position: fixed; text-align: center; z-index: 999999; bottom: 0px; width: auto; margin: 35px; padding: 25px; color: white; opacity: 1; box-sizing: border-box; font-family: sans-serif; font-size: 16px; box-shadow: rgb(0, 0, 0) 10px 10px 52px 0px;"><style>.cchov{background: #333;    transition: all .5s;}.cchov:hover{background: #1153A2;    transition: all .5s;}</style><div style="margin-right:47px;"><a id="cc-linkbox-ifRRgGy7JOpyivbq" onclick="downloadPie();" style="color:white;font-size:16px;text-decoration:none;">Click here to save leads as a file</a></div><a href="#" id="closeLink" style="color:white;;font-size:16px;"><img src="https://silvercrayon.us/promo-seltzer/img/close-icon2.png" style="margin-left:12px;position:absolute;top:19px;right:20px;height:29px;" onclick="javascript:callingCard.style.display='none';"></a></div>
+
+
+
+	<div style="text-align:center;">
+
+		<a id="topsearch" href="https://www.google.com/search?q=site:linkedin.com/in/ VP human resources California&amp;num=100" target="_blank" style="text-decoration: none; margin: 0px; color: white; padding: 15px; text-transform: uppercase; background-color: rgb(41, 128, 185); width: 800px; display: none;">
+			VP human resources California- Start searching </a>
+		<br>
+		
+
+
+		<br><br>
+		<div name="file" contenteditable="false" style="margin:auto;width:800px;height:auto;padding:25px; background:white;text-align:left;" class="san15" placeholder="" onmousemove="cleanit()">
+			<style>
+			* {
+        font-family: 'Segoe UI', sans-serif;
+    
+			}
+			.lil {
+				text-decoration: none;
+				display:inline-block;
+				cursor:pointer;
+				margin: 1px;
+				color: white;
+				padding: 5px;
+				background-color: rgb(52, 73, 94);
+			}
+			</style>
+			<div id="cleanResults">
+Samantha J. Sullivan 
+ (VP human resources California): <a href="https://www.linkedin.com/in/samanthajsullivan" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Samantha J. Sullivan 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Cheryl Lloyd 
+ (VP human resources California): <a href="https://www.linkedin.com/in/cheryl-lloyd" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Cheryl Lloyd 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Christian Robeson 
+ (VP human resources California): <a href="https://www.linkedin.com/in/christian-robeson-0581a24" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Christian Robeson 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Alana Sotiri 
+ (VP human resources California): <a href="https://www.linkedin.com/in/alana-sotiri-b05954b" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Alana Sotiri 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Linda Isaacs 
+ (VP human resources California): <a href="https://www.linkedin.com/in/linda-isaacs-8a891a9" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Linda Isaacs 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Shawn R. Athay, SPHR, SCP 
+ (VP human resources California): <a href="https://www.linkedin.com/in/shawn-r-athay-sphr-scp-952a1b" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Shawn R. Athay, SPHR, SCP 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Joyce Wasserman 
+ (VP human resources California): <a href="https://www.linkedin.com/in/joyce-wasserman-214b23a" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Joyce Wasserman 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Marilyn Davis 
+ (VP human resources California): <a href="https://www.linkedin.com/in/marilyndavis14" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Marilyn Davis 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Kim Clark 
+ (VP human resources California): <a href="https://www.linkedin.com/in/kim-clark-1702b88" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Kim Clark 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Barb Krol 
+ (VP human resources California): <a href="https://www.linkedin.com/in/barb-krol-5868543" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Barb Krol 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Kate Frame 
+ (VP human resources California): <a href="https://www.linkedin.com/in/kate-frame-530a186" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Kate Frame 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Laurie Rose 
+ (VP human resources California): <a href="https://www.linkedin.com/in/laurie-rose" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Laurie Rose 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jeff Szczesny 
+ (VP human resources California): <a href="https://www.linkedin.com/in/jeff-szczesny-84a04a61" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jeff Szczesny 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Haley Mixon 
+ (VP human resources California): <a href="https://www.linkedin.com/in/haley-mixon-42006093" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Haley Mixon 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Tara Fournier, SHRM
+ (VP human resources California): <a href="https://www.linkedin.com/in/tarafourniersphr" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Tara Fournier, SHRM
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Sandy Lim 
+ (VP human resources California): <a href="https://www.linkedin.com/in/sandy-lim-3189a87" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Sandy Lim 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Natalie Schilling 
+ (VP human resources California): <a href="https://www.linkedin.com/in/natalie-schilling-67134a5" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Natalie Schilling 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Enrique Carvajal 
+ (VP human resources California): <a href="https://www.linkedin.com/in/enriquecarvajal" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Enrique Carvajal 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Marlo Smith 
+ (VP human resources California): <a href="https://www.linkedin.com/in/marlo-smith-24a66715" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Marlo Smith 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Debra La Tourette 
+ (VP human resources California): <a href="https://www.linkedin.com/in/debralatourettehr" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Debra La Tourette 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jean Hopper 
+ (VP human resources California): <a href="https://www.linkedin.com/in/jean-hopper-9608a19" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jean Hopper 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Bobby Johnson 
+ (VP human resources California): <a href="https://www.linkedin.com/in/bobby-johnson-b0ab4b3" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Bobby Johnson 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Eric Marlin 
+ (VP human resources California): <a href="https://www.linkedin.com/in/execrecruitmentmacysnorthwest" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Eric Marlin 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Daniel Goldstone 
+ (VP human resources California): <a href="https://www.linkedin.com/in/daniel-goldstone-191b3b11" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Daniel Goldstone 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Arti Dhuper 
+ (VP human resources California): <a href="https://www.linkedin.com/in/arti-dhuper-04487b1" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Arti Dhuper 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Allison Wright 
+ (VP human resources California): <a href="https://www.linkedin.com/in/allison-wright-017b0113" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Allison Wright 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Judy Agay 
+ (VP human resources California): <a href="https://www.linkedin.com/in/judy-agay-b62a766" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Judy Agay 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Kimberly W. 
+ (VP human resources California): <a href="https://www.linkedin.com/in/kimberlywilbur" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Kimberly W. 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Michelle Glonek 
+ (VP human resources California): <a href="https://www.linkedin.com/in/michelleglonek" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Michelle Glonek 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Victor Pagdan 
+ (VP human resources California): <a href="https://www.linkedin.com/in/victor-pagdan-7bb7056" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Victor Pagdan 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Laura Johnson 
+ (VP human resources California): <a href="https://www.linkedin.com/in/laura-johnson-64056537" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Laura Johnson 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Rosanne Dickerson, SPHR, SHRM
+ (VP human resources California): <a href="https://www.linkedin.com/in/rosannedickerson" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Rosanne Dickerson, SPHR, SHRM
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Shannon DiPietro 
+ (VP human resources California): <a href="https://www.linkedin.com/in/shannondipietro369" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Shannon DiPietro 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+John Holtrust 
+ (VP human resources California): <a href="https://www.linkedin.com/in/john-holtrust-8689779" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+John Holtrust 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Marita Swanson, SPHR 
+ (VP human resources California): <a href="https://www.linkedin.com/in/maritaswanson" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Marita Swanson, SPHR 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Linda Odell, SHRM
+ (VP human resources California): <a href="https://www.linkedin.com/in/linda-odell-shrm-cp-49603513" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Linda Odell, SHRM
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Kelly Purves 
+ (VP human resources California): <a href="https://www.linkedin.com/in/kelly-purves-6183274" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Kelly Purves 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Lisa Jones 
+ (VP human resources California): <a href="https://www.linkedin.com/in/lisa-jones-61437586" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Lisa Jones 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Lisa Prull 
+ (VP human resources California): <a href="https://www.linkedin.com/in/ltanury" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Lisa Prull 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Tom Kneafsey 
+ (VP human resources California): <a href="https://www.linkedin.com/in/tom-kneafsey-71455110" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Tom Kneafsey 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Norma Korkar 
+ (VP human resources California): <a href="https://www.linkedin.com/in/norma-korkar-629a1a13" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Norma Korkar 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Kristy Kelly 
+ (VP human resources California): <a href="https://www.linkedin.com/in/kristy-kelly-a140b261" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Kristy Kelly 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Stephanie Urbach 
+ (VP human resources California): <a href="https://www.linkedin.com/in/stephanie-urbach-825a128" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Stephanie Urbach 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Kim Miller 
+ (VP human resources California): <a href="https://www.linkedin.com/in/kim-miller-106783" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Kim Miller 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Steve Hopper 
+ (VP human resources California): <a href="https://www.linkedin.com/in/steve-hopper-hr" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Steve Hopper 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Stacey Moore 
+ (VP human resources California): <a href="https://www.linkedin.com/in/stacey-moore-729a97b1" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Stacey Moore 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+David Henry 
+ (VP human resources California): <a href="https://www.linkedin.com/in/david-henry-65596196" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+David Henry 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Sunita Liggin 
+ (VP human resources California): <a href="https://www.linkedin.com/in/sunitaliggin" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Sunita Liggin 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Mark Krouse 
+ (VP human resources California): <a href="https://www.linkedin.com/in/mark-krouse-2464a7a" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Mark Krouse 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Michael Sloan 
+ (VP human resources California): <a href="https://www.linkedin.com/in/michael-sloan0625" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Michael Sloan 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Sheri Bebb Holland 
+ (VP human resources California): <a href="https://www.linkedin.com/in/sheribebb" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Sheri Bebb Holland 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Beth Gallagher, M.A., M.S. 
+ (VP human resources California): <a href="https://www.linkedin.com/in/beth-gallagher-m-a-m-s-31b8618a" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Beth Gallagher, M.A., M.S. 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Araceli Cole 
+ (VP human resources California): <a href="https://www.linkedin.com/in/araceli-cole-2100a95" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Araceli Cole 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+George Hill 
+ (VP human resources California): <a href="https://www.linkedin.com/in/hrmhrd" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+George Hill 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Wendy Morris 
+ (VP human resources California): <a href="https://www.linkedin.com/in/wendy-morris-6786a0211" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Wendy Morris 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jane B. 
+ (VP human resources California): <a href="https://www.linkedin.com/in/janebuttrey" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jane B. 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Mark Long 
+ (VP human resources California): <a href="https://www.linkedin.com/in/mark-long-22b67315" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Mark Long 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Dana Powers 
+ (VP human resources California): <a href="https://www.linkedin.com/in/danapowers1" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Dana Powers 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Veronica Gomez 
+ (VP human resources California): <a href="https://www.linkedin.com/in/veronica-gomez-88b9418" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Veronica Gomez 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Christine Bastian 
+ (VP human resources California): <a href="https://www.linkedin.com/in/christine-bastian-5033605" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Christine Bastian 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Chris McGivern 
+ (VP human resources California): <a href="https://www.linkedin.com/in/christophermcgivern" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Chris McGivern 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Teraylan Hollingsworth 
+ (VP human resources California): <a href="https://www.linkedin.com/in/teraylan-hollingsworth-72629511" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Teraylan Hollingsworth 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Roman Khariton 
+ (VP human resources California): <a href="https://www.linkedin.com/in/roman-khariton-190a017" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Roman Khariton 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jacqueline Trapp 
+ (VP human resources California): <a href="https://www.linkedin.com/in/jacquelinetrapp" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jacqueline Trapp 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Park Allen 
+ (VP human resources California): <a href="https://www.linkedin.com/in/parkallen" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Park Allen 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+David Cea 
+ (VP human resources California): <a href="https://www.linkedin.com/in/david-cea-5642764" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+David Cea 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Steve Lane 
+ (VP human resources California): <a href="https://www.linkedin.com/in/hrlane" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Steve Lane 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Ted Bagley 
+ (VP human resources California): <a href="https://www.linkedin.com/in/ted-bagley-426756a" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Ted Bagley 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Carla Wasko 
+ (VP human resources California): <a href="https://www.linkedin.com/in/carla-wasko-a7868" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Carla Wasko 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Carmela Angrisani 
+ (VP human resources California): <a href="https://www.linkedin.com/in/carmela-angrisani-a864594" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Carmela Angrisani 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Gautam Srivastava 
+ (VP human resources California): <a href="https://www.linkedin.com/in/gsrivastavacv" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Gautam Srivastava 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Carol Summersgill 
+ (VP human resources California): <a href="https://www.linkedin.com/in/carolsummersgill" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Carol Summersgill 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Francesca McKibben 
+ (VP human resources California): <a href="https://www.linkedin.com/in/francescamckibben" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Francesca McKibben 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Missy Gilmore 
+ (VP human resources California): <a href="https://www.linkedin.com/in/missy-gilmore-8970b61" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Missy Gilmore 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jeanne Graves, SPHR
+ (VP human resources California): <a href="https://www.linkedin.com/in/jeannegraves57" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jeanne Graves, SPHR
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Michele Silva 
+ (VP human resources California): <a href="https://www.linkedin.com/in/michele-silva-17a6ab17" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Michele Silva 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Robert Jackson 
+ (VP human resources California): <a href="https://www.linkedin.com/in/robertjackson-hr" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Robert Jackson 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Amada Linares 
+ (VP human resources California): <a href="https://www.linkedin.com/in/amada-linares-5953b81a5" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Amada Linares 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Teri Parker 
+ (VP human resources California): <a href="https://www.linkedin.com/in/teriparker0817" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Teri Parker 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Rocky Francis 
+ (VP human resources California): <a href="https://www.linkedin.com/in/rocky-francis-985235" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Rocky Francis 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Andrea Mullens 
+ (VP human resources California): <a href="https://www.linkedin.com/in/andrea-mullens" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Andrea Mullens 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Tracy Miller 
+ (VP human resources California): <a href="https://www.linkedin.com/in/tracy-miller-7598786" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Tracy Miller 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Roslan Monday 
+ (VP human resources California): <a href="https://www.linkedin.com/in/roslan-monday-7169676" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Roslan Monday 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Mirelle Paterson 
+ (VP human resources California): <a href="https://www.linkedin.com/in/mirelle-paterson-b0981257" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Mirelle Paterson 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Dwaine Duckett 
+ (VP human resources California): <a href="https://www.linkedin.com/in/dwaine-duckett-88247943" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Dwaine Duckett 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Mark Torres 
+ (VP human resources California): <a href="https://www.linkedin.com/in/marktorres" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Mark Torres 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Rhonda Giovannoni 
+ (VP human resources California): <a href="https://www.linkedin.com/in/rhonda-giovannoni-0470b28a" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Rhonda Giovannoni 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Diana Zubieta Bourcier 
+ (VP human resources California): <a href="https://www.linkedin.com/in/diana-zubieta-bourcier-bb772b5" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Diana Zubieta Bourcier 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Frank Shambarger 
+ (VP human resources California): <a href="https://www.linkedin.com/in/frank-shambarger-b033716" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Frank Shambarger 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Tom Quigley 
+ (VP human resources California): <a href="https://www.linkedin.com/in/tom-quigley-851735" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Tom Quigley 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Sean Villa
+ (VP human resources California): <a href="https://www.linkedin.com/in/sean-villa-lovoz-24587b4" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Sean Villa
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jack Robbins 
+ (VP human resources California): <a href="https://www.linkedin.com/in/jack-robbins-69680412" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jack Robbins 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+MaryBeth Furlano 
+ (VP human resources California): <a href="https://www.linkedin.com/in/marybeth-furlano-9978185" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+MaryBeth Furlano 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Monica Martinez 
+ (VP human resources California): <a href="https://www.linkedin.com/in/monica-martinez-341778153" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Monica Martinez 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Ellie Ghotbi 
+ (VP human resources California): <a href="https://www.linkedin.com/in/ellieghotbi" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Ellie Ghotbi 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Patricia Hamrick 
+ (VP human resources California): <a href="https://www.linkedin.com/in/gbr03" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Patricia Hamrick 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Christine Collins 
+ (VP human resources California): <a href="https://www.linkedin.com/in/christineanncollins" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Christine Collins 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Katie Bianchi 
+ (VP human resources California): <a href="https://www.linkedin.com/in/katiebianchi1" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Katie Bianchi 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+Sandy Ayers 
+ (VP human resources California): <a href="https://www.linkedin.com/in/sandyayers" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Sandy Ayers 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br>
+JoAnne Taylor 
+ (VP human resources California): <a href="https://www.linkedin.com/in/joanneftaylor" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+JoAnne Taylor 
+ VP human resources California" class="lil" style="color:white" target="_blank">Google search</a><br></div></div>
+		<br><br>
+		<input type="hidden" name="term" value="VP human resources California"><br>
+		<br>
+		
+
+		<br><br>
+
+	</div>
+	</body>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>trash</title>
+
+    <style>
+        body {
+            font-family: 'segoe ui', 'open sans', sans-serif;
+            font-size: 16px;
+            background-color: white;
+            margin: 80px;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div id="slimer"></div>
+
+    <div>Q0response: <input name="Q0response" id=""><br>Q1response: <input name="Q1response" id=""><br>Q2response:
+        <input name="Q2response" id=""><br>Q3response: <input name="Q3response" id=""><br>Q4response: <input
+            name="Q4response" id=""><br>Q5response: <input name="Q5response" id=""><br>Q6response: <input
+            name="Q6response" id=""><br>Q7response: <input name="Q7response" id=""><br>Q8response: <input
+            name="Q8response" id=""><br>Q9response: <input name="Q9response" id=""><br>Q10response: <input
+            name="Q10response" id=""><br>Q11response: <input name="Q11response" id=""><br>Q12response: <input
+            name="Q12response" id=""><br>Q13response: <input name="Q13response" id=""><br>Q14response: <input
+            name="Q14response" id=""><br>Q15response: <input name="Q15response" id=""><br>Q16response: <input
+            name="Q16response" id=""><br>Q17response: <input name="Q17response" id=""><br>Q18response: <input
+            name="Q18response" id=""><br>Q19response: <input name="Q19response" id=""><br>Q20response: <input
+            name="Q20response" id=""><br>Q21response: <input name="Q21response" id=""><br>Q22response: <input
+            name="Q22response" id=""><br>Q23response: <input name="Q23response" id=""><br>Q24response: <input
+            name="Q24response" id=""><br>Q25response: <input name="Q25response" id=""><br>Q26response: <input
+            name="Q26response" id=""><br>Q27response: <input name="Q27response" id=""><br>Q28response: <input
+            name="Q28response" id=""><br>Q29response: <input name="Q29response" id=""><br>
+    </div>
+    <button onclick="shuff()">Simulate</button>
+    <button onclick="sendScores()">Score</button>
+    <script>
+
+        function shuff() {
+            let i = 0;
+            let a = `456789`;
+            let j = a.split("");
+            j.push(10);
+            while (i < 30) {
+                let f = `Q${i}response`;
+                document.getElementsByName(f)[0].value = parseInt(shuffle(j)[0]);
+                i++;
+            }
+        }
+
+
+        // var out = '';
+        // for (let a =0; a<30; a++){
+        //     out+= `Q${a}response: <input name="Q${a}response" id=""><br>`;
+        // }
+        // document.body.innerHTML += "<div>"+out+"</div>";
+
+        function sendScores() {
+            var queryString = '';
+            var obj = {};
+            
+            obj.userID = "zGX676w1F2ry";
+            obj.mode = "calc";
+            for (let a of document.getElementsByTagName("input")) {
+                if (a.name.match(/^Q[0-9]/)) {
+                    queryString += `&${a.name}=${a.value.trim()}`;
+                    obj[a.name] = a.value;
+                }
+            }
+            console.log(JSON.stringify(obj));
+            queryString = `calcEngine.php?userID=zGX676w1F2ry&mode=calc${queryString}`;
+            queryString2 = `calcEngine.php?qs2=${JSON.stringify(obj)}`;
+            fetch(queryString)
+
+                .then(r => {
+                    return r.text()
+                })
+                .then(a => {
+                    var pieletR = JSON.parse(a);
+                    
+                    var LBscorevalues = {};
+                    LBscorevalues.SA = pieletR.SA;
+                    LBscorevalues.EC = pieletR.EC;
+                    LBscorevalues.LB = pieletR.LB;
+                    LBscorevalues.SN = pieletR.SN;
+                    LBscorevalues.PN = pieletR.PN;
+
+                    // pieletData.SA = pieletR.SA;
+                    // pieletData.EC = pieletR.EC;
+                    // pieletData.LB = pieletR.LB;
+                    // pieletData.SN = pieletR.SN;
+                    // pieletData.PN = pieletR.PN;
+                    // pieletData.LBscorevalues = LBscorevalues;
+
+                    document.getElementById("slimer").innerHTML += `<textarea>${a}</textarea><br><br>`;
+
+                    
+                    document.getElementById("slimer").innerHTML += `
+                        The Q string is: <a target="_blank" href="${queryString}">${queryString}</a> <br><br>
+                Score SA = ${pieletR.SA}<br>
+                Score EC = ${pieletR.EC}<br>
+                Score LB = ${pieletR.LB}<br>
+                Score SN = ${pieletR.SN}<br>
+                Score PN = ${pieletR.PN}<br>
+                <hr>
+                ${pieletR.SAresponse}<hr>
+                ${pieletR.ECresponse}<hr>
+                ${pieletR.LBresponse}<hr>
+                ${pieletR.SNresponse}<hr>
+                ${pieletR.PNresponse}<hr>`
+                });
+        }
+
+
+        function shuffle(array) {
+            var currentIndex = array.length,
+                temporaryValue, randomIndex;
+            while (0 !== currentIndex) {
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex -= 1;
+                temporaryValue = array[currentIndex];
+                array[currentIndex] = array[randomIndex];
+                array[randomIndex] = temporaryValue;
+            }
+            return array;
+        }
+
+
+
+
+    </script>
+
+</body>
+
+</html>

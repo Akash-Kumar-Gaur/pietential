@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="../js/commonLinks.js"></script>
+    <script>
+      includeCommonHeader("Pietential - The Life Balance Realization System");
+    </script>
+    <section id="socialcards"></section>
+    <script>
+      fetch("../social-cards.php")
+        .then((r) => {
+          return r.text();
+        })
+        .then((a) => {
+          document.getElementById("socialcards").innerHTML = a;
+        });
+    </script>
+  </head>
+
+  <script>
+    if (!sessionStorage.getItem("userID"))
+      window.location.href = "https://pietential.com";
+  </script>
+  <script src="../js/language.js"></script>
+
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    <section id="navi"></section>
+    <script type="text/javascript" src="../navigation/topNav.js"></script>
+    <div class="max500">
+      <div id="scoreContainer">
+        <div id="loaderContainer" style="display: none">
+          <div class="loader_inner">
+            <img src="../assets/pie-spinner.png" alt="Pie" />
+          </div>
+        </div>
+      </div>
+      <div class="modalOverlay" id="modalOverlay"></div>
+      <script src="../js/apiHelper.js"></script>
+      <script src="../js/apiService.js"></script>
+      <script src="../js/main.js"></script>
+      <script>
+        var scoresList = [];
+        var firstIndex = 0;
+        var lastIndex = 5;
+        let modal = getElementById("modalOverlay");
+        function hideModal() {
+          modal.style.display = "none";
+        }
+
+        function getView(title) {
+          return `<div class="alertMain"><div class="alertInner" id="modalInner"><p>${title}</p>
+        <a class="loginButton" onclick="hideModal()" style="margin: auto">Ok</a>
+      </div></div>`;
+        }
+
+        function setValue(i, index) {
+          for (var x = 0; x <= 10; x++) {
+            if (i == x) {
+              getElementById(`button_${x}_${index}`).classList.remove(
+                "notActive"
+              );
+              getElementById(`button_${i}_${index}`).classList.add("activeTab");
+            } else {
+              if (x < i) {
+                getElementById(`button_${x}_${index}`).classList.remove(
+                  "notActive"
+                );
+                getElementById(`button_${x}_${index}`).classList.add(
+                  "activeTab"
+                );
+              } else
+                getElementById(`button_${x}_${index}`).classList.remove(
+                  "activeTab"
+                );
+              getElementById(`button_${x}_${index}`).classList.add("notActive");
+            }
+          }
+        }
+        const getQuestions = async () => {
+          let hindi = localStorage.currentLanguage == "hindi";
+          let language = hindi ? "hi" : "en";
+          getElementById("loaderContainer").style.display = "block";
+          await getAllSurveyQuestion(language).then((response) => {
+            if (response.length > 0) {
+              getElementById("loaderContainer").style.display = "none";
+            }
+            var part1 = getElementById("score1");
+            var part2 = getElementById("score2");
+            var part3 = getElementById("score3");
+            var part4 = getElementById("score4");
+            var part5 = getElementById("score5");
+            var container = getElementById("scoreContainer");
+
+            response.map((item, index) => {
+              if (index <= 5) {
+                part1.innerHTML += `<p><span class="roundedCircle"></span><b>${
+                  hindi ? item.subject_hi : item.subject
+                }:</b> <span> ${
+                  hindi ? item.question_hi : item.question
+                }</span></p>`;
+                part1.innerHTML += `<div class="rangeHolder" id="rangeHolder${index}" value="">`;
+                let rangeHolder = getElementById(`rangeHolder${index}`);
+                for (i = 0; i < 10; i++) {
+                  rangeHolder.innerHTML +=
+                    ' <span class="rangeButton" id="button_' +
+                    i +
+                    "_" +
+                    index +
+                    '" onclick="onCount(' +
+                    i +
+                    "," +
+                    index +
+                    ')">' +
+                    (i + 1) +
+                    "</span>";
+                }
+                part1.innerHTML += ` </div>`;
+              }
+
+              if (index < 12 && index > 5) {
+                part2.innerHTML += `<p><span class="roundedCircle"></span><b>${
+                  hindi ? item.subject_hi : item.subject
+                }:</b> <span> ${
+                  hindi ? item.question_hi : item.question
+                }</span></p>`;
+                part2.innerHTML += `<div class="rangeHolder" id="rangeHolder${index}">`;
+                let rangeHolder = getElementById(`rangeHolder${index}`);
+                for (i = 0; i < 10; i++) {
+                  rangeHolder.innerHTML +=
+                    ' <span class="rangeButton" id="button_' +
+                    i +
+                    "_" +
+                    index +
+                    '" onclick="onCount(' +
+                    i +
+                    "," +
+                    index +
+                    ')">' +
+                    (i + 1) +
+                    "</span>";
+                }
+                part2.innerHTML += ` </div>`;
+              }
+              if (index < 18 && index > 11) {
+                part3.innerHTML += `<p><span class="roundedCircle"></span><b>${
+                  hindi ? item.subject_hi : item.subject
+                }:</b> <span> ${
+                  hindi ? item.question_hi : item.question
+                }</span></p>`;
+                part3.innerHTML += `<div class="rangeHolder" id="rangeHolder${index}">`;
+                let rangeHolder = getElementById(`rangeHolder${index}`);
+                for (i = 0; i < 10; i++) {
+                  rangeHolder.innerHTML +=
+                    ' <span class="rangeButton" id="button_' +
+                    i +
+                    "_" +
+                    index +
+                    '" onclick="onCount(' +
+                    i +
+                    "," +
+                    index +
+                    ')">' +
+                    (i + 1) +
+                    "</span>";
+                }
+                part3.innerHTML += ` </div>`;
+              }
+
+              if (index < 24 && index > 17) {
+                part4.innerHTML += `<p><span class="roundedCircle"></span><b>${
+                  hindi ? item.subject_hi : item.subject
+                }:</b> <span> ${
+                  hindi ? item.question_hi : item.question
+                }</span></p>`;
+                part4.innerHTML += `<div class="rangeHolder" id="rangeHolder${index}">`;
+                let rangeHolder = getElementById(`rangeHolder${index}`);
+                for (i = 0; i < 10; i++) {
+                  rangeHolder.innerHTML +=
+                    ' <span class="rangeButton" id="button_' +
+                    i +
+                    "_" +
+                    index +
+                    '" onclick="onCount(' +
+                    i +
+                    "," +
+                    index +
+                    ')">' +
+                    (i + 1) +
+                    "</span>";
+                }
+                part4.innerHTML += ` </div>`;
+              }
+              if (index < 30 && index > 23) {
+                part5.innerHTML += `<p><span class="roundedCircle"></span><b>${
+                  hindi ? item.subject_hi : item.subject
+                }:</b> <span> ${
+                  hindi ? item.question_hi : item.question
+                }</span></p>`;
+                part5.innerHTML += `<div class="rangeHolder" id="rangeHolder${index}">`;
+                let rangeHolder = getElementById(`rangeHolder${index}`);
+                for (i = 0; i < 10; i++) {
+                  rangeHolder.innerHTML +=
+                    ' <span class="rangeButton" id="button_' +
+                    i +
+                    "_" +
+                    index +
+                    '" onclick="onCount(' +
+                    i +
+                    "," +
+                    index +
+                    ')">' +
+                    (i + 1) +
+                    "</span>";
+                }
+                part5.innerHTML += ` </div>`;
+              }
+            });
+          });
+        };
+
+        getQuestions();
+        const getScrollIntoView = () => {
+          let container = getElementById("scoreContainer");
+          container.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+            inline: "start",
+          });
+        };
+        const onCount = (i, index) => {
+          let textContainer = getElementById("textContainer");
+          let ac = getElementById("textMainContainer");
+          let part1 = getElementById("score1");
+          let part2 = getElementById("score2");
+          let part3 = getElementById("score3");
+          let part4 = getElementById("score4");
+          let part5 = getElementById("score5");
+          let rangeHolder = getElementById(`rangeHolder${index}`);
+          if (
+            rangeHolder.getAttribute("value") == "" ||
+            rangeHolder.getAttribute("value") == null
+          ) {
+            scoresList.push(rangeHolder.getAttribute("value"));
+          }
+          rangeHolder.setAttribute("value", i + 1);
+          if (scoresList.length == 6) {
+            part1.style.display = "none";
+            part2.style.display = "block";
+            getElement(".selfActu").classList.remove("selfActuActive");
+            getElement(".selfEsteem").classList.add("selfEsteemActive");
+            getScrollIntoView();
+          }
+          if (scoresList.length == 12) {
+            part2.style.display = "none";
+            part3.style.display = "block";
+            getElement(".selfEsteem").classList.remove("selfEsteemActive");
+            getElement(".belonging").classList.add("belongingActive");
+            getScrollIntoView();
+          }
+          if (scoresList.length == 18) {
+            part3.style.display = "none";
+            part4.style.display = "block";
+            getElement(".belonging").classList.remove("belongingActive");
+            getElement(".needs").classList.add("needsActive");
+            getScrollIntoView();
+          }
+          if (scoresList.length == 24) {
+            part4.style.display = "none";
+            part5.style.display = "block";
+            getElement(".needs").classList.remove("needsActive");
+            getElement(".physiological").classList.add("physiologicalActive");
+            getScrollIntoView();
+          }
+          if (scoresList.length == 30) {
+            let visualizeContainer = getElementById("visualizeContainer");
+            visualizeContainer.style.display = "block";
+            visualizeContainer.scrollIntoView({
+              behavior: "smooth",
+              block: "center",
+              inline: "nearest",
+            });
+          }
+          setValue(i, index);
+        };
+
+        const createQuestionsResponse = async () => {
+          getElementById("loaderContainer").style.display = "block";
+          const date = new Date();
+          let day = date.getDate();
+          let month = date.getMonth() + 1;
+          let year = date.getFullYear();
+          let currentDate = `${year}-${month}-${day}`;
+          await handleCreateUserSurveyResponse(
+            getElementById("rangeHolder0").getAttribute("value"),
+            getElementById("rangeHolder1").getAttribute("value"),
+            getElementById("rangeHolder2").getAttribute("value"),
+            getElementById("rangeHolder3").getAttribute("value"),
+            getElementById("rangeHolder4").getAttribute("value"),
+            getElementById("rangeHolder5").getAttribute("value"),
+            getElementById("rangeHolder6").getAttribute("value"),
+            getElementById("rangeHolder7").getAttribute("value"),
+            getElementById("rangeHolder8").getAttribute("value"),
+            getElementById("rangeHolder9").getAttribute("value"),
+            getElementById("rangeHolder10").getAttribute("value"),
+            getElementById("rangeHolder11").getAttribute("value"),
+            getElementById("rangeHolder12").getAttribute("value"),
+            getElementById("rangeHolder13").getAttribute("value"),
+            getElementById("rangeHolder14").getAttribute("value"),
+            getElementById("rangeHolder15").getAttribute("value"),
+            getElementById("rangeHolder16").getAttribute("value"),
+            getElementById("rangeHolder17").getAttribute("value"),
+            getElementById("rangeHolder18").getAttribute("value"),
+            getElementById("rangeHolder19").getAttribute("value"),
+            getElementById("rangeHolder20").getAttribute("value"),
+            getElementById("rangeHolder21").getAttribute("value"),
+            getElementById("rangeHolder22").getAttribute("value"),
+            getElementById("rangeHolder23").getAttribute("value"),
+            getElementById("rangeHolder24").getAttribute("value"),
+            getElementById("rangeHolder25").getAttribute("value"),
+            getElementById("rangeHolder26").getAttribute("value"),
+            getElementById("rangeHolder27").getAttribute("value"),
+            getElementById("rangeHolder28").getAttribute("value"),
+            getElementById("rangeHolder29").getAttribute("value"),
+            currentDate
+          ).then((response) => {
+            if (response.error) {
+              modal.innerHTML = "";
+              modal.style.display = "block";
+              modal.innerHTML += getView(`some error occurred`);
+              return;
+            } else return (window.location.href = "/pages/visualizeIt.html");
+          });
+        };
+        function collapseSidebar() {
+          let main = getElement(".sidebarMain");
+          let rightSideClass = getElement(".part");
+          let assessIt = getElements(".assessIt");
+          rightSideClass.classList.toggle("visualize_it_container");
+          main.classList.toggle("minWidth");
+        }
+      </script>
+      <div class="scoreContainer">
+        <div class="sidebarMain" id="sidebarContainer">
+          <div class="wellbeingTextContainer">
+            <p class="wellbeingText wellbeing">
+              <script>
+                get_i18n("wellbeing");
+              </script>
+            </p>
+            <img
+              src="../assets/gredientArrow.svg"
+              alt="Arrow"
+              onclick="collapseSidebar()"
+            />
+          </div>
+          <p class="assessIt assessText assess">
+            <script>
+              get_i18n("assessText");
+            </script>
+          </p>
+          <p
+            class="assessIt selfActualization selfText selfActu selfActuActive"
+          >
+            <script>
+              get_i18n("selfActualization");
+            </script>
+          </p>
+          <p class="assessIt selfText selfEsteem">
+            <script>
+              get_i18n("selfEsteem");
+            </script>
+          </p>
+          <p class="assessIt selfText loveBelonging belonging">
+            <script>
+              get_i18n("loveBelonging");
+            </script>
+          </p>
+          <p class="assessIt selfText safetyNeeds needs">
+            <script>
+              get_i18n("safetyNeeds");
+            </script>
+          </p>
+          <p class="assessIt selfText physiologicalNeeds physiological">
+            <script>
+              get_i18n("physiologicalNeeds");
+            </script>
+          </p>
+          <p
+            class="assessIt visualizeIt selfText visualizeItText visualizeText"
+            id="forMobile"
+          >
+            <script>
+              get_i18n("visualizeIt");
+            </script>
+          </p>
+          <p class="assessIt analyzeIt selfText visualizeItText forHiding" id="forMobile">
+            <script>
+              get_i18n("analyzeIt");
+            </script>
+          </p>
+          <p
+            class="assessIt selfText visualizeItText realizeItText"
+            id="forMobile"
+          >
+            <script>
+              get_i18n("realizeItText");
+            </script>
+          </p>
+          <p
+            class="assessIt selfText visualizeItText actualizeText forHiding"
+            id="forMobile"
+          >
+            <script>
+              get_i18n("actualizeText");
+            </script>
+          </p>
+        </div>
+        <div id="score1" class="part">
+          <h2 class="scoreHeading selfActualization">
+            <script>
+              get_i18n("selfActualization");
+            </script>
+          </h2>
+          <p class="scale scaleText">
+            <script>
+              get_i18n("scaleText");
+            </script>
+          </p>
+        </div>
+        <div id="score2" class="part">
+          <h2 class="scoreHeading selfEsteem" style="border: 0px">
+            <script>
+              get_i18n("selfEsteem");
+            </script>
+          </h2>
+          <p class="scale scaleText">
+            <script>
+              get_i18n("scaleText");
+            </script>
+          </p>
+        </div>
+        <div id="score3" class="part">
+          <h2 class="scoreHeading loveBelonging">
+            <script>
+              get_i18n("loveBelonging");
+            </script>
+          </h2>
+          <p class="scale scaleText">
+            <script>
+              get_i18n("scaleText");
+            </script>
+          </p>
+        </div>
+        <div id="score4" class="part">
+          <h2 class="scoreHeading safetyNeeds">
+            <script>
+              get_i18n("safetyNeeds");
+            </script>
+          </h2>
+          <p class="scale scaleText">
+            <script>
+              get_i18n("scaleText");
+            </script>
+          </p>
+        </div>
+        <div id="score5" class="part">
+          <h2 class="scoreHeading physiologicalNeeds">
+            <script>
+              get_i18n("physiologicalNeeds");
+            </script>
+          </h2>
+          <p class="scale scaleText">
+            <script>
+              get_i18n("scaleText");
+            </script>
+          </p>
+        </div>
+      </div>
+      <div class="visualizeContainer" id="visualizeContainer">
+        <button
+          class="analyzeIt visualizeIt tryItButton"
+          id="analyzeIt"
+          onclick="createQuestionsResponse()"
+          style="margin: auto"
+        >
+          <script>
+            get_i18n("visualizeIt");
+          </script>
+        </button>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
+    <script src="../chartjs-plugin-watermark.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-K3VEYCTX6E"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-K3VEYCTX6E");
+    </script>
+
+    <section id="footi"></section>
+    <script type="text/javascript" src="../navigation/bottomNav.js"></script>
+  </body>
+</html>

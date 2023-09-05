@@ -1,0 +1,341 @@
+
+<style>
+   
+
+    .col2 {
+        width: 48%;
+        float: left;
+        text-align: left;
+        margin: 12px;
+    }
+
+    .hankm {
+        text-align: left;
+    }
+</style>
+<section style="max-width:1000px; margin:auto">
+    <div style="margin:0px;max-width: 900px;text-align: center;margin: auto;">
+        <div id="abstract" style="text-align: left; box-sizing:border-box">
+            <p style="margin-top:6px;"></p>
+        </div>
+    </div>
+</section>
+<section id="explainer" style="max-width: 1200px;text-align: center;margin: auto;">
+</section>
+</div>
+<div id="emailCapture" class="max500"
+    style="display:none;padding-top:20px;max-width:800px; margin:auto; text-align:center;">
+    <input name="email" id="email" required="" type="email" placeholder="Enter your email to begin the evaluation"
+        style="width:80%; max-width:500px;text-align:center;">
+    <br>
+    <div class="bt login-bar" onclick="getmail()">Start evaluation ➜</div><br><br>
+    Have an account? <a href="https://pietential.com/pielet/login/">Member login</a>
+</div>
+<form class="max500" id="mainformParent" style="margin:auto;" enctype="multipart/form-data" action=""
+    onclick="addValues();" method="post">
+    <section id="topChartGen" style="display:none; margin:auto">
+        <!-- Form has been completed.<br><br>-->
+        <div class="bt" onclick="showResults()">Visualize It</div><br><br><br>
+        <!--<div class="bt" onclick="sendChartAsPNG()">Return to editing</div>-->
+    </section>
+    <div id="mainForm" >
+        <div id="scoreboard"></div>
+        <div id="branding2" style="margin: auto; text-align: center;"></div>
+        <section id="partPicker" style="margin: 0px 0px 15px; text-align: center; display: none;">
+            <!--
+    <div class="bt color1 partpickerButton" onclick="nextsection('Part1');">Self-Actualization</div>
+    <div class="bt color2 partpickerButton" onclick="nextsection('Part2');">Esteem</div>
+    <div class="bt color3 partpickerButton" onclick="nextsection('Part3');">Love and Belonging</div>
+    <div class="bt color4 partpickerButton" onclick="nextsection('Part4');">Safety needs</div>
+    <div class="bt color5 partpickerButton" onclick="nextsection('Part5');">Physiological needs</div>
+    -->
+        </section>
+        <div id="progressGroupTop" style="display: none;">
+            <div style="border-radius: 6px; width:100%; background: #eee;padding:0px;margin:10px 0px;">
+                <div class="pbar" style="padding:10px;border-radius: 6px; color:white; background: #377dd4; "></div>
+            </div>
+        </div>
+        <div id="partsContainer">
+        </div>
+        <br>
+        <span class="valueHolder" id="valueHolderQ25" style="margin-top:-40px;"></span>
+        <form class="max500" id="mainformParent" style="margin:auto;" enctype="multipart/form-data" action=""
+            onclick="addValues();" method="post">
+            <section id="headline" style="display:none;">
+                <!-- <h1>Pietential</h1>
+    <h2 style="display: inline-block; margin-top: -3%;">Growth Potential Visualization Survey</h2> -->
+            </section>
+            <!--<div class="bt" style="padding:1% 8%;" onclick="">More info </div>-->
+            <section id="topChartGen" style="display:none; margin:auto">
+                <!-- Form has been completed.<br><br>-->
+                <div class="bt" onclick="showResults()">Visualize It</div><br><br><br>
+                <!--<div class="bt" onclick="sendChartAsPNG()">Return to editing</div>-->
+            </section>
+            <div id="mainForm2" >
+                <section id="partPicker" style="margin: 0px 0px 15px; text-align: center; display: none;">
+                    <div class="bt color1 partpickerButton" onclick="nextsection('Part1');">Self-Actualization</div>
+                    <div class="bt color2 partpickerButton" onclick="nextsection('Part2');">Esteem</div>
+                    <div class="bt color3 partpickerButton" onclick="nextsection('Part3');">Love and Belonging</div>
+                    <div class="bt color4 partpickerButton" onclick="nextsection('Part4');">Safety needs</div>
+                    <div class="bt color5 partpickerButton" onclick="nextsection('Part5');">Physiological needs</div>
+                </section>
+                <section id="partPickerBottom" style="margin: 15px 0px; text-align: center; display: none;">
+                    <div class="bt color1 partpickerButton" onclick="nextsection('Part1');">Self-Actualization</div>
+                    <div class="bt color2 partpickerButton" onclick="nextsection('Part2');">Esteem</div>
+                    <div class="bt color3 partpickerButton" onclick="nextsection('Part3');">Love and Belonging</div>
+                    <div class="bt color4 partpickerButton" onclick="nextsection('Part4');">Safety needs</div>
+                    <div class="bt color5 partpickerButton" onclick="nextsection('Part5');">Physiological needs</div>
+                </section>
+                <div id="progressGroup" style="display: none;">
+                    <div id="sectionprogressParent"
+                        style="display: none; border-radius: 2px; width:100%; background: #eee;padding:0px;margin:10px 0px">
+                        <span class="note">Section progress:<br></span>
+                        <div style="padding: 2px;font-size: 11px; border-radius: 2px; color:white; background: #377dd4; "
+                            class="sectionprogress"></div>
+                    </div>
+                    <span class="note" style="display:none;">Overall progress:<br></span>
+                    <div id="pbarParent"
+                        style="border-radius: 6px; width:100%; background: #eee;padding:0px;margin:10px 0px;">
+                        <div class="pbar" style="padding:10px;border-radius: 6px; color:white; background: #377dd4; ">
+                        </div>
+                    </div>
+                    <!-- <i style="font-size: 11px; opacity: .5; text-align: right;margin-top: -3%; position: absolute; left: 30%;">all changes saved...</i>-->
+                </div>
+            </div>
+        </form>
+    </div>
+    <br>
+    <span class="valueHolder" id="valueHolderQ29" style="margin-top:-40px;"></span>
+    </div>
+    </div>
+    </div>
+    <section id="partPickerBottom" style="margin: 15px 0px; text-align: center; display: none;">
+        <div class="bt color1 partpickerButton" onclick="nextsection('Part1');">Self-Actualization</div>
+        <div class="bt color2 partpickerButton" onclick="nextsection('Part2');">Esteem</div>
+        <div class="bt color3 partpickerButton" onclick="nextsection('Part3');">Love and Belonging</div>
+        <div class="bt color4 partpickerButton" onclick="nextsection('Part4');">Safety needs</div>
+        <div class="bt color5 partpickerButton" onclick="nextsection('Part5');">Physiological needs</div>
+    </section>
+    <div id="progressGroup" style="display: none;">
+        <div id="sectionprogressParent"
+            style="display: none; border-radius: 2px; width:100%; background: #eee;padding:0px;margin:10px 0px">
+            <span class="note">Section progress:<br></span>
+            <div style="padding: 2px;font-size: 11px; border-radius: 2px; color:white; background: #377dd4; "
+                class="sectionprogress"></div>
+        </div>
+        <span class="note" style="display:none;">Overall progress:<br></span>
+        <div id="pbarParent" style="border-radius: 6px; width:100%; background: #eee;padding:0px;margin:10px 0px;">
+            <div class="pbar" style="padding:10px;border-radius: 6px; color:white; background: #377dd4; "></div>
+        </div>
+        <!-- <i style="font-size: 11px; opacity: .5; text-align: right;margin-top: -3%; position: absolute; left: 30%;">all changes saved...</i>-->
+    </div>
+    </div>
+</form>
+<div id="congrats" class="powerage" style="display:none; text-align:center;margin-bottom:10%;">
+    <h1>Congratulations</h1>
+    You have finished the evaluation.<div style="height:59px;"></div>
+    <div class="bt xswitch" onclick="congratsFunc()">Visualize It ➜</div>
+    <!--
+    <div id="choosePassword" style="margin-top: 40px;">
+    Create an account so you can track your progress over time.<br><br>
+    <div class="bt" onclick="location.assign('../create/?userID=${pieletData.userID}')">Create Account ➜</div>
+    </div>
+    -->
+</div>
+<div id="cc" style="display:none;">
+    <!-- <h2 style="text-align:center;">Your Pietential Growth Potential Visualizations</h2> -->
+    <canvas id="myChart" style="width:90%; top:0px;" class="chart"></canvas>
+    <div id="socialButtonContainer" style="text-align:center;">
+        <a class="bt" id="social2button" href="/pielet/shareMyChart" target="_blank">Share Your Pie Chart <img
+                style="padding: 0px 0px 0px 10px;position: relative;top: 4px;filter: invert(1);"
+                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABmJLR0QA/wD/AP+gvaeTAAAA/klEQVRIie2VTQrCMBCFP21XegXd+XMr76dWXbvwGgqewYotulPqoilWSdIWZwqCD2Y1Id8QMu/BXz+sIRABqakNMG0DGgPZR51NT02RBVrUQhOcesBJ+WBXEBpU3JdJgwNgBhyAvufcVoD1Bjzyes4j9s91AgbfAkMHcGZ6Y/JPlpia14WW9zABVuayKuBXcu1hrAUs5NtDFWAh3x5eJYFN1qkjBbWBd56zPWCP0lNPyQ297ucKJOFDckNPgAuwBEa4DUN8AJeqBpgAazO4Sh43sUyVPLY5Wqt5HAI3D1gtj+/Aw9MXz+OyfD4glsc2uXxAJI+rVPaBRnn8l4qeweqVPDCgtmYAAAAASUVORK5CYII=" /></a>
+    </div>
+    <canvas id="barchart" style="width:90%; top:100px;" class="chart"></canvas>
+    <section id="social" style="margin-top:100px;font-size: 15px; display:none;">
+        <div id="shareButtons" style="margin:auto;text-align:center;margin-top:30px;">
+            <!--
+    <a href="https://pietential.com/"><img src="https://pietential.com/pietential.png" style="width:200px;"></a><br><br>
+    -->
+            <div id="shareIntro" style="max-width: 1200px;
+    margin: auto;
+    box-sizing: border-box;
+    padding: 0px 0px 20px 0px;text-align:left;">
+                It's an authentic picture of how life is for you right now, and sharing yourself authentically gives
+                your friends an opportunity to offer you advice, recommendations, moral support - and the chance to
+                reach out and learn from you in areas of life where you're crushing it!
+                <br><br>
+                If shared, only your “Pietential Growth Potential Visualizations” will appear. Pietential does not share
+                your Pietential Analysis.
+            </div>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fpietential.com/pielet/share/{{userID}}&src=sdkpreparse"
+                style="font-size: 11px; padding: 5px 8px; text-transform: uppercase; border-radius: 4px; font-weight: bold; text-decoration-line: none; margin-top:30px;display:inline-block;"
+                target="_blank"><img src="https://pietential.com/pielet/icons/social-1_logo-facebook.svg" class="smicon"
+                    style="width:100px;"><br> Share your chart on Facebook</a>
+            <a href="https://twitter.com/intent/tweet?text=I just got my Pietential visualization: https://pietential.com/pielet/share/{{userID}}"
+                style="font-size: 11px; padding: 5px 8px; text-transform: uppercase; border-radius: 4px; font-weight: bold; text-decoration-line: none; margin-top:30px;display:inline-block;"
+                target="_blank"><img src="https://pietential.com/pielet/icons/social-1_logo-twitter.svg" class="smicon"
+                    style="width:100px;"><br>Share your chart on Twitter</a>
+            <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://pietential.com/pielet/share/{{userID}}&title=I just got my Pietential visualization"
+                style="font-size: 11px; padding: 5px 8px; text-transform: uppercase; border-radius: 4px; font-weight: bold; text-decoration-line: none; margin-top:30px;display:inline-block;"
+                target="_blank"><img src="https://pietential.com/pielet/icons/social-1_logo-linkedin.svg" class="smicon"
+                    style="width:100px;"><br> Share your chart on Linkedin</a>
+            <a href="https://www.pinterest.com/pin/create/link/?url=https%3A%2F%2Fpietential.com"
+                style="font-size: 11px; ; padding: 5px 8px; text-transform: uppercase; border-radius: 4px; font-weight: bold; text-decoration-line: none; margin-top:30px;display:inline-block;"
+                target="_blank"><img src="https://pietential.com/pielet/icons/social-1_logo-pinterest.svg"
+                    class="smicon" style="width:100px;"><br> Share your chart on Pinterest</a>
+            <div style="margin-top:30px;">
+                <br>This is the URL you will be sharing:<br><a href="https://pietential.com/pielet/share/{{userID}}"
+                    target="_blank">https://pietential.com/pielet/share/{{userID}}</a>
+            </div>
+            <!--<a href="https://pietential.com/pielet/share/{{userID}}" style="font-size: 11px; color: white; padding: 5px 8px; border: 0; background-color: rgb(248, 126, 2); text-transform: uppercase; border-radius: 4px; font-weight: bold; text-decoration-line: none; margin-top:30px;display:inline-block;" target="_blank">Preview Shared Link</a>-->
+        </div>
+        <div style="padding: 12px; font-family: sans-serif;margin:auto;text-align:center;"><br>
+            OR...
+            <br><br>Copy and paste the following snippet:<br>
+            <div class="copybox" id="copybox"><strong id="container">I just got my Pietential
+                    visualization:<br>https://pietenti<br>al.com/pielet/share/{{userID}}<br>Get yours at
+                    https://pietential.com/</strong></div>
+            <!--
+    <a href="javascript://" style="font-size: 11px; color: white; padding: 5px 8px; border: 0px solid rgb(201, 62, 41); background-color: rgb(46, 133, 165); text-transform: uppercase; border-radius: 4px; font-weight: bold; text-decoration-line: none; margin-top:30px;display:inline-block;" id="theButton" onclick="CopyToClipboard('copybox')">COPY TO CLIPBOARD</a>
+    -->
+            <!-- <a href="https://pietential.com/?socialshare=' . $share . '" style="font-size: 11px; color: white; padding: 5px 8px; border: 0px solid rgb(201, 62, 41); background-color: rgb(46, 133, 165); text-transform: uppercase; border-radius: 4px; font-weight: bold; text-decoration-line: none; margin-top:30px;display:inline-block;" target="_blank">Preview Shared Link</a>-->
+        </div>
+    </section>
+    <div id="analyzeit" style="text-align:center;position:relative; top:100px;">
+        <div class="bt" onclick="analyzeitFunc()">Analyze It ➜</div><br><br>
+        <br><br><br>
+    </div>
+</div>
+<div id="analyze" style="display:none;">
+    <div id="shellContent" style="max-width: 1200px; margin: auto; box-sizing: border-box; padding: 20px;">
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8"><a href="#"
+            style="display: block; text-align:center;"><img onmouseover="" src="https://pietential.com/pietential.png"
+                style="width:200px;"></a>
+        <div id="adminBar"></div>
+        <br><br><br>
+        <div id="scoreSummary" style="display:none;"><b>Your Scores:</b><br><br>
+            <div style="color:#94083b;margin-top:5px;"><b>Physiological Needs</b>: 57% (needs improvement)</div>
+            <div style="color:#94083b;margin-top:5px;"><b>Self-Esteem and Contribution</ your chartb>: 53% (needs
+                    improvement)
+            </div>
+            <div style="color:#94083b;margin-top:5px;"><b>Safety Needs</b>: 54% (needs improvement)</div>
+            <div style="color:#94083b;margin-top:5px;"><b>Love and Belonging</b>: 56% (needs improvement)</div>
+        </div><br>
+        <div id="responderIntro"><b>
+                <div style="padding-bottom:65px; text-align:center;">
+                    <!--<div class="bt" id="" >Pietential private analysis</div>-->
+                    <div style="font-weight:bold;font-size: 34px;padding: 10px 20px;margin:auto;">Your Pietential
+                        Analysis</div>
+                </div>
+                According to the answers you recently supplied to Pietential, the following areas of life have been
+                identified as
+                having considerable growth potential for you.
+            </b><br>
+            <br>
+        </div>
+
+        <div id="responderActualization" class="analyzeborder" style="display: none;">
+            <strong>Self Actualization</strong><br>
+
+        </div>
+
+        <div id="responderActualization60" class="analyzeborder">
+            <strong>Self Actualization</strong><br>
+
+        </div>
+
+        <div id="responderEsteem" class="analyzeborder">
+            <strong>Self-Esteem and Contribution</strong><br>
+
+        </div>
+
+        <div id="responderEsteem60" class="analyzeborder" style="display: none;">
+            <strong>Self-Esteem and Contribution</strong><br>
+
+        </div>
+
+        <div id="responderLove" class="analyzeborder">
+            <strong>Love and Belonging:</strong><br>
+
+        </div>
+
+        <div id="responderLove60" class="analyzeborder" style="display: none;">
+            <strong>Love and Belonging</strong><br>
+
+        </div>
+
+
+
+        <div id="responderSafety" class="analyzeborder">
+            <strong>Safety Needs</strong><br>
+
+        </div>
+
+
+        <div id="responderSafety60" class="analyzeborder" style="display: none;">
+            <strong>Safety Needs</strong><br>
+
+        </div>
+
+        <div id="responderPhysiological" class="analyzeborder">
+            <strong>Physiological Needs</strong><br>
+
+        </div>
+
+
+        <div id="responderPhysiological60" class="analyzeborder" style="display: none;">
+            <strong>Physiological Needs</strong><br>
+
+        </div>
+
+        <!--
+    <hr>
+    This set of recommendations was generated for you algorithmically by Pietential, based on your responses to
+    the Pietential survey. We want you to realize your full potential, and we encourage you to join the
+    Pietential Growth Group on FaceBook. It’s a small, but growing group of people committed to realizing their
+    potential, and helping others reach theirs. It is a private group, and you are invited to participate.
+    -->
+        <br>
+        <br>
+        <div id="minichart">
+            <div>
+                <canvas id="myChartA" style="width: 760px; display: block; height: 380px;"
+                    class="chart chartjs-render-monitor" width="760" height="380"></canvas>
+                <canvas id="barchartA" style="width: 760px; display: block; height: 380px;" chart"="" width="760"
+                    height="380" class="chartjs-render-monitor"></canvas>
+            </div>
+        </div>
+        <div style="text-align:center;" onmouseover="genPNG('barchart');">
+            <!-- <button class="bt" onclick="" style="margin: 0px; display: inline-block; width: 120px; text-align: center;">Return to Home</button> -->
+            <!--<button class="bt" onclick="socialShare();">Share your Pietential</button>-->
+            <div id="printMan" style="display:none;
+    margin: auto;position: absolute;
+    left:.5%;
+    text-align: center;
+    ">
+                <div style="
+    position:relative;
+    background: #eeeeee;
+    width: 400px;
+    padding: 30px;
+    border-radius: 7px;
+    overflow: visible;
+    box-sizing: border-box;
+    box-shadow: rgb(0, 0, 0) 10px 10px 52px 0px;
+    margin: auto;
+    ">A new window will open. When prompted, choose "Save as PDF" in the print dialog box.<br><br>
+                    <button class="bt" id="pdfd" onclick="openpdf()">Open window to save/print</button>
+                    <br><br>
+                    <button class="bt navy" onclick="hide('printMan')">Cancel</button>
+                </div>
+            </div>
+            <!--<button onmouseover="genPNG('myChart');" class="bt" id="pdfd" onclick="show('printMan')">Download or Print Private Analysis</button>
+    -->
+            <button class="bt" id="realizebutton" onclick="location.assign('../dashboard')">Realize it ➜</button>
+            <br><br>
+        </div>
+        <br><br>
+        <!--*Only your Visualization will be shared - not your Analysis
+    <br>-->
+    </div>
+</div>

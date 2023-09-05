@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="f" style="max-width:500px">
+        <a id="mandate" href="">Bookmarklet</a></div>
+    
+<script id="target">
+
+    function fakeLogIn() {
+
+        var fake = {};
+        var n = shuffle(names);
+        fake.fname = n[0];
+        fake.lname = n[1];
+        fake.company = n[2] + ` Inc.`;
+        fake.title = shuffle(titles)[0];
+        fake.password = `1234`;
+        fake.website = fake.lname + `.com`;
+        fake.email = fake.fname + `.` + fake.lname + `@` + `pietential.com`;
+        console.log(fake);
+        for (let a in fake) {
+            document.getElementsByName(a)[0].value = fake[a];
+        }
+    } 
+    
+    function makeCase(s){
+        s = s.toLowerCase();
+        return s.replace(/\S/,s[0].toUpperCase());
+    }
+    
+    var titles = [`Javascript Developer`,`IT Consultant`,`Drug Czar`,`Chief Whiner`,`Sales VP`,`VP, Asia Sales`, `Janitor`, `CEO`, `Director of Surveys`, `Ball Boy`];
+    var names = `Harold Wesley Tommy Ellis Norman Manual Isaias Perry Nigel Omar Ortiz Fox Ward Patrick Travis Lance Markus Tyler Wilfredo Vincenzo Otto Jefferey Sergio Shannon Rocco Stan Sheldon Kareem Josiah Pat Pasquale Perez Lyndon Kim Sydney Willy Jeremy Stephen Shaw Harrison Ivory Smith Lane Hobert Stanford Russell Linwood Sang Lynwood Marcelino Julian Thomas Michel Marty Jospeh Robinson Milford Mario Tod Shelton Scottie Randolph James Larry Neal Tyrone Nichols Rolando Ross Wilburn Roman Ira Sherman William Rusty Jean Harvey Reggie Jeromy Wyatt Reid Noble Mills Theodore Jason Hassan Grant Jordan Raymond Jim Marshall Reed Stevens Jose Rigoberto Carter Milton Odell Boyd Roscoe Randy Richard Jesus Renato Humberto Lionel Lloyd Scott Rickey Jeremiah Silas Isiah Milo Ramon Sandy Pierce Walter Simpson Marvin Micah Yong Rhett Mitch Clark West Jeramy Homer Man Lindsay Foster Jc Richie Samual Armstrong Ronnie Osvaldo Wallace Kristofer Lino Hilario Walton Terrence Nicky Bennett Marlon Rodger Jimmie Rene Burns Owens Lynn Jessie Jonathan Wilford Kelly Tuan Mariano Shad Wm Percy Zachary Marcus Butler Robt Freeman Sylvester Cole Herman Vicente Reuben Jaime Louie Luciano Hilton Nelson Sanders Rex Melvin Ray Williams Quincy Jamel Adams Wilfred Laurence Jess Mikel Lester Joel Tristan Thurman Norbert Vito Ned Cook Kristopher Ward Kerry Von Zackary Robin Joan King Steven Omer Lenard Harris Kurt Crawford Simon Malcolm Pablo Matt Marcellus Tommie Robert Wilmer Collins Romeo Rueben Willard Price Tracy Spencer Hunter Hunt Wiley Ruiz Trinidad Zane Mark Josh Leon Sung Reinaldo Issac Keenan Kelly Trent Raleigh Steve Jamie Ruben Rudy Valentine Kyle Mitchell Jody Ramos Vincent Thanh Jacques Johnny Gonzales Wood Jared Irving Winfred Johnson Malcom Shon Hosea Rod Lacy Juan Simmons Hunter Lou Wallace Raphael Hoyt Sean Sal Karl Mason Taylor Refugio Young Shane Lucio Teodoro Jackson Jarod Pedro Renaldo Fisher Jeff Tomas Spencer Israel Justin Lanny Sid Timmy Leroy Joe Jonathon Mitchel Joey Truman Coleman Edwards Bailey Jerrod Young Thomas Morgan Lonny Myron Moses Bradley Hill Powell Lucien Mathew Stewart Javier Rubin Harland Carroll Kasey Marcelo Leopoldo Shayne Rickie Lawrence Hollis Wade Weston Reed Van Isreal Napoleon Jayson Rich Nestor Rey Keneth Rogelio Leslie Wally Monroe Philip Jude Reginald Reyes Trenton Michael Nicolas Terry Hipolito Knight Lyle Merrill Lesley Saul Josef Jefferson Morris Raymon Johnie Mervin Morton Allen Samuel Levi Weldon Phillip Landon Hayden James Willis Julio Hyman Richardson Ken Nelson Newton Rice Winford Wells Lucius Herschel Lenny Maurice Jon Davis Anderson Graham Terence Kermit Horace Jackson Myers Stephan Ty John Virgilio Mel Kraig Luis Russell Ray Perry Thad White Kelley Lemuel Lowell Leonel Roberts Jermaine Kenton Salvador Sol Millard Joesph Ismael Judson Tanner Herbert Mitchell Mohammad Henderson Warner Oliver Ike Quentin Korey Normand Nathan Kevin Vernon Wes Lamar Quintin Kirby Joaquin Harper Willian Parker Johnathon Leonardo Isaiah Sammie Royce Barnes Jay Mohamed Tyron Max Jerald Neville Son Orval Roy Vaughn Odis Russ Garcia Sidney Jeffry Wilbert Luigi Dixon Mac Shirley Maynard Matthew Ronny Tyson Rivera Ulysses Johnnie Scott Luther Orville Rob Marc Jasper Payne Wilson Les Hung Randell Wilson Ron Merlin Nickolas Lon Jed Ricky Todd Stanley Ted Lawerence Hernandez Cruz Black Jewel Jacinto Loren Jonah Jack Wilber Tony Sammy Jacob Carpenter Tracey Warren Jackie Loyd Hart Kip Matthews Lupe Patterson Perkins Rudolph Martin Jamal Jae Xavier Kelvin Olin Porter Sebastian Leigh Baker Hugh Virgil Jordon Miquel Mickey Leo Reynolds Major Santos Jamaal Otis Sanchez Sam Oswaldo Long Quinton Pierre Rayford Troy Werner Ramirez Ferguson Jamison Gardner Hershel Rupert Rocky Jewell Seymour Wayne Cunningham Michale Octavio Palmer Louis Mack Len Tyree Wendell Kent Evans Washington Joseph Williams Rosendo Gordon Jarrett Irvin Stevie Leif Brown Nathanial Roosevelt Raymundo Bryant Marcos Jarrod Scot Nicholas Brooks Waldo Trey Houston Laverne Flores Sherwood Jesse Timothy Tory Gray Hector Robby Diaz Mike Howard Ralph Kenny Arnold Reynaldo Hiram Maximo Rick Seth Mauro Julius Lavern Noe Patricia Gomez Peterson Jamar Otha Hicks Haywood Wilbur Keven Stacy Lorenzo Ross Torres Huey Marlin Herb Stone Riley Stewart Vern Holmes Jonas Jerome Shawn Johnathan Daniels Cooper Murray Jake Rodrick Rashad Tobias Olen Lewis Lane Johnson Isaac Roland Ollie Lyman Maxwell Kenneth Merle Preston Kris Rory Jorge Marshall Martin Paul Trevor Sullivan Toby Thaddeus Hawkins Rolf Martinez Jimmy Tyrell Quinn Owen Alexander Green Jarvis Ricardo Paris Rufus Porter Harris Monte Stephens Moore Bell Lazaro Lauren Numbers Peter Leonard Kieth Reyes Wagner Valentin Terrance Raul Mose Stacey Randal Kennith Harrison Stanton Berry Junior Margarito Turner Joshua Rodney Henry Robertson Pete Scotty Lucas Kendall Mckinley Jame Minh Ignacio Rafael Rico Mauricio Royal Rodriguez Jeffery Vance Palmer Logan Neil Maria Woods Lincoln Marcel Walker Theo Tad Robbie Lamont Manuel Ronald Mary Tim Andrews Irwin Ryan Sonny Vince Miles Isidro Luke King Willis Santiago Rose Lindsey Harley Milan Porfirio Jan Morales Lewis Solomon Lonnie Tucker Sterling Hubert Hayes Oren Campbell Santo Lee Titus Roger Horacio Lee Malik Murray Randall Gibson Mason Josue Micheal Orlando Henry Jenkins Ian Shelby Rogers Michal Hamilton Jere Rosario Noel Russel Jerry Kory Rudolf Leandro Mcdonald Walker Rodolfo Thompson Nick Jules Watkins Zachariah Howard Miller Zachery Kennedy Jerrell Murphy Lopez Phil Watson Miguel Jordan Roderick Myles Sanford Moshe Marco Theron Kirk Marion Ramiro Val Morgan Webb Stuart Riley Shaun Taylor Kendrick Waylon Snyder Winston Norris Jeffrey Oscar Stefan Ivan Heriberto Nathanael Whitney Wright Griffin Cox Victor Mohammed Toney Norberto Teddy Ford Phillips Warren Rolland Zack Monty Morris Heath Modesto Jarred Nolan Jerrold Parker Hong Hudson Jamey Rodrigo Moises Kurtis Jerold Jones Nathaniel Will Terrell Keith Tom Hugo Roberto Harry Woodrow Willie Long Wilton Salvatore Hughes Prince Olson Leland Dunn Marquis Noah Duncan Gonzalez Hall`.split(" ");
+    function fake12() {
+        var out = '';
+        for (var i = 0; i < 12; i++) {
+            var str = `abzvxcsfwrefdgfhryfhbvmfvkfofpfjfhfydhbdksmmnvbvhjfuyges`.split("");
+            out += shuffle(str)[0];
+        }
+        return (out);
+    }
+    function shuffle(array) {
+        var currentIndex = array.length, temporaryValue, randomIndex;
+        while (0 !== currentIndex) {
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
+        }
+        return array;
+    }
+    try{
+    fakeLogIn();
+    }
+    catch (e){};
+
+
+</script>
+
+<script>
+
+var bm = target.innerHTML.replace(/\s/ig, " ");
+var l = bm;
+mandate.href = "javascript: "+l;
+
+
+
+
+
+
+
+</script>
+
+
+<a href='javascript: let i=0,SA,LB,EC,PN,SN;let a = `23456789`;let j =  a.split("");while(i<29){let f = `Q${i}response`;setvalue(parseInt(shuffle(j)[0]),f );addValues();i++;}'>Run simulation </a>
+</body>
+</html>

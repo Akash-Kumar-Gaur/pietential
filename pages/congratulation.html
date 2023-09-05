@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="../js/commonLinks.js"></script>
+    <script>includeCommonHeader('Congratulation')</script>
+  </head>
+
+  <body>
+    <script src="../js/main.js"></script>
+    <div class="thankYouMainContainer">
+      <div class="thankYouMain" id="congratulationMain">
+        <a href="/">
+          <img
+            src="../assets/pietentialBlackLogo.svg"
+            alt=""
+            style="max-width: 250px; margin-bottom: 30px; width: 250px"
+          />
+        </a>
+        <h2 class="thankYou">Congratulations!</h2>
+        <p class="success">
+          You have successfully set up your Pietential Admin account.
+        </p>
+        <p class="shareCode">
+          Share the organization code <b id="promoCode">"Bu290"</b> to onboard your
+          population. <br />
+          It is also sent to your registered email address.
+        </p>
+        <div class="buttonContainer button-container" id="buttonContainer">
+          <div class="buttonMainContainer">
+            <p class="readyToExplore">Ready to explore your Admin Dashboard</p>
+            <a href="/pages/adminLogin.html" class="loginButton">Login</a>
+          </div>
+        </div>
+        <span class="connected">Stay Connected!</span>
+        <div class="links">
+          <a href="https://www.linkedin.com/company/pietential/" target="_blank"
+            >Linkedin</a
+          >
+          <a href="/slice/">Blog</a>
+          <a href="/pages/events.html">Events</a>
+          <a href="/resources/">Resource</a>
+        </div>
+      </div>
+    </div>
+    <script>
+      const promoCode = sessionStorage.getItem("promoCode");
+      getElementById("promoCode").innerHTML = promoCode;
+    </script>
+  </body>
+</html>

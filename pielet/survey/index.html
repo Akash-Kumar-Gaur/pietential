@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pietential - The Life Balance Realization System</title>
+
+
+
+    <section id="socialcards"></section>
+    <script>
+        fetch("../social-cards.php")
+            .then(r => {
+                return r.text()
+            })
+            .then(a => {
+                document.getElementById("socialcards").innerHTML = a;
+
+            });
+    </script>
+
+    <link href="/pielet/styles.css" rel="stylesheet" type="text/css">
+    <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="../../style/public.css" type="text/css" />
+  <link rel="stylesheet" href="../../style/responsive.css" type="text/css" />
+</head>
+
+<script>
+
+    if (!localStorage.pieletDataJSON) {
+        // new user
+        location.assign("?unknown-from-survey");
+    } else {
+        pieletData = JSON.parse(localStorage.pieletDataJSON);
+        if (pieletData.Q29response > 0) {
+            location.assign("../dashboard/?all-questions-finished");
+        }
+    }
+
+    navigator.geolocation.getCurrentPosition(showPosition);
+
+        function showPosition(position) {
+            pieletData.geolocationLong = position.coords.longitude;
+            pieletData.geolocationLat = position.coords.latitude;
+        }
+        
+
+
+
+</script>
+
+
+<body>
+    <section id="navi"></section>
+    <script type="text/javascript" src="/navigation/topNav.js"></script>
+
+
+    <!-- begin login bar for user: <?php echo $userID ?>
+    <?php // echo file_get_contents("https://pietential.com/pielet/generate-login-bar.php?userID=$userID"); ?>-->
+    <!-- END login bar-->
+
+    <!-- begin branding-->
+
+
+    <section id="brand"></section>
+    <script>
+        fetch("../branding.html")
+            .then(r => {
+                return r.text()
+            })
+            .then(a => {
+                document.getElementById("brand").innerHTML = a;
+
+            });
+    </script>
+    <!-- END branding-->
+
+
+
+    <script>
+
+
+
+        // if (!window.location.href.match(/https/ig)) {
+        //     location.assign(`https://pietential.com/`);
+        // }
+        // if (window.location.href.match(/jstar/ig)) {
+        //     location.assign(`https://pietential.com/`);
+        // }
+    </script>
+
+
+
+
+
+
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
+    <script src="chartjs-plugin-watermark.js"></script>
+    <script id='pieScript' src='pielon.js'></script>
+
+
+ <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-K3VEYCTX6E"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-K3VEYCTX6E');
+</script>
+
+    <!-- brandboard ID: https://silvercrayon.us/brandboard/XmXAokBtabYwTeKo id="Pietential member appeal" async -->
+
+    <script> //need ("assemble.js") ???? </script>
+    <div id="modalContainer"
+        style="display:none;text-align:center;background: #000000b8;top: 0px;position: absolute;width:100%;height:100%;">
+        <!-- this modal is trigged if the JS var pieEmailNeeded is 1
+    more info: search createDiv.js for modalContainer
+more info: see top of survey/index.php for  pieEmailNeeded -->
+        <div id="modalCaptureEmail"
+            style="padding:20px;border:1px solid gray;top: 23%;position: absolute;background: white;max-width: 400px;margin: auto;border-radius: 12px;left: 34%;box-shadow: rgb(0 0 0) 10px 10px 52px 0px;">
+            First we need to get your email and first name!<br>
+            <form action="../new-account/" method="POST">
+                <input name="fname" id="fname" placeholder="Enter your first name:" type="text" required><br>
+                <input name="email" placeholder="Enter your email address:" id="email" required>
+                <input type="hidden" id="userID" name="userID" value="<?php echo $userID; ?>"><br>
+                <input value="submit" type="submit"><br>
+                Already have an account? <a href="pielet/login/">Login</a>
+            </form>
+        </div>
+    </div>
+
+    <div id="useremail" style="display:none;">
+
+
+        <script> //need to insert email here maybe?? </script>
+    </div>
+
+    <section id="footi"></section>
+    <script>
+        fetch("../universal-footer.php")
+            .then(r => {
+                return r.text()
+            })
+            .then(a => {
+                document.getElementById("footi").innerHTML = a;
+            });
+    </script>
+
+
+
+
+</body>
+
+</html>

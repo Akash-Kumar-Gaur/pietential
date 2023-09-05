@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create an Admin account</title>
+</head>
+
+<body>
+    <style>
+        * {
+            font-family: sans-serif;
+        }
+    </style>
+    <form action="../" method="post">
+        <div id="aform">
+            <input type="hidden" name="createAdmin" value=23>
+        </div>
+        <input type="submit">
+    </form>
+    <script>
+        var out = '';
+        var acat = "adminID,email,password,fname,lname,company,phone,title,website".split(",");
+        for (let a of acat) {
+            out += `${a}: <input id="${a}" name="${a}"><br><br>\n`
+        }
+        document.getElementById("aform").innerHTML += out;
+        for (let a of document.getElementsByTagName("input")) {
+            if (a.name == "password") {
+                a.type = "password";
+            }
+        }
+
+    </script>
+</body>
+
+</html>

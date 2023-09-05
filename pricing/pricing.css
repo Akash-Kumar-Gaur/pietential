@@ -1,0 +1,153 @@
+.productBox {
+    transition: all .5s;
+    opacity: 0;
+    filter: blur(2px);
+    transform: scale(1.1);
+    max-width: 70%;
+    z-index: 4;
+    /* position: absolute; */
+    text-align: center;
+    left: 16%;
+}
+
+.pic800 {
+    max-width: 99%;
+    box-shadow: 0px 10px 22px 0px rgb(0 0 0 / 60%);
+    transition: all .5s;
+    border-radius: 25px;
+    margin-bottom: 50px;
+}
+
+.pic400 {
+    max-width: 49%;
+}
+
+.pic200 {
+    max-width: 32%;
+}
+
+#piworld {
+    margin: auto;
+
+}
+
+#pipro {
+    margin: auto;
+    margin-top: -35px;
+}
+
+#piadv {
+    margin: auto;
+    margin-top: -35px;
+}
+
+
+#pibiz {
+    margin: auto;
+    margin-top: -35px;
+}
+
+#pient {
+    margin: auto;
+    margin-top: -35px;
+}
+
+#but {
+    margin-top: 20px;
+    margin-bottom: 30px;
+    text-align: center;
+    z-index: 11;
+}
+
+.fancyButton1 {
+    font-family: inherit;
+    border-width: initial;
+    border-style: none;
+    border-color: initial;
+    font-size: 14px;
+    color: rgb(255, 255, 255);
+    background: rgb(30, 101, 146);
+    cursor: pointer;
+    padding: 15px 20px;
+    margin: 5px 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+    outline: none;
+    position: relative;
+    transition: all 0.3s;
+    border-radius: 7px;
+    box-shadow: rgb(8, 44, 65) 0px 5px;
+    overflow: hidden;
+    text-decoration: none;
+    word-break: break-all;
+    overflow-wrap: break-word;
+    min-width: 236px;
+}
+
+.fancyButton1:hover {
+    background: rgb(63 167 234);
+    ;
+}
+
+#piproButton {
+    background: #6E94F8;
+}
+
+#piadvButton {
+    background: #02B72D;
+}
+
+#pibizButton {
+    background: #F9BA03;
+}
+
+#pientButton {
+    background: #F87E02;
+}
+
+.fancySub {
+    display: block;
+    margin-top: -30px;
+    opacity: .7;
+}
+
+.fancyHeadline {
+    font-size: 36px;
+    /* line-height: 0; */
+    opacity: .7;
+}
+
+.explain {
+
+    max-width: 700px;
+    margin: auto;
+}
+
+.arrow {
+    max-width: 173px;
+    position: absolute;
+    display: block;
+    right: 4%;
+    z-index: 12;
+    margin-top: 232px;
+    opacity: .2;
+    cursor: pointer;
+}
+
+.arrow2 {
+    left: 4%;
+    z-index: 12;
+    margin-top: 232px;
+    transform: rotate(180deg);
+}
+
+#branding img {
+    max-width: 200px;
+}
+
+@media all and (max-width:900px) {
+    #navArrows {
+        display: none;
+    }
+}

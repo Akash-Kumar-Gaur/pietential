@@ -1,0 +1,157 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+
+    <link href="https://pietential.com/pielet/styles.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,800&amp;display=swap" rel="stylesheet">
+</head>
+
+
+<body>
+    <div id="n3">
+    </div>
+<div id="b1" onmouseenter="showSPnav()">
+</div>
+<style>
+    html {
+        box-sizing: border-box;
+    }
+    .betanav {
+        margin: 10px;
+    }
+
+    *,
+    *:before,
+    *:after {
+        box-sizing: inherit;
+    }
+    table{
+        text-align: center;
+    }
+
+    #b1 p {
+        margin: 1em;
+    }
+    @media all and (max-width:1230px) {
+    table,td,tr,tbody {
+    font-size: 9px;
+    }
+}
+
+.stickyNav a, .stickyNav a:visited{
+    color:white;
+}
+.stickyNav{
+    position: sticky;
+    top: -0px;
+    font-size: 14px;
+    text-align: center;
+    background: #6e94f8;
+    color:white;
+    font-weight:800;
+    padding: 20px;
+}
+
+</style>
+
+<section id="navi"></section>
+<script type="text/javascript" src="/navigation/topNav.js"></script>
+<script id="s1">
+    // ?privacy ?terms ?dmca ?acceptable
+    var nav = ``;
+
+    fetch("../shell/")
+        .then(r => {
+            return r.text()
+        })
+        .then(a => {
+            var mark = 0;
+            document.getElementById("b1").innerHTML = a;
+            if (location.href.match(/terms/ig)) {
+                populate("./legal-terms.html", "Terms of Use");
+                mark = 1;
+            }
+            if (mark === 0) {
+                populate("./legal-terms.html", "Privacy Policy");
+            }
+            
+            
+        });
+
+       
+
+    function populate(source, title) {
+        fetch(source)
+            .then(r => {
+                return r.text()
+            })
+            .then(a => {
+                var sh = document.getElementById("b1").innerHTML;
+                sh = sh.replace("{{headline}}", title);
+                sh = sh.replace("{{content}}", a);
+                document.getElementById("b1").innerHTML = sh;
+                document.title = title;
+                for (let a of document.getElementsByTagName("tr")[0].getElementsByTagName("td")) {
+                    a.outerHTML = `<td style="color:white">${a.innerText}</td>`;
+                }
+                for (let a of document.getElementsByTagName("*")) {
+                    if (!a.tagName.match(/h1|h2|h3|h4|h5|td|tr/ig)) {
+                        a.style.fontSize = "14px";
+                    }
+                }
+                for (let a of document.getElementsByTagName("td")) {
+                    a.innerHTML = a.innerText;
+                    a.style.width = "20%";
+                }
+                if (location.href.match(/\?privacy|\/$/ig)) {
+                    for (let a of document.getElementsByTagName("section")) {
+                        if (a.id != "privacy") {
+                            a.style.display = "none";
+                        }
+                    }
+                    //document.getElementById("termsSub").style.display = "none";
+                } else {
+                    document.getElementById("fullnav").style.display="";
+                }
+                for (let a of document.getElementsByClassName("shellHide")) {
+                    a.style.display = "";
+                }
+                
+                for (let a of document.getElementsByTagName("ul")) {
+                    a.style.maxWidth = "80%";
+                }
+                for (let a of document.getElementsByTagName("u")) {
+                    a.outerHTML = a.innerText;
+                }
+            });
+    }
+    function showSPnav() {
+        document.getElementById("nav").style.display = '';
+        document.getElementById("fullnav").style.display = '';   
+  }
+  document.addEventListener("DOMContentLoaded", showSPnav);
+    
+   
+
+</script>
+
+<section id="footi"></section>
+<script type="text/javascript" src="/navigation/bottomNav.js"></script>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-K3VEYCTX6E"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-K3VEYCTX6E');
+</script>
+</body>
+</html>

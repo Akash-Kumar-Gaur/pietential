@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script src="../js/commonLinks.js"></script>
+  <script>includeCommonHeader('Latest Analysis')</script>
+</head>
+<script>
+  if (!sessionStorage.getItem("userID"))
+    window.location.href = "https://pietential.com";
+</script>
+<script></script>
+<script src="../js/language.js"></script>
+
+<body>
+  <section id="navi"></section>
+  <script type="text/javascript" src="../navigation/topNav.js"></script>
+  <div id="noData" style="margin: 120px 0 40px 0; text-align: center">
+    <div class="noDataMain">
+      <div class="noDataInner">
+        <p>
+          Please complete your survey or retake it to track your progress over
+          time
+        </p>
+        <br />
+        <div class="tryItButtonContainer" style="display: flex; justify-content: center">
+          <button class="tryItButton" style="margin: 0 20px 0 0" onclick="onTakeSurvey()">
+            Take Survey
+          </button>
+          <button class="tryItButton actualizeButton" onclick="window.location.href = `/`">
+            Go back to home
+          </button>
+        </div>
+        <p></p>
+      </div>
+    </div>
+  </div>
+  <div class="scoreContainer analyzeItMainContainer" id="dashboardAnalysis">
+    <div class="visualizeItContainer visualize">
+      <h2 class="yourPietentialAnalysis">
+        <script>
+          get_i18n("yourPietentialAnalysis");
+        </script>
+      </h2>
+      <div class="analyzeItContainer">
+        <h4 class="accordingToTheAnswers">
+          <script>
+            get_i18n("accordingToTheAnswers");
+          </script>
+        </h4>
+        <div class="needsButtonContainer">
+          <button id="actualization" class="actualizationActiveButton selfActualization" onclick="onActualization()">
+            <script>
+              get_i18n("selfActualization");
+            </script>
+          </button>
+          <button id="esteem" class="selfEsteem" onclick="onSelfEsteem()">
+            <script>
+              get_i18n("selfEsteem");
+            </script>
+          </button>
+          <button id="belonging" onclick="onBelonging()" class="belongingHeading loveBelonging">
+            <script>
+              get_i18n("loveBelonging");
+            </script>
+          </button>
+          <button id="needs" onclick="onNeeds()" class="safety safetyNeeds">
+            <script>
+              get_i18n("safetyNeeds");
+            </script>
+          </button>
+          <button id="physiological" onclick="onPhysiology()" class="physio physiologicalNeeds">
+            <script>
+              get_i18n("physiologicalNeeds");
+            </script>
+          </button>
+        </div>
+        <div id="responderActualization" class="analyzeborder">
+          <h2 class="heading selfActualization" id="self">
+            <script>
+              get_i18n("selfActualization");
+            </script>
+            : <br />
+          </h2>
+          <span class="yourScore scoreText">
+            <script>
+              get_i18n("yourScore");
+            </script>
+          </span>
+          :
+          <span id="SAscore" class="scoreText"></span>
+          <span id="SAtext"></span>
+        </div>
+
+        <div id="responderEsteem" class="analyzeborder" style="display: none">
+          <h2 class="heading selfEsteem" id="esteemHeading" style="border: 0px">
+            <script>
+              get_i18n("selfEsteem");
+            </script>
+            : <br />
+          </h2>
+          <span class="yourScore scoreText">
+            <script>
+              get_i18n("yourScore");
+            </script>
+          </span>
+          :
+          <span id="ECscore" class="scoreText"></span>
+          <span id="ECtext"></span>
+        </div>
+
+        <div id="responderLove" class="analyzeborder" style="display: none">
+          <h2 class="heading loveBelonging" id="belongingHeading">
+            <script>
+              get_i18n("loveBelonging");
+            </script>
+            : <br />
+          </h2>
+          <span class="yourScore scoreText">
+            <script>
+              get_i18n("yourScore");
+            </script>
+          </span>
+          :
+          <span id="LBscore" class="scoreText"></span>
+          <span id="LBtext"></span>
+        </div>
+
+        <div id="responderSafety" class="analyzeborder" style="display: none">
+          <h2 class="heading safetyNeeds" id="safety">
+            <script>
+              get_i18n("safetyNeeds");
+            </script>
+            : <br />
+          </h2>
+          <span class="yourScore scoreText">
+            <script>
+              get_i18n("yourScore");
+            </script>
+          </span>
+          :
+          <span id="SNscore" class="scoreText"></span>
+          <span id="SNtext"></span>
+        </div>
+
+        <div id="responderPhysiological" class="analyzeborder" style="display: none">
+          <h2 class="heading physiologicalNeeds" id="physio">
+            <script>
+              get_i18n("physiologicalNeeds");
+            </script>
+            : <br />
+          </h2>
+          <span class="yourScore scoreText">
+            <script>
+              get_i18n("yourScore");
+            </script>
+          </span>
+          :
+          <span id="PNscore" class="scoreText"></span>
+          <span id="PNtext"></span>
+        </div>
+      </div>
+      <div style="display: flex; margin-top: 50px">
+        <button class="tryItButton selfActualization actualizationButton btn" onclick="onActualization()"
+          style="margin-right: 18px; display: none" id="actualizationButton">
+          <script>
+            get_i18n("selfActualization");
+          </script>
+        </button>
+        <button class="tryItButton selfHover selfEsteem selfEsteemButton btn" id="selfEsteemButtonTwo"
+          onclick="onSelfEsteem()" style="margin-right: 18px; display: none; border: 0px; color: #fff">
+          <script>
+            get_i18n("selfEsteem");
+          </script>
+        </button>
+        <button class="tryItButton loveBelonging belongingButton btn" onclick="onBelonging()"
+          style="margin-right: 18px; display: none" id="belongingButtonTwo">
+          <script>
+            get_i18n("loveBelonging");
+          </script>
+        </button>
+        <button class="tryItButton safetyNeeds needButton btn" onclick="onNeeds()"
+          style="margin-right: 18px; display: none" id="needButtonTwo">
+          <script>
+            get_i18n("safetyNeeds");
+          </script>
+        </button>
+        <button class="tryItButton realizeItText actualizeButton btn" onclick="onShowModal()" style="margin-right: 18px"
+          id="realizeIt">
+          <script>
+            get_i18n("realizeItText");
+          </script>
+        </button>
+        <button class="tryItButton selfHover selfEsteem selfEsteemButton btn" id="selfEsteemButton"
+          onclick="onSelfEsteem()" style="border: 0px; color: #fff">
+          <script>
+            get_i18n("selfEsteem");
+          </script>
+        </button>
+        <button class="tryItButton loveBelonging belongingButton btn" onclick="onBelonging()"
+          style="margin-right: 18px; display: none" id="belongingButton">
+          <script>
+            get_i18n("loveBelonging");
+          </script>
+        </button>
+
+        <button class="tryItButton safetyNeeds needButton btn" onclick="onNeeds()"
+          style="margin-right: 18px; display: none" id="needButton">
+          <script>
+            get_i18n("safetyNeeds");
+          </script>
+        </button>
+        <button class="tryItButton physiologicalNeeds physiologyButton btn" onclick="onPhysiology()"
+          style="margin-right: 18px; display: none" id="physiologyButton">
+          <script>
+            get_i18n("physiologicalNeeds");
+          </script>
+        </button>
+        <button class="tryItButton realizeItText realizeButton btn" onclick="window.location.href = `./dashboard.html`"
+          style="margin-right: 18px; display: none" id="realizeButton">
+          <script>
+            get_i18n("realizeItText");
+          </script>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="modalOverlay" id="modalOverlay" style="display: none">
+    <div class="modalInnerMain">
+      <div class="modal-inner" id="modal-inner">
+        <h4>A Kind Reminder!</h4>
+        <p>
+          You haven’t read all the suggestions and recommendations for the
+          five core needs. <br />
+          <br />
+          Do you still want to proceed to the “Realize It” section?
+        </p>
+        <div style="display: flex; justify-content: center">
+          <button class="tryItButton" style="margin-right: 20px; width: 110px"
+            onclick="window.location.href = `./dashboard.html`">
+            Yes
+          </button>
+          <button class="tryItButton" style="width: 110px" onclick="onCloseModal()">
+            No
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <section id="footi"></section>
+  <script src="./surveyDescription.json"></script>
+  <script src="../js/main.js"></script>
+  <script type="text/javascript" src="../navigation/bottomNav.js"></script>
+  <script type="text/javascript">
+    const STEPS = ['Actualization', 'Esteem', 'Belonging', 'Needs', 'Physiological'];
+    addKeysToReadDone('Actualization')
+    if (localStorage.getItem("res") > 0) {
+      getElementById("dashboardAnalysis").style.display = "block";
+      getElementById("noData").style.display = "none";
+    } else {
+      getElementById("dashboardAnalysis").style.display = "none";
+      getElementById("noData").style.display = "block";
+    }
+
+    function onTakeSurvey() {
+      if (!sessionStorage.getItem("userID"))
+        window.location.href = "/pages/register.html";
+      else window.location.href = "/pages/score.html";
+    }
+    let modal = getElement("#modalOverlay");
+    function onShowModal() {
+      modal.style.display = "block";
+    }
+    function onCloseModal() {
+      modal.style.display = "none";
+    }
+    function collapseSidebar() {
+      let main = getElement(".sidebarMain");
+      let rightSideClass = getElement(".visualizeItContainer");
+      let assessIt = getElements(".assessIt");
+      rightSideClass.classList.toggle("visualize_it_container");
+      main.classList.toggle("minWidth");
+    }
+    let visualizeItContainer = getElement(
+      ".visualizeItContainer"
+    );
+    let responderActualization = getElementById(
+      "responderActualization"
+    );
+    let responderEsteem = getElementById("responderEsteem");
+    let responderLove = getElementById("responderLove");
+    let responderSafety = getElementById("responderSafety");
+    let responderPhysiological = getElementById(
+      "responderPhysiological"
+    );
+    let actualizationButton = getElementById("actualization");
+    let esteemButton = getElementById("esteem");
+    let belongingButton = getElementById("belonging");
+    let needsButton = getElementById("needs");
+    let physiologicalButton = getElementById("physiological");
+    let btn = getElements(".btn");
+    let analyzeBorder = getElements(".analyzeborder");
+
+    function getStyling() {
+      for (let i = 0; i < analyzeBorder.length; i++) {
+        analyzeBorder[i].style.display = "none";
+      }
+    }
+
+    function getScrollView() {
+      visualizeItContainer.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+        inline: "nearest",
+      });
+    }
+
+    function addKeysToReadDone(key) {
+      // localStorage.removeItem('readDone')
+      let storeKeys = JSON.parse(localStorage.getItem('readDone')) || []
+      if(storeKeys?.length === 0 || storeKeys?.indexOf(key) === -1){
+        storeKeys.push(key)
+      }
+      console.warn('storeKeys', storeKeys, typeof storeKeys);
+      localStorage.setItem('readDone', JSON.stringify(storeKeys));
+    }
+
+    function getCompletedReadCount(){
+      return JSON.parse(localStorage.getItem('readDone'))?.length;
+    }
+
+    function showRealizeBtn(){
+      const readCount = getCompletedReadCount();
+      if(readCount < STEPS.length){
+        getElementById("realizeIt").style.display = "block";
+      } else {
+        getElementById("realizeButton").style.display = "block";
+      }
+    }
+
+    function onActualization() { //step 1
+      for (let i = 0; i < btn.length; i++) {
+        btn[i].style.display = "none";
+      }
+      addKeysToReadDone('Actualization');
+      getElementById("selfEsteemButton").style.display = "block";
+      showRealizeBtn();
+      if (
+        esteemButton.classList.contains("esteemActiveButton") ||
+        belongingButton.classList.contains("belongingActiveButton") ||
+        needsButton.classList.contains("needsActiveButton") ||
+        physiologicalButton.classList.contains("physiologicalActiveButton")
+      ) {
+        physiologicalButton.classList.remove("physiologicalActiveButton");
+        needsButton.classList.remove("needsActiveButton");
+        belongingButton.classList.remove("belongingActiveButton");
+        esteemButton.classList.remove("esteemActiveButton");
+        actualizationButton.classList.add("actualizationActiveButton");
+      }
+      getStyling();
+      responderActualization.style.display = "block";
+      getScrollView();
+    }
+
+    function onSelfEsteem() { //step 2
+      for (let i = 0; i < btn.length; i++) {
+        btn[i].style.display = "none";
+      }
+      addKeysToReadDone('Esteem');
+      getElementById("actualizationButton").style.display = "block";
+      getElementById("belongingButton").style.display = "block";
+      showRealizeBtn();
+      if (
+        actualizationButton.classList.contains("actualizationActiveButton") ||
+        belongingButton.classList.contains("belongingActiveButton") ||
+        needsButton.classList.contains("needsActiveButton") ||
+        physiologicalButton.classList.contains("physiologicalActiveButton")
+      ) {
+        actualizationButton.classList.remove("actualizationActiveButton");
+        physiologicalButton.classList.remove("physiologicalActiveButton");
+        needsButton.classList.remove("needsActiveButton");
+        belongingButton.classList.remove("belongingActiveButton");
+        esteemButton.classList.add("esteemActiveButton");
+      }
+      getStyling();
+      responderEsteem.style.display = "block";
+      getScrollView();
+    }
+
+    function onBelonging() { //step 3
+      for (let i = 0; i < btn.length; i++) {
+        btn[i].style.display = "none";
+      }
+      addKeysToReadDone('Belonging');
+      getElementById("selfEsteemButtonTwo").style.display = "block";
+      getElementById("needButton").style.display = "block";
+      showRealizeBtn();
+      if (
+        actualizationButton.classList.contains("actualizationActiveButton") ||
+        esteemButton.classList.contains("esteemActiveButton") ||
+        needsButton.classList.contains("needsActiveButton") ||
+        physiologicalButton.classList.contains("physiologicalActiveButton")
+      ) {
+        actualizationButton.classList.remove("actualizationActiveButton");
+        esteemButton.classList.remove("esteemActiveButton");
+        physiologicalButton.classList.remove("physiologicalActiveButton");
+        needsButton.classList.remove("needsActiveButton");
+        belongingButton.classList.add("belongingActiveButton");
+      }
+      getStyling();
+      responderLove.style.display = "block";
+      getScrollView();
+    }
+
+    function onNeeds() { //step 4
+      for (let i = 0; i < btn.length; i++) {
+        btn[i].style.display = "none";
+      }
+      addKeysToReadDone('Needs');
+      getElementById("belongingButtonTwo").style.display = "block";
+      getElementById("physiologyButton").style.display = "block";
+      showRealizeBtn()
+      if (
+        actualizationButton.classList.contains("actualizationActiveButton") ||
+        esteemButton.classList.contains("esteemActiveButton") ||
+        belongingButton.classList.contains("belongingActiveButton") ||
+        physiologicalButton.classList.contains("physiologicalActiveButton")
+      ) {
+        actualizationButton.classList.remove("actualizationActiveButton");
+        esteemButton.classList.remove("esteemActiveButton");
+        belongingButton.classList.remove("belongingActiveButton");
+        physiologicalButton.classList.remove("physiologicalActiveButton");
+        needsButton.classList.add("needsActiveButton");
+      }
+      getStyling();
+      responderSafety.style.display = "block";
+      getScrollView();
+    }
+
+    function onPhysiology() { //step 5
+      for (let i = 0; i < btn.length; i++) {
+        btn[i].style.display = "none";
+      }
+      addKeysToReadDone('Physiological');
+      getElementById("needButtonTwo").style.display = "block";
+      showRealizeBtn()
+      if (
+        actualizationButton.classList.contains("actualizationActiveButton") ||
+        esteemButton.classList.contains("esteemActiveButton") ||
+        belongingButton.classList.contains("belongingActiveButton") ||
+        needsButton.classList.contains("needsActiveButton")
+      ) {
+        actualizationButton.classList.remove("actualizationActiveButton");
+        esteemButton.classList.remove("esteemActiveButton");
+        belongingButton.classList.remove("belongingActiveButton");
+        needsButton.classList.remove("needsActiveButton");
+        physiologicalButton.classList.add("physiologicalActiveButton");
+      }
+      getStyling();
+      responderPhysiological.style.display = "block";
+      getScrollView();
+    }
+    if (location.href.match(/hindi/)) {
+      localStorage.currentLanguage = "hindi";
+    }
+    var fetchTarget = "../json/surveyDescription.json";
+    if (localStorage.currentLanguage == "hindi") {
+      fetchTarget = "../json/hindiSurveyDescription.json";
+    }
+    fetch(fetchTarget)
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        appendData(data);
+        console.log("data", data);
+      })
+      .catch(function (err) {
+        console.log("error: " + err);
+      });
+
+    let actualizationScore = sessionStorage.getItem("surveyList") || 0;
+    let esteemScore = sessionStorage.getItem("lastEsteemScore") || 0;
+    let belongingScore = sessionStorage.getItem("lastBelongingScore") || 0;
+    let needsScore = sessionStorage.getItem("lastNeedsScore") || 0;
+    let physiologicalScore = sessionStorage.getItem("lastPhysioScore") || 0;
+
+    function appendData(data) {
+      let SAtext = getElementById("SAtext");
+      let ECtext = getElementById("ECtext");
+      let LBtext = getElementById("LBtext");
+      let SNtext = getElementById("SNtext");
+      let PNtext = getElementById("PNtext");
+
+      for (let i = 0; i <= 4; i++) {
+        if (
+          actualizationScore >= i * 20 &&
+          actualizationScore <= 20 * (i + 1)
+        ) {
+          SAtext.innerHTML = data["SA" + (i + 1)];
+        }
+      }
+
+      for (let i = 0; i <= 4; i++) {
+        if (esteemScore >= i * 20 && esteemScore <= 20 * (i + 1)) {
+          ECtext.innerHTML = data["EC" + (i + 1)];
+        }
+      }
+
+      for (let i = 0; i <= 4; i++) {
+        if (belongingScore >= i * 20 && belongingScore <= 20 * (i + 1)) {
+          LBtext.innerHTML = data["LB" + (i + 1)];
+        }
+      }
+
+      for (let i = 0; i <= 4; i++) {
+        if (needsScore >= i * 20 && needsScore <= 20 * (i + 1)) {
+          SNtext.innerHTML = data["SN" + (i + 1)];
+        }
+      }
+
+      for (let i = 0; i <= 4; i++) {
+        if (
+          physiologicalScore >= i * 20 &&
+          physiologicalScore <= 20 * (i + 1)
+        ) {
+          PNtext.innerHTML = data["PN" + (i + 1)];
+        }
+      }
+    }
+
+    appendData();
+  </script>
+  <script>
+    let SA = getElementById("SAscore");
+    let EC = getElementById("ECscore");
+    let LB = getElementById("LBscore");
+    let SN = getElementById("SNscore");
+    let PN = getElementById("PNscore");
+    SA.innerHTML = actualizationScore + `/100`;
+    EC.innerHTML = esteemScore + `/100`;
+    LB.innerHTML = belongingScore + `/100`;
+    SN.innerHTML = needsScore + `/100`;
+    PN.innerHTML = physiologicalScore + `/100`;
+  </script>
+</body>
+
+</html>

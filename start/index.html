@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pietential - The Life Balance Realization System</title>
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="https://pietential.com/social.php">
+    <meta name="twitter:creator" content="@hankenstein">
+    <meta name="twitter:title" content="Realize Your Growth Potential in 5 Minutes">
+    <meta name="twitter:description"
+        content="Pietential is a survey-based life balance visualization tool based on Maslow’s Hierarchy of needs.">
+    <meta name="twitter:image" content="http://pietential.com/pie-social-banner.png">
+
+
+
+    <link rel="canonical" href="https://pietential.com/" />
+    <meta property="og:title" content="Realize Your Growth Potential in 5 Minutes" />
+    <meta property="og:image"
+        content="https://static.wixstatic.com/media/82f34a_c86a23ceb96c4ac7b4101649c78c83f3~mv2.png/v1/fill/w_1280,h_720,al_c/82f34a_c86a23ceb96c4ac7b4101649c78c83f3~mv2.png" />
+    <meta property="og:image:width" content="1280" />
+    <meta property="og:image:height" content="720" />
+    <meta property="og:url" content="https://pietential.com/" />
+    <meta property="og:site_name" content="Pietential" />
+    <meta property="og:type" content="website" />
+
+    <link rel="manifest" href="https://pietential.com/pietential.webmanifest">
+    <link rel="icon" type="image/png" href="https://pietential.com/icon.png">
+
+    <link href="https://pietential.com/pielet/styles.css" rel="stylesheet" type="text/css">
+    <link rel="preload" href="https://pietential.com/pielet/survey/pielon.js" crossorigin="anonymous" as="script">
+</head>
+<body>
+
+
+    <section id="navi"></section>
+    <script type="text/javascript" src="https://pietential.com/navigation/topNav.js"></script>
+
+
+
+
+    <div style="text-align:center;">
+
+
+
+        <form action="https://pietential.com/pielet/accountEngine/" method="POST" id="signup" style="display: block; background: rgb(238, 238, 238); padding: 12px;">
+
+
+            <input name="fname" id="fname" placeholder="Enter your first name*" type="text" required=""><br>
+            <input name="lname" id="lname" placeholder="Enter your last name*" type="text"><br>
+            <input name="email" placeholder="Enter your email address*" id="email" required="" type="email">
+            <input onclick="document.getElementById(`pspla`).style.display = `block`;" onkeyup="pcode()" name="promoCode" placeholder="Have a organization code? (optional)" id="promoCode" type="text">
+            <div id="pspla" style="display: none;font-size: 15px; ">A organization code may have been given to you by your
+                advisor. This allows survey results to be shared with them.<br>Leave this field blank if you want
+                your results to be private (only you can view).</div>
+            <input name="password" placeholder="Choose a Password*" id="password" required="" type="password"><br>
+            <input name="userID" type="hidden" value="VAa7FTte5gxf">
+            <input type="checkbox" required="" id="agreeBox" name="agreeToTerms" value="" style="width: unset;" onclick="document.getElementById('agreeBox').value = 'Iagree'"> I have read the <a href="https://pietential.com/pielet/privacy/">Subscriber Terms of Use</a> and I agree to these
+            terms.<br>
+            <input class="bt green" value="Continue" type="submit"><br>
+            <!--<b>It's Free</b>--><br>
+
+            Already have an account? <a href="https://pietential.com/login/">Login</a>
+        </form>
+
+
+
+
+
+
+
+        <script>
+function showForm() {
+                document.getElementById(`signup`).style.display = `block`;
+                document.getElementById("signup")
+                    .scrollIntoView({
+                        behavior: "smooth",
+                        block: "end",
+                        inline: "nearest"
+                    });
+                for (let a of document.getElementsByClassName('sform')) {
+                    a.style.display = 'none';
+                }
+
+            }
+
+
+
+            document.getElementsByName("userID")[0].value = random(12);
+
+            function pcode() {
+                if (document.getElementById("promoCode").value.length > 0) {
+                    document.getElementById("pspla").style.display = "block";
+                } else {
+                    document.getElementById("pspla").style.display = "none";
+                }
+            }
+        </script>
+    </div>
+    <section id="footi"></section>
+    <script type="text/javascript" src="https://pietential.com/navigation/bottomNav.js"></script>
+</body>
+</html>

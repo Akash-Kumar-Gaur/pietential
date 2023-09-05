@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="../js/commonLinks.js"></script>
+    <script>
+      includeCommonHeader("Admin Register");
+    </script>
+  </head>
+
+  <body>
+    <div class="container adminRegisterContainer">
+      <div class="adminRegister">
+        <a href="/">
+          <img
+            src="../assets/pietentialBlackLogo.svg"
+            alt="Pietential Logo"
+            class="logo"
+          />
+        </a>
+        <h2>Welcome to Pietential Administrator Setup!</h2>
+        <div class="form">
+          <form id="adminSetupForm" method="post">
+            <div class="pietentialSelectContainer">
+              <div class="dropdownContainer">
+                <div class="dropdown">
+                  <p class="dropdownSelectedValue platformDropdownValue">
+                    Select Pietential Platform
+                  </p>
+                  <img
+                    src="../assets/arrowDown.svg"
+                    alt=""
+                    class="dropdownArrow"
+                  />
+                </div>
+                <div class="dropdownList" style="display: none">
+                  <div class="dropdownItem platformDropdownItem">
+                    <input
+                      type="checkbox"
+                      class="dropdownCheckbox platformDropdownCheckbox"
+                    />
+                    <p><span>Pietential</span> Enterprise</p>
+                  </div>
+                  <div class="dropdownItem platformDropdownItem">
+                    <input
+                      type="checkbox"
+                      class="dropdownCheckbox platformDropdownCheckbox"
+                    />
+                    <p><span>Pietential</span> BUSINESS</p>
+                  </div>
+                  <div class="dropdownItem platformDropdownItem">
+                    <input
+                      type="checkbox"
+                      class="dropdownCheckbox platformDropdownCheckbox"
+                    />
+                    <p><span>Pietential</span> Advisor</p>
+                  </div>
+                  <div class="dropdownItem platformDropdownItem">
+                    <input
+                      type="checkbox"
+                      class="dropdownCheckbox platformDropdownCheckbox"
+                    />
+                    <p><span>Pietential</span> NGO</p>
+                  </div>
+                </div>
+              </div>
+              <div class="dropdownContainer">
+                <div class="dropdown">
+                  <p class="dropdownSelectedValue moduleDropdownValue">
+                    Select The Pietential Module
+                  </p>
+                  <img
+                    src="../assets/arrowDown.svg"
+                    alt=""
+                    class="dropdownArrow"
+                  />
+                </div>
+                <div class="dropdownList" style="display: none">
+                  <div class="dropdownItem moduleDropdownItem">
+                    <input
+                      type="checkbox"
+                      class="dropdownCheckbox moduleDropdownCheckbox"
+                    />
+                    <p class="paragraph">
+                      <span
+                        >Wellbeing Assessment + Data Visualization + Progress
+                        Tracking</span
+                      >
+                    </p>
+                  </div>
+                  <div class="dropdownItem moduleDropdownItem">
+                    <input
+                      type="checkbox"
+                      class="dropdownCheckbox moduleDropdownCheckbox"
+                    />
+                    <p class="paragraph">
+                      <span
+                        >Wellbeing Assessment + Data Visualization + progress
+                        Tracking + Feedback</span
+                      >
+                    </p>
+                  </div>
+                  <div class="dropdownItem moduleDropdownItem">
+                    <input
+                      type="checkbox"
+                      class="dropdownCheckbox moduleDropdownCheckbox"
+                    />
+                    <p class="paragraph"> 
+                      <span
+                        >Wellbeing Assessment + Data Visualization + Progress
+                        Tracking + feedback + Actualize It <br> (Personal growth
+                        exercises)</span
+                      >
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="dropdownContainer">
+                <div class="dropdown">
+                  <p class="dropdownSelectedValue privacyDropdownValue">
+                    End user privacy
+                  </p>
+                  <img
+                    src="../assets/arrowDown.svg"
+                    alt=""
+                    class="dropdownArrow"
+                  />
+                </div>
+                <div class="dropdownList" style="display: none">
+                  <div class="dropdownItem privacyDropdownItem">
+                    <input
+                      type="checkbox"
+                      class="dropdownCheckbox privacyDropdownCheckbox"
+                    />
+                    <p class="paragraph">
+                      <span
+                        >My organization's privacy policy mandates that all end users share their personal information with the organization admin.</span
+                      >
+                    </p>
+                  </div>
+                  <div class="dropdownItem privacyDropdownItem">
+                    <input
+                      type="checkbox"
+                      class="dropdownCheckbox privacyDropdownCheckbox"
+                    />
+                    <p class="paragraph">
+                      <span
+                        >End user can choose whether or not to share their personal information with the organization admin.</span
+                      >
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <input
+              type="text"
+              name="name"
+              placeholder="First Name"
+              required
+              id="fname"
+            />
+            <input
+              type="text"
+              name="last name"
+              id="lname"
+              placeholder="Last Name"
+              required
+            />
+            <input
+              type="email"
+              name="email"
+              placeholder="Enter your Email"
+              required
+              id="email"
+            />
+            <input type="hidden" name="Pietential" value="" />
+            <input
+              type="password"
+              name="password"
+              placeholder="Choose a secure password"
+              required
+              id="password"
+            />
+            <input
+              type="password"
+              placeholder="Re-enter your password"
+              id="confirmPassword"
+              required
+              name="password"
+            />
+            <input
+              type="text"
+              name="company name"
+              placeholder="Your Company name"
+              required
+              id="companyName"
+            />
+            <input
+              type="text"
+              name="title"
+              placeholder="Your Title"
+              required
+              id="title"
+            />
+            <div class="buttonContainer">
+              <div class="termsMainContainer">
+                <input
+                  type="checkbox"
+                  class="termsContainer"
+                  id="agreeCheck"
+                  required
+                />
+                <label for="agreeCheck" class="termsLabel"
+                  >I agree to the Subscriber
+                  <a href="/pielet/privacy" target="_blank">Terms of Use.</a>
+                </label>
+              </div>
+              <div class="buttonOuter">
+                <a href="" class="reset">reset all</a>
+                <a class="loginButton" onclick="checkForTerms()">Submit</a>
+              </div>
+            </div>
+            <div class="modalOverlay" id="modalOverlay"></div>
+            <script src="../js/apiHelper.js"></script>
+            <script src="../js/main.js"></script>
+            <script src="../js/apiService.js"></script>
+            <script>
+              let modal = getElementById("modalOverlay");
+              const dropdownItem = getElements(".platformDropdownItem");
+              const moduleDropdownItem = getElements(".moduleDropdownItem");
+              const privacyDropdownItem = getElements(".privacyDropdownItem");
+              let selectedDropdownValue = "";
+              let moduleSelectedIndex = -1;
+              let privacySelectedIndex = -1;
+              const dropdowns = getElements(".dropdownContainer");
+
+              dropdownItem.forEach(function (option) {
+                const dropdownValue = getElement(".platformDropdownValue");
+                option.addEventListener("click", () => {
+                  dropdownValue.textContent = option.textContent;
+                  let pElement = option.querySelector('p');
+                  let innerText = pElement.innerText;
+                  let updatedValue = innerText.replaceAll("PIETENTIAL ", "")
+                  selectedDropdownValue = updatedValue.toLowerCase()
+                })
+              });
+
+              moduleDropdownItem.forEach(function (option, index) {
+                const dropdownValue = getElement(".moduleDropdownValue");
+                option.addEventListener("click", () => {
+                  moduleSelectedIndex = index + 1;
+                })
+              });
+
+              privacyDropdownItem.forEach(function (option, index) {
+                const dropdownValue = getElement(".privacyDropdownValue");
+                option.addEventListener("click", () => {
+                  privacySelectedIndex = index + 1;
+                })
+              });
+
+              dropdowns.forEach(function (dropdown) {
+                const toggleButton = dropdown.querySelector(".dropdown");
+                const menu = dropdown.querySelector(".dropdownList");
+                const options = dropdown.querySelectorAll(".dropdownItem");
+                const dropdownValue = dropdown.querySelector(
+                  ".dropdownSelectedValue"
+                );
+                const checkboxes =
+                  dropdown.querySelectorAll(".dropdownCheckbox");
+                const dropdownArrow = dropdown.querySelector(".dropdownArrow");
+
+                toggleButton.addEventListener("click", function () {
+                  menu.classList.toggle("show");
+                  dropdownArrow.classList.toggle("rotate");
+                })
+
+                options.forEach(function (option, index) {
+                  option.addEventListener("click", function () {
+                    dropdownValue.textContent = option.textContent;
+                    menu.classList.remove("show");
+                    dropdownArrow.classList.remove("rotate");
+                    for (let i = 0; i < checkboxes.length; i++) {
+                      checkboxes[i].removeAttribute("checked");
+                    }
+                    checkboxes[index].setAttribute("checked", "true");
+                  });
+                });
+              });
+
+              function hideModal() {
+                modal.style.display = "none";
+              }
+
+              function getView(title) {
+                return `<div class="alertMain"><div class="alertInner" id="modalInner"><p>${title}</p>
+                  <a class="loginButton" onclick="hideModal()" style="margin: auto">Ok</a>
+                  </div></div>`;
+              }
+              const onRegister = async () => {
+                console.log('email', getElementById("email").value)
+                await handleAdminRegister(
+                  getElementById("email").value,
+                  getElementById("password").value,
+                  getElementById("fname").value,
+                  getElementById("lname").value,
+                  getElementById("companyName").value,
+                  getElementById("title").value,
+                  selectedDropdownValue,
+                  moduleSelectedIndex,
+                  privacySelectedIndex
+                ).then((response) => {
+                  sessionStorage.setItem("promoCode", response.promoCode);
+                  if (response.error) {
+                    modal.innerHTML = "";
+                    modal.style.display = "block";
+                    modal.innerHTML += getView("some error occurred");
+                    return;
+                  } else if (response.message == "found") {
+                    modal.innerHTML = "";
+                    modal.style.display = "block";
+                    modal.innerHTML += getView("Already Exists");
+                    return;
+                  } else if (response.message) {
+                    modal.innerHTML = "";
+                    modal.style.display = "block";
+                    modal.innerHTML += getView(response.message);
+                    return;
+                  } else
+                    return (
+                      (window.location.href = `/pages/demographicSelector.html?adminID=${response.adminID}&jwt=${response.token}&promoCode=${response.promoCode}`),
+                      response
+                    );
+                });
+              };
+
+              function checkForTerms() {
+                var f = `fname,lname,email,companyName,title`.split(",");
+                var p = `password,confirmPassword`.split(",");
+                for (let a of f) {
+                  if (getElementById(a).value?.length < 2) {
+                    modal.innerHTML = "";
+                    modal.style.display = "block";
+                    modal.innerHTML += getView(
+                      `You need to fill out the ${a} field with at least 2 characters`
+                    );
+                    return;
+                  }
+                }
+                for (let a of p) {
+                  if (getElementById(a).value?.length < 6) {
+                    modal.innerHTML = "";
+                    modal.style.display = "block";
+                    modal.innerHTML += getView(
+                      `You need to fill out the ${a} field with at least 6 characters`
+                    );
+                    return;
+                  }
+                }
+                const getValue = selectedDropdownValue === "" ? "Pietential Plan" : moduleSelectedIndex === -1 ? "Pietential Module" : "User Privacy"
+                if (selectedDropdownValue === "" || moduleSelectedIndex === -1 || privacySelectedIndex === -1) {
+                  modal.innerHTML = "";
+                  modal.style.display = "block";
+                  modal.innerHTML += getView(
+                    `You need to select ${getValue}`
+                  );
+                  return;
+                }
+                if (
+                  getElementById("password").value !==
+                  getElementById("confirmPassword").value
+                ) {
+                  modal.innerHTML = "";
+                  modal.style.display = "block";
+                  modal.innerHTML += getView(
+                    `You need to match confirm password with password`
+                  );
+                  return;
+                }
+                if (getElementById("agreeCheck").checked == false) {
+                  modal.innerHTML = "";
+                  modal.style.display = "block";
+                  modal.innerHTML += getView(
+                    `You need to agree to the terms to use Pietential.`
+                  );
+                  return;
+                }
+                console.log("reached end");
+                onRegister()
+              }
+            </script>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

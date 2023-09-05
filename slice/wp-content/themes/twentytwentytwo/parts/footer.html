@@ -1,0 +1,24 @@
+<!-- wp:group {"style":{"spacing":{"padding":{"top":"var(--wp--custom--spacing--large, 8rem)"}}},"layout":{"inherit":true}} -->
+<div class="wp-block-group" style="padding-top:var(--wp--custom--spacing--large, 8rem)">
+    <!-- wp:pattern {"slug":"twentytwentytwo/footer-default"} /-->
+</div>
+<script>
+    console.log("hello");
+
+
+    function fixThingsByHank() {
+        var el = document.getElementsByTagName("header")[0];
+        el.style.background = "black";
+        el.style.color = "white";
+        for (let a of el.getElementsByTagName('a')) {
+            a.style.color = "white";
+        }
+        var elm = document.getElementsByTagName("h1")[1];
+        elm.style.textAlign = "center";
+        var maple = document.getElementsByClassName('wp-container-8')[0];
+        var g = maple.innerText.replace(/2022[\s\S]+/ig, "2022");
+        elm.outerHTML += `<div style="text-align:center">${g}</div>`;
+    }
+    document.addEventListener("DOMContentLoaded", fixThingsByHank);
+</script>
+<!-- /wp:group -->

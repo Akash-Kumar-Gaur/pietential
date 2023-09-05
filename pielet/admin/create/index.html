@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create an Admin account</title>
+    <link href="/pielet/styles.css" rel="stylesheet" type="text/css">
+    <link rel="preload" href="/pielet/survey/pielon.js" crossorigin="anonymous" as="script">
+</head>
+
+<body>
+    <script type="text/javascript" src="/navigation/topNav.js"></script>
+
+
+
+
+
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,800&amp;display=swap" rel="stylesheet">
+    <div style="margin:auto; max-width:90%;">
+
+        <section id="brandi">
+            <div id="branding" style="padding-top:50px;margin: auto; text-align: center;">
+
+            </div>
+        </section>
+
+        <style>
+            input {
+                max-width: 250px;
+            }
+        </style>
+
+        <div style="max-width: 800px; margin: auto;">
+            <div style="text-align: left; margin:20px 0;">
+                <b>Welcome to Pietential Administrator Setup!</b><br><br>
+                Below you will need to specify account details. Once you have created an account and set up a company
+                code,
+                you can invite clients to use that code when they first visit Pietential.
+                <br><br>
+            </div>
+            <form action="../adminlogin/index.php" method="post">
+                <div id="aform">
+                    <input type="hidden" name="createAdmin" value=23>
+                </div>
+                <input type="submit" onmouseenter="getAdminString();">
+            </form>
+        </div>
+        <div id="ainfo" style="display:none;">
+
+        </div>
+        <script>
+            if (!location.href.match(/1hanwyshdf453/)) {
+
+                // https://pietential.com/pielet/admin/create/?pw=1hanwyshdf453
+                if (!localStorage.pieletDataJSON) {
+                    location.assign("/");
+                }
+                var hold = JSON.parse(localStorage.pieletDataJSON);
+                if (!hold.purchaseCode) {
+                    location.assign("/");
+                }
+            }
+/*
+
+douglasraven
+The promo code you will be giving to your users
+(no spaces) example: MillerRoofing:
+ravenSystems
+password: pR%JWoCC0
+Your email address:
+ravenSystems@silvercrayon.com
+
+
+
+
+
+*/
+
+
+            function fillOutForms() {
+                for (let a of document.getElementsByTagName("input")) {
+                    if (a.type !== "hidden") {
+                        a.value = rval(6);
+                        if (a.name == "email") {
+                            a.value = rval(6) + '@' + rval(6) + '.com';
+                        }
+                    }
+                }
+
+                function rval(len) {
+                    var x = `abcdefghijklmnopqrstyvwxyz`.split("");
+                    var i = 0;
+                    var out = ``;
+                    while (i < len) {
+                        var x = `abcdefghijklmnopqrstyvwxyz`.split("");
+                        out += shuffle(x)[0];
+                        i++;
+                    }
+                    return out;
+                }
+
+                function shuffle(a) {
+                    var c = a.length,
+                        t, r;
+                    while (0 !== c) {
+                        r = Math.floor(Math.random() * c);
+                        c -= 1;
+                        t = a[c];
+                        a[c] = a[r];
+                        a[r] = t;
+                    }
+                    return a;
+                }
+            }
+            var out = '';
+            var acat =
+                "adminID;Your preferred username (no spaces),companyCode;The organization code you will be giving to your users<br>(no spaces) example: MillerRoofing,email;Your email address,password;Choose a secure password,fname;First name,lname;Last name,company;Company name,phone;Phone number,title;Preferred title,website; Your website"
+                .split(",");
+            for (let a of acat) {
+                var english = a.split(";")[1];
+                var val = a.split(";")[0];
+                out += `${english}:<br> <input id="${val}" name="${val}"><br><br>\n`
+            }
+            document.getElementById("aform").innerHTML += out;
+            for (let a of document.getElementsByTagName("input")) {
+                if (a.name == "password") {
+                    a.type = "password";
+                }
+            }
+
+            function getAdminString() {
+                adminInfo = {};
+                for (let a of document.getElementsByTagName("input")) {
+                    adminInfo[a.name] = a.value;
+                }
+                ainfo.innerHTML = JSON.stringify(adminInfo);
+            }
+
+
+            function showURL() {
+                var sw = document.getElementById("companyCode").value;
+                sw = sw.replace(/[^a-z0-9]/ig, "");
+                document.getElementById("companyCode").value = sw.trim();
+
+                var ai = document.getElementById("adminID").value;
+                ai = ai.replace(/[^a-z0-9]/ig, "");
+                document.getElementById("adminID").value = ai.trim();
+            }
+
+            document.getElementById("companyCode").addEventListener('keyup', showURL);
+            document.getElementById("adminID").addEventListener('keyup', showURL);
+        </script>
+
+
+</body>
+
+</html>

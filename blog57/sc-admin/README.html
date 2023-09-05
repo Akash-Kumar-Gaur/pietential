@@ -1,0 +1,62 @@
+<span style="color:#696969;"><span style="font-size:20px;"><strong>SilverCrayon User Manual</strong></span></span>
+<p>
+	<iframe allowfullscreen="" frameborder="0" height="360" src="//www.youtube.com/embed/emI8F69qDas" width="640"></iframe><br  />
+	<br  />
+	<strong>More Helpful Videos</strong>:<br  />
+	<br  />
+	<a href="https://www.youtube.com/watch?v=fLDteuez-jw">Working with images in Silvercrayon CMS</a> <br  />
+	<br  />
+	<a href="https://www.youtube.com/watch?v=Pqz12mBYQiU">Nesting IDs in Silvercrayon CMS</a> <br  />
+	<br  />
+	++++++++++++++++++++++++++++++++++++++++<br  />
+	 </p>
+<p>
+	<strong>Installation</strong>:</p>
+<p>
+	Create a directory on the server and place all cms files and folders from the zip file in that folder (default is ‘sc-admin’)</p>
+<p>
+	Adjust “sc-admin/lib/settings.php” to reflect your settings (line 5 and 6 generally)<br  />
+	Adjust “index.php” to reflect your settings (line 6 generally)</p>
+<p>
+	To reset password, change users/admin to<br  />
+	<span style="font-size:9px;">2f9959b230a44678dd2dc29f037ba1159f233aa9ab183ce3a0678eaae002e5aa6f27f47144a1a4365116d3db1b58ec47896623b92d85cb2f191705daf11858b8</span><br  />
+	which is the whirlpool hash for “1234”<br  />
+	<br  />
+	Change the admin password immediately by creating a new user named admin</p>
+<p>
+	Build an assembler script similar to index.php. For most users, you will not need to edit this file, If you are experienced with PHP you will be more comfortable editing the assembler script.</p>
+<p>
+	This will be moved out of the cms folder and placed at the root of the site above the cms folder. For most cases you will want to call this “index.php”</p>
+<p>
+	<strong>Overview</strong>:</p>
+<p>
+	All content is stored as IDs. IDs can be large blocks of copy, nav elements, headers, footers, or even templates. You can nest IDs within other IDs up to 15 levels deep.</p>
+<p>
+	The page is generated when an ID is called which instructs to assembler script to load in the template specified in the ID and swap out content in the template with content unique to the ID. If no template is supplied, the Main code in the ID is displayed and the other fields are ignored.</p>
+<p>
+	Templates: IDs can also act as templates. They must contain the $slvr_page tag where you want the body of the child ID to appear. to specify a template for an ID, enter the ID of the template with no dollar sign.</p>
+<p>
+	<strong>File structure</strong>:</p>
+<p>
+	IDs are plain text files that live in the “IDs” folder.</p>
+<p>
+	You can make a back up of the existing IDs by clicking the make back up feature in the admin page</p>
+<p>
+	You can also use IDs as templates.</p>
+<p>
+	IDs can contain links to other IDs as well as templates</p>
+<p>
+	Use an ID as an include inside another ID or template by indicating it with a double dollar sign, example: $$footercopy</p>
+<p>
+	<strong>URL REWRITING</strong>:</p>
+<p>
+	A .htaccess file is included that will rewrite URLS in the home directory from /?p=about to /about <br  />
+	This allows you to link to other IDs just by using their name and not having to specify ?p=ID<br  />
+	Depending on your server configuration you may need to adjust this file<br  />
+	The main replace pattern is RewriteRule ^([^/][a-zA-Z0-9-]+)$ index.php?p=$1 [L]</p>
+<p>
+	<strong>Tips</strong>:</p>
+<p>
+	Avoid special characters and underscores in IDs as they will be converted to dashes (multiple dashes are condensed to single dashes)</p>
+<p>
+	The double dollar sign($$) is a special token and is parsed out to signify the inclusion of an ID</p>

@@ -1,0 +1,482 @@
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <!-- <link href="f2.css" rel="stylesheet" type="text/css">
+    <link rel="icon" type="image/png" href="apps-icon.png"> -->
+    <title>multifind</title>
+</head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
+<body style="padding:20px;" cz-shortcut-listen="true">
+
+
+
+    <style>
+        html,
+        div,
+        p,
+        table {
+            width: 100%;
+            padding: 10px;
+            font-family: segoe ui, sans-serif;
+        }
+
+        td {
+            padding: 10px;
+        }
+
+        tr:nth-child(1) {
+            background: rgb(17, 1, 1);
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background: #eee;
+        }
+
+        .pt {
+            height: 200px;
+            border: 1px solid black;
+            overflow: scroll;
+            padding: 20px;
+            border-radius: 8px;
+            line-height: 1.5em;
+            margin: 20px;
+            opacity: .5;
+
+        }
+
+        .bt {
+            font-size: 11px;
+            font-family: "segoe ui", "open sans", sans-serif;
+            color: white;
+            padding: 5px 8px;
+            border: 1px solid rgb(201, 62, 41);
+            background-color: orange;
+            border-radius: 4px;
+            font-weight: bold;
+            text-decoration-line: none;
+        }
+
+        br {
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+
+        input{
+            margin:12px 0px 30px 0px;
+            border-radius: 3px;
+            border:1px solid silver;
+            padding:6px;
+            font-size: 16px;
+           /* box-shadow: rgba(0, 0, 0, .2) 5px 7px 6px 0px;*/
+            width:90%;
+        }
+        .chart {
+    width: 500px;
+    position: absolute;
+    right: 20px;
+}
+form{max-width: 500px;}
+    </style>
+ <div id="results"></div>
+ <br>
+ <div id="contains2charts" style="transform: scale(1);
+ position: fixed;
+ right: 20px;
+ top: 0px;">
+<div id="cc" style="width:500px;"><canvas id="myChart"  class="chart"></canvas><br></div>
+    <div id="cc2" style="width:500px;position: fixed;right:0px;top:500px;"><canvas id="myChart2" class="chart"></canvas><br>
+   
+</div>
+</div>
+<form enctype="multipart/form-data" action="" onclick="addValues();" method="post">
+<h1>Life balance evaluation</h1>
+    <h2 style="margin-bottom:0px;">SELF ACTUALIZATION:</h2>
+    <strong>Personal Development</strong>: I'm actively engaged in my own personal development to become the best me I can be.<br>
+     <span id="Q2-personalDevelopmentImActivelyE"></span><input value="0" type="range" min="0" max="10" name="Q2-personalDevelopmentImActivelyE" placeholder="Rate on a 0 - 10 scale"> <span></span>
+    
+    <br>
+    <strong>Well Being</strong>: I'm comfortable with myself. I feel balanced and fulfilled.<br>
+    <span id="Q3-wellBeingImComfortableWithMyse"></span><input value="0" type="range" min="0" max="10" name="Q3-wellBeingImComfortableWithMyse" placeholder="Rate on a 0 - 10 scale">
+   
+    <br>
+    <strong>Life Purpose</strong>: I know and embrace the purpose of my life.<br>
+     <span id="Q4-lifePurposeIKnowAndEmbraceTheP"></span><input value="0" type="range" min="0" max="10" name="Q4-lifePurposeIKnowAndEmbraceTheP" placeholder="Rate on a 0 - 10 scale">
+    
+    <br>
+    <strong>Spirituality</strong>: I'm asking the big questions in life about the Universe, and my place in it. I know my life has
+    meaning.<br>
+     <span id="Q5-spiritualityImAskingTheBigQues"></span><input value="0" type="range" min="0" max="10" name="Q5-spiritualityImAskingTheBigQues" placeholder="Rate on a 0 - 10 scale">
+    
+    <br>
+    <strong>Education</strong>: I have sought and gained the education (formal or informa) I need in life so far, and I'm constantly
+    seeking continuing education. I have a student's mind.<br>
+     <span id="Q6-educationIHaveSoughtAndGainedT"></span><input value="0" type="range" min="0" max="10" name="Q6-educationIHaveSoughtAndGainedT" placeholder="Rate on a 0 - 10 scale">
+  
+    <br>
+    <strong>Achievement</strong>: I'm satisfied with what I've achieved in life so far.<br>
+     <span id="Q7-achievementImSatisfiedWithWhat"></span><input value="0" type="range" min="0" max="10" name="Q7-achievementImSatisfiedWithWhat" placeholder="Rate on a 0 - 10 scale">
+    
+    <br>
+    <strong>Mastery</strong>: I am working to master new skills.<br>
+     <span id="Q8-masteryIAmWorkingToMasterNewSk"></span><input value="0" type="range" min="0" max="10" name="Q8-masteryIAmWorkingToMasterNewSk" placeholder="Rate on a 0 - 10 scale">
+    
+    <br>
+    <strong>Environment Impact</strong>: I'm part of the ecosystem, and I'm trying to limit my impact on it.<br>
+     <span id="Q9-environmentImpactImPartOfTheEc"></span><input value="0" type="range" min="0" max="10" name="Q9-environmentImpactImPartOfTheEc" placeholder="Rate on a 0 - 10 scale">
+    
+    <br>
+    <h2 style="margin-bottom:0px;">ESTEEM AND CONTRIBUTION:</h2>
+    <strong>Contribution</strong>: I've made contributions to my community that I'm proud of.<br>
+    <span id="Q11contributionIveMadeContributio"></span><input value="0" type="range" min="0" max="10" name="Q11contributionIveMadeContributio" placeholder="Rate on a 0 - 10 scale">
+   
+    <br>
+    <strong>Significance and purpose</strong>: My life has purpose.<br>
+    <span id="Q12significanceAndPurposeMyLifeHa"></span><input value="0" type="range" min="0" max="10" name="Q12significanceAndPurposeMyLifeHa" placeholder="Rate on a 0 - 10 scale">
+    <br>
+    <br>
+    <strong>Self Respect</strong>: I respect myself.<br>
+    <span id="Q13selfRespectIRespectMyself01234"></span><input value="0" type="range" min="0" max="10" name="Q13selfRespectIRespectMyself01234" placeholder="Rate on a 0 - 10 scale">
+    <br>
+    <br>
+    <strong>Respect from others</strong>: Other people respect me.<br>
+    <span id="Q14respectFromOthersOtherPeopleRe"></span><input value="0" type="range" min="0" max="10" name="Q14respectFromOthersOtherPeopleRe" placeholder="Rate on a 0 - 10 scale">
+    <br>
+    <br>
+    <strong>Status</strong>: I have achieved a certain amount of status in life.<br>
+    <span id="Q15statusIHaveAchievedACertainAmo"></span><input value="0" type="range" min="0" max="10" name="Q15statusIHaveAchievedACertainAmo" placeholder="Rate on a 0 - 10 scale">
+    <br>
+    <br>
+    <strong>Recognition</strong>: I'm recognized for my efforts.<br>
+    <span id="Q16recognitionImRecognizedForMyEf"></span><input value="0" type="range" min="0" max="10" name="Q16recognitionImRecognizedForMyEf" placeholder="Rate on a 0 - 10 scale">
+    <br>
+    <br>
+    <strong>Strength/Empowerment</strong>: I feel empowered and strong.<br>
+    <span id="Q17strengthEmpowermentIFeelEmpowe"></span><input value="0" type="range" min="0" max="10" name="Q17strengthEmpowermentIFeelEmpowe" placeholder="Rate on a 0 - 10 scale">
+    <br>
+    <br>
+    <strong>Freedom</strong>: I have a lot of personal freedom to call my own shots in life.<br>
+    <span id="Q18freedomIHaveALotOfPersonalFree"></span><input value="0" type="range" min="0" max="10" name="Q18freedomIHaveALotOfPersonalFree" placeholder="Rate on a 0 - 10 scale">
+    <br>
+    <br>
+    <strong>Attitude</strong>: I have the right attitiude.<br>
+    <span id="Q19attitudeIHaveTheRightAttitiude"></span><input value="0" type="range" min="0" max="10" name="Q19attitudeIHaveTheRightAttitiude" placeholder="Rate on a 0 - 10 scale">
+    <br>
+    <br>
+    <strong>Daily Mindset</strong>: My daily mindset is consistent.<br>
+    <span id="Q20dailyMindsetMyDailyMindsetIsCo"></span><input value="0" type="range" min="0" max="10" name="Q20dailyMindsetMyDailyMindsetIsCo" placeholder="Rate on a 0 - 10 scale">
+    <br>
+    <br>
+    <strong>Esteem</strong> : I matter to me.<br>
+    <span id="Q21esteemIMatterToMe0123456789"></span><input value="0" type="range" min="0" max="10" name="Q21esteemIMatterToMe0123456789" placeholder="Rate on a 0 - 10 scale">
+    <br>
+    <br>
+    <strong>Identity</strong>: I feel good about the identity I've built for myself.<br>
+    <span id="Q22identityIFeelGoodAboutTheIdent"></span><input value="0" type="range" min="0" max="10" name="Q22identityIFeelGoodAboutTheIdent" placeholder="Rate on a 0 - 10 scale">
+    <br>
+    <br>
+    <strong>Expression</strong>: I fully express myself.<br>
+    <span id="Q23expressionIFullyExpressMyself0"></span><input value="0" type="range" min="0" max="10" name="Q23expressionIFullyExpressMyself0" placeholder="Rate on a 0 - 10 scale">
+    <br>
+    <br>
+    <h2 style="margin-bottom:0px;">LOVE AND BELONGING:</h2>
+    <strong>Family Relationships</strong>: I have a solid, healthy relationship with my family.<br>
+    <span id="Q25familyRelationshipsIHaveASolid"></span><input value="0" type="range" min="0" max="10" name="Q25familyRelationshipsIHaveASolid" placeholder="Rate on a 0 - 10 scale">
+    <br>
+    <br>
+    <strong>Friendship</strong>: I have deep, lasting, helathy friendships.<br>
+    <span id="Q26friedshipIHaveDeepLastingHelat"></span><input value="0" type="range" min="0" max="10" name="Q26friedshipIHaveDeepLastingHelat" placeholder="Rate on a 0 - 10 scale">
+    <br>
+    <br>
+    <strong>Relationships Social</strong>: My social relationships are full of positive interactions with my aquaintences and the
+    people I meet.<br>
+    <span id="Q27relationshipsSocialMySocialRel"></span><input value="0" type="range" min="0" max="10" name="Q27relationshipsSocialMySocialRel" placeholder="Rate on a 0 - 10 scale">
+    <br>
+    <br>
+    <strong>Relationships Intimacy</strong>: My intimate relationships are fulfilling<br>
+    <span id="Q28relationshipsIntimaacyMyIntima"></span><input value="0" type="range" min="0" max="10" name="Q28relationshipsIntimaacyMyIntima" placeholder="Rate on a 0 - 10 scale">
+    <br>
+    <br>
+    <strong>Play</strong>: I allow myself the freedom to play<br>
+    <span id="Q29playIAllowMyselfTheFreedomToPl"></span><input value="0" type="range" min="0" max="10" name="Q29playIAllowMyselfTheFreedomToPl" placeholder="Rate on a 0 - 10 scale">
+   <br>
+    <br>
+    <strong>Resolution</strong>: I've tied up loose ends with the people in my life. Anything that was unresolved has been
+    resolved.<br>
+    <span id="Q30resolutionIveTiedUpLooseEndsWi"></span><input value="0" type="range" min="0" max="10" name="Q30resolutionIveTiedUpLooseEndsWi" placeholder="Rate on a 0 - 10 scale">
+    <br>
+    <br>
+    <strong>Compassion</strong>: I have deep compassion for others.<br>
+    <span id="Q31compassionIHaveDeepCompassionF"></span><input value="0" type="range" min="0" max="10" name="Q31compassionIHaveDeepCompassionF" placeholder="Rate on a 0 - 10 scale">
+   <br>
+    <br>
+    <h2 style="margin-bottom:0px;">SAFETY NEEDS:</h2>
+    <strong>Certainty</strong>: I feel certain about the futre. Everything will be fine.<br>
+    <span id="Q33certaintyIFeelCertainAboutTheF"></span><input value="0" type="range" min="0" max="10" name="Q33certaintyIFeelCertainAboutTheF" placeholder="Rate on a 0 - 10 scale">
+    <br>
+    <br>
+    <strong>Resiliency</strong>: I am resilient. I feel like I can handle whatever life brings me.<br>
+    <span id="Q34resiliencyIAmResilientIFeelLik"></span><input value="0" type="range" min="0" max="10" name="Q34resiliencyIAmResilientIFeelLik" placeholder="Rate on a 0 - 10 scale">
+    <br>
+    <br>
+    <strong>Physical Security</strong>: I feel physically safe.<br>
+    <span id="Q35physicalSecurityIFeelPhysicall"></span><input value="0" type="range" min="0" max="10" name="Q35physicalSecurityIFeelPhysicall" placeholder="Rate on a 0 - 10 scale">
+    <br>
+    <br>
+    <strong>Emotionally/Mental Health</strong>: I feel emotionally secure.<br>
+    <span id="Q36emotionallyMentalHealthIFeelEm"></span><input value="0" type="range" min="0" max="10" name="Q36emotionallyMentalHealthIFeelEm" placeholder="Rate on a 0 - 10 scale">
+   <br>
+    <br>
+    <strong>Food Security</strong>: I have enough food, and access to food and I never worry about it.<br>
+    <span id="Q37foodSecurityIHaveEnoughFoodAnd"></span><input value="0" type="range" min="0" max="10" name="Q37foodSecurityIHaveEnoughFoodAnd" placeholder="Rate on a 0 - 10 scale">
+    <br>
+    <br>
+    <strong>Dwelling Security</strong>: I have a roof over my head, and I'm confident that I always will.<br>
+    <span id="Q38dwellingSecurityIHaveARoofOver"></span><input value="0" type="range" min="0" max="10" name="Q38dwellingSecurityIHaveARoofOver" placeholder="Rate on a 0 - 10 scale">
+    <br>
+
+    <h2 style="margin-bottom:0px;">PHYSIOLOGICAL NEEDS:</h2>
+    <strong>Nutrition</strong>: My nutrition is excellent. I'm fueling my body with what I need to reach my goals<br>
+    <span id="Q40nutritionMyNutritionIsExcellen"></span><input value="0" type="range" min="0" max="10" name="Q40nutritionMyNutritionIsExcellen" placeholder="Rate on a 0 - 10 scale">
+    <br>
+    <br>
+    <strong>Health</strong>: I'm taking good care of my health with the help of qualified medical professionals.<br>
+    <span id="Q41healthImTakingGoodCareOfMyHeal"></span><input value="0" type="range" min="0" max="10" name="Q41healthImTakingGoodCareOfMyHeal" placeholder="Rate on a 0 - 10 scale">
+    <br>
+    <br>
+    <strong>Exercise</strong>: I exercise regularly, because fitness is a high priority for me.<br>
+    <span id="Q42exerciseIExerciseRegularlyBeca"></span><input value="0" type="range" min="0" max="10" name="Q42exerciseIExerciseRegularlyBeca" placeholder="Rate on a 0 - 10 scale">
+    <br>
+    <br>
+    <strong>Mindfulness</strong>: I practice mindfulness daily and appreciate the ability to be present to the moment.<br>
+    <span id="Q43mindfulnessIPracticeMindfulnes"></span><input value="0" type="range" min="0" max="10" name="Q43mindfulnessIPracticeMindfulnes" placeholder="Rate on a 0 - 10 scale">
+   <br>
+    <br>
+    <strong>Sleep</strong>: I'm getting good quality sleep each night<br>
+    <span id="Q44sleepImGettingGoodQualitySleep"></span><input value="0" type="range" min="0" max="10" name="Q44sleepImGettingGoodQualitySleep" placeholder="Rate on a 0 - 10 scale">
+    <br>
+    <br>
+    <strong>Substance Abuse</strong>: I don't undermine my physiology with harmful substances<br>
+    <span id="Q45substanceAbuseIDontUndermineMy"></span><input value="0" type="range" min="0" max="10" name="Q45substanceAbuseIDontUndermineMy" placeholder="Rate on a 0 - 10 scale">
+    <br>
+
+
+    <input type="submit" value="submit" onmouseover="addValues();">
+</form>
+    <script>
+        function saveForm() {
+            var d = document.querySelectorAll("select, input, textarea");
+            //console.log(d);
+            var o = "";
+            var arr = [];
+            var obj = {};
+            for (var i = 0; i < d.length; i++) {
+                if (d[i].type.match(/checkbox|radio/ig)) {
+                    if (d[i].checked) {
+                        obj[d[i].name] = d[i].value;
+                    }
+                    continue;
+                }
+                obj[d[i].name] = d[i].value;
+            }
+            console.log(obj);
+            localStorage.LifeBalanceformData = JSON.stringify(obj);
+            //   fd.innerHTML = JSON.stringify(obj);
+        }
+
+        function reLoadFormState() {
+            var o = "";
+            var results = {};
+            var obj = JSON.parse(localStorage.formData);
+            var d = document.querySelectorAll("select, input, textarea");
+            for (const property in obj) {
+
+                for (var i = 0; i < d.length; i++) {
+                    if (property == d[i].name) {
+                        document.getElementsByName(d[i].name)[0].value = obj[property];
+                        o += property + `: ` + obj[property] + `<br>\n`;
+                        results[property] = obj[property];
+                    }
+                }
+            }
+           // fd.innerHTML = JSON.stringify(results);
+        }
+
+    </script>
+
+   
+
+   
+
+
+<script>
+
+
+
+function addValues(){
+
+    var SA = 0;
+    var EC = 0;
+    var LB = 0;
+    var SN = 0;
+    var PN = 0;
+    var results = {};
+
+    
+    
+    var d = document.querySelectorAll("select, input, textarea");
+            //console.log(d);
+            var o = "";
+            var arr = [];
+            var obj = {};
+            for (var i = 0; i < d.length; i++) {
+                // if (d[i].type.match(/checkbox|radio/ig)) {
+                //     if (d[i].checked) {
+                //         obj[d[i].name] = d[i].value;
+                //     }
+                //     continue;
+                // }
+                obj[d[i].name] = parseInt(d[i].value);
+            }
+            
+
+            localStorage.LifeBalanceformData = JSON.stringify(obj);
+            for (const property in obj) {
+                
+                if (property.match(/Q[2-9]\-/g) && Number.isInteger(obj[property])){
+                    SA += parseInt(obj[property])*1.25; 
+                }
+                if (property.match(/Q11|Q12|Q13|Q14|Q15|Q16|Q17|Q18|Q19|Q20|Q21|Q22|Q23/g) && Number.isInteger(obj[property])){
+                    EC += parseInt(obj[property])*.769;
+                }
+                if (property.match(/Q25|Q26|Q27|Q28|Q29|Q30|Q31/g) && Number.isInteger(obj[property])){
+                    LB += parseInt(obj[property])*1.42;
+                }
+                if (property.match(/Q33|Q34|Q35|Q36|Q37|Q38/g) && Number.isInteger(obj[property])){
+                    //33-38
+                    SN += parseInt(obj[property])*1.66;
+                }
+                if (property.match(/Q40|Q41|Q42|Q43|Q44|Q45/g) && Number.isInteger(obj[property])){
+                    //40-45
+                    PN += parseInt(obj[property])*1.66;
+                }
+                SA = Math.floor(SA*100)/100;
+                EC = Math.floor(EC*100)/100;
+                LB = Math.floor(LB*100)/100;
+                SN = Math.floor(SN*100)/100;
+                PN = Math.floor(PN*100)/100;
+                console.log(SA+"; "+EC+"; "+LB+"; "+SN+"; "+PN);
+                // if (SA<1){ SA = 20;  } else {SA = SA*.277}//8 questions 72 points .277x
+                // if (EC<1){ EC = 20; }else {EC = EC*.170}//13 questions 117 points .170x
+                // if (LB<1){ LB = 20; }else {LB = LB*.317}//7 questions 63 points .317x
+                // if (SN<1){ SN = 20; }else {SN = SN*.357}//6 questions 56 points .357x
+                // if (PN<1){ PN = 20; }else {PN = PN*.357}//6 questions 56 points .357x
+
+                // var SAp = SA*.277//8 questions 72 points .277x
+                // var ECp = EC*.170//13 questions 117 points .170x
+                // var LBp = LB*.317//7 questions 63 points .317x
+                // var SNp = SN*.357//6 questions 56 points .357x
+                // var PNp = PN*.357//6 questions 56 points .357x
+            }
+            
+            drawChart(SA,EC,LB,SN,PN);
+            drawChart2(SA,EC,LB,SN,PN);
+            document.getElementById('results').innerHTML = `SA - ${SA} EC - ${EC} LB - ${LB} SN - ${SN} PN - ${PN}`;
+}
+
+    function drawChart(b,l,a,c,k){
+        cc.innerHTML = "";
+        cc.innerHTML = `<canvas id="myChart" width="400" height="400" class="chart"></canvas>`;
+var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+        labels: ['Self Actualization', 'Esteem and Contribution', 'Love and Belonging', 'Safety Needs', 'Physiological Needs'],
+        datasets: [{
+            label: 'Score',
+            data: [b, l, a, c, k],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+    }
+
+
+    function drawChart2(b,l,a,c,k){
+        cc2.innerHTML = ``;
+        cc2.innerHTML += `<canvas id="myChart2" width="400" height="400" class="chart"></canvas>`;
+var ctx = document.getElementById('myChart2').getContext('2d');
+var myChart2 = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: ['Self Actualization', 'Esteem and Contribution', 'Love and Belonging', 'Safety Needs', 'Physiological Needs'],
+        datasets: [{
+            label: 'Score',
+            data: [b, l, a, c, k],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+
+updateTextInput();
+    }
+
+    function updateTextInput() {
+        var t = document.getElementsByTagName("input");
+        for(var i = 0; i<t.length; i++){
+            document.getElementById(t[i].name).innerHTML = t[i].value;
+        }
+        }
+
+</script>
+
+</body>
+
+</html>

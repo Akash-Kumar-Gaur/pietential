@@ -1,0 +1,27 @@
+<div id="cookLook"></div>
+
+
+
+
+<script>
+
+
+var ca2 = document.cookie.split(`;`);
+    var cookieArray = [];
+    var cookieObj = {};
+    for (let s of ca2) {
+        let q = s.split(`=`);
+        var obj = {};
+        var cookieName = q[0].trim();
+        var cookieValue = q[1].trim();
+        obj[cookieName] = cookieValue;
+        cookieObj[cookieName] = cookieValue;
+        cookieArray.push(obj);
+    }
+    let out = '';
+for (let a in cookieObj){
+    out+= `<tr><td>${a}</td><td>${cookieObj[a]}</td></tr>`;
+}
+cookLook.innerHTML = `<table><tr><td style='color:white'>Cookie Name</td><td style='color:white'>Value</td></tr>${out}</table>`;
+
+</script>

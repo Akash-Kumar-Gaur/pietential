@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        function fakeLogIn() {
+            var fake = {};
+            fake.fname = shuffle(fnames)[0];
+            fake.lname = shuffle(lnames)[0];
+            fake.company = shuffle(lnames)[0] + " Inc.";
+            fake.title = shuffle(titles)[0];
+            fake.password = "1234";
+            fake.website = fake.lname + ".com";
+            fake.email = fake.fname + "."+fake.lname+"@" +  "pietential.com";
+            console.log(fake);
+            for (let a in fake) {
+                document.getElementsByName(a)[0].value = fake[a];
+            }
+        }
+
+        var titles = ["VP", "Janitor", "CEO", "Director of Surveys"];
+
+        var lnames = ["SMITH", "JOHNSON", "WILLIAMS", "JONES", "BROWN", "DAVIS", "MILLER", "WILSON", "MOORE", "TAYLOR", "ANDERSON", "THOMAS", "JACKSON", "WHITE", "HARRIS", "MARTIN", "THOMPSON", "GARCIA", "MARTINEZ", "ROBINSON", "CLARK", "RODRIGUEZ", "LEWIS", "LEE", "WALKER", "HALL", "ALLEN", "YOUNG", "HERNANDEZ", "KING", "WRIGHT", "LOPEZ", "HILL", "SCOTT", "GREEN", "ADAMS", "BAKER", "GONZALEZ", "NELSON", "CARTER", "MITCHELL", "PEREZ", "ROBERTS", "TURNER", "PHILLIPS", "CAMPBELL", "PARKER", "EVANS", "EDWARDS", "COLLINS", "STEWART", "SANCHEZ", "MORRIS", "ROGERS", "REED", "COOK", "MORGAN", "BELL", "MURPHY", "BAILEY", "RIVERA", "COOPER", "RICHARDSON", "COX", "HOWARD", "WARD", "TORRES", "PETERSON", "GRAY", "RAMIREZ", "JAMES", "WATSON", "BROOKS", "KELLY", "SANDERS", "PRICE", "BENNETT", "WOOD", "BARNES", "ROSS", "HENDERSON", "COLEMAN", "JENKINS", "PERRY", "POWELL", "LONG", "PATTERSON", "HUGHES", "FLORES", "WASHINGTON", "BUTLER", "SIMMONS", "FOSTER", "GONZALES", "BRYANT", "ALEXANDER", "RUSSELL", "GRIFFIN", "DIAZ", "HAYES", "MYERS", "FORD", "HAMILTON", "GRAHAM", "SULLIVAN", "WALLACE", "WOODS", "COLE", "WEST", "JORDAN", "OWENS", "REYNOLDS", "FISHER", "ELLIS", "HARRISON", "GIBSON", "MCDONALD", "CRUZ", "MARSHALL", "ORTIZ", "GOMEZ", "MURRAY", "FREEMAN", "WELLS", "WEBB", "SIMPSON", "STEVENS", "TUCKER", "PORTER", "HUNTER", "HICKS", "CRAWFORD", "HENRY", "BOYD", "MASON", "MORALES", "KENNEDY", "WARREN", "DIXON", "RAMOS", "REYES", "BURNS", "GORDON", "SHAW", "HOLMES", "RICE", "ROBERTSON", "HUNT", "BLACK", "DANIELS", "PALMER", "MILLS", "NICHOLS", "GRANT", "KNIGHT", "FERGUSON", "ROSE", "STONE", "HAWKINS", "DUNN", "PERKINS", "HUDSON", "SPENCER", "GARDNER", "STEPHENS", "PAYNE", "PIERCE", "BERRY", "MATTHEWS", "ARNOLD", "WAGNER", "WILLIS", "RAY", "WATKINS", "OLSON", "CARROLL", "DUNCAN", "SNYDER", "HART", "CUNNINGHAM", "BRADLEY", "LANE", "ANDREWS", "RUIZ", "HARPER", "FOX", "RILEY", "ARMSTRONG", "CARPENTER"];
+
+        var fnames = ["HARLAND", "HARLEY", "HAROLD", "HARRIS", "HARRISON", "HARRY", "HARVEY", "HASSAN", "HAYDEN", "HAYWOOD", "HEATH", "HECTOR", "HENRY", "HERB", "HERBERT", "HERIBERTO", "HERMAN", "HERSCHEL", "HERSHEL", "HILARIO", "HILTON", "HIPOLITO", "HIRAM", "HOBERT", "HOLLIS", "HOMER", "HONG", "HORACE", "HORACIO", "HOSEA", "HOUSTON", "HOWARD", "HOYT", "HUBERT", "HUEY", "HUGH", "HUGO", "HUMBERTO", "HUNG", "HUNTER", "HYMAN", "IAN", "IGNACIO", "IKE", "IRA", "IRVIN", "IRVING", "IRWIN", "ISAAC", "ISAIAH", "ISAIAS", "ISIAH", "ISIDRO", "ISMAEL", "ISRAEL", "ISREAL", "ISSAC", "IVAN", "IVORY", "JACINTO", "JACK", "JACKIE", "JACKSON", "JACOB", "JACQUES", "JAE", "JAIME", "JAKE", "JAMAAL", "JAMAL", "JAMAR", "JAME", "JAMEL", "JAMES", "JAMEY", "JAMIE", "JAMISON", "JAN", "JARED", "JAROD", "JARRED", "JARRETT", "JARROD", "JARVIS", "JASON", "JASPER", "JAVIER", "JAY", "JAYSON", "JC", "JEAN", "JED", "JEFF", "JEFFEREY", "JEFFERSON", "JEFFERY", "JEFFREY", "JEFFRY", "JERALD", "JERAMY", "JERE", "JEREMIAH", "JEREMY", "JERMAINE", "JEROLD", "JEROME", "JEROMY", "JERRELL", "JERROD", "JERROLD", "JERRY", "JESS", "JESSE", "JESSIE", "JESUS", "JEWEL", "JEWELL", "JIM", "JIMMIE", "JIMMY", "JOAN", "JOAQUIN", "JODY", "JOE", "JOEL", "JOESPH", "JOEY", "JOHN", "JOHNATHAN", "JOHNATHON", "JOHNIE", "JOHNNIE", "JOHNNY", "JOHNSON", "JON", "JONAH", "JONAS", "JONATHAN", "JONATHON", "JORDAN", "JORDON", "JORGE", "JOSE", "JOSEF", "JOSEPH", "JOSH", "JOSHUA", "JOSIAH", "JOSPEH", "JOSUE", "JUAN", "JUDE", "JUDSON", "JULES", "JULIAN", "JULIO", "JULIUS", "JUNIOR", "JUSTIN", "KAREEM", "KARL", "KASEY", "KEENAN", "KEITH", "KELLEY", "KELLY", "KELVIN", "KEN", "KENDALL", "KENDRICK", "KENETH", "KENNETH", "KENNITH", "KENNY", "KENT", "KENTON", "KERMIT", "KERRY", "KEVEN", "KEVIN", "KIETH", "KIM", "KING", "KIP", "KIRBY", "KIRK", "KOREY", "KORY", "KRAIG", "KRIS", "KRISTOFER", "KRISTOPHER", "KURT", "KURTIS", "KYLE", "LACY", "LAMAR", "LAMONT", "LANCE", "LANDON", "LANE", "LANNY", "LARRY", "LAUREN", "LAURENCE", "LAVERN", "LAVERNE", "LAWERENCE", "LAWRENCE", "LAZARO", "LEANDRO", "LEE", "LEIF", "LEIGH", "LELAND", "LEMUEL", "LEN", "LENARD", "LENNY", "LEO", "LEON", "LEONARD", "LEONARDO", "LEONEL", "LEOPOLDO", "LEROY", "LES", "LESLEY", "LESLIE", "LESTER", "LEVI", "LEWIS", "LINCOLN", "LINDSAY", "LINDSEY", "LINO", "LINWOOD", "LIONEL", "LLOYD", "LOGAN", "LON", "LONG", "LONNIE", "LONNY", "LOREN", "LORENZO", "LOU", "LOUIE", "LOUIS", "LOWELL", "LOYD", "LUCAS", "LUCIANO", "LUCIEN", "LUCIO", "LUCIUS", "LUIGI", "LUIS", "LUKE", "LUPE", "LUTHER", "LYLE", "LYMAN", "LYNDON", "LYNN", "LYNWOOD", "MAC", "MACK", "MAJOR", "MALCOLM", "MALCOM", "MALIK", "MAN", "MANUAL", "MANUEL", "MARC", "MARCEL", "MARCELINO", "MARCELLUS", "MARCELO", "MARCO", "MARCOS", "MARCUS", "MARGARITO", "MARIA", "MARIANO", "MARIO", "MARION", "MARK", "MARKUS", "MARLIN", "MARLON", "MARQUIS", "MARSHALL", "MARTIN", "MARTY", "MARVIN", "MARY", "MASON", "MATHEW", "MATT", "MATTHEW", "MAURICE", "MAURICIO", "MAURO", "MAX", "MAXIMO", "MAXWELL", "MAYNARD", "MCKINLEY", "MEL", "MELVIN", "MERLE", "MERLIN", "MERRILL", "MERVIN", "MICAH", "MICHAEL", "MICHAL", "MICHALE", "MICHEAL", "MICHEL", "MICKEY", "MIGUEL", "MIKE", "MIKEL", "MILAN", "MILES", "MILFORD", "MILLARD", "MILO", "MILTON", "MINH", "MIQUEL", "MITCH", "MITCHEL", "MITCHELL", "MODESTO", "MOHAMED", "MOHAMMAD", "MOHAMMED", "MOISES", "MONROE", "MONTE", "MONTY", "MORGAN", "MORRIS", "MORTON", "MOSE", "MOSES", "MOSHE", "MURRAY", "MYLES", "MYRON", "NAPOLEON", "NATHAN", "NATHANAEL", "NATHANIAL", "NATHANIEL", "NEAL", "NED", "NEIL", "NELSON", "NESTOR", "NEVILLE", "NEWTON", "NICHOLAS", "NICK", "NICKOLAS", "NICKY", "NICOLAS", "NIGEL", "NOAH", "NOBLE", "NOE", "NOEL", "NOLAN", "NORBERT", "NORBERTO", "NORMAN", "NORMAND", "NORRIS", "NUMBERS", "OCTAVIO", "ODELL", "ODIS", "OLEN", "OLIN", "OLIVER", "OLLIE", "OMAR", "OMER", "OREN", "ORLANDO", "ORVAL", "ORVILLE", "OSCAR", "OSVALDO", "OSWALDO", "OTHA", "OTIS", "OTTO", "OWEN", "PABLO", "PALMER", "PARIS", "PARKER", "PASQUALE", "PAT", "PATRICIA", "PATRICK", "PAUL", "PEDRO", "PERCY", "PERRY", "PETE", "PETER", "PHIL", "PHILIP", "PHILLIP", "PIERRE", "PORFIRIO", "PORTER", "PRESTON", "PRINCE", "QUENTIN", "QUINCY", "QUINN", "QUINTIN", "QUINTON", "RAFAEL", "RALEIGH", "RALPH", "RAMIRO", "RAMON", "RANDAL", "RANDALL", "RANDELL", "RANDOLPH", "RANDY", "RAPHAEL", "RASHAD", "RAUL", "RAY", "RAYFORD", "RAYMON", "RAYMOND", "RAYMUNDO", "REED", "REFUGIO", "REGGIE", "REGINALD", "REID", "REINALDO", "RENALDO", "RENATO", "RENE", "REUBEN", "REX", "REY", "REYES", "REYNALDO", "RHETT", "RICARDO", "RICH", "RICHARD", "RICHIE", "RICK", "RICKEY", "RICKIE", "RICKY", "RICO", "RIGOBERTO", "RILEY", "ROB", "ROBBIE", "ROBBY", "ROBERT", "ROBERTO", "ROBIN", "ROBT", "ROCCO", "ROCKY", "ROD", "RODERICK", "RODGER", "RODNEY", "RODOLFO", "RODRICK", "RODRIGO", "ROGELIO", "ROGER", "ROLAND", "ROLANDO", "ROLF", "ROLLAND", "ROMAN", "ROMEO", "RON", "RONALD", "RONNIE", "RONNY", "ROOSEVELT", "RORY", "ROSARIO", "ROSCOE", "ROSENDO", "ROSS", "ROY", "ROYAL", "ROYCE", "RUBEN", "RUBIN", "RUDOLF", "RUDOLPH", "RUDY", "RUEBEN", "RUFUS", "RUPERT", "RUSS", "RUSSEL", "RUSSELL", "RUSTY", "RYAN", "SAL", "SALVADOR", "SALVATORE", "SAM", "SAMMIE", "SAMMY", "SAMUAL", "SAMUEL", "SANDY", "SANFORD", "SANG", "SANTIAGO", "SANTO", "SANTOS", "SAUL", "SCOT", "SCOTT", "SCOTTIE", "SCOTTY", "SEAN", "SEBASTIAN", "SERGIO", "SETH", "SEYMOUR", "SHAD", "SHANE", "SHANNON", "SHAUN", "SHAWN", "SHAYNE", "SHELBY", "SHELDON", "SHELTON", "SHERMAN", "SHERWOOD", "SHIRLEY", "SHON", "SID", "SIDNEY", "SILAS", "SIMON", "SOL", "SOLOMON", "SON", "SONNY", "SPENCER", "STACEY", "STACY", "STAN", "STANFORD", "STANLEY", "STANTON", "STEFAN", "STEPHAN", "STEPHEN", "STERLING", "STEVE", "STEVEN", "STEVIE", "STEWART", "STUART", "SUNG", "SYDNEY", "SYLVESTER", "TAD", "TANNER", "TAYLOR", "TED", "TEDDY", "TEODORO", "TERENCE", "TERRANCE", "TERRELL", "TERRENCE", "TERRY", "THAD", "THADDEUS", "THANH", "THEO", "THEODORE", "THERON", "THOMAS", "THURMAN", "TIM", "TIMMY", "TIMOTHY", "TITUS", "TOBIAS", "TOBY", "TOD", "TODD", "TOM", "TOMAS", "TOMMIE", "TOMMY", "TONEY", "TONY", "TORY", "TRACEY", "TRACY", "TRAVIS", "TRENT", "TRENTON", "TREVOR", "TREY", "TRINIDAD", "TRISTAN", "TROY", "TRUMAN", "TUAN", "TY", "TYLER", "TYREE", "TYRELL", "TYRON", "TYRONE", "TYSON", "ULYSSES", "VAL", "VALENTIN", "VALENTINE", "VAN", "VANCE", "VAUGHN", "VERN", "VERNON", "VICENTE", "VICTOR", "VINCE", "VINCENT", "VINCENZO", "VIRGIL", "VIRGILIO", "VITO", "VON", "WADE", "WALDO", "WALKER", "WALLACE", "WALLY", "WALTER", "WALTON", "WARD", "WARNER", "WARREN", "WAYLON", "WAYNE", "WELDON", "WENDELL", "WERNER", "WES", "WESLEY", "WESTON", "WHITNEY", "WILBER", "WILBERT", "WILBUR", "WILBURN", "WILEY", "WILFORD", "WILFRED", "WILFREDO", "WILL", "WILLARD", "WILLIAM", "WILLIAMS", "WILLIAN", "WILLIE", "WILLIS", "WILLY", "WILMER", "WILSON", "WILTON", "WINFORD", "WINFRED", "WINSTON", "WM", "WOODROW", "WYATT", "XAVIER", "YONG", "YOUNG", "ZACHARIAH", "ZACHARY", "ZACHERY", "ZACK", "ZACKARY", "ZANE"];
+
+        function fake12() {
+            var out = '';
+            for (var i = 0; i < 12; i++) {
+                var str = `abzvxcsfwrefdgfhryfhbvmfvkfofpfjfhfydhbdksmmnvbvhjfuyges`.split("");
+                out += shuffle(str)[0];
+            }
+            return (out);
+        }
+
+        function shuffle(array) {
+            var currentIndex = array.length,
+                temporaryValue, randomIndex;
+
+            while (0 !== currentIndex) {
+
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex -= 1;
+
+                temporaryValue = array[currentIndex];
+                array[currentIndex] = array[randomIndex];
+                array[randomIndex] = temporaryValue;
+            }
+            return array;
+        }
+        fakeLogIn();
+
+
+    </script>
+</body>
+
+</html>

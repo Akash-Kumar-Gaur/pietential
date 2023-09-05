@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="../js/commonLinks.js"></script>
+    <script>includeCommonHeader('Admin Login')</script>
+  </head>
+
+  <body>
+    <section class="login">
+      <div class="container">
+        <div class="logInImageContainer">
+          <a href="/">
+            <img
+              src="../assets/pietentialBlackLogo.svg"
+              alt="Pietential Logo"
+              class="logo"
+            />
+          </a>
+          <img
+            src="../assets/loginPageImage.svg"
+            alt=""
+            class="loginPageImage"
+          />
+        </div>
+        <div class="formMainContainer">
+          <div class="formContainer">
+            <div class="button_container">
+              <a href="/pages/login.html" class="button userBtn"
+                >user login</a
+              >
+              <a class="button adminButton adminActive">admin login</a>
+            </div>
+            <h2>Login</h2>
+            <form method="post">
+              <input
+                type="text"
+                placeholder="Enter Your Email"
+                name="adminID"
+                id="email"
+                value=""
+              />
+              <input
+                type="password"
+                placeholder="Enter Your Password"
+                id="password"
+                name="password"
+              />
+              <a href="./forgotPassword.html" class="forgetPassword"
+                >forgot password?</a
+              >
+              <div class="button_container btnContainer newUser">
+                <a class="loginButton submitButton" onclick="onLogIn()"
+                  >Submit</a
+                >
+                <p class="newUserText">
+                  New Administrator?<a href="/pages/adminRegister.html"
+                    >Register</a
+                  >
+                </p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="modalOverlay" id="modalOverlay"></div>
+    </section>
+    <script src="../js/apiHelper.js"></script>
+    <script src="../js/apiService.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+      let language = localStorage.currentLanguage == "hindi" ? "hi" : "en";
+      let modal = getElementById("modalOverlay");
+
+      function hideModal() {
+        modal.style.display = "none";
+      }
+
+      function getView(title) {
+        return `<div class="alertMain"><div class="alertInner" id="modalInner"><p>${title}</p>
+    <a class="loginButton" onclick="hideModal()" style="margin: auto">Ok</a>
+    </div></div>`;
+      }
+
+      const onLogIn = async () => {
+        await handleAdminLogin(
+          getElementById("email").value,
+          getElementById("password").value
+        ).then((response) => {
+          sessionStorage.setItem("promoCode", response.promoCode);
+          if (response.message) {
+          modal.innerHTML = "";
+          modal.style.display = "block";
+          modal.innerHTML += getView(`Username or Password is incorrect`);
+        } else if (response.demographics == null) {
+          (window.location.href = `/pages/demographicSelector.html?adminID=${response.id}&jwt=${response.token}&promoCode=${response.promoCode}`),
+            response;
+        } else {
+          return (
+            (window.location.href = `http://localhost:3000/dashboard/?lang=${language}&adminID=${response.id}&jwt=${response.token}`),
+            response
+          );
+        }
+        });
+      };
+    </script>
+  </body>
+</html>

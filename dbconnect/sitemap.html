@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+<script>
+
+var map = `
+4 KB Modified: 6/22/22 13:08:20
+ admineditzipdelete4 KB Modified: 3/31/22 14:28:37
+ analyyzeiteditzipdelete4 KB Modified: 1/04/22 14:37:31
+ analyzeiteditzipdelete4 KB Modified: 7/01/22 17:52:01
+ calcEngineeditzipdelete4 KB Modified: 6/22/22 08:57:42
+ dashboardeditzipdelete4 KB Modified: 6/16/22 09:20:15
+ downloadeditzipdelete4 KB Modified: 1/04/22 15:52:38
+ iconseditzipdelete12 KB Modified: 2/22/22 16:13:01
+ idseditzipdelete540 KB Modified: 6/29/22 09:03:49
+ logineditzipdelete4 KB Modified: 2/28/22 19:13:23
+ privacyeditzipdelete4 KB Modified: 2/25/22 17:03:58
+ promocodeeditzipdelete4 KB Modified: 6/22/22 12:18:33
+ retakeeditzipdelete4 KB Modified: 1/04/22 15:52:01
+ shareeditzipdelete4 KB Modified: 3/04/22 16:50:20
+ shareMyCharteditzipdelete4 KB Modified: 6/20/22 13:11:03
+ shelleditzipdelete4 KB Modified: 2/25/22 11:26:10
+ surveyeditzipdelete4 KB Modified: 4/20/22 13:13:05
+ tempeditzipdelete4 KB Modified: 6/28/22 08:30:56
+ visualizeit`;
+ var out = '';
+var arr = [];
+ for (let a of map.split('\n')){
+    arr.push(a.replace(/edit[\s\S]+/ig, ''))
+ }
+ for (let a of arr){
+    out+= `https://pietential.com/pielet/${a.trim()}<br>`;
+
+ }
+document.body.innerHTML +=out;
+
+
+</script>
+
+
+
+https://pietential.com/about
+https://pietential.com/changepassword
+https://pietential.com/contact
+https://pietential.com/faq
+https://pietential.com/help
+https://pietential.com/hr
+https://pietential.com/login
+https://pietential.com/onboard
+https://pietential.com/pielet
+https://pietential.com/pieWidget
+https://pietential.com/pricing
+https://pietential.com/resources
+https://pietential.com/share
+https://pietential.com/unsubscribe
+https://pietential.com/welcome
+https://pietential.com/pielet/
+https://pietential.com/pielet/analyzeit
+https://pietential.com/pielet/dashboard
+https://pietential.com/pielet/download
+https://pietential.com/pielet/login
+https://pietential.com/pielet/privacy
+https://pietential.com/pielet/promocode
+https://pietential.com/pielet/retake
+https://pietential.com/pielet/share
+https://pietential.com/pielet/shareMyChart
+https://pietential.com/pielet/survey
+https://pietential.com/pielet/visualizeit
+
+</body>
+</html>

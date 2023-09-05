@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script src="../js/commonLinks.js"></script>
+  <script>includeCommonHeader('General Details')</script>
+</head>
+
+<body>
+  <div class="container adminRegisterContainer">
+    <div class="adminRegister" id="adminRegister">
+      <a href="/">
+        <img src="../assets/pietentialBlackLogo.svg" alt="Pietential Logo" class="logo" />
+      </a>
+      <h2>Your General Details</h2>
+      <p class="fillDetails">Please fill in the details requested by your administrator</p>
+      <div id="loaderContainer" style="display: none; background: #fff;">
+        <div class="loader_inner loaderInner">
+          <img src="../assets/pie-spinner.png" alt="Pie">
+        </div>
+      </div>
+      <div class="form" id="form_main_container">
+        <form id="form1" method="post">
+          <div id="formContainer"></div>
+          <div class="buttonContainer">
+            <div id="termsMainContainer">
+              <input type="checkbox" class="termsContainer" id="agreeCheck" required />
+              <label for="checkbox" class="termsLabel">I want to share my personal information <br /> with my
+                organization Admin</a>
+              </label>
+            </div>
+            <div class="buttonOuter">
+              <a class="loginButton" onclick="checkForTerms()">Submit</a>
+            </div>
+          </div>
+          <div class="modalOverlay" id="modalOverlay"></div>
+          <script src="../js/apiHelper.js"></script>
+          <script src="../js/apiService.js"></script>
+          <script src="../js/main.js"></script>
+          <script>
+            const demographicColumns = [];
+            let countryData = [];
+            let industriesData = [];
+            let occupationsList = [];
+            let languagesList = [];
+            let indianStates = [];
+            let states = [];
+            let stateValue = ""
+            let districtList = [];
+            let currencyDate = [];
+            let years = [];
+
+            function getIndianStates() {
+              getElementById("loaderContainer").style.display = "block"
+              getElementById("form_main_container").style.display = "none"
+              fetch("../json/indiaStateDistrictVillage.json")
+                .then((response) => {
+                  return response.json();
+                })
+                .then((data) => {
+                  indianStates = data;
+                  const indianStatesContainer = getElement(".indianStatesContainer")
+                  if (indianStatesContainer) {
+                    for (let i = 0; i < indianStates.length; i++) {
+                      indianStatesContainer.innerHTML += '<option>' + indianStates[i].state + '</option>'
+                    }
+                  }
+                })
+                .catch((err) => {
+                  console.log("error: " + err);
+                  getElementById("loaderContainer").style.display = "none"
+                  getElementById("form_main_container").style.display = "block"
+                })
+                .finally(() => {
+                  getElementById("loaderContainer").style.display = "none"
+                  getElementById("form_main_container").style.display = "block"
+                });
+            }
+           
+            let income = 0
+            let incomeRespondentVal = 0
+            let monthlyIncome = 0
+            function getIncomeValue() {
+              let valueInput = getElement(".annualIncome")
+              income = valueInput.value
+              getSelectValue()
+            }
+            function getSelectValue() {
+              const currencyContainer = getElement(".currencyContainer")
+              let valueInput = getElement(".annualIncome")
+              let input = getElement(".secondInput")
+              let inputValue = input.value = currencyContainer.value + ' ' + income
+            }
+            function getIncome() {
+              let valueInput = getElement(".incomeRespondent")
+              incomeRespondentVal = valueInput.value
+              getRespondentSelectValue()
+            }
+            function getRespondentSelectValue() {
+              const incomeRespondent = getElement(".incomePerMonthRespondent")
+              let valueInput = getElement(".incomeRespondent")
+              let input = getElement(".thirdInput")
+              let inputValue = input.value = incomeRespondent.value + ' ' + incomeRespondentVal
+            }
+            function getFamilyIncome() {
+              let valueInput = getElement(".familyIncomeInput")
+              monthlyIncome = valueInput.value
+              getFamilyIncomeValue()
+            }
+            function getFamilyIncomeValue() {
+              const monthlyFamilyIncome = getElement(".monthlyFamilyIncome")
+              let valueInput = getElement(".familyIncomeInput")
+              let input = getElement(".fourthInput")
+              let inputValue = input.value = monthlyFamilyIncome.value + ' ' + monthlyIncome
+            }
+  
+            const getValueCity = (id) => {
+              let cityContainer = getElement(".cityContainer")
+              // getElementById('demo' + id).value = cityContainer.options[cityContainer.selectedIndex].text;
+            }
+
+            function onStateDropdown() {
+              let countryContainer = getElement(".countryContainer")
+              let countryCode = countryContainer.value
+              if (countryCode == "Select Country") {
+                modal.innerHTML = ""
+                modal.style.display = "block"
+                modal.innerHTML += getView("Please select Country first")
+                return;
+              }
+            }
+           
+            function checkValue() {
+              let countryContainer = getElement(".countryContainer")
+              let stateContainer = getElement(".stateContainer")
+              let countryCode = countryContainer.value
+              let stateCode = stateContainer.value
+              if (countryCode == "Select Country" || stateCode == "Select State") {
+                modal.innerHTML = ""
+                modal.style.display = "block"
+                modal.innerHTML += getView("Please select Country and state first")
+                return;
+              }
+            }
+            const getInputBox = (index, value) => {
+              let dropDownBox = getElementById('div' + index);
+              if (dropDownBox) {
+                dropDownBox.innerHTML = ""
+                if (value == 'others')
+                  dropDownBox.innerHTML += '<input id="input' + index + '"type="text" class="inputClass" placeholder="other type" name="txt" value="" required>';
+                else
+                  dropDownBox.innerHTML = '';
+              }
+            }
+            const getValueOnWeight = (index, value) => {
+              let inputBox = getElementById('demo' + index);
+              if (value == "Lbs" || value == "Kg") {
+                if (inputBox.value == "") {
+                  inputBox.value = "0" + " " + value;
+                }
+                else {
+                  let numUnit = inputBox.value.split(" ")[0];
+                  inputBox.value = numUnit + " " + value;
+                }
+              }
+              else {
+                if (value) {
+                  if (inputBox.value == "") {
+                    inputBox.value = value + ' Kg';
+                  }
+                  else {
+                    let measureUnit = inputBox.value.split(" ")[1];
+                    inputBox.value = value + " " + measureUnit;
+                  }
+                }
+                else
+                  inputBox.value = "";
+              }
+            }
+            let dataDemographics = []
+            let userPrivacy = sessionStorage.getItem("userPrivacy")
+            const getDemographics = async () => {
+              getElementById("loaderContainer").style.display = "block"
+              getElementById("form_main_container").style.display = "none"
+              await getUserDemographics().then((response) => {
+                dataDemographics = response
+                if (userPrivacy == 1) {
+                  getElementById("termsMainContainer").style.visibility = "hidden"
+                }
+                if (response.error) {
+                  modal.innerHTML = ""
+                  modal.style.display = "block"
+                  modal.innerHTML += getView("some error occurred")
+                  getElementById("loaderContainer").style.display = "none"
+                  getElementById("form_main_container").style.display = "block"
+                  return;
+                }
+                const formContainer = getElementById("formContainer");
+                console.log(response.demographics)
+                response.demographics?.map((value, index) => {
+                  if (value.COLUMN_NAME == "age") formContainer.innerHTML += '<div class="birthYearMainContainer"><label>Age</label><input type="text" name="' + value.COLUMN_NAME + '" maxlength="2" pattern="/d{4}" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="' + value.COLUMN_NAME + '" required id=demo' + index + ' /></div>'
+                  if (value.COLUMN_NAME == "birth_year") formContainer.innerHTML += '<div class="birthYearMainContainer birthYearDropdown"><label>Birth Year</label><div id=demo' + index + ' class="birthYearContainer selectedDropdown generalDropdown" onclick="onDropdown()"><p>Select Year</p><img src="../assets/arrowDown.svg" alt="Arrow Down"/></div><div class="dropdownListMain dropdownSelectedList"><div class="searchContainer"><img src="../assets/searchIcon.png" alt="Search Icon"/><input type="text" placeholder="Search" /></div><ul class="birthYearOptions dropdownOptions"></ul></div></div>'
+                  if (value.COLUMN_NAME == "date_of_birth") formContainer.innerHTML += '<div class="birthYearMainContainer"><label>Date of birth</label><input type="date" id=demo' + index + '></div>'
+                  if (value.COLUMN_NAME == "gender") formContainer.innerHTML += '<div class="birthYearMainContainer"><label>Gender</label><div id=div' + index + '></div><select id=demo' + index + ' onchange="getInputBox(' + index + ',this.value)"><option>Male</option><option>Female</option><option>Transgender</option><option>Gender Neutral</option><option>Non-binary agender</option><option>Pangender</option><option>Genderqueer</option><option>Two spirit</option><option>Third gender</option><option>others</option></select></div>'
+                  if (value.COLUMN_NAME == "marital_status") formContainer.innerHTML += '<div class="birthYearMainContainer"><label>Marital Status</label><div id=div' + index + '></div><select id=demo' + index + ' onchange="getInputBox(' + index + ',this.value)"><option>Single</option><option>Married</option><option>Widowed</option><option>Divorced</option><option>Separated</option><option>Registered partnership</option><option>others</option></select></div>'
+                  if (value.COLUMN_NAME == "number_of_dependents") formContainer.innerHTML += '<div class="birthYearMainContainer"><label>Number of dependents</label><input type="text" name="' + value.COLUMN_NAME + '" maxlength="2" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="Number of Dependents (ex. 04)" required id=demo' + index + ' /></div>'
+                  if (value.COLUMN_NAME == "weight") formContainer.innerHTML += '<div class="birthYearMainContainer"><label>Weight</label><div style="display:flex"><select style="width: 30%;margin-right: 16px;" onchange="getValueOnWeight(' + index + ',this.value)"><option>Kg</option><option>Lbs</option></select><input type="text" name="' + value.COLUMN_NAME + '" maxlength="4" onkeypress="return event.charCode >= 48 && event.charCode <= 57" onkeyup="getValueOnWeight(' + index + ',this.value)" placeholder="Weight" required /><input type="text" value="" class="hide" id="demo' + index + '"/></div></div>'
+                  if (value.COLUMN_NAME == "height") formContainer.innerHTML += '<div class="birthYearMainContainer heightDropdown"><label>Height</label><div id=demo' + index + ' class="birthYearContainer selectedDropdown heightContainer" onclick="onHeightDropdown()"><p>Select Height</p><img src="../assets/arrowDown.svg" alt="Arrow Down"/></div><div class="heightDropdownList dropdownSelectedList"><div class="searchContainer"><img src="../assets/searchIcon.png" alt="Search Icon"/><input type="text" placeholder="Search" class = "heightSearchInput"/></div><ul class="heightOptions dropdownOptions"></ul></div></div>'
+                  if (value.COLUMN_NAME == "education_level") formContainer.innerHTML += '<div class="birthYearMainContainer"><label>Education level</label><div id=div' + index + '></div><select id=demo' + index + ' onchange="getInputBox(' + index + ',this.value)"><option>No Formal Education</option><option>Vocational Education</option><option>Early childhood education</option><option>Primary education</option><option>Lower secondary education</option><option>Upper secondary education</option><option>Post-secondary non-tertiary education</option><option>Short-cycle tertiary education</option><option>Bachelors or equivalent education</option><option>Masters or equivalent education</option><option>Doctorals or equivalent education</option><option>Do not care to disclose</option><option>others</option></select></div>'
+                  if (value.COLUMN_NAME == "employment_status") formContainer.innerHTML += '<div class="birthYearMainContainer"><label>Employment status</label><select id=demo' + index + '><option>NA</option><option>Employed</option><option>Unemployed</option><option>Self-employed</option></select></div>' //others
+                  if (value.COLUMN_NAME == "last_year_worked") formContainer.innerHTML += '<div class="birthYearMainContainer lastYearDropdown"><label>Last Year Worked</label><div id=demo' + index + ' class="birthYearContainer selectedDropdown lastYearContainer"  onchange="getInputBox(' + index + ',this.value)" onclick="onLastYearDropdown()"><p>Select Last Year Worked</p><img src="../assets/arrowDown.svg" alt="Arrow Down"/></div><div class="lastYearDropdownList dropdownSelectedList"><div class="searchContainer"><img src="../assets/searchIcon.png" alt="Search Icon"/><input type="text" placeholder="Search" class="lastYearSearchInput" /></div><ul class="dropdownOptions lastYearOptions"></ul></div></div>'
+                  if (value.COLUMN_NAME == "occupation") formContainer.innerHTML += '<div class="birthYearMainContainer occupationDropdown"><label>Occupation</label><div id=div' + index + '></div><div id=demo' + index + ' class="birthYearContainer selectedDropdown occupationContainer"  onchange="getInputBox(' + index + ',this.value)" onclick="onOccupationDropdown()"><p>Select Occupation</p><img src="../assets/arrowDown.svg" alt="Arrow Down"/></div><div class="occupationDropdownList dropdownSelectedList"><div class="searchContainer"><img src="../assets/searchIcon.png" alt="Search Icon"/><input type="text" placeholder="Search" class="occupationSearchInput" /></div><ul class="dropdownOptions occupationOptions"></ul></div></div>'
+                  if (value.COLUMN_NAME == "industry") formContainer.innerHTML += '<div class="birthYearMainContainer industryDropdown"><label>Industry</label><div id=div' + index + '></div><div id=demo' + index + ' class="birthYearContainer selectedDropdown industryContainer"  onchange="getInputBox(' + index + ',this.value)" onclick="onIndustryDropdown()"><p>Select Industry</p><img src="../assets/arrowDown.svg" alt="Arrow Down"/></div><div class="industryDropdownList dropdownSelectedList"><div class="searchContainer"><img src="../assets/searchIcon.png" alt="Search Icon"/><input type="text" onkeyup="handleIndustrySearch()" placeholder="Search" class="industrySearchInput" /></div><ul class="dropdownOptions industryOptions"></ul></div></div>'
+                  if (value.COLUMN_NAME == "title") formContainer.innerHTML += '<div class="birthYearMainContainer"><label>Title</label><input type="text" name="' + value.COLUMN_NAME + '" maxlength="50" placeholder="Title" required id=demo' + index + ' /></div>'
+                  if (value.COLUMN_NAME == "commute_distance") formContainer.innerHTML += '<div class="birthYearMainContainer"><label>Commute Distance</label><select id=demo' + index + '><option>NA</option><option>0-5</option><option>5-10</option><option>10-15</option><option>15-20</option><option>more than 20</option><option>Remote working</option></select></div>';
+                  if (value.COLUMN_NAME == "car_owner") formContainer.innerHTML += '<div class="birthYearMainContainer"><label>Car Owner</label><select id=demo' + index + '><option>Yes</option><option>No</option></select></div>'
+                  if (value.COLUMN_NAME == "annual_income") formContainer.innerHTML += '<div class="birthYearMainContainer annualIncomeDropdown"><label>Annual Income</label><div style="display:flex"><div id=demo' + index + ' class="birthYearContainer selectedDropdown annualIncomeContainer"  onchange="getInputBox(' + index + ',this.value)" onclick="onAnnualIncomeDropdown()"><p>Select Currency</p><img src="../assets/arrowDown.svg" alt="Arrow Down"/></div><div class=" annualIncomeDropdownList dropdownSelectedList"><div class="searchContainer"><img src="../assets/searchIcon.png" alt="Search Icon"/><input type="text" placeholder="Search" class=" annualIncomeSearchInput" /></div><ul class="dropdownOptions  annualIncomeOptions"></ul></div><input type="text" name="' + value.COLUMN_NAME + '" maxlength="20" class="annualIncome" onchange="getIncomeValue()" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="' + value.COLUMN_NAME.replace(/_/g, " ") + '" required /><input type="text" value="" class="secondInput" id="demo' + index + '"/></div></div>'
+                  if (value.COLUMN_NAME == "income_per_month_of_respondent") formContainer.innerHTML += '<div class="birthYearMainContainer monthlyIncomeDropdown"><label>income per month of respondent</label><div style="display:flex"><div id=demo' + index + ' class="birthYearContainer selectedDropdown monthlyIncomeContainer"  onchange="getInputBox(' + index + ',this.value)" onclick="onMonthlyIncomeDropdown()"><p>Select income per month of respondent</p><img src="../assets/arrowDown.svg" alt="Arrow Down"/></div><div class="monthlyIncomeDropdownList dropdownSelectedList"><div class="searchContainer"><img src="../assets/searchIcon.png" alt="Search Icon"/><input type="text" placeholder="Search" class="monthlyIncomeSearchInput" /></div><ul class="dropdownOptions monthlyIncomeOptions"></ul></div><input type="text" class="incomeRespondent" name="' + value.COLUMN_NAME + '" maxlength="10" onchange="getIncome()" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="Income per month of respondent" required /><input type="text" value="" class="thirdInput" id="demo' + index + '"/></div> </div>'
+                  if (value.COLUMN_NAME == "occupation_of_head_of_the_family") formContainer.innerHTML += '<div class="birthYearMainContainer occupationHeadDropdown"><label>Occupation of head of the family</label><div id=div' + index + '></div><div id=demo' + index + ' class="birthYearContainer selectedDropdown occupationHeadContainer"  onchange="getInputBox(' + index + ',this.value)" onclick="onOccupationHeadDropdown()"><p>Select Occupation of head of the family</p><img src="../assets/arrowDown.svg" alt="Arrow Down"/></div><div class="occupationHeadDropdownList dropdownSelectedList"><div class="searchContainer"><img src="../assets/searchIcon.png" alt="Search Icon"/><input type="text" placeholder="Search" class="occupationHeadSearchInput" /></div><ul class="dropdownOptions occupationHeadOptions"></ul></div></div>'
+                  if (value.COLUMN_NAME == "monthly_family_income") formContainer.innerHTML += '<div class="birthYearMainContainer monthlyFamilyIncomeDropdown"><label>monthly family income</label><div style="display:flex"><div id=demo' + index + ' class="birthYearContainer selectedDropdown monthlyFamilyIncomeContainer"  onchange="getInputBox(' + index + ',this.value)" onclick="onMonthlyFamilyIncomeDropdown()"><p>Select monthly family income</p><img src="../assets/arrowDown.svg" alt="Arrow Down"/></div><div class="monthlyFamilyIncomeDropdownList dropdownSelectedList"><div class="searchContainer"><img src="../assets/searchIcon.png" alt="Search Icon"/><input type="text" placeholder="Search" class="monthlyFamilyIncomeSearchInput" /></div><ul class="dropdownOptions monthlyFamilyIncomeOptions"></ul></div><input type="text" class="familyIncomeInput" onchange="getFamilyIncome()" name="' + value.COLUMN_NAME + '" maxlength="20" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="' + value.COLUMN_NAME.replace(/_/g, " ") + '" required /><input type="text" value="" class="fourthInput" id="demo' + index + '"/></div></div>'
+                  if (value.COLUMN_NAME == "using_state_assistance") formContainer.innerHTML += '<div class="birthYearMainContainer"><label>State assistance</label><select id=demo' + index + '><option>Yes</option><option>No</option></select></div>'
+                  if (value.COLUMN_NAME == "veteran_status") formContainer.innerHTML += '<div class="birthYearMainContainer"><label>Veteran Status</label><select id=demo' + index + '><option>Yes</option><option>No</option></select></div>'
+                  if (value.COLUMN_NAME == "religion") formContainer.innerHTML += '<div class="birthYearMainContainer"><label>Religion</label><div id=div' + index + '></div><select id=demo' + index + ' onchange="getInputBox(' + index + ',this.value)"><option>Christians</option><option>Muslims</option><option>Non-religious people</option><option>Hindus</option> <option>Buddhists</option><option>Indigenous religions</option><option>others</option></select></div>'
+                  if (value.COLUMN_NAME == "native_language") formContainer.innerHTML += '<div class="birthYearMainContainer nativeLanguageDropdown"><label>Native Language</label><div id=div' + index + '></div><div id=demo' + index + ' class="birthYearContainer selectedDropdown nativeLanguageContainer"  onchange="getInputBox(' + index + ',this.value)" onclick="onNativeLanguageDropdown()"><p>Select native language</p><img src="../assets/arrowDown.svg" alt="Arrow Down"/></div><div class="nativeLanguageDropdownList dropdownSelectedList"><div class="searchContainer"><img src="../assets/searchIcon.png" alt="Search Icon"/><input type="text" placeholder="Search" class="nativeLanguageSearchInput" /></div><ul class="dropdownOptions nativeLanguageOptions"></ul></div></div>'
+                  if (value.COLUMN_NAME == "ethnicity") formContainer.innerHTML += '<div class="birthYearMainContainer"><label>Ethnicity</label><div id=div' + index + '></div><select id=demo' + index + ' onchange="getInputBox(' + index + ',this.value)">'
+                    + `<option>Americans</option>
+<option>African Americans</option>
+<option>Hispanic and Latino Americans</option>
+<option>American Indian group
+<option>Asian Americans</option>
+<option>White Americans</option>
+<option>Indigenous peoples</option>
+<option>Alaska Natives</option>
+<option>Native Hawaiians</option>
+<option>Asian people</option>
+<option>White people</option>
+<option>Chamorro people</option>
+<option>Micronesians</option>
+<option>Polynesians</option>
+<option>German Americans</option>
+<option>Scotch-Irish Americans</option>
+<option>West Indian Americans</option>
+<option>Blackfoot Confederacy</option>
+<option>French Canadians</option>
+<option>Cherokee</option>
+<option>Ojibwe</option>
+<option>Choctaw</option>
+<option>Navajo</option>
+<option>Sioux</option>
+<option>Chickasaw</option>
+<option>Apache</option>
+<option>Trinidadian and Tobagonian Americans</option>
+<option>Iroquois</option>
+<option>Lumbee</option>
+<option>Assyrian–Chaldean–Syriac diaspora</option>
+<option>Nigerian Americans</option>
+<option>Muscogee</option>
+<option>Pennsylvania Dutch</option>
+<option>Cajuns</option>
+<option>European Americans</option>
+<option>White Hispanic and Latino Americans</option>
+<option>Mixed-blood</option>
+<option>South Asian Americans</option>
+<option>Jewish people</option>
+<option>Hispanic</option>
+<option>Creole peoples</option>
+<option>Gaels</option>
+<option>Pacific Islander Americans</option>
+<option>Romani Americans</option>
+<option>Kalmyk Americans</option>
+<option>Zonians</option>
+<option>Pacific Islander</option>
+<option>Black people</option>
+<option>Taiwanese Americans</option>
+<option>Puerto Ricans</option>
+<option>Non-Hispanic whites</option>
+<option>others</option></select></div>`
+                  if (value.COLUMN_NAME == "caste") formContainer.innerHTML += '<div class="birthYearMainContainer"><label>Caste Category</label><select id=demo' + index + '><option>General</option><option>SC</option><option>ST</option><option>OBC</option><option>Others</option></select></div>'//others
+                  if (value.COLUMN_NAME == "political_party") formContainer.innerHTML += '<div class="birthYearMainContainer"><label>political party</label><input type="text" name="' + value.COLUMN_NAME + '" maxlength="100" placeholder="Political Party" required id=demo' + index + ' /></div>'
+                  if (value.COLUMN_NAME == "sexual_preference") formContainer.innerHTML += '<div class="birthYearMainContainer"><label>Sexual preference</label><div id=div' + index + '></div><select id=demo' + index + ' onchange="getInputBox(' + index + ',this.value)"><option>Heterosexual</option><option>Homosexual</option><option>Bisexual</option><option>Asexual</option> <option>pansexual</option><option>others</option></select></div>'
+                  if (value.COLUMN_NAME == "health_status") formContainer.innerHTML += '<div class="birthYearMainContainer"><label>Health Status</label><div id=div' + index + '></div><select id=demo' + index + ' onchange="getInputBox(' + index + ',this.value)"><option>Excellent</option><option>Very good</option><option>Good</option><option>Fair</option><option>Poor</option><option>others</option></select></div>'
+                  if (value.COLUMN_NAME == "medical_conditions") formContainer.innerHTML += '<div class="birthYearMainContainer"><label>Medical Condition</label><div id=div' + index + '></div><select id=demo' + index + ' onchange="getInputBox(' + index + ',this.value)"><option>Heart disease</option><option>Cancer</option><option>Chronic lower respiratory diseases</option><option>Obesity</option>' + "<option>Alzheimer's</option>diabetes</option><option>Substance abuse disorders</option><option>Kidney disease</option><option>autoimmune disorders</option><option>Mental health conditions</option><option>NA</option><option>others</option></select></div>";
+                  if (value.COLUMN_NAME == "medications") formContainer.innerHTML += '<div class="birthYearMainContainer"><label>Medication</label><textarea class="textarea" name="' + value.COLUMN_NAME + '" maxlength="100" placeholder="' + value.COLUMN_NAME + '" required id=demo' + index + '></textarea></div>'
+                  if (value.COLUMN_NAME == "currently_in_physician_care") formContainer.innerHTML += '<div class="birthYearMainContainer"><label>Currently in physician care</label><select id=demo' + index + '><option>Yes</option><option>No</option></select></div>'
+                  if (value.COLUMN_NAME == "disability_status") formContainer.innerHTML += '<div class="birthYearMainContainer" ><label>Disability Status</label><div id=div' + index + '></div><select id=demo' + index + ' onchange="getInputBox(' + index + ',this.value)">'
+                    + `<option>No Disability</option>
+<option>Mobility and Physical Impairments</option>
+<option>Spinal Cord Disability</option>
+<option>Head Injuries - Brain Disability</option>
+<option>Vision Disability</option>
+<option>Hearing Disability</option>
+<option>Cognitive or Learning Disabilities</option>
+<option>Psychological Disorders</option>
+<option>Invisible Disabilities</option>
+<option>others</option></select></div>`;
+                  if (value.COLUMN_NAME == "amputee_status") formContainer.innerHTML += '<div class="birthYearMainContainer"><label>Amputee Status</label><div id=div' + index + '></div><select id=demo' + index + '  onchange="getInputBox(' + index + ',this.value)">'
+                    + `<option>No amputation</option>
+<option>Above-knee amputation, removing part of the thigh, removing part of the knee, removing part of the shin, removing part of the foot, removing part of the toes.</option>
+<option>Below-knee amputation, removing the lower leg, removing the foot, removing the toes.</option>
+<option>Arm amputation.</option>
+<option>Hand amputation.</option>
+<option>Finger amputation.</option>
+<option>Foot amputation, removing part of the foot.</option>
+<option>Toe amputation.</option>
+<option>Hip disarticulation</option>
+<option>Hemipelvectomy</option>
+<option>Wrist disarticulation</option>
+<option>others</option></select></div>`;
+                  if (value.COLUMN_NAME == "vision_status") formContainer.innerHTML += '<div class="birthYearMainContainer"><label>Vision Status</label><select id=demo' + index + '><option>Blind</option><option>Cited</option><option>NA</option></select></div>'
+                  if (value.COLUMN_NAME == "hearing_status") formContainer.innerHTML += '<div class="birthYearMainContainer"><label>Hearing Status</label><div id=div' + index + '></div><select id=demo' + index + ' onchange="getInputBox(' + index + ',this.value)">'
+                    + `<option>No Hearing Loss</option>
+<option>Mild hearing loss</option>
+<option>Moderate hearing loss</option>
+<option>Moderately severe hearing loss</option>
+<option>Severe hearing loss</option>
+<option>Profound hearing loss</option>
+<option>Treating hearing loss</option>
+<option>others</option></select></div>`
+
+
+                  if (value.COLUMN_NAME == "country") formContainer.innerHTML += `<div id="countryMainContainer"><h4>Location Details</h4><hr><div id="smallLoader" class="smallLoader" style="display: none; background: #fff;"></div><div class="countryMain"><div class="birthYearMainContainer countryDropdown" id="divCountry"><label>Country</label><div id="demo${index}" class="birthYearContainer selectedDropdown countryContainer" onclick="onCountryDropdown();"><p>Select country</p><img src="../assets/arrowDown.svg" alt="Arrow Down"/></div><div class="countryDropdownList dropdownSelectedList"><div class="searchContainer"><img src="../assets/searchIcon.png" alt="Search Icon"/><input type="text" placeholder="Search" class="countrySearchInput" /></div><ul class="dropdownOptions countryOptions"></ul></div><input type="text" value="" class="hide"  id="demo${index}"/></div> <div class="birthYearMainContainer stateDropdown forLoader"><label>States/Region</label><div id="demo${index  + 1}" class="birthYearContainer selectedDropdown stateContainer" onclick="onStateDropdown(); onState()" getInputBox(${index + 1}, this.value)"><p>Select state</p></span><img src="../assets/arrowDown.svg" alt="Arrow Down"/></div><div class="stateDropdownList dropdownSelectedList"><div class="searchContainer"><img src="../assets/searchIcon.png" alt="Search Icon"/><input type="text" placeholder="Search" class="stateSearchInput" /></div><ul class="dropdownOptions stateOptions"></ul></div><input type="text" value="" class="hide"  id="demo${index + 1}"/></div> <div class="birthYearMainContainer cityDropdown"><label>City</label><div id="demo${index  + 2}" class="birthYearContainer selectedDropdown cityContainer" onclick="checkValue(); getValueCity(${index + 2}); onCityDropdown()" onchange="getInputBox(${index + 2}, this.value); getValueCity(${index + 2});"><p>Select city</p></span><img src="../assets/arrowDown.svg" alt="Arrow Down"/></div><div class="cityDropdownList dropdownSelectedList"><div class="searchContainer"><img src="../assets/searchIcon.png" alt="Search Icon"/><input type="text" placeholder="Search" class="citySearchInput" /></div><ul class="dropdownOptions cityOptions"></ul></div><input type="text" value="" class="hide"  id="demo${index + 2}"/><hr></div></div></div></div>`
+                  if (value.COLUMN_NAME == "street") formContainer.innerHTML += '<div class="birthYearMainContainer"><label>Street</label><textarea class="textarea" name="' + value.COLUMN_NAME + '" max-length="2" placeholder="' + value.COLUMN_NAME + '" required id=demo' + index + '></textarea></div>'
+                  if (value.COLUMN_NAME == "postal_code") formContainer.innerHTML += '<div class="birthYearMainContainer"><label>postal code</label><input type="text" name="' + value.COLUMN_NAME + '" maxlength="20" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="' + value.COLUMN_NAME.replace(/_/g, " ") + '" required id=demo' + index + ' /></div>'
+                  if (value.COLUMN_NAME == "phone_number") formContainer.innerHTML += '<div class="birthYearMainContainer"><label>Phone Number</label><input type="text" name="' + value.COLUMN_NAME + '" maxlength="20" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="' + value.COLUMN_NAME.replace(/_/g, " ") + '" required id=demo' + index + ' /></div>'
+                  if (value.COLUMN_NAME == "geo_location_latitude") formContainer.innerHTML += '<div class="birthYearMainContainer"><label>geo location latitude</label><input type="text" name="' + value.COLUMN_NAME + '" maxlength="10"  onkeypress="return event.charCode >= 46 && event.charCode <= 57" placeholder="Geolocation Latitude (ex. 30.350090)" class="geoLocationInput" required id=demo' + index + ' /></div>'
+                  if (value.COLUMN_NAME == "geo_location_longitude") formContainer.innerHTML += '<div class="birthYearMainContainer"><label>geo location longitude</label><input type="text" name="' + value.COLUMN_NAME + '" class="longitudeInput" maxlength="10" onkeypress="return event.charCode >= 46 && event.charCode <= 57" placeholder="Geolocation Longitude (ex. 76.784042)" required id=demo' + index + '  /></div>'
+
+
+                  ///////////  State/District/Village Name  ////////////
+                  if (value.COLUMN_NAME == "state") formContainer.innerHTML += `<div id="countryMainContainer" style="width: 100%"><h4>Rural Location Details</h4><hr><div id="smallLoaderCity" class="smallLoader" style="display: none; background: #fff;"></div><div style="display: flex; flex-wrap: wrap; justify-content: space-between"><div class="birthYearMainContainer"><label>Country</label><select disabled><option>India</option></select></div><div class="birthYearMainContainer ruralStateDropdown forLoader"><label>States</label><div id="demo${index}" class="birthYearContainer selectedDropdown ruralStateContainer" onclick="getDistrict(); onRuralState()"><p>Select state</p></span><img src="../assets/arrowDown.svg" alt="Arrow Down"/></div><div class="ruralStateDropdownList dropdownSelectedList"><div class="searchContainer"><img src="../assets/searchIcon.png" alt="Search Icon"/><input type="text" placeholder="Search" class="ruralStateSearchInput" /></div><ul class="dropdownOptions ruralStateOptions"></ul></div><input type="text" value="" class="hide"  id="demo${index}"/></div> <div class="birthYearMainContainer ruralDistrictDropdown"><label>District</label><div id=div${index + 1}></div><div id="demo${index + 1}" class="birthYearContainer selectedDropdown ruralDistrictContainer" onclick="onRuralDistrictDropdown()" onchange="getVillages(); getInputBox(${index + 1} ,${this.value})"><p>Select district</p></span><img src="../assets/arrowDown.svg" alt="Arrow Down"/></div><div class="ruralDistrictDropdownList dropdownSelectedList"><div class="searchContainer"><img src="../assets/searchIcon.png" alt="Search Icon"/><input type="text" placeholder="Search" class="ruralDistrictSearchInput" /></div><ul class="dropdownOptions ruralDistrictOptions"></ul></div></div> <div class="birthYearMainContainer ruralVillageDropdown"><label>Village Name</label><div id=div${index + 2}></div><div id="demo${index + 2}" class="birthYearContainer selectedDropdown ruralVillageContainer"  onchange="getInputBox(${index + 2}, this.value)" onclick="onRuralVillageDropdown()"><p>Select state</p></span><img src="../assets/arrowDown.svg" alt="Arrow Down"/></div><div class="ruralVillageDropdownList dropdownSelectedList"><div class="searchContainer"><img src="../assets/searchIcon.png" alt="Search Icon"/><input type="text" placeholder="Search" class="ruralVillageSearchInput" /></div><ul class="dropdownOptions ruralVillageOptions"></ul></div><input type="text" value="" class="hide"  id="demo${index}"/></div></div>`
+                  response.demographicsType.map((demoValue, demoIndex) => {
+                    if (!(value.COLUMN_NAME == "demographic_id" || value.COLUMN_NAME == "userID" || value.COLUMN_NAME == "created_at" || value.COLUMN_NAME == "age" || value.COLUMN_NAME == "amputee_status" || value.COLUMN_NAME == "annual_income"
+                      || value.COLUMN_NAME == "birth_year" || value.COLUMN_NAME == "car_owner" || value.COLUMN_NAME == "caste" || value.COLUMN_NAME == "city" || value.COLUMN_NAME == "commute_distance" || value.COLUMN_NAME == "country"
+                      || value.COLUMN_NAME == "currently_in_physician_care" || value.COLUMN_NAME == "date_of_birth" || value.COLUMN_NAME == "disability_status"
+                      || value.COLUMN_NAME == "district" || value.COLUMN_NAME == "education_level" || value.COLUMN_NAME == "employment_status" || value.COLUMN_NAME == "ethnicity" || value.COLUMN_NAME == "gender"
+                      || value.COLUMN_NAME == "geo_location_latitude" || value.COLUMN_NAME == "geo_location_longitude" || value.COLUMN_NAME == "health_status" || value.COLUMN_NAME == "hearing_status"
+                      || value.COLUMN_NAME == "height" || value.COLUMN_NAME == "income_per_month_of_respondent" || value.COLUMN_NAME == "industry" || value.COLUMN_NAME == "last_year_worked"
+                      || value.COLUMN_NAME == "marital_status"
+                      || value.COLUMN_NAME == "medical_conditions"
+                      || value.COLUMN_NAME == "medications"
+                      || value.COLUMN_NAME == "monthly_family_income_per_month"
+                      || value.COLUMN_NAME == "native_language"
+                      || value.COLUMN_NAME == "number_of_dependents"
+                      || value.COLUMN_NAME == "occupation"
+                      || value.COLUMN_NAME == "occupation_of_head_of_the_family"
+                      || value.COLUMN_NAME == "phone_number"
+                      || value.COLUMN_NAME == "political_party"
+                      || value.COLUMN_NAME == "postal_code"
+                      || value.COLUMN_NAME == "religion"
+                      || value.COLUMN_NAME == "sexual_preference"
+                      || value.COLUMN_NAME == "state"
+                      || value.COLUMN_NAME == "state_region"
+                      || value.COLUMN_NAME == "street"
+                      || value.COLUMN_NAME == "title"
+                      || value.COLUMN_NAME == "using_state_assistance"
+                      || value.COLUMN_NAME == "veteran_status"
+                      || value.COLUMN_NAME == "village_name"
+                      || value.COLUMN_NAME == "vision_status"
+                      || value.COLUMN_NAME == "weight")) {
+                      if ((value.COLUMN_NAME == demoValue.name) && demoValue.type == "Input")
+                        formContainer.innerHTML += '<div class="birthYearMainContainer"><label>' + value.COLUMN_NAME + '</label><input type="text" name="' + value.COLUMN_NAME + '" maxlength="' + demoValue.length + '" placeholder="' + value.COLUMN_NAME.replace(/_/g, " ") + '" required id=demo' + index + ' /></div>';
+                      if ((value.COLUMN_NAME == demoValue.name) && demoValue.type == "Dropdown") {
+                        let selectList = demoValue.value.replaceAll("|", "</option><option>");
+                        selectList = '<option>' + selectList + '</option>';
+                        formContainer.innerHTML += '<div class="birthYearMainContainer"><label>' + value.COLUMN_NAME.replace(/_/g, " ") + '</label><div id=div' + index + '></div><select id=demo' + index + ' onchange="getInputBox(' + index + ',this.value)">' + selectList + '<option>others</option></select></div>';
+                      }
+                    }
+                  });
+                  if (!(value.COLUMN_NAME == "demographic_id" || value.COLUMN_NAME == "userID" || value.COLUMN_NAME == "created_at")) {
+                    demographicColumns.push({ DemoColumn: value.COLUMN_NAME, DemoIndex: "demo" + index, DemoOthers: "input" + index, DemoValue: "" });
+                  }
+                })
+                var script = document.createElement("script");
+                script.src = "../js/dropdown.js"
+                document.body.appendChild(script);
+                const birthYearContainer = getElement(".birthYearContainer");
+                getIndianStates();
+              })
+            }
+            getDemographics();
+            let isFromSubmit = false
+            const onGeneralDetails = async () => {
+              let value = getElementById("agreeCheck").checked == false ? '0' : '1'
+              const existingFields = demographicColumns.map(function (element) { return element.DemoColumn + "='" + element.DemoValue + "'" }).join(",");
+              console.log("existingFields",existingFields)
+              await handleUserUpdate(existingFields, value).then((response) => {
+                if (response.error) {
+                  modal.innerHTML = ""
+                  modal.style.display = "block"
+                  modal.innerHTML += getView("some error occurred")
+                  return;
+                }
+                if (response?.res[0][0]?.msg) {
+                  isFromSubmit = true
+                  modal.innerHTML = ""
+                  modal.style.display = "block"
+                  modal.innerHTML += getView("updated successfully")
+                }
+              })
+            }
+            
+            let modal = getElementById("modalOverlay")
+
+            function hideModal() {
+              modal.style.display = "none"
+            }
+            function getView(title) {
+              return (
+                `<div class="alertMain"><div class="alertInner" id="modalInner"><p>${title}</p>
+                    <a class="loginButton" onclick=${isFromSubmit == true ? "goToDashboard()" : "hideModal()"} style="margin: auto">Ok</a>
+                    </div></div>`
+              )
+            }
+            function goToDashboard() {
+              window.location.href = `/pages/myDashboard.html`
+            }
+            function checkForTerms() {
+              var i = 0;
+              for (let a of demographicColumns) {
+                if (a.DemoColumn == "birth_year"){
+                  getElementById(a.DemoIndex).value = selectBtn.firstElementChild.innerHTML
+                } 
+                if(a.DemoColumn == "last_year_worked"){
+                  getElementById(a.DemoIndex).value = lastYearBtn.firstElementChild.innerHTML
+                }
+                if(a.DemoColumn == "occupation"){
+                  getElementById(a.DemoIndex).value = occupationBtn.firstElementChild.innerHTML
+                } 
+                if(a.DemoColumn == "industry"){
+                  getElementById(a.DemoIndex).value = industryBtn.firstElementChild.innerHTML
+                } 
+                if(a.DemoColumn == "annual_income"){
+                  getElementById(a.DemoIndex).value = annualIncomeBtn.firstElementChild.innerHTML
+                }
+                if(a.DemoColumn == "income_per_month_of_respondent"){
+                  getElementById(a.DemoIndex).value = monthlyIncomeBtn.firstElementChild.innerHTML
+                } 
+                if(a.DemoColumn == "occupation_of_head_of_the_family"){
+                  getElementById(a.DemoIndex).value = occupationHeadBtn.firstElementChild.innerHTML
+                } 
+                if(a.DemoColumn == "monthly_family_income"){
+                  getElementById(a.DemoIndex).value = monthlyFamilyIncomeBtn.firstElementChild.innerHTML
+                } 
+                if(a.DemoColumn == "native_language"){
+                  getElementById(a.DemoIndex).value = nativeLanguageBtn.firstElementChild.innerHTML
+                }
+                if(a.DemoColumn == "country"){
+                  getElementById(a.DemoIndex).value = countryBtn.firstElementChild.innerHTML
+                } 
+                if(a.DemoColumn == "state_region"){
+                  getElementById(a.DemoIndex).value = stateBtn.firstElementChild.innerHTML
+                } 
+                if (a.DemoColumn == "city"){
+                  getElementById(a.DemoIndex).value = cityBtn.firstElementChild.innerHTML
+                } 
+                if(a.DemoColumn == "state"){
+                  getElementById(a.DemoIndex).value = ruralStateBtn.firstElementChild.innerHTML
+                } 
+                if(a.DemoColumn == "district"){
+                  getElementById(a.DemoIndex).value = ruralDistrictBtn.firstElementChild.innerHTML
+                } 
+                if(a.DemoColumn == "village_name"){
+                  getElementById(a.DemoIndex).value = ruralVillageBtn.firstElementChild.innerHTML
+                } 
+               
+
+                if (getElementById(a.DemoIndex).value?.length < 2) {
+                  modal.innerHTML = ""
+                  modal.style.display = "block"
+                  modal.innerHTML += getView(`You need to fill out the ${a.DemoColumn} field with at least 2 characters`)
+                  return;
+                }
+                else {
+                  if (getElementById(a.DemoIndex).value == 'others')
+                    demographicColumns[i].DemoValue = getElementById(a.DemoOthers).value;
+                  else
+                    demographicColumns[i].DemoValue = getElementById(a.DemoIndex).value;
+                }
+                i++;
+              }
+              if (getElement(".geoLocationInput")) {
+                if (!getElement(".geoLocationInput").value?.includes(".")) {
+                  modal.innerHTML = ""
+                  modal.style.display = "block"
+                  modal.innerHTML += getView("Please add Latitude in this format i.e 30.350090")
+                  return;
+                }
+              }
+              if (getElement(".longitudeInput")) {
+                if (!getElement(".longitudeInput").value?.includes(".")) {
+                  modal.innerHTML = ""
+                  modal.style.display = "block"
+                  modal.innerHTML += getView("Please add Longitude in this format i.e 30.350090")
+                  return;
+                }
+              }
+              if (userPrivacy == null) {
+                if (getElementById("agreeCheck").checked == false) {
+                  modal.innerHTML = ""
+                  modal.style.display = "block"
+                  modal.innerHTML += getView("You need to agree to the terms to use Pietential.")
+                  return;
+                }
+              }
+              if (getElement(".cityContainer")) {
+                if (getElement(".cityContainer").value == "Select City") {
+                  modal.innerHTML = ""
+                  modal.style.display = "block"
+                  modal.innerHTML += getView("Please Select City")
+                  return;
+                }
+              }
+              if (getElement(".indianStatesContainer")) {
+                if (getElement(".indianStatesContainer").value == "Select State") {
+                  modal.innerHTML = ""
+                  modal.style.display = "block"
+                  modal.innerHTML += getView("Please Select State")
+                  return;
+                }
+              }
+              if (getElement(".districtContainer")) {
+                if (getElement(".districtContainer").value == "Select District") {
+                  modal.innerHTML = ""
+                  modal.style.display = "block"
+                  modal.innerHTML += getView("Please Select District")
+                  return;
+                }
+              }
+              if (getElement(".villageContainer")) {
+                if (getElement(".villageContainer").value == "Select Village") {
+                  modal.innerHTML = ""
+                  modal.style.display = "block"
+                  modal.innerHTML += getView("Please Select Village")
+                  return;
+                }
+              }
+              onGeneralDetails();
+            }
+          </script>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

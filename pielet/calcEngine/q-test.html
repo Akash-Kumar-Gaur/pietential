@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>question-tester</title>
+</head>
+
+<body>
+    <pre>
+    <div id="main">
+pietential random question test utility
+hit refresh for a new set of randomized questions.
+    </div>
+</pre>
+    <script>
+//Don't send email to people you don't know. At best you will get a 0.001% response rate and at worst you can be sued for sending unsolicited email.
+
+
+        fetch("./?mode=generateQuestions")
+            .then(r => {
+                return r.text()
+            })
+            .then(a => {
+                var j = JSON.parse(a);
+                var out = '';
+                var arr = [];
+                for (let a of j) {
+                    var qn = 1000 - (a.questionNumber + 1);
+                    var xout = qn + "Question " + a.questionNumber + " " + a.Subject + " | " + a.Question + "\n";
+                    arr.push(xout);
+                }
+                arr.sort().reverse();
+                for (let a of arr) {
+                    out += a.replace(/.../, "");
+                }
+                main.innerHTML += "\n\n" + out;
+                fetch("./coda.txt")
+                    .then(r => {
+                        return r.text()
+                    })
+                    .then(a => {
+                        var j = JSON.parse(a);
+                        var r = a.replace(/\[/ig, "[\n")
+                            .replace(/\{/ig, "{\n")
+                            .replace(/,/ig, ",\n")
+                            .replace(/\},/ig, "}\n")
+                            .replace(/\]/ig, "]\n")
+                        main.innerHTML += "\n\n" + r;
+                    });
+            });
+
+
+
+    </script>
+</body>
+
+</html>

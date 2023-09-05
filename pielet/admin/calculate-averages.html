@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pietential admin tools</title>
+  <link href="/pielet/styles.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,800&display=swap" rel="stylesheet">
+</head>
+<style>
+  td {
+    vertical-align: top;
+    max-width: 33%;
+  }
+</style>
+
+<body>
+
+  <div> This script will display the averages for a given population by processing a json string similar to all.json in
+    the ids folder. <br><br>
+  <a href="https://pietential.com/editR96.php?dir=./pielet/ids/">pull down users</a></div>
+
+  <table>
+    <tr>
+      <td style="color:white">Inspector</td>
+      <td style="color:white">Property</td>
+      <td style="color:white">Matching IDs</td>
+    </tr>
+    <tr>
+      <td id="theAvgs"></td>
+      <td>
+        <div id="pcodes"></div>
+        <div id="ores"></div>
+      </td>
+      <td>
+        <div id="sres"></div>
+      </td>
+    </tr>
+  </table>
+
+
+
+
+
+
+  <script>
+    var props = ['promoCode', 'email', 'joinDate', 'snapshots', 'companyCode', 'fname', 'lname', 'phone', 'joinDate', 'timestamp', 'LBscorevalues', 'SA', 'EC', 'LB', 'SN', 'PN',
+
+
+      'title', 'website', 'userID', 'businessCategories', 'Q0response',  'Q1response', 'Q2response',  'Q3response','Q4response', 'Q5response',  'Q6response','Q7response',  'Q8response','Q9response', 'Q10response','Q11response',  'Q12response', 'Q13response', 'Q14response', 'Q15response', 'Q16response', 'Q17response', 'Q18response', 'Q19response', 'Q20response', 'Q21response', 'Q22response', 'Q23response',  'Q24response', 'Q25response', 'Q26response', 'Q27response', 'Q28response', 'Q29response', 'percent', 'currentPart', 'scroll5', 'Part5Completed','scroll2', 'Part2Completed','scroll4', 'Part4Completed', 'scroll3', 'Part3Completed', 'currentColor','saveMethod', 'userURL', 'Part1Completed','completionDate', 'restrequest', 'accountEngine', 'salt', 'hash'];
+
+    var out = '';
+    for (let a of props) {
+      out += `<button onclick="showByProperty('${a}')">${a}</button><br>`;
+    }
+    ores.innerHTML = out;
+
+
+
+
+    fetch("../ids/all.json")
+      .then(r => {
+        return r.text()
+      })
+      .then(a => {
+        window.all = JSON.parse(a);
+        window.averages = calcAvg(window.all);
+        console.log(window.averages);
+        theAvgs.value = JSON.stringify(window.averages);
+        if (location.href.match(/inspect/)) {
+          var inspect = location.href.replace(/[\s\S]+=/, "");
+          showByID(inspect);
+          sres.innerHTML = localStorage.sres;
+        }
+      });
+
+    function showByProperty(prop) {
+      pcodes.innerHTML = '';
+      if (prop == 'promoCode') {
+        showPromoCodes();
+      }
+      localStorage.propChosen = prop;
+      var tempArr = [];
+      for (let a of window.all.users) {
+        if (a[prop]) {
+          tempArr.push(a);
+        }
+    }
+    paintUserDiv(tempArr);
+  }
+
+    function showByID(id) {
+      for (let s of window.all.users) {
+        if (id == s.userID) {
+          s.hash = "hidden";
+          s.salt = "hidden";
+          let str = JSON.stringify(s).replace(/,/ig, ",<br>");
+          str = str.replace(localStorage.propChosen, `<span style="background:yellow;">${localStorage.propChosen}</span>`);
+          theAvgs.innerHTML = str;
+        }
+      }
+    }
+
+    function showPromoCodes() {
+      var codes = [];
+      var van = '';
+      for (let s of window.all.users) {
+        if (s.promoCode) {
+          codes.push(s.promoCode);
+        }
+      }
+      codes = Array.from(new Set(codes));
+      codes.sort();
+      for (let a of codes) {
+        van += `<button onclick="sortByPromoCode('${a}')" style="background:green; color:white;border:0;">${a}</button><br>`;
+      }
+      pcodes.innerHTML = `<div>${van}</div>`
+    }
+
+    function sortByPromoCode(promoCode) {
+      var bcodes = [];
+      for (let s of window.all.users) {
+        if (s.promoCode) {
+          if (s.promoCode == promoCode) {
+            bcodes.push(s);
+          }
+        }
+      }
+      paintUserDiv(bcodes);
+    }
+
+    function paintUserDiv(array) {
+      var tempArr = [];
+      var snout = '';
+      for (let a of array) {
+        if (a.email) {
+          identifier = a.email;
+        }
+        if (!a.joinDate) {
+          a.joinDate = "1969-12-31";
+        }
+        tempArr.push(`${a.joinDate}~${identifier}~${a.userID}`);
+
+      }
+      tempArr.sort().reverse();
+      for (let a of tempArr) {
+        var ta = a.split("~");
+        snout += `<button onclick="showByID('${ta[2]}')">${ta[1]}</button><br>`;
+      }
+
+      sres.innerHTML = snout;
+      localStorage.sres = snout;
+    }
+
+    function highlightByProperty(property) {
+
+    }
+
+    function calcAvg(all) {
+      // all is an object with 2 properties
+      // users and admins which are both arrays
+      var arr = [];
+      for (let a of all.users) {
+        // only push users that have completed the survey and have LBscorevalues
+        if (a.LBscorevalues) {
+          arr.push(a.LBscorevalues);
+        }
+      }
+      var SAT = 0, ECT = 0, LBT = 0, SNT = 0, PNT = 0;
+      for (let a of arr) {
+        // add all the users category scores
+        SAT += a.SA;
+        ECT += a.EC;
+        LBT += a.LB;
+        SNT += a.SN;
+        PNT += a.SA;
+      }
+      var averages = {};
+      // divide by the number of users
+      averages.SAavg = Math.ceil(SAT / arr.length);
+      averages.ECavg = Math.ceil(ECT / arr.length);
+      averages.LBavg = Math.ceil(LBT / arr.length);
+      averages.SNavg = Math.ceil(SNT / arr.length);
+      averages.PNavg = Math.ceil(PNT / arr.length);
+      return (averages);
+    }
+
+
+
+  </script>
+</body>
+
+</html>

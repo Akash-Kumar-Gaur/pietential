@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>localFetch.html</title>
+</head>
+
+<body>
+    <div id="user"></div>
+    <script>
+        fetch("all.json")
+            .then(r => {
+                return r.text()
+            })
+            .then(a => {
+                var out = '';
+                var elist = [];
+                var obj = {};
+                var master = JSON.parse(a);
+                window.master = master;
+                for (let a of master) {
+                    obj[a.userID] = a;
+                    elist.push(`<button title="${a.email}" onclick="inspect('${a.userID}')">${a.email}</button> <button title="${a.userID}" onclick="downloadPie('${a.userID}')">download</button><br>`);
+                }
+                elist.sort();
+                for (let a of elist) {
+                    out += a;
+                }
+                document.body.innerHTML += out;
+                window.users = obj;
+            });
+
+        function inspect(id) {
+            user.innerHTML = JSON.stringify(users[id]).replace(/[{|}|,]/ig, ", <br>").replace(/"/ig, "");
+        }
+
+        const fd = new FormData();
+        fd.append('pieletData', "hello world");
+        fd.append('fname', "hello world");
+        fd.append('lname', "hello world");
+        fd.append('email', "hello world");
+        const options = {
+            method: 'POST',
+            //mode: 'no-cors',
+            body: fd
+        };
+        fetch("trash.php", options)
+            .then(r => {
+                return r.text()
+            })
+            .then(a => {
+                console.log("ajax success.");
+                console.log(a);
+                user.innerHTML += a;
+            });
+
+
+        function downloadPie(id) {
+            var text = JSON.stringify(users[id]);
+            var m = [];
+            m[0] = text;
+            var myBlob = new Blob(m, { type: 'text/html' });
+            var blobUrl = URL.createObjectURL(myBlob);
+            var link = document.createElement("a");
+            link.href = blobUrl;
+            link.download = id+".json.txt";
+            link.innerHTML = "<button>Download " + link.download + "</button>";
+            link.click();
+        }
+
+    </script>
+</body>
+
+</html>

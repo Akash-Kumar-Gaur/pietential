@@ -1,0 +1,755 @@
+<body style="padding:20px;/*text-align:center;*/" id="theBody" cz-shortcut-listen="true">
+				<br>
+	<br>
+	<script>
+		function cleanit() {
+			var term = `boston human resouces VP`;
+			var r = document.getElementsByClassName("g");
+			var links = [];
+			var out = '';
+			console.log("starting cleaner...");
+			if (!document.getElementsByName("file")[0]) {
+				return;
+			}
+			if (r.length<4) {
+				console.log("No G divs yet.");
+				return;
+			}
+			//
+			
+			for (let a of r) {
+				var obj = {};
+				obj.mainLink = a.getElementsByTagName("a")[0].href;
+				obj.title = a.getElementsByTagName("a")[0].innerText;
+				obj.title = obj.title.replace(/\-.+/, "");
+				obj.title = obj.title.replace(/www\.lin.+/, "");
+				obj.title = obj.title.replace(/https:\/\//, "");
+				links.push(obj);
+			}
+			localStorage.scrapeData = JSON.stringify(links);
+			localStorage.scrapeTerm = term;
+			for (let obj of links) {
+				out += `${obj.title} (${term}): <a href="${obj.mainLink}" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href='https://www.google.com/search?q=${obj.title} ${term}' class='lil'  style="color:white" target='_blank' >Google search</a><br>`;
+			}
+			out = `
+			<style>
+			* {
+        font-family: 'Segoe UI', sans-serif;
+    
+			}
+			.lil {
+				text-decoration: none;
+				display:inline-block;
+				cursor:pointer;
+				margin: 1px;
+				color: white;
+				padding: 5px;
+				background-color: rgb(52, 73, 94);
+			}
+			</style>
+			<div id="cleanResults">${out}</div>`;
+			document.getElementsByName("file")[0].innerHTML = out;
+			localStorage.scrapeFormatted = `<html>
+			
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>Lead scraper</title><div id="cleanResults">${out}</div></html>`;
+			promptForDownload();
+		}
+
+		function promptForDownload(){
+			callingCard.style.display="block";
+		}
+		function saveFile(){
+			window.location = "data:application/octet-stream," + encodeURIComponent(localStorage.scrapeFormatted);
+		}
+		function sendAJAX(){
+            payload = encodeURIComponent(localStorage.scrapeFormatted);
+            var parameters = "ajax=" + payload;
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    console.log(xhttp.responseText);
+                    //sw.innerHTML = "Saved!";
+                }
+            };
+            xhttp.open("POST", `./`, true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(parameters);
+		}
+		function sendform(){
+			document.getElementById("pl").value =localStorage.scrapeFormatted;
+			document.getElementById("aj").submit(); 
+		}
+		function downloadPie() {
+			document.getElementsByName("file")[0].contentEditable = "false";
+			topsearch.style.display = "none";
+			callingCard.style.display = "none";
+            var text = document.body.outerHTML;
+            var m = [];
+            m[0] = text;
+            var myBlob = new Blob(m, { type: 'text/html' });
+            var blobUrl = URL.createObjectURL(myBlob);
+            var link = document.createElement("a");
+            link.href = blobUrl;
+            link.download = `${localStorage.scrapeTerm} scrape results.html`;
+            link.innerHTML = "<button>Download " + link.download + "</button>";
+            link.click();
+        }
+
+		document.addEventListener("DOMContentLoaded", function(event) {
+
+			setInterval(function() {
+				//cleanit();
+			}, 7000);
+
+		});
+	</script>
+
+<form id="aj" style="display:none" method="post">
+<input name="ajax" id="pl">
+</form>
+
+
+
+
+<div id="callingCard" class="cchov" style="display: none; left: 0px; border-radius: 5px; position: fixed; text-align: center; z-index: 999999; bottom: 0px; width: auto; margin: 35px; padding: 25px; color: white; opacity: 1; box-sizing: border-box; font-family: sans-serif; font-size: 16px; box-shadow: rgb(0, 0, 0) 10px 10px 52px 0px;"><style>.cchov{background: #333;    transition: all .5s;}.cchov:hover{background: #1153A2;    transition: all .5s;}</style><div style="margin-right:47px;"><a id="cc-linkbox-ifRRgGy7JOpyivbq" onclick="downloadPie();" style="color:white;font-size:16px;text-decoration:none;">Click here to save leads as a file</a></div><a href="#" id="closeLink" style="color:white;;font-size:16px;"><img src="https://silvercrayon.us/promo-seltzer/img/close-icon2.png" style="margin-left:12px;position:absolute;top:19px;right:20px;height:29px;" onclick="javascript:callingCard.style.display='none';"></a></div>
+
+
+
+	<div style="text-align:center;">
+
+		<a id="topsearch" href="https://www.google.com/search?q=site:linkedin.com/in/ boston human resouces VP&amp;num=100" target="_blank" style="text-decoration: none; margin: 0px; color: white; padding: 15px; text-transform: uppercase; background-color: rgb(41, 128, 185); width: 800px; display: none;">
+			boston human resouces VP- Start searching </a>
+		<br>
+		
+
+
+		<br><br>
+		<div name="file" contenteditable="false" style="margin:auto;width:800px;height:auto;padding:25px; background:white;text-align:left;" class="san15" placeholder="">
+			<style>
+			* {
+        font-family: 'Segoe UI', sans-serif;
+    
+			}
+			.lil {
+				text-decoration: none;
+				display:inline-block;
+				cursor:pointer;
+				margin: 1px;
+				color: white;
+				padding: 5px;
+				background-color: rgb(52, 73, 94);
+			}
+			</style>
+			<div id="cleanResults">
+Amanda Bailey 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/amanda-baileyleadforward" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Amanda Bailey 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Michael Danubio 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/danubio" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Michael Danubio 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+David Trainor 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/david-trainor-10a5045" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+David Trainor 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Lisa Kelly
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/lisakellycroswell" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Lisa Kelly
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Miriam O'Sullivan 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/miriam-o-sullivan-8942721a" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Miriam O" sullivan="" boston="" human="" resouces="" vp'="" class="lil" style="color:white" target="_blank">Google search</a><br>
+Stephanie Rodgers 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/stephanie-rodgers-5a23254" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Stephanie Rodgers 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Greg Bourland 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/greg-bourland-8911abb" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Greg Bourland 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Carmen Pombeiro 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/carmenpombeiro" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Carmen Pombeiro 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Ellen Rothstein 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/ellen-rothstein-9776291b9" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Ellen Rothstein 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Wascar Castillo 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/wascarcastillo" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Wascar Castillo 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Karen Conway 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/karen-conway-79bbb34" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Karen Conway 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Ron Arigo 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/ronaldarigo" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Ron Arigo 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Ann Perry 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/ann-perry-b8b211a" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Ann Perry 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Joy McCune 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/joymccune" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Joy McCune 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Aaron Morrison 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/1aaronmorrison" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Aaron Morrison 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Audrey Bergan 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/audrey-bergan-728a266" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Audrey Bergan 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Lynn Boston, SPHR 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/lynn-boston-sphr-a1894513" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Lynn Boston, SPHR 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Nancy Duncan 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/nancyduncan4" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Nancy Duncan 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Courtney Buckley 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/courtney-buckley-4768ba3" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Courtney Buckley 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Bryan Grassing 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/bryanmgrassing" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Bryan Grassing 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Ewan McCulloch 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/ewanmcculloch" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Ewan McCulloch 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Rachel Salamone 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/rachel-salamone-16a525a" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Rachel Salamone 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Robin Benoit 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/robin-benoit-a1798814" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Robin Benoit 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Eileen Alviti, SPHR 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/eileenalviti" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Eileen Alviti, SPHR 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Fatima Penrose (she/her/hers) 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/fatimapenrose" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Fatima Penrose (she/her/hers) 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Carol Donovan 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/carol-donovan-27b4558" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Carol Donovan 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Lynn Carroll 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/lynncarroll100" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Lynn Carroll 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Laurie Miller 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/laurie-miller-6658204" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Laurie Miller 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Stephanie Pittman, JD, MBA 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/stephanie-pittman-jd-mba-93b7295" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Stephanie Pittman, JD, MBA 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jean Jackson, SPHR, SHRM
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/jeanjackson16415" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jean Jackson, SPHR, SHRM
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Cara Antonacci 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/cantonacci" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Cara Antonacci 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Marianne Vinton 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/mvinton" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Marianne Vinton 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Megan Galotti 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/megan-galotti" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Megan Galotti 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Hector Hernandez 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/hector-hernandez-0b8a8940" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Hector Hernandez 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Moran Elitsur 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/morane" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Moran Elitsur 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Paul Montgomery
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/paulmontgomery-hyde" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Paul Montgomery
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Kelly Thoms 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/kelly-thoms-4788723" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Kelly Thoms 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Vivian Leonard,SPHR,SHRM
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/vivian-leonard-sphr-shrm-scp-87043a8" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Vivian Leonard,SPHR,SHRM
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Kara Greer 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/kara-greer-73372a48" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Kara Greer 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Kelley Morse, PHR, MBA 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/kelley-morse-phr-mba-5910746" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Kelley Morse, PHR, MBA 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Lynn Hyams 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/lynn-hyams-13a8471b" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Lynn Hyams 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Shelley Lewis 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/shelleylewisasheville" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Shelley Lewis 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jennifer Horton 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/jennifer-horton-46601a1" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jennifer Horton 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Ann Lamson 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/annlamson89" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Ann Lamson 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Christine Carmody 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/christine-carmody-44a5594" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Christine Carmody 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jill Swenson Van Fossan 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/jill-swenson-van-fossan-a405661" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jill Swenson Van Fossan 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Rich Brady 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/bradyrichard" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Rich Brady 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Rayma Ferrer 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/rayma-ferrer-6430b25" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Rayma Ferrer 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Corey Jackson 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/corey-jackson-70015b47" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Corey Jackson 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Rosemary Sheehan 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/rosemary-sheehan-4b220bb" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Rosemary Sheehan 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Eric Carey 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/eric-carey-3ab53429" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Eric Carey 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Kaitlynn Pelio 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/kaitlynnpelio" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Kaitlynn Pelio 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Janine Smethurst 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/janinesmethurst" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Janine Smethurst 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Michael Henry 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/michael-henry-59292212" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Michael Henry 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Stephanie Kane, SHRM
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/stephanie-kane" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Stephanie Kane, SHRM
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Kristin Hohn 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/kristin-hohn-46654248" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Kristin Hohn 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Mary Flaherty 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/maryflaherty-02131" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Mary Flaherty 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Katie Galan 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/katie-galan-b3535b1a" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Katie Galan 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Lauren Sheanon 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/lauren-sheanon-2197663" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Lauren Sheanon 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Sharon Chevalier, SPHR 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/sharon-chevalier-sphr-57363320" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Sharon Chevalier, SPHR 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Michael Keleher, Esq. 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/michael-keleher-esq-9762b812" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Michael Keleher, Esq. 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Bill Forgione 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/bill-forgione-566409a" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Bill Forgione 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Lisa Welker
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/lisawelkerfinney" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Lisa Welker
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jovita Thomas
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/jovita-thomas-williams-sphr-gphr-080983" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jovita Thomas
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Kenneth McKee 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/kennethmckee" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Kenneth McKee 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Al Zink 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/alzink" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Al Zink 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Joanne Wisniewski 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/joanne-wisniewski-65a5925" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Joanne Wisniewski 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Erin McNulty 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/erin-mcnulty-663073b5" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Erin McNulty 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Greeshma Gauthaman 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/greeshma-gauthaman-541291a" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Greeshma Gauthaman 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Amanda Miller 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/amanda-miller-368a192a" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Amanda Miller 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Katie Concannon 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/katieconcannon" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Katie Concannon 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+tanya white 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/tanya-white-a8009a52" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+tanya white 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Adrienne Chiozzi, SPHR 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/adrienne-chiozzi" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Adrienne Chiozzi, SPHR 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Donna Morrison 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/donna-morrison-6b824226" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Donna Morrison 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jennifer Jackson 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/jenniferjackson803" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jennifer Jackson 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Rachel Lees 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/rachel-lees-6abb804" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Rachel Lees 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Christine Goodheart 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/christine-goodheart-9341a254" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Christine Goodheart 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jane Dixon 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/jane-dixon-4b7a753" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jane Dixon 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Maryann VaRence 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/maryann-varence-8866b214" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Maryann VaRence 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Pam Basile, PHR 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/pam-basile-phr-21a7238" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Pam Basile, PHR 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Nancy Herbert 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/nancyherbert" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Nancy Herbert 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Christina Stevens 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/christina-stevens-8b96b240" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Christina Stevens 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Ann Anastasia, MSM, SPHR 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/ann-anastasia-msm-sphr-b434bb4" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Ann Anastasia, MSM, SPHR 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+John Bowe 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/john-bowe-a5957341" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+John Bowe 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Estela Permeti Rrapi 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/estela-permeti-rrapi-a500ab31" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Estela Permeti Rrapi 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Danielle Conlin 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/danielle-conlin-98111037" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Danielle Conlin 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Tina McKinney 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/tina-mckinney-97024718" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Tina McKinney 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Chrissy Durepo 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/chrissyhathaway" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Chrissy Durepo 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Pamela Jones 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/pameladjones" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Pamela Jones 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Tom Kopaczynski 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/tom-kopaczynski-2379bb46" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Tom Kopaczynski 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Kim Maloney 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/kim-maloney-3721708" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Kim Maloney 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Judith Thomas 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/judiththomas" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Judith Thomas 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Kara Luzi 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/kmittan" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Kara Luzi 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Camille Barnard 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/camille-barnard-1b739ab" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Camille Barnard 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Bartkow, John 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/bartkowjohn" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Bartkow, John 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jack Kyte 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/jackkyte" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jack Kyte 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Ruth Walker 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/ruth-walker-882a6524" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Ruth Walker 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Jamie Cerniglia 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/jamiecerniglia" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Jamie Cerniglia 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Joanne Doherty (she/her/hers) 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/joanne-doherty-she-her-hers-2874ba11" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Joanne Doherty (she/her/hers) 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br>
+Sue Santos 
+ (boston human resouces VP): <a href="https://www.linkedin.com/in/sue-santos-96384826" class="lil" style="color:white">Linkedin profile</a>
+				
+				<a href="https://www.google.com/search?q=
+Sue Santos 
+ boston human resouces VP" class="lil" style="color:white" target="_blank">Google search</a><br></div></div>
+		<br><br>
+		<button onclick="cleanit()">Clean Results</button>
+		<input type="hidden" name="term" value="boston human resouces VP"><br>
+		<br>
+		
+
+		<br><br>
+
+	</div>
+	</body>
