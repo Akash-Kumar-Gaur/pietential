@@ -48,6 +48,10 @@
       border-radius: 1%;
       margin-top: 30px;
     }
+    #header{
+      display: flex !important;
+      flex-direction: column;
+    }
   </style>
 </head>
 
@@ -55,8 +59,11 @@
   <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
   <style id="stylerExtra">
     .aboutPietentialContent {
-      max-width: 596px;
+      max-width: 55%;
       margin-top: 50px;
+    }
+    .pietentialImageContainer {
+      max-width: 45%;
     }
   </style>
   <div id="topBar"></div>
@@ -250,10 +257,10 @@
         </div>
       </div>
   </section>
-  <section class="whatWeOffer" id="products">
-    <div class="container">
+  <section class="whatWeOffer">
+    <div class="container" id="header">
       <h2 data-hindi="136">Here's what we offer!</h2>
-      <p data-hindi="27">
+      <p data-hindi="27" id="products">
         Based on what type of organization you’re a part of, and its needs, you can choose the Pietential plan
         that’s right for you and your people.
       </p>

@@ -227,10 +227,24 @@ const handleUserUpdate = async (existingFields, userPrivacy) => {
   return response;
 };
 
+const encryptString = (salt, text) => {
+  const textToChars = (text) => text.split("").map((c) => c.charCodeAt(0));
+  const byteHex = (n) => ("0" + Number(n).toString(16)).substr(-2);
+  const applySaltToChar = (code) => textToChars(salt).reduce((a, b) => a ^ b, code);
+
+  return text
+    .split("")
+    .map(textToChars)
+    .map(applySaltToChar)
+    .map(byteHex)
+    .join("");
+};
+
 const handleUserLogin = async (email, password, promoCode) => {
+  const encPass = encryptString('PIETENTIAL_AUTH', password)
   const body = {
     email: email,
-    password: password,
+    password: encPass,
     promoCode: promoCode,
   };
   const response = await postRequest("/api/users/login", body, ACCESS_TOKEN);
@@ -245,9 +259,10 @@ const handleUserCreate = async (
   lastName,
   randomID
 ) => {
+  const encPass = encryptString('PIETENTIAL_AUTH', password)
   const body = {
     email: email,
-    password: password,
+    password: encPass,
     promoCode: promoCode,
     fname: firstName,
     lname: lastName,

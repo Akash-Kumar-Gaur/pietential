@@ -95,8 +95,12 @@
           (window.location.href = `/pages/demographicSelector.html?adminID=${response.id}&jwt=${response.token}&promoCode=${response.promoCode}`),
             response;
         } else {
+          let redirectHost = 'https://pietential.web.app';
+          if(window.location.origin.includes('test')){
+            redirectUrl = 'https://pietential-test.web.app'
+          }
           return (
-            (window.location.href = `http://localhost:3000/dashboard/?lang=${language}&adminID=${response.id}&jwt=${response.token}`),
+            (window.location.href = `${redirectUrl}/dashboard/?lang=${language}&adminID=${response.id}&jwt=${response.token}`),
             response
           );
         }

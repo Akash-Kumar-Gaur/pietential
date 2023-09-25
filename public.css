@@ -219,7 +219,7 @@ h2 {
 }
 
 .aboutPietentialContent {
-  max-width: 485px;
+  max-width: 60%;
   margin-top: 50px;
 }
 
@@ -335,7 +335,6 @@ h2 {
   font-weight: 400;
   margin-bottom: 32px;
   font-size: 17px;
-  max-width: 455px;
 }
 
 .aboutPietentialContent h4 {
@@ -464,7 +463,7 @@ h2 {
 }
 
 .whatIsPietentialContent {
-  max-width: 485px;
+  max-width: 60%;
   margin-top: 26px;
 }
 
